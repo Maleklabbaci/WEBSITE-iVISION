@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 
 // Icons
@@ -87,7 +88,7 @@ const Services: React.FC<ServicesProps> = ({ translations }) => {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef} className="py-20 bg-transparent text-brand-light">
+    <section id="services" ref={sectionRef} className="py-20 bg-transparent text-brand-light scroll-mt-24">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold">{translations.title}</h2>

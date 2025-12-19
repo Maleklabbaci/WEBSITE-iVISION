@@ -52,6 +52,30 @@ const App: React.FC = () => {
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   }, [language]);
 
+  // Global Smooth Scroll Handler for Anchor Links
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+      
+      if (anchor && anchor.hash && anchor.origin === window.location.origin) {
+        const element = document.querySelector(anchor.hash);
+        if (element) {
+          e.preventDefault();
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+          // Update URL without jump
+          window.history.pushState(null, '', anchor.hash);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+    return () => document.removeEventListener('click', handleAnchorClick);
+  }, []);
+
   // Lazy Scroll Promo Trigger
   useEffect(() => {
     if (showLangSelector || hasShownPromo || isLoading) return;
