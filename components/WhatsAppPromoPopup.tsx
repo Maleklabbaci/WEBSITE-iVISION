@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 interface WhatsAppPromoPopupProps {
   isVisible: boolean;
   onClose: () => void;
+  title: string;
   message: string;
   btnLabel: string;
   phoneNumber: string;
@@ -13,6 +14,7 @@ interface WhatsAppPromoPopupProps {
 const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({ 
   isVisible, 
   onClose, 
+  title,
   message, 
   btnLabel, 
   phoneNumber, 
@@ -30,7 +32,7 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
       const timer = setTimeout(() => {
         setShouldRender(false);
         setIsAnimatingOut(false);
-      }, 500); // Correspond à la durée de l'animation de sortie
+      }, 500); 
       return () => clearTimeout(timer);
     }
   }, [isVisible, shouldRender]);
@@ -41,7 +43,6 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
 
   const handleClose = () => {
     setIsAnimatingOut(true);
-    // Attendre la fin de l'animation avant d'appeler onClose
     setTimeout(onClose, 500);
   };
 
@@ -50,7 +51,6 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
       <div 
         className={`relative max-w-md w-full origin-bottom-left ${isAnimatingOut ? 'animate-pop-to-whatsapp' : 'animate-pop-from-whatsapp'}`}
         style={{
-          // On ajuste l'origine pour que ça semble venir du coin où se trouve le bouton (environ bottom-6 left-12)
           transformOrigin: '40px calc(100% - 40px)'
         }}
       >
@@ -87,7 +87,7 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
           </div>
 
           <h3 className="text-2xl md:text-3xl font-black mb-4 text-brand-light tracking-tight leading-tight">
-            Offre <span className="text-whatsapp-green">Spéciale</span>
+            {title}
           </h3>
           
           <p className="text-lg text-brand-gray mb-8 font-medium leading-relaxed px-4">
@@ -103,7 +103,7 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
               className="flex items-center justify-center w-full py-5 px-8 bg-whatsapp-green text-white font-black text-sm uppercase tracking-[0.2em] rounded-2xl hover:brightness-110 transition-all duration-300 transform hover:scale-[1.03] active:scale-95 shadow-xl shadow-whatsapp-green/30"
             >
               {btnLabel}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 rtl:rotate-180" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </a>

@@ -16,7 +16,7 @@ import QuoteForm from './components/QuoteForm';
 import SplashScreen from './components/SplashScreen';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Process from './components/Process';
-import Contact from './components/Contact';
+import VisualShowcase from './components/VisualShowcase';
 
 const StaticBackground: React.FC = () => (
   <div className="fixed top-0 left-0 w-full h-full z-[-1] bg-brand-dark">
@@ -38,6 +38,7 @@ const App: React.FC = () => {
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
   const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
   const [isPromoVisible, setIsPromoVisible] = useState(false);
+  const [hasShownPromo, setHasShownPromo] = useState(false);
   
   const WHATSAPP_NUMBER = "213697660969";
 
@@ -51,6 +52,26 @@ const App: React.FC = () => {
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   }, [language]);
 
+  // Lazy Scroll Promo Trigger
+  useEffect(() => {
+    if (showLangSelector || hasShownPromo || isLoading) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      
+      // Trigger when user has scrolled 20% of the page
+      if (scrollY > (docHeight - windowHeight) * 0.2) {
+        setIsPromoVisible(true);
+        setHasShownPromo(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [showLangSelector, hasShownPromo, isLoading]);
+
   const handleSelectLanguage = (selectedLanguage: Language) => {
     setLanguage(selectedLanguage);
     setIsExitingLangSelector(true);
@@ -58,24 +79,12 @@ const App: React.FC = () => {
     // Smooth exit animation before hiding the overlay
     setTimeout(() => {
       setShowLangSelector(false);
-      
-      // TRIGGER PROMO POPUP after 4 seconds of choosing language
-      setTimeout(() => {
-        setIsPromoVisible(true);
-      }, 4000);
     }, 600);
   };
 
   const handleOpenQuoteForm = () => setIsQuoteFormOpen(true);
   const handleCloseQuoteForm = () => setIsQuoteFormOpen(false);
   const handleClosePromo = () => setIsPromoVisible(false);
-
-  const handleScrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
   
   const t = translations[language] || translations['fr'];
 
@@ -85,12 +94,13 @@ const App: React.FC = () => {
       
       {isLoading && <SplashScreen />}
 
-      {/* Floating Buttons - WhatsApp and ScrollToTop stay visible from the start */}
+      {/* Floating Buttons */}
       {!isLoading && (
         <>
           <WhatsAppPromoPopup 
             isVisible={isPromoVisible}
             onClose={handleClosePromo}
+            title={t.whatsapp.promoTitle}
             message={t.whatsapp.promo} 
             btnLabel={t.whatsapp.promoBtn}
             phoneNumber={WHATSAPP_NUMBER} 
@@ -101,7 +111,7 @@ const App: React.FC = () => {
         </>
       )}
 
-      {/* Language Popup Overlay - Shows immediately after Splash */}
+      {/* Language Popup Overlay */}
       {!isLoading && showLangSelector && (
         <div 
           key="lang-selector-overlay" 
@@ -113,7 +123,7 @@ const App: React.FC = () => {
         </div>
       )}
       
-      {/* Main Content - Always rendered in the current language background, becomes visible after splash */}
+      {/* Main Content */}
       <div 
         key="main-content" 
         className={`relative z-10 flex flex-col min-h-screen transition-all duration-1000 ${isLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'} ${showLangSelector || isPromoVisible ? 'filter blur-md' : 'filter blur-0'}`}
@@ -123,11 +133,11 @@ const App: React.FC = () => {
           <Hero translations={t.hero} onQuoteClick={handleOpenQuoteForm} />
           <ClientLogos translations={t.clientLogos} />
           <Services translations={t.services} />
+          <VisualShowcase translations={t.visualShowcase} />
           <Process translations={t.process} />
-          <Portfolio translations={t.portfolio} onQuoteClick={handleScrollToContact} />
+          <Portfolio translations={t.portfolio} onQuoteClick={handleOpenQuoteForm} />
           <Testimonials translations={t.testimonials} />
           <FAQ translations={t.faq} />
-          <Contact translations={t.contact} />
         </main>
         <Footer translations={t.footer} />
       </div>

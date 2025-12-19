@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick }) => {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-dark/30 backdrop-blur-xl border-b border-brand-border' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-dark/30 backdrop-blur-xl border-b border-brand-border shadow-lg shadow-black/20' : 'bg-transparent'}`}>
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Logo />
         <div className="hidden md:flex items-center space-x-6">
@@ -74,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick }) => {
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden bg-brand-dark/95 backdrop-blur-sm pb-4 absolute top-full left-0 right-0">
+        <div className="md:hidden bg-brand-dark/95 backdrop-blur-sm pb-4 absolute top-full left-0 right-0 shadow-2xl">
           <NavLinks className="text-center" onItemClick={() => setIsOpen(false)} links={translations.links}/>
         </div>
       )}

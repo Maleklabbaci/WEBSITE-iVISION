@@ -31,6 +31,18 @@ const textContent = {
       ar: 'اطلب استشارة مجانية',
     },
   },
+  visualShowcase: {
+    title: {
+      fr: 'Aperçu Visuel',
+      en: 'Visual Showcase',
+      ar: 'معرضنا المرئي',
+    },
+    subtitle: {
+      fr: 'Une immersion dans notre univers créatif et stratégique.',
+      en: 'An immersion into our creative and strategic world.',
+      ar: 'انغماس في عالمنا الإبداعي والاستراتيجي.',
+    }
+  },
   clientLogos: {
     title: {
       fr: 'Pourquoi Nous Choisir ?',
@@ -400,6 +412,7 @@ const textContent = {
       },
       projectPlaceholder: { fr: 'Décrivez votre projet', en: 'Describe your project', ar: 'صف مشروعك' },
       cta: { fr: 'Envoyer la demande', en: 'Send request', ar: 'إرسال الطلب' },
+      whatsappCta: { fr: 'Envoyer via WhatsApp', en: 'Send via WhatsApp', ar: 'إرسال عبر واتساب' },
       successTitle: { fr: 'Merci !', en: 'Thank you!', ar: 'شكراً لك!' },
       successMessage: { fr: 'Votre demande a bien été envoyée. Nous reviendrons vers vous très prochainement.', en: 'Your request has been sent successfully. We will get back to you very soon.', ar: 'تم إرسال طلبك بنجاح. سنتواصل معك قريبًا جدًا.' },
     },
@@ -411,6 +424,11 @@ const textContent = {
       ar: 'مرحبًا iVISION ، أود معرفة المزيد عن خدماتكم.',
     },
     promo: {
+      title: {
+          fr: 'Offre Spéciale',
+          en: 'Special Offer',
+          ar: 'عرض خاص',
+      },
       fr: '10% de réduction pour fin de l’année contactez nous',
       en: '10% year-end discount! Contact us now',
       ar: 'خصم 10% بمناسبة نهاية العام! تواصل معنا',
@@ -444,6 +462,10 @@ const processTranslations = (lang: Language) => ({
         title: textContent.hero.title[lang],
         subtitle: textContent.hero.subtitle[lang],
         cta: textContent.hero.cta[lang],
+    },
+    visualShowcase: {
+        title: textContent.visualShowcase.title[lang],
+        subtitle: textContent.visualShowcase.subtitle[lang],
     },
     clientLogos: {
         title: textContent.clientLogos.title[lang],
@@ -504,12 +526,14 @@ const processTranslations = (lang: Language) => ({
             budgetOptions: textContent.contact.form.budgetOptions[lang],
             projectPlaceholder: textContent.contact.form.projectPlaceholder[lang],
             cta: textContent.contact.form.cta[lang],
+            whatsappCta: textContent.contact.form.whatsappCta[lang],
             successTitle: textContent.contact.form.successTitle[lang],
             successMessage: textContent.contact.form.successMessage[lang],
         },
     },
     whatsapp: {
         message: textContent.whatsapp.message[lang],
+        promoTitle: textContent.whatsapp.promo.title[lang],
         promo: textContent.whatsapp.promo[lang],
         promoBtn: textContent.whatsapp.promo.btn[lang],
     },

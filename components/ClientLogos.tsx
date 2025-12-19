@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 
 // Icons
@@ -49,9 +50,9 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="pb-20 bg-transparent text-brand-light">
+    <section ref={sectionRef} className="pt-32 pb-20 bg-transparent text-brand-light">
       <div className="container mx-auto px-6">
-        <div className={`text-center mb-8 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className={`text-center mb-12 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-3xl md:text-4xl font-bold">{translations.title}</h2>
           <p className="text-lg text-brand-gray mt-2 max-w-2xl mx-auto">{translations.subtitle}</p>
           <div className="w-24 h-1 bg-brand-accent mx-auto mt-4"></div>
