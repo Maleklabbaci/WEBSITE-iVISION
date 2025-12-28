@@ -47,37 +47,37 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, isVisible, index, onCtaClick }) => (
     <div 
-        className={`group bg-brand-dark/50 border border-brand-border rounded-lg overflow-hidden transition-all duration-300 hover:border-brand-accent hover:-translate-y-2 hover:bg-brand-dark/60 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-        style={{ animationDelay: `${index * 150}ms` }}
+        className={`group bg-brand-dark/50 border border-brand-border rounded-[2rem] overflow-hidden transition-all duration-[1000ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-brand-accent hover:-translate-y-2 hover:bg-brand-dark/60 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+        style={{ transitionDelay: `${index * 150}ms` }}
     >
-        <div className="relative h-48">
+        <div className="relative h-64">
             <img 
                 src={project.image} 
                 alt={project.title} 
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent"></div>
-            <div className="absolute bottom-4 left-4">
-                <h3 className="text-xl font-bold text-brand-light">{project.client}</h3>
-                <p className="text-brand-gray text-sm">{project.title}</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 right-6">
+                <h3 className="text-xl font-bold text-brand-light leading-tight">{project.client}</h3>
+                <p className="text-brand-gray text-sm mt-1">{project.title}</p>
             </div>
         </div>
-        <div className="p-6">
-            <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="p-8">
+            <div className="grid grid-cols-2 gap-4 mb-8">
                 {project.results.map((stat, i) => (
-                    <div key={i} className="bg-brand-dark/40 border border-brand-border/50 rounded-md p-3 flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:border-brand-accent/30 group-hover:bg-brand-dark/20">
-                        <div className="flex items-center">
+                    <div key={i} className="bg-brand-dark/40 border border-brand-border/50 rounded-2xl p-4 flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:border-brand-accent/30 group-hover:bg-brand-dark/20">
+                        <div className="flex items-center gap-1.5">
                             {getIconForLabel(stat.label)}
-                            <span className="text-2xl font-bold text-brand-light">{stat.value}</span>
+                            <span className="text-2xl font-black text-brand-light">{stat.value}</span>
                         </div>
-                        <p className="text-xs text-brand-gray mt-1">{stat.label}</p>
+                        <p className="text-[10px] uppercase tracking-wider font-bold text-brand-gray mt-1.5">{stat.label}</p>
                     </div>
                 ))}
             </div>
-            <button onClick={onCtaClick} className="w-full text-center text-brand-accent font-semibold py-2 px-4 rounded-md hover:bg-brand-accent/10 transition-all duration-300 flex items-center justify-center group/cta">
+            <button onClick={onCtaClick} className="w-full text-center text-brand-accent font-black py-4 px-4 rounded-xl hover:bg-brand-accent/10 transition-all duration-300 flex items-center justify-center group/cta border border-brand-accent/20 hover:border-brand-accent uppercase tracking-widest text-[10px]">
                 <span>{project.cta}</span>
-                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transition-transform duration-300 group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transition-transform duration-300 group-hover/cta:translate-x-1 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </button>
         </div>
     </div>
@@ -96,26 +96,19 @@ const Portfolio: React.FC<PortfolioProps> = ({ translations, onQuoteClick }) => 
           observer.unobserve(entry.target);
         }
       },
-      { root: null, rootMargin: '0px', threshold: 0.1 }
+      { root: null, rootMargin: '0px', threshold: 0.15 }
     );
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section id="portfolio" ref={sectionRef} className="py-20 bg-transparent text-brand-light scroll-mt-24">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-3xl md:text-4xl font-bold">{translations.title}</h2>
           <p className="text-lg text-brand-gray mt-2 max-w-2xl mx-auto">{translations.subtitle}</p>
-          <div className="w-24 h-1 bg-brand-accent mx-auto mt-4"></div>
+          <div className="w-24 h-1 bg-brand-accent mx-auto mt-4 rounded-full"></div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

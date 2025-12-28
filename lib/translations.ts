@@ -14,6 +14,45 @@ const textContent = {
       ar: 'عرض سعر مجاني',
     },
   },
+  chat: {
+    title: {
+      fr: 'iVISION AI PRO',
+      en: 'iVISION AI PRO',
+      ar: 'iVISION AI PRO',
+    },
+    greeting: {
+      fr: 'Bonjour ! Je suis iVISION AI PRO, votre expert en croissance e-commerce. Comment puis-je vous conseiller sur nos services aujourd\'hui ?',
+      en: 'Hello! I am iVISION AI PRO, your e-commerce growth expert. How can I advise you on our services today?',
+      ar: 'مرحباً! أنا iVISION AI PRO، خبير نمو التجارة الإلكترونية الخاص بك. كيف يمكنني تقديم المشورة لك بشأن خدماتنا اليوم؟',
+    },
+    placeholder: {
+      fr: 'Posez votre question sur nos services...',
+      en: 'Ask about our services...',
+      ar: 'اسأل عن خدماتنا...',
+    },
+    systemInstruction: {
+      fr: "Tu es iVISION AI PRO, l'expert stratégique d'iVISION Agency. Ton rôle est STRICTEMENT limité à conseiller les clients sur nos services : Meta Ads, Création de contenu, Stratégie E-commerce et Web Design. Ne réponds à AUCUNE question hors sujet (politique, cuisine, questions générales, etc.). Si un utilisateur pose une question non liée, réponds poliment que tu es là uniquement pour l'aider avec sa croissance e-commerce via les services d'iVISION. Sois extrêmement professionnel, persuasif et oriente chaque conversation vers le succès commercial et la prise de contact pour un devis.",
+      en: "You are iVISION AI PRO, the strategic expert of iVISION Agency. Your role is STRICTLY limited to advising clients on our services: Meta Ads, Content Creation, E-commerce Strategy, and Web Design. Do NOT answer any off-topic questions (politics, cooking, general knowledge, etc.). If a user asks an unrelated question, politely state that you are only here to help with their e-commerce growth through iVISION's services. Be extremely professional, persuasive, and orient every conversation towards business success and getting a free quote.",
+      ar: "أنت iVISION AI PRO، الخبير الاستراتيجي لوكالة iVISION. دورك يقتصر حصريًا على تقديم المشورة للعملاء بشأن خدماتنا: إعلانات ميتا، إنشاء المحتوى، استراتيجية التجارة الإلكترونية، وتصميم المواقع. لا تجب على أي أسئلة خارج الموضوع (السياسة، الطبخ، الأسئلة العامة، إلخ). إذا سأل المستخدم سؤالاً غير ذي صلة، وضح له بلباقة أنك هنا فقط لمساعدته في نمو تجارته الإلكترونية من خلال خدمات iVISION. كن محترفاً للغاية، مقنعاً، ووجه كل محادثة نحو النجاح التجاري وطلب عرض سعر.",
+    }
+  },
+  qualification: {
+    title: {
+      fr: 'Critères de Partenariat',
+      en: 'Partnership Criteria',
+      ar: 'معايير الشراكة',
+    },
+    message: {
+      fr: 'Nous limitons nos collaborations à 3 nouveaux clients par mois pour garantir une excellence maximale. Nous travaillons exclusivement avec des entrepreneurs prêts à investir sérieusement dans leur croissance.',
+      en: 'We limit our collaborations to 3 new clients per month to ensure maximum excellence. We work exclusively with entrepreneurs ready to seriously invest in their growth.',
+      ar: 'نحن نقصر تعاوننا على 3 عملاء جدد فقط شهريًا لضمان أقصى قدر من التميز. نحن نعمل حصريًا مع رواد الأعمال المستعدين للاستثمار بجدية في نموهم.',
+    },
+    badge: {
+      fr: 'Sélectivité Active',
+      en: 'Selective Partnership',
+      ar: 'شراكة انتقائية',
+    }
+  },
   hero: {
     title: {
       fr: 'Boostez vos ventes en ligne avec une stratégie digitale sur-mesure',
@@ -229,7 +268,7 @@ const textContent = {
         { 
           client: 'علامة تجارية لمستحضرات التجميل', 
           title: 'إطلاق منتج واسع الانتشار',
-          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop',
+          image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop',
           results: [
             { value: '+5 مليون', label: 'ظهور في شهر واحد' },
             { value: 'المرتبة الأولى', label: 'في الترند على الشبكات' },
@@ -336,7 +375,7 @@ const textContent = {
     },
     faqs: {
       fr: [
-        { question: 'Quels types d\'entreprises aidez-vous ?', answer: 'Nous nous spécialisons dans l\'aide aux entreprises e-commerce, des startups aux marques établies, pour augmenter leur visibilité en ligne et leurs ventes.' },
+        { question: 'Quels types d\'entreprises aidez-vous ?', answer: 'Nous nous spécialisons dans l\'aide aux entreprises e-commerce, des startups aux marques établies, pour augmenter leur visibilité en ligne and leurs ventes.' },
         { question: 'Combien de temps faut-il pour voir des résultats ?', answer: 'Les résultats peuvent varier, mais vous pouvez généralement vous attendre à voir des améliorations significatives dans les métriques clés en 3 à 6 mois, en fonction de la stratégie et des services choisis.' },
         { question: 'Comment mesurez-vous le succès d\'une campagne ?', answer: 'Nous mesurons le succès à l\'aide d\'indicateurs de performance clés (KPI) tels que le retour sur investissement publicitaire (ROAS), le coût par acquisition (CPA), le taux de conversion et la croissance globale du trafic et des revenus.' },
         { question: 'Proposez-vous des contrats à long terme ?', answer: 'Nous proposons des options flexibles, y compris des projets uniques and des contrats de service mensuels. Notre objectif est de construire un partenariat qui correspond à vos besoins et à vos objectifs.' },
@@ -458,6 +497,12 @@ const processTranslations = (lang: Language) => ({
         links: textContent.header.links[lang],
         cta: textContent.header.cta[lang],
     },
+    chat: {
+      title: textContent.chat.title[lang],
+      greeting: textContent.chat.greeting[lang],
+      placeholder: textContent.chat.placeholder[lang],
+      systemInstruction: textContent.chat.systemInstruction[lang],
+    },
     hero: {
         title: textContent.hero.title[lang],
         subtitle: textContent.hero.subtitle[lang],
@@ -500,6 +545,11 @@ const processTranslations = (lang: Language) => ({
     contact: {
         title: textContent.contact.title[lang],
         subtitle: textContent.contact.subtitle[lang],
+        qualification: {
+          title: textContent.qualification.title[lang],
+          message: textContent.qualification.message[lang],
+          badge: textContent.qualification.badge[lang],
+        },
         info: {
           contactDetails: textContent.contact.info.contactDetails[lang],
           followUs: textContent.contact.info.followUs[lang],

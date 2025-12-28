@@ -22,10 +22,10 @@ interface ProcessStepProps {
 
 const ProcessStep: React.FC<ProcessStepProps> = ({ step, index, isVisible }) => (
     <div 
-        className={`group relative bg-brand-dark/50 border border-brand-border p-8 rounded-lg transition-all duration-300 hover:border-brand-accent hover:-translate-y-2 hover:bg-brand-dark/60 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-        style={{ animationDelay: `${index * 150}ms` }}
+        className={`group relative bg-brand-dark/50 border border-brand-border p-8 rounded-lg transition-all duration-[1000ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-brand-accent hover:-translate-y-2 hover:bg-brand-dark/60 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+        style={{ transitionDelay: `${index * 150}ms` }}
     >
-        <div className="absolute top-4 ltr:right-4 rtl:left-4 text-5xl font-extrabold text-brand-border/50 group-hover:text-brand-accent/30 transition-colors duration-300 z-0">
+        <div className="absolute top-4 ltr:right-4 rtl:left-4 text-5xl font-extrabold text-brand-border/50 group-hover:text-brand-accent/30 transition-colors duration-300 z-0 select-none">
             {step.step}
         </div>
         <div className="relative z-10">
@@ -33,7 +33,7 @@ const ProcessStep: React.FC<ProcessStepProps> = ({ step, index, isVisible }) => 
                 {icons[index]}
             </div>
             <h3 className="text-xl font-bold text-brand-light mb-2">{step.title}</h3>
-            <p className="text-brand-gray">{step.description}</p>
+            <p className="text-brand-gray leading-relaxed">{step.description}</p>
         </div>
     </div>
 );
@@ -58,22 +58,19 @@ const Process: React.FC<ProcessProps> = ({ translations }) => {
           observer.unobserve(entry.target);
         }
       },
-      { root: null, rootMargin: '0px', threshold: 0.1 }
+      { root: null, rootMargin: '0px', threshold: 0.15 }
     );
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-    return () => { if (currentRef) observer.unobserve(currentRef); };
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section id="process" ref={sectionRef} className="py-20 bg-transparent scroll-mt-24">
       <div className="container mx-auto px-6">
-        <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className={`text-center mb-16 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-brand-light">{translations.title}</h2>
           <p className="text-lg text-brand-gray mt-2 max-w-2xl mx-auto">{translations.subtitle}</p>
-          <div className="w-24 h-1 bg-brand-accent mx-auto mt-4"></div>
+          <div className="w-24 h-1 bg-brand-accent mx-auto mt-4 rounded-full"></div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

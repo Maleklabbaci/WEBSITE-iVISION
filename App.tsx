@@ -17,6 +17,7 @@ import SplashScreen from './components/SplashScreen';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Process from './components/Process';
 import VisualShowcase from './components/VisualShowcase';
+import LiveChat from './components/LiveChat';
 
 const StaticBackground: React.FC = () => (
   <div className="fixed top-0 left-0 w-full h-full z-[-1] bg-brand-dark">
@@ -131,6 +132,7 @@ const App: React.FC = () => {
             whatsappMessage={t.whatsapp.message} 
           />
           <WhatsAppButton phoneNumber={WHATSAPP_NUMBER} message={t.whatsapp.message} />
+          <LiveChat translations={t.chat} />
           <ScrollToTopButton />
         </>
       )}

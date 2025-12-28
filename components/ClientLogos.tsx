@@ -34,42 +34,34 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations }) => {
           observer.unobserve(entry.target);
         }
       },
-      { root: null, rootMargin: '0px', threshold: 0.1 }
+      { root: null, rootMargin: '0px', threshold: 0.15 }
     );
 
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section ref={sectionRef} className="pt-32 pb-20 bg-transparent text-brand-light">
       <div className="container mx-auto px-6">
-        <div className={`text-center mb-12 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className={`text-center mb-12 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-3xl md:text-4xl font-bold">{translations.title}</h2>
           <p className="text-lg text-brand-gray mt-2 max-w-2xl mx-auto">{translations.subtitle}</p>
-          <div className="w-24 h-1 bg-brand-accent mx-auto mt-4"></div>
+          <div className="w-24 h-1 bg-brand-accent mx-auto mt-4 rounded-full"></div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {translations.points.map((point, index) => (
             <div 
               key={index}
-              className={`group bg-brand-dark/50 border border-brand-border p-8 rounded-lg text-center transition-all duration-300 hover:border-brand-accent hover:-translate-y-2 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-              style={{ animationDelay: `${index * 150}ms` }}
+              className={`group bg-brand-dark/50 border border-brand-border p-8 rounded-lg text-center transition-all duration-[1000ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-brand-accent hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="text-brand-accent mb-4 inline-block transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(56,189,248,0.7)]">
                   {icons[index]}
               </div>
               <h3 className="text-xl font-bold text-brand-light mb-2">{point.title}</h3>
-              <p className="text-brand-gray text-sm">{point.description}</p>
+              <p className="text-brand-gray text-sm leading-relaxed">{point.description}</p>
             </div>
           ))}
         </div>

@@ -31,10 +31,22 @@ interface ContactTranslations {
         yourInfoTitle: string;
         projectInfoTitle: string;
     };
+    qualification?: {
+      title: string;
+      message: string;
+      badge: string;
+    };
 }
 
 interface QuoteFormProps {
-    translations: { form: ContactTranslations['form'] };
+    translations: { 
+      form: ContactTranslations['form'],
+      qualification: {
+        title: string;
+        message: string;
+        badge: string;
+      }
+    };
     onClose: () => void;
 }
 
@@ -264,8 +276,27 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
             </div>
         ) : (
             <>
-                <h3 className="text-3xl md:text-4xl font-black mb-10 text-center tracking-tighter uppercase">{translations.form.title}</h3>
+                <h3 className="text-3xl md:text-4xl font-black mb-6 text-center tracking-tighter uppercase">{translations.form.title}</h3>
                 
+                {/* Premium Qualification Warning */}
+                <div className="bg-brand-accent/5 border border-brand-accent/20 rounded-3xl p-6 mb-10 relative overflow-hidden group">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-brand-accent"></div>
+                  <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
+                    <div className="w-12 h-12 bg-brand-accent/20 rounded-full flex items-center justify-center shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    </div>
+                    <div className="text-center md:text-left">
+                      <div className="flex items-center justify-center md:justify-start gap-3 mb-1">
+                        <h4 className="text-brand-accent font-black uppercase tracking-widest text-xs">{translations.qualification.title}</h4>
+                        <span className="bg-brand-accent/20 text-brand-accent text-[9px] font-black px-2 py-0.5 rounded-full uppercase">{translations.qualification.badge}</span>
+                      </div>
+                      <p className="text-brand-gray text-sm leading-relaxed">{translations.qualification.message}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {formError && (
                   <div className="bg-red-500/10 border border-red-500/40 text-red-400 p-4 rounded-2xl mb-8 text-center text-sm font-bold flex items-center justify-center gap-2 animate-shake">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
