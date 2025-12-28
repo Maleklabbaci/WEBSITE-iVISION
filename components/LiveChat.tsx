@@ -23,7 +23,6 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false);
   
-  // Dragging state
   const [position, setPosition] = useState({ x: window.innerWidth - 80, y: window.innerHeight - 100 });
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
@@ -38,38 +37,33 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
     if (isOpen && messages.length === 0) {
       setMessages([{ text: translations.greeting, sender: 'agent' }]);
       
-      // Initialize Gemini Chat with Pro model
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       chatInstance.current = ai.chats.create({
         model: 'gemini-3-pro-preview',
         config: {
           systemInstruction: translations.systemInstruction,
-          thinkingConfig: { thinkingBudget: 4000 } // Add thinking budget for more precise strategic reasoning
+          thinkingConfig: { thinkingBudget: 8000 }
         },
       });
     }
   }, [isOpen, translations.greeting, translations.systemInstruction]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isThinking]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim() === '' || isThinking || !chatInstance.current) return;
 
     const userText = inputValue.trim();
-    const userMessage: Message = { text: userText, sender: 'user' };
-    setMessages(prev => [...prev, userMessage]);
+    setMessages(prev => [...prev, { text: userText, sender: 'user' }]);
     setInputValue('');
     setIsThinking(true);
 
     try {
-      // Re-init AI inside to ensure latest key (as per dev guidelines for high-quality models)
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      // We rely on the existing chat instance but could recreate it if session state wasn't needed.
-      // For this implementation, we keep using chatInstance.current initialized on open.
-      
       const responseStream = await chatInstance.current.sendMessageStream({ message: userText });
       
       setMessages(prev => [...prev, { text: '', sender: 'agent', isStreaming: true }]);
@@ -83,10 +77,10 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
           setMessages(prev => {
             const newMessages = [...prev];
             const lastIndex = newMessages.length - 1;
-            if (newMessages[lastIndex].sender === 'agent' && newMessages[lastIndex].isStreaming) {
+            if (newMessages[lastIndex] && newMessages[lastIndex].sender === 'agent' && newMessages[lastIndex].isStreaming) {
               newMessages[lastIndex] = { ...newMessages[lastIndex], text: fullResponseText };
             }
-            return newMessages;
+            return [...newMessages];
           });
         }
       }
@@ -94,15 +88,16 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
       setMessages(prev => {
         const newMessages = [...prev];
         const lastIndex = newMessages.length - 1;
-        newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false };
-        return newMessages;
+        if (newMessages[lastIndex]) {
+            newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false };
+        }
+        return [...newMessages];
       });
 
     } catch (error) {
       console.error("Gemini PRO Error:", error);
-      // Fallback message
       setMessages(prev => [...prev, { 
-        text: "Je m'excuse, une erreur technique est survenue. Veuillez nous contacter directement via WhatsApp pour une assistance immédiate sur nos services.", 
+        text: "Désolé, une erreur technique est survenue. Veuillez consulter nos services sur le site ou nous contacter via WhatsApp.", 
         sender: 'agent' 
       }]);
     } finally {
@@ -167,41 +162,43 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
         style={{ 
           left: `${position.x}px`, 
           top: `${position.y}px`,
-          transition: isDragging ? 'none' : 'all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28)',
+          transition: isDragging ? 'none' : 'all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28)',
           touchAction: 'none'
         }}
-        className="fixed bg-brand-accent text-brand-dark w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transform hover:scale-110 active:scale-90 z-[45] group overflow-hidden cursor-grab active:cursor-grabbing"
-        aria-label="Open AI Assistant"
+        className="fixed bg-brand-accent text-brand-dark w-16 h-16 rounded-full shadow-[0_10px_40px_rgba(56,189,248,0.4)] flex items-center justify-center transform hover:scale-110 active:scale-95 z-[45] group overflow-hidden cursor-grab active:cursor-grabbing border-2 border-white/20"
+        aria-label="Open iVISION AI"
       >
         <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div className="relative z-10 pointer-events-none flex flex-col items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            <span className="text-[7px] font-black uppercase tracking-tighter -mt-1">PRO</span>
+            <span className="text-[7px] font-black uppercase tracking-tighter -mt-1">AI PRO</span>
         </div>
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-6 sm:w-96 sm:h-[600px] bg-brand-dark border-t sm:border border-brand-border rounded-t-3xl sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col z-[50] overflow-hidden animate-fade-in-up" style={{ transformOrigin: 'bottom right' }}>
+        <div 
+          className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-6 sm:w-[400px] sm:h-[650px] bg-brand-dark border-t sm:border border-brand-border rounded-t-3xl sm:rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.9)] flex flex-col z-[50] overflow-hidden animate-fade-in-up" 
+          style={{ transformOrigin: 'bottom right' }}
+        >
           {/* Header */}
-          <div className="p-6 bg-brand-dark border-b border-brand-border flex justify-between items-center shrink-0">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-brand-accent/20 rounded-xl flex items-center justify-center border border-brand-accent/30 relative">
+          <div className="p-7 bg-brand-dark/80 backdrop-blur-xl border-b border-brand-border flex justify-between items-center shrink-0">
+            <div className="flex items-center gap-4">
+              <div className="w-11 h-11 bg-brand-accent/20 rounded-2xl flex items-center justify-center border border-brand-accent/30 relative">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-accent rounded-full border-2 border-brand-dark"></div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-accent rounded-full border-2 border-brand-dark animate-pulse"></div>
               </div>
               <div>
-                <h3 className="font-black text-brand-light tracking-tight">{translations.title}</h3>
+                <h3 className="font-black text-brand-light tracking-tight text-lg uppercase">{translations.title}</h3>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-pulse"></span>
-                  <span className="text-[10px] font-bold text-brand-gray uppercase tracking-widest">IA Stratégique Active</span>
+                  <span className="text-[10px] font-black text-brand-gray uppercase tracking-[0.2em]">Reactive Expert</span>
                 </div>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-brand-gray hover:text-brand-accent p-2 transition-colors">
+            <button onClick={() => setIsOpen(false)} className="text-brand-gray hover:text-brand-accent p-2 transition-all hover:rotate-90">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -209,36 +206,50 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
           </div>
 
           {/* Messages */}
-          <div className="flex-grow p-6 overflow-y-auto space-y-6 scrollbar-thin scrollbar-thumb-brand-border">
+          <div className="flex-grow p-7 overflow-y-auto space-y-6 scrollbar-none bg-gradient-to-b from-brand-dark to-black/20">
             {messages.map((msg, index) => (
               <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${
+                <div className={`max-w-[90%] p-5 rounded-[1.5rem] text-[15px] leading-relaxed shadow-lg ${
                   msg.sender === 'user' 
-                    ? 'bg-brand-accent text-brand-dark font-medium rounded-tr-none' 
-                    : 'bg-brand-border text-brand-light rounded-tl-none border border-white/5'
+                    ? 'bg-brand-accent text-brand-dark font-black rounded-tr-none' 
+                    : 'bg-white/[0.03] text-brand-light rounded-tl-none border border-white/10'
                 }`}>
-                  {msg.text || (msg.isStreaming && <span className="flex gap-1 items-center h-4"><span className="w-1 h-1 bg-brand-light rounded-full animate-bounce"></span><span className="w-1 h-1 bg-brand-light rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></span><span className="w-1 h-1 bg-brand-light rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span></span>)}
+                  {msg.text || (msg.isStreaming && (
+                    <div className="flex gap-1.5 items-center h-4">
+                        <div className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-bounce"></div>
+                        <div className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                        <div className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
+            {isThinking && (
+              <div className="flex justify-start">
+                 <div className="bg-white/[0.01] border border-brand-accent/20 px-4 py-2 rounded-full flex items-center gap-3 animate-pulse">
+                    <div className="w-2 h-2 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(56,189,248,0.8)]"></div>
+                    <span className="text-[10px] font-black text-brand-accent uppercase tracking-widest">PRO Analyzing...</span>
+                 </div>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSendMessage} className="p-6 border-t border-brand-border bg-brand-dark/50 shrink-0">
-            <div className="relative group">
+          <form onSubmit={handleSendMessage} className="p-7 border-t border-brand-border bg-brand-dark/80 backdrop-blur-xl shrink-0">
+            <div className="relative">
               <input
                 type="text"
                 placeholder={translations.placeholder}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 disabled={isThinking}
-                className="w-full bg-brand-dark border border-brand-border rounded-2xl py-4 pl-5 pr-14 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all text-sm placeholder:text-brand-gray/30 disabled:opacity-50"
+                className="w-full bg-brand-dark border border-brand-border rounded-2xl py-5 pl-6 pr-16 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all text-[15px] placeholder:text-brand-gray/30 disabled:opacity-50 font-medium"
               />
               <button 
                 type="submit" 
                 disabled={isThinking || !inputValue.trim()}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-brand-accent text-brand-dark rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 disabled:opacity-20 disabled:scale-100 transition-all shadow-lg"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 w-11 h-11 bg-brand-accent text-brand-dark rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 disabled:opacity-20 disabled:scale-100 transition-all shadow-xl shadow-brand-accent/30"
               >
                 {isThinking ? (
                   <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -247,14 +258,14 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
                   </svg>
                 ) : (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9-7-9-7v14z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 19l9-7-9-7v14z" />
                   </svg>
                 )}
               </button>
             </div>
-            <div className="mt-4 flex items-center justify-center gap-2">
+            <div className="mt-5 flex items-center justify-center gap-3">
                  <div className="h-px bg-brand-border flex-grow"></div>
-                 <p className="text-[8px] text-center text-brand-gray/40 uppercase tracking-[0.3em] font-black">
+                 <p className="text-[9px] text-center text-brand-gray/40 uppercase tracking-[0.4em] font-black">
                    Powered by Gemini 3 Pro
                  </p>
                  <div className="h-px bg-brand-border flex-grow"></div>
