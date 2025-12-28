@@ -14,28 +14,6 @@ const textContent = {
       ar: 'عرض سعر مجاني',
     },
   },
-  chat: {
-    title: {
-      fr: 'iVISION AI PRO',
-      en: 'iVISION AI PRO',
-      ar: 'iVISION AI PRO',
-    },
-    greeting: {
-      fr: 'Bonjour. Posez votre question sur nos services.',
-      en: 'Hello. Ask your question about our services.',
-      ar: 'مرحباً. اطرح سؤالك حول خدماتنا.',
-    },
-    placeholder: {
-      fr: 'Question sur nos services...',
-      en: 'Question about our services...',
-      ar: 'سؤال حول خدماتنا...',
-    },
-    systemInstruction: {
-      fr: "Tu es iVISION AI PRO. Ton rôle est STRICTEMENT RÉACTIF. RÉPONDS UNIQUEMENT À LA QUESTION POSÉE. Ne propose RIEN de plus. Ne suggère AUCUN autre service. Ne pose AUCUNE question de suivi. Ne fais AUCUNE recommandation non sollicitée. RÈGLES : 1. Pas d'introduction (ex: 'Bien sûr', 'Je peux vous aider'). 2. Pas de conclusion (ex: 'N'hésitez pas', 'Puis-je faire autre chose ?'). 3. Si la question n'est pas sur nos services (Meta Ads, Contenu, Stratégie, Web Design), réponds : 'Question hors domaine.' 4. Sois extrêmement direct et factuel.",
-      en: "You are iVISION AI PRO. Your role is STRICTLY REACTIVE. ANSWER ONLY THE SPECIFIC QUESTION ASKED. Propose NOTHING more. Do NOT suggest any other services. Do NOT ask follow-up questions. Do NOT make unsolicited recommendations. RULES: 1. No introductions (e.g., 'Certainly', 'I can help'). 2. No conclusions (e.g., 'Feel free to...', 'Anything else?'). 3. If the question is not about our services (Meta Ads, Content, Strategy, Web Design), reply: 'Off-topic query.' 4. Be extremely direct and factual.",
-      ar: "أنت iVISION AI PRO. دورك هو رد فعل بحت. أجب فقط على السؤال المحدد المطروح. لا تقترح أي شيء إضافي. لا تقترح أي خدمات أخرى. لا تطرح أسئلة متابعة. لا تقدم توصيات غير مرغوب فيها. القواعد: 1. لا مقدمات (مثل: 'بالتأكيد'، 'يمكنني المساعدة'). 2. لا خواتم (مثل: 'لا تتردد'، 'أي شيء آخر؟'). 3. إذا لم يكن السؤال عن خدماتنا (إعلانات ميتا، المحتوى، الاستراتيجية، تصميم المواقع)، أجب: 'سؤال خارج التخصص.' 4. كن مباشراً وواقعياً للغاية.",
-    }
-  },
   qualification: {
     title: {
       fr: 'Critères de Partenariat',
@@ -496,12 +474,6 @@ const processTranslations = (lang: Language) => ({
     header: {
         links: textContent.header.links[lang],
         cta: textContent.header.cta[lang],
-    },
-    chat: {
-      title: textContent.chat.title[lang],
-      greeting: textContent.chat.greeting[lang],
-      placeholder: textContent.chat.placeholder[lang],
-      systemInstruction: textContent.chat.systemInstruction[lang],
     },
     hero: {
         title: textContent.hero.title[lang],
