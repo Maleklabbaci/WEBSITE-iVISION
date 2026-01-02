@@ -32,21 +32,31 @@ const textContent = {
     }
   },
   hero: {
+    badge: {
+      fr: 'Agence de performance digitale',
+      en: 'Digital Performance Agency',
+      ar: 'وكالة الأداء الرقمي',
+    },
     title: {
       fr: 'Boostez vos ventes en ligne avec une stratégie digitale sur-mesure',
       en: 'Boost your online sales with a custom digital strategy',
       ar: 'عزز مبيعاتك عبر الإنترنت باستراتيجية رقمية مخصصة',
     },
     subtitle: {
-      fr: 'Nous transformons votre vision e-commerce en résultats concrets.',
-      en: 'We turn your e-commerce vision into tangible results.',
-      ar: 'نحن نحول رؤيتك في التجارة الإلكترونية إلى نتائج ملموسة.',
+      fr: '+300 entreprises nous font confiance pour transformer leur présence en ligne en chiffre d’affaires mesurable.',
+      en: '+300 companies trust us to transform their online presence into measurable revenue.',
+      ar: '+300 شركة تثق بنا لتحويل تواجدها عبر الإنترنت إلى إيرادات ملموسة.',
     },
     cta: {
-      fr: 'Demandez une consultation gratuite',
-      en: 'Request a free consultation',
-      ar: 'اطلب استشارة مجانية',
+      fr: 'DEMANDEZ UN AUDIT GRATUIT',
+      en: 'REQUEST A FREE AUDIT',
+      ar: 'اطلب تدقيقاً مجانياً',
     },
+    secondaryCta: {
+      fr: 'VOIR NOS TRAVAUX',
+      en: 'SEE OUR WORK',
+      ar: 'عرض أعمالنا',
+    }
   },
   visualShowcase: {
     title: {
@@ -246,7 +256,7 @@ const textContent = {
         { 
           client: 'علامة تجارية لمستحضرات التجميل', 
           title: 'إطلاق منتج واسع الانتشار',
-          image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop',
+          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop',
           results: [
             { value: '+5 مليون', label: 'ظهور في شهر واحد' },
             { value: 'المرتبة الأولى', label: 'في الترند على الشبكات' },
@@ -476,9 +486,11 @@ const processTranslations = (lang: Language) => ({
         cta: textContent.header.cta[lang],
     },
     hero: {
+        badge: textContent.hero.badge[lang],
         title: textContent.hero.title[lang],
         subtitle: textContent.hero.subtitle[lang],
         cta: textContent.hero.cta[lang],
+        secondaryCta: textContent.hero.secondaryCta[lang],
     },
     visualShowcase: {
         title: textContent.visualShowcase.title[lang],

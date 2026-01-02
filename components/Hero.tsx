@@ -3,9 +3,11 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface HeroProps {
   translations: {
+    badge: string;
     title: string;
     subtitle: string;
     cta: string;
+    secondaryCta: string;
   }
   onQuoteClick: () => void;
 }
@@ -41,6 +43,8 @@ const DraggableFloatingCard: React.FC<{
 
   const onPointerUp = (e: React.PointerEvent) => {
     setIsDragging(false);
+    // Return to original position slowly
+    setOffset({ x: 0, y: 0 });
     if (cardRef.current) cardRef.current.releasePointerCapture(e.pointerId);
   };
 
@@ -53,8 +57,9 @@ const DraggableFloatingCard: React.FC<{
       className={`absolute hidden lg:flex items-center gap-4 bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-5 rounded-[2rem] shadow-2xl select-none cursor-grab active:cursor-grabbing z-30 transition-all duration-[1000ms] ${className} ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
       style={{ 
         transform: `translate3d(${offset.x}px, ${offset.y}px, 0) ${isDragging ? 'scale(1.05)' : 'scale(1)'}`,
-        transition: isDragging ? 'transform 0.05s linear, opacity 1s ease' : 'transform 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 1s ease',
-        animation: isDragging ? 'none' : `float 4s ease-in-out infinite`,
+        // Transition back is significantly slower (2.5s) as requested
+        transition: isDragging ? 'transform 0.05s linear, opacity 1s ease' : 'transform 2.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease',
+        animation: isDragging ? 'none' : `float 6s ease-in-out infinite`,
         animationDelay: delay,
         touchAction: 'none',
         boxShadow: isDragging ? '0 20px 50px rgba(56,189,248,0.2)' : '0 10px 30px rgba(0,0,0,0.3)'
@@ -73,8 +78,8 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
   useEffect(() => {
     const handleScroll = () => {
       if (imageRef.current) {
-        const offset = window.scrollY * 0.4;
-        imageRef.current.style.transform = `translateY(${offset}px) scale(1.15)`;
+        const offsetVal = window.scrollY * 0.4;
+        imageRef.current.style.transform = `translateY(${offsetVal}px) scale(1.15)`;
       }
     };
 
@@ -109,7 +114,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
       <style>{`
         @keyframes float {
           0%, 100% { transform: translate(0, 0); }
-          50% { transform: translate(10px, -15px); }
+          50% { transform: translate(5px, -10px); }
         }
       `}</style>
 
@@ -130,7 +135,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
       {/* Decorative Light Blobs */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-brand-accent/10 blur-[150px] rounded-full z-[1] animate-pulse"></div>
 
-      <div className="container relative z-10 px-6">
+      <div className="container relative z-10 px-6 py-20">
         <div className="max-w-5xl mx-auto">
           
           {/* Tagline Badge */}
@@ -139,7 +144,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
             </span>
-            E-commerce Growth Partner
+            {translations.badge}
           </div>
 
           {/* Glassmorphism Card Wrapper */}
@@ -160,7 +165,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               {translations.subtitle}
             </p>
 
-            <div className={`flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-12 transition-all duration-1000 ${isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'}`} style={{ animationDelay: '600ms' }}>
+            <div className={`flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-12 transition-all duration-1000 ${isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'}`} style={{ animationDelay: '600ms' }}>
               <button 
                 onClick={onQuoteClick}
                 className="group relative bg-brand-accent text-brand-dark font-black py-5 px-14 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_40px_rgba(56,189,248,0.2)] hover:shadow-brand-accent/40"
@@ -170,7 +175,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               </button>
               
               <a href="#portfolio" className="text-xs font-black uppercase tracking-widest text-brand-light hover:text-brand-accent transition-all flex items-center gap-3 border-b border-white/10 pb-1 hover:border-brand-accent">
-                Voir nos travaux
+                {translations.secondaryCta}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 rtl:rotate-180" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
@@ -223,8 +228,8 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
         </div>
       </div>
 
-      {/* Scroll Down Indicator - Hidden on mobile to prevent overlap with links */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center opacity-40 hover:opacity-100 transition-opacity">
+      {/* Scroll Down Indicator - Only shown on Desktop/Tablet to prevent layout overlap on small phones */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden lg:flex flex-col items-center opacity-30 hover:opacity-100 transition-opacity">
         <span className="text-[9px] uppercase font-black tracking-[0.5em] mb-4 text-brand-accent">Scroll</span>
         <div className="w-px h-12 bg-gradient-to-b from-brand-accent to-transparent"></div>
       </div>
