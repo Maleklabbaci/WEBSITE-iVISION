@@ -23,7 +23,7 @@ const textContent = {
     message: {
       fr: 'Nous limitons nos collaborations à 3 nouveaux clients par mois pour garantir une excellence maximale. Nous travaillons exclusivement avec des entrepreneurs prêts à investir sérieusement dans leur croissance.',
       en: 'We limit our collaborations to 3 new clients per month to ensure maximum excellence. We work exclusively with entrepreneurs ready to seriously invest in their growth.',
-      ar: 'نحن نقصر تعاوننا على 3 عملاء جدد فقط شهريًا لضمان أقصى قدر من التميز. نحن نعمل حصريًا مع رواد الأعمال المستعدين للاستثمار بجدية في نموهم.',
+      ar: 'نحن نقصر تعاوننا على 3 عملاء جدد فقط شهريًا لضمان أقصى قدر من التميز. نحن نعمل حصريًا مع رواد الأعمال المستعدين للاستثمار بجدية في نقوهم.',
     },
     badge: {
       fr: 'Sélectivité Active',
@@ -367,7 +367,7 @@ const textContent = {
       ar: [
         { question: 'ما أنواع الشركات التي تساعدونها؟', answer: 'نحن متخصصون في مساعدة شركات التجارة الإلكترونية، من الشركات الناشئة إلى العلامات التجارية الراسخة، على زيادة ظهورها ومبيعاتها عبر الإنترنت.' },
         { question: 'كم من الوقت يستغرق رؤية النتائج؟', answer: 'يمكن أن تختلف النتائج، ولكن يمكنك عادةً توقع رؤية تحسينات كبيرة في المقاييس الرئيسية في غضون 3 إلى 6 أشهر، اعتمادًا على الاستراتيجية والخدمات المختارة.' },
-        { question: 'كيف تقيسون نجاح الحملة؟', answer: 'نقيس النجاح باستخدام مؤشرات الأداء الرئيسية (KPIs) مثل العائد على الإنفاق الإعلاني (ROAS)، وتكلفة الاستحواذ (CPA)، ومعدل التحويل، والنمو الإجمالي في حركة المرور والإيرادات.' },
+        { question: 'كيف تقيسون نجاح الحملة؟', answer: 'نقيس النجاح باستخدام مؤشرات الأداء الرئيسية (KPIs) مثل العائد على الإنفاق الإعلاني (ROAS)، وتكلفة الاستحواذ (CPA)، بمعدل التحويل، والنمو الإجمالي في حركة المرور والإيرادات.' },
         { question: 'هل تقدمون عقودًا طويلة الأجل؟', answer: 'نحن نقدم خيارات مرنة، بما في ذلك المشاريع لمرة واحدة والعقود الشهرية. هدفنا هو بناء شراكة تناسب احتياجاتك وأهدافك.' },
       ],
     }
@@ -442,13 +442,13 @@ const textContent = {
     },
     promo: {
       title: {
-          fr: 'Offre Spéciale',
-          en: 'Special Offer',
-          ar: 'عرض خاص',
+          fr: 'OFFRE SPÉCIALE : -30 %',
+          en: 'SPECIAL OFFER: -30%',
+          ar: 'عرض خاص: -30%',
       },
-      fr: '10% de réduction pour fin de l’année contactez nous',
-      en: '10% year-end discount! Contact us now',
-      ar: 'خصم 10% بمناسبة نهاية العام! تواصل معنا',
+      fr: 'Pour bien commencer l’année, profitez de 30 % de réduction sur nos services. Contactez-nous dès maintenant pour en bénéficier !',
+      en: 'To start the year off right, enjoy a 30% discount on our services. Contact us now to benefit!',
+      ar: 'لبدء العام الجديد بشكل مثالي، استمتع بخصم 30% على خدماتنا. اتصل بنا الآن للاستفادة من العرض!',
       btn: {
         fr: 'Profiter de l\'offre',
         en: 'Get the offer',
