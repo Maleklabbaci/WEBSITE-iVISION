@@ -10,13 +10,29 @@
     <script>
       tailwind.config = {
         theme: {
+          container: {
+            center: true,
+            padding: {
+              DEFAULT: '1.5rem',
+              sm: '2rem',
+              lg: '4rem',
+              xl: '6rem',
+              '2xl': '10rem',
+            },
+            screens: {
+              sm: '640px',
+              md: '768px',
+              lg: '1024px',
+              xl: '1280px',
+            },
+          },
           extend: {
             colors: {
               'brand-dark': '#0D1117',
               'brand-light': '#FFFFFF',
               'brand-gray': '#8D96A0',
               'brand-accent': '#38BDF8',
-              'brand-border': 'rgba(255, 255, 255, 0.1)',
+              'brand-border': 'rgba(255, 255, 255, 0.08)',
               'whatsapp-green': '#25D366',
             },
             fontFamily: {
@@ -93,13 +109,6 @@
                 '0%': { opacity: '1', transform: 'translate(0, 0) scale(1)', filter: 'blur(0px)' },
                 '100%': { opacity: '0', transform: 'translate(-40%, 40%) scale(0)', filter: 'blur(10px)' },
               }
-            },
-            transitionDelay: {
-              '2000': '2000ms',
-              '4000': '4000ms',
-            },
-            backdropBlur: {
-              'xl': '24px',
             }
           }
         }
@@ -114,6 +123,10 @@
       }
       body {
         font-family: 'Inter', 'Cairo', sans-serif;
+        font-size: 15px; /* Slightly smaller base font */
+      }
+      .container {
+        max-width: 1100px !important; /* Force a more compact container */
       }
     </style>
   <script type="importmap">
