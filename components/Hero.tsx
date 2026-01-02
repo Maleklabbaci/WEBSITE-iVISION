@@ -160,7 +160,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               {translations.subtitle}
             </p>
 
-            <div className={`flex flex-col sm:flex-row items-center justify-center gap-8 transition-all duration-1000 ${isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'}`} style={{ animationDelay: '600ms' }}>
+            <div className={`flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-12 transition-all duration-1000 ${isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'}`} style={{ animationDelay: '600ms' }}>
               <button 
                 onClick={onQuoteClick}
                 className="group relative bg-brand-accent text-brand-dark font-black py-5 px-14 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_40px_rgba(56,189,248,0.2)] hover:shadow-brand-accent/40"
@@ -223,8 +223,8 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
         </div>
       </div>
 
-      {/* Scroll Down Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center opacity-40 hover:opacity-100 transition-opacity">
+      {/* Scroll Down Indicator - Hidden on mobile to prevent overlap with links */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center opacity-40 hover:opacity-100 transition-opacity">
         <span className="text-[9px] uppercase font-black tracking-[0.5em] mb-4 text-brand-accent">Scroll</span>
         <div className="w-px h-12 bg-gradient-to-b from-brand-accent to-transparent"></div>
       </div>
