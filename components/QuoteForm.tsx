@@ -48,7 +48,6 @@ interface QuoteFormProps {
         badge: string;
       }
     };
-    onClose: () => void;
 }
 
 // Icons
@@ -66,18 +65,7 @@ const serviceIcons = [
   <IconDots />
 ];
 
-interface CheckboxGroupProps {
-  label: string;
-  hint: string;
-  name: string;
-  options: string[];
-  selectedValues: string[];
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  icons?: React.ReactNode[];
-}
-
-const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ label, hint, name, options, selectedValues, onChange, required, icons }) => (
+const CheckboxGroup: React.FC<any> = ({ label, hint, name, options, selectedValues, onChange, icons }) => (
   <div>
     <label className="block text-sm font-bold text-brand-gray mb-3 uppercase tracking-wider text-[10px]">
       {label} <span className="text-[9px] opacity-60 lowercase font-normal">{hint}</span>
@@ -86,23 +74,15 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ label, hint, name, option
       {options.map((option, index) => {
         const isSelected = selectedValues.includes(option);
         const Icon = icons ? icons[index] : null;
-        
         return (
           <label key={option} className={`cursor-pointer flex flex-col items-center justify-center gap-2 p-3 border rounded-xl transition-all duration-300 text-xs h-full ${
             isSelected
               ? 'bg-brand-accent/20 text-brand-accent border-brand-accent shadow-[0_0_15px_rgba(56,189,248,0.15)]'
               : 'bg-brand-dark/50 border-brand-border hover:border-brand-accent/40'
           }`}>
-            <input
-              type="checkbox"
-              name={name}
-              value={option}
-              checked={isSelected}
-              onChange={onChange}
-              className="sr-only"
-            />
+            <input type="checkbox" name={name} value={option} checked={isSelected} onChange={onChange} className="sr-only" />
             {Icon && (
-              <div className={`transition-all duration-300 transform ${isSelected ? 'scale-110 text-brand-accent' : 'text-brand-gray group-hover:text-brand-accent/60'}`}>
+              <div className={`transition-all duration-300 transform ${isSelected ? 'scale-110 text-brand-accent' : 'text-brand-gray'}`}>
                 {Icon}
               </div>
             )}
@@ -114,17 +94,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ label, hint, name, option
   </div>
 );
 
-interface RadioBoxGroupProps {
-  label: string;
-  hint?: string;
-  name: string;
-  options: string[];
-  selectedValue: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-}
-
-const RadioBoxGroup: React.FC<RadioBoxGroupProps> = ({ label, hint, name, options, selectedValue, onChange, required }) => (
+const RadioBoxGroup: React.FC<any> = ({ label, hint, name, options, selectedValue, onChange, required }) => (
   <div>
     <label className="block text-sm font-bold text-brand-gray mb-3 uppercase tracking-wider text-[10px]">
       {label} {hint && <span className="block mt-1 text-[9px] text-brand-accent font-medium normal-case tracking-normal">{hint}</span>}
@@ -136,15 +106,7 @@ const RadioBoxGroup: React.FC<RadioBoxGroupProps> = ({ label, hint, name, option
             ? 'bg-brand-accent/20 text-brand-accent border-brand-accent shadow-[0_0_15px_rgba(56,189,248,0.15)]'
             : 'bg-brand-dark/50 border-brand-border hover:border-brand-accent/40'
         }`}>
-          <input
-            type="radio"
-            name={name}
-            value={option}
-            checked={selectedValue === option}
-            onChange={onChange}
-            className="sr-only"
-            required={required && !selectedValue}
-          />
+          <input type="radio" name={name} value={option} checked={selectedValue === option} onChange={onChange} className="sr-only" required={required && !selectedValue} />
           {option}
         </label>
       ))}
@@ -152,8 +114,7 @@ const RadioBoxGroup: React.FC<RadioBoxGroupProps> = ({ label, hint, name, option
   </div>
 );
 
-
-const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
+const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   const [formData, setFormData] = useState({
     name: '',
     companyName: '',
@@ -174,13 +135,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
 
   const handleServiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
-    setFormData(prev => {
-        if (checked) {
-            return { ...prev, services: [...prev.services, value] };
-        } else {
-            return { ...prev, services: prev.services.filter(s => s !== value) };
-        }
-    });
+    setFormData(prev => ({
+      ...prev,
+      services: checked ? [...prev.services, value] : prev.services.filter(s => s !== value)
+    }));
     if (formError) setFormError(null);
   };
 
@@ -193,7 +151,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
       `🛠️ *Services:* ${formData.services.length > 0 ? formData.services.join(', ') : '...'}\n` +
       `💰 *Budget:* ${formData.budget || 'N/A'}\n\n` +
       `📝 *Projet:* \n${formData.project || '...'}`;
-
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   }, [formData]);
 
@@ -205,204 +162,101 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
     return null;
   };
 
-  const handleWhatsAppClick = (e: React.MouseEvent) => {
-    const error = validateForm();
-    if (error) {
-      e.preventDefault();
-      setFormError(error);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const error = validateForm();
-    if (error) {
-      setFormError(error);
-      return;
-    }
-
+    if (error) { setFormError(error); return; }
     setIsSubmitting(true);
     setFormError(null);
-
     try {
       const response = await fetch(`https://submit-form.com/${FORMSPARK_FORM_ID}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          services: formData.services.join(', '), 
-          "_email.subject": `Lead iVISION: ${formData.name}`,
-        }),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ ...formData, services: formData.services.join(', '), "_email.subject": `Lead iVISION: ${formData.name}` }),
       });
-
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        setFormError("Erreur lors de l'envoi. Veuillez utiliser WhatsApp.");
-      }
-    } catch (error) {
+      if (response.ok) setIsSubmitted(true);
+      else setFormError("Erreur lors de l'envoi. Veuillez utiliser WhatsApp.");
+    } catch {
       setFormError("Erreur de connexion. Veuillez essayer via WhatsApp.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    } finally { setIsSubmitting(false); }
   };
 
   return (
-    <div 
-        className="fixed inset-0 bg-brand-dark/80 z-[60] flex items-center justify-center p-4 backdrop-blur-sm"
-        onClick={onClose}
-    >
-      <div
-        className="relative bg-brand-dark border border-brand-border text-brand-light p-8 md:p-10 rounded-[2.5rem] max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-in shadow-[0_25px_80px_rgba(0,0,0,0.6)]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button onClick={onClose} className="absolute top-8 right-8 text-brand-gray hover:text-brand-accent transition-all duration-300 p-2 group">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 group-hover:rotate-90 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-        
-        {isSubmitted ? (
+    <section className="py-12 md:py-20 animate-fade-in-up">
+      <div className="container px-6">
+        <div className="bg-brand-dark/40 border border-brand-border p-8 md:p-14 rounded-[3.5rem] shadow-2xl relative overflow-hidden">
+          {isSubmitted ? (
             <div className="text-center py-16">
-                 <div className="mx-auto bg-brand-accent/20 text-brand-accent w-24 h-24 rounded-full flex items-center justify-center mb-8 animate-fade-in-up">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                 </div>
-                <h3 className="text-4xl font-black mb-4 text-brand-light tracking-tight">{translations.form.successTitle}</h3>
-                <p className="text-brand-gray text-xl max-w-md mx-auto">{translations.form.successMessage}</p>
-                <button onClick={onClose} className="mt-12 bg-brand-accent text-brand-dark font-black py-4 px-12 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-brand-accent/20">
-                  Fermer
-                </button>
+               <div className="mx-auto bg-brand-accent/20 text-brand-accent w-20 h-20 rounded-full flex items-center justify-center mb-8">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+               </div>
+              <h3 className="text-3xl font-black mb-4 tracking-tight">{translations.form.successTitle}</h3>
+              <p className="text-brand-gray text-lg max-w-md mx-auto">{translations.form.successMessage}</p>
+              <a href="#accueil" className="mt-12 inline-block bg-brand-accent text-brand-dark font-black py-4 px-12 rounded-2xl transition-all shadow-xl shadow-brand-accent/20">Accueil</a>
             </div>
-        ) : (
+          ) : (
             <>
-                <h3 className="text-3xl md:text-4xl font-black mb-6 text-center tracking-tighter uppercase">{translations.form.title}</h3>
-                
-                <div className="bg-brand-accent/5 border border-brand-accent/20 rounded-3xl p-6 mb-10 relative overflow-hidden group">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-brand-accent"></div>
-                  <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
-                    <div className="w-12 h-12 bg-brand-accent/20 rounded-full flex items-center justify-center shrink-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
+              <div className="mb-12 text-center">
+                <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tighter uppercase">{translations.form.title}</h2>
+                <div className="w-16 h-0.5 bg-brand-accent mx-auto rounded-full opacity-50"></div>
+              </div>
+
+              <div className="bg-brand-accent/5 border border-brand-accent/10 rounded-3xl p-6 mb-12 flex flex-col md:flex-row items-center gap-6">
+                  <div className="w-12 h-12 bg-brand-accent/10 rounded-2xl flex items-center justify-center text-brand-accent">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                  </div>
+                  <div className="text-center md:text-left">
+                    <div className="flex items-center justify-center md:justify-start gap-3 mb-1">
+                      <h4 className="text-brand-accent font-black uppercase tracking-widest text-[10px]">{translations.qualification.title}</h4>
+                      <span className="bg-brand-accent/10 text-brand-accent text-[8px] font-black px-2 py-0.5 rounded-full">{translations.qualification.badge}</span>
                     </div>
-                    <div className="text-center md:text-left">
-                      <div className="flex items-center justify-center md:justify-start gap-3 mb-1">
-                        <h4 className="text-brand-accent font-black uppercase tracking-widest text-xs">{translations.qualification.title}</h4>
-                        <span className="bg-brand-accent/20 text-brand-accent text-[9px] font-black px-2 py-0.5 rounded-full uppercase">{translations.qualification.badge}</span>
+                    <p className="text-brand-gray text-[13px] leading-relaxed">{translations.qualification.message}</p>
+                  </div>
+              </div>
+
+              {formError && <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-2xl mb-8 text-center text-xs font-bold animate-shake">{formError}</div>}
+
+              <form onSubmit={handleSubmit} className="space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="space-y-6">
+                    <h4 className="text-[10px] font-black text-brand-accent uppercase tracking-[0.3em] border-b border-white/5 pb-2 mb-6">{translations.form.yourInfoTitle}</h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-[9px] font-black uppercase tracking-widest text-brand-gray mb-1.5 ml-1">{translations.form.nameLabel}</label>
+                        <input type="text" name="name" placeholder={translations.form.namePlaceholder} value={formData.name} onChange={handleChange} className="w-full p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs" required />
                       </div>
-                      <p className="text-brand-gray text-sm leading-relaxed">{translations.qualification.message}</p>
+                      <div>
+                        <label className="block text-[9px] font-black uppercase tracking-widest text-brand-gray mb-1.5 ml-1">{translations.form.companyNameLabel}</label>
+                        <input type="text" name="companyName" placeholder={translations.form.companyNamePlaceholder} value={formData.companyName} onChange={handleChange} className="w-full p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs" />
+                      </div>
+                      <div>
+                        <label className="block text-[9px] font-black uppercase tracking-widest text-brand-gray mb-1.5 ml-1">{translations.form.emailLabel}</label>
+                        <input type="email" name="email" placeholder={translations.form.emailPlaceholder} value={formData.email} onChange={handleChange} className="w-full p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs" required />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <h4 className="text-[10px] font-black text-brand-accent uppercase tracking-[0.3em] border-b border-white/5 pb-2 mb-6">{translations.form.projectInfoTitle}</h4>
+                    <div className="space-y-6">
+                      <CheckboxGroup label={translations.form.serviceLabel} hint={translations.form.serviceLabelHint} name="services" options={translations.form.serviceOptions} selectedValues={formData.services} onChange={handleServiceChange} icons={serviceIcons} />
+                      <RadioBoxGroup label={translations.form.budgetLabel} hint={translations.form.budgetLabelHint} name="budget" options={translations.form.budgetOptions} selectedValue={formData.budget} onChange={handleChange} required />
                     </div>
                   </div>
                 </div>
-
-                {formError && (
-                  <div className="bg-red-500/10 border border-red-500/40 text-red-400 p-4 rounded-2xl mb-8 text-center text-sm font-bold flex items-center justify-center gap-2 animate-shake">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    {formError}
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-                    {/* User Profile */}
-                    <div className="space-y-6">
-                        <h4 className="text-xs font-black text-brand-accent uppercase tracking-[0.3em] border-b border-brand-border pb-3 mb-6">
-                            {translations.form.yourInfoTitle}
-                        </h4>
-                        <div className="space-y-4">
-                            <div>
-                                <label htmlFor="name" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.nameLabel}</label>
-                                <input id="name" type="text" name="name" placeholder={translations.form.namePlaceholder} value={formData.name} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 text-xs" required disabled={isSubmitting} />
-                            </div>
-                            <div>
-                                <label htmlFor="companyName" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.companyNameLabel}</label>
-                                <input id="companyName" type="text" name="companyName" placeholder={translations.form.companyNamePlaceholder} value={formData.companyName} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 text-xs" disabled={isSubmitting} />
-                            </div>
-                            <div>
-                                <label htmlFor="email" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.emailLabel}</label>
-                                <input id="email" type="email" name="email" placeholder={translations.form.emailPlaceholder} value={formData.email} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 text-xs" required disabled={isSubmitting} />
-                            </div>
-                            <div>
-                                <label htmlFor="phone" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.phoneLabel}</label>
-                                <input id="phone" type="tel" name="phone" placeholder={translations.form.phonePlaceholder} value={formData.phone} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 text-xs" disabled={isSubmitting} />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Project Requirements */}
-                    <div className="space-y-6">
-                        <h4 className="text-xs font-black text-brand-accent uppercase tracking-[0.3em] border-b border-brand-border pb-3 mb-6">
-                           {translations.form.projectInfoTitle}
-                        </h4>
-                        <div className="space-y-8">
-                            <CheckboxGroup
-                              label={translations.form.serviceLabel}
-                              hint={translations.form.serviceLabelHint}
-                              name="services"
-                              options={translations.form.serviceOptions}
-                              selectedValues={formData.services}
-                              onChange={handleServiceChange}
-                              required
-                              icons={serviceIcons}
-                            />
-                            <RadioBoxGroup
-                              label={translations.form.budgetLabel}
-                              hint={translations.form.budgetLabelHint}
-                              name="budget"
-                              options={translations.form.budgetOptions}
-                              selectedValue={formData.budget}
-                              onChange={handleChange}
-                              required
-                            />
-                        </div>
-                    </div>
-                  </div>
-
-                  {/* Message Field */}
-                  <div className="w-full">
-                      <label htmlFor="project" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.projectLabel}</label>
-                      <textarea id="project" name="project" placeholder={translations.form.projectPlaceholder} value={formData.project} onChange={handleChange} rows={4} className="w-full p-5 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 resize-none text-xs" required disabled={isSubmitting}></textarea>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex flex-col sm:flex-row gap-5 items-center justify-center pt-4">
-                    <button 
-                        type="submit" 
-                        disabled={isSubmitting}
-                        className={`w-full sm:w-auto min-w-[200px] bg-brand-light text-brand-dark font-black py-4 px-10 rounded-2xl transition-all duration-300 ${isSubmitting ? 'opacity-40 cursor-not-allowed' : 'hover:scale-[1.03] active:scale-95 shadow-2xl shadow-brand-light/10'} uppercase tracking-widest text-[11px]`}
-                    >
-                        {isSubmitting ? translations.form.cta + '...' : translations.form.cta}
-                    </button>
-                    
-                    <a 
-                        href={whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={handleWhatsAppClick}
-                        className={`w-full sm:w-auto min-w-[250px] bg-whatsapp-green text-white font-black py-4 px-10 rounded-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-2xl shadow-whatsapp-green/30 flex items-center justify-center gap-3 uppercase tracking-widest text-[11px]`}
-                    >
-                        <svg 
-                          viewBox="0 0 24 24" 
-                          className="w-5 h-5 fill-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.411 0 .01 5.403.007 12.04c0 2.123.554 4.197 1.607 6.034L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.637 0 12.038-5.402 12.041-12.04a11.817 11.817 0 00-3.517-8.482" />
-                        </svg>
-                        {translations.form.whatsappCta}
-                    </a>
-                  </div>
-                </form>
+                <div>
+                  <label className="block text-[9px] font-black uppercase tracking-widest text-brand-gray mb-1.5 ml-1">{translations.form.projectLabel}</label>
+                  <textarea name="project" placeholder={translations.form.projectPlaceholder} value={formData.project} onChange={handleChange} rows={5} className="w-full p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs resize-none" required></textarea>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                  <button type="submit" disabled={isSubmitting} className="w-full sm:w-auto min-w-[200px] bg-white text-brand-dark font-black py-4 px-10 rounded-xl transition-all uppercase tracking-widest text-[10px]">{isSubmitting ? 'Envoi...' : translations.form.cta}</button>
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto min-w-[200px] bg-whatsapp-green text-white font-black py-4 px-10 rounded-xl transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-[10px]">{translations.form.whatsappCta}</a>
+                </div>
+              </form>
             </>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

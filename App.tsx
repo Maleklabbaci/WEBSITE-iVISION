@@ -30,13 +30,12 @@ const StaticBackground: React.FC = () => (
   </div>
 );
 
-
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [language, setLanguage] = useState<Language>('fr');
   const [showLangSelector, setShowLangSelector] = useState(true);
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
-  const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<'home' | 'quote'>('home');
   const [isPromoVisible, setIsPromoVisible] = useState(false);
   const [hasShownPromo, setHasShownPromo] = useState(false);
   
@@ -45,6 +44,23 @@ const App: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1600);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Handle Hash Routing
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#/devis') {
+        setCurrentView('quote');
+        window.scrollTo(0, 0);
+      } else {
+        setCurrentView('home');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // Initial check
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   useEffect(() => {
@@ -59,6 +75,12 @@ const App: React.FC = () => {
       const anchor = target.closest('a');
       
       if (anchor && anchor.hash && anchor.origin === window.location.origin) {
+        // If we are on the quote page and want to go home
+        if (currentView === 'quote') {
+            window.location.hash = anchor.hash.replace('#', '');
+            return;
+        }
+
         const element = document.querySelector(anchor.hash);
         if (element) {
           e.preventDefault();
@@ -66,7 +88,6 @@ const App: React.FC = () => {
             behavior: 'smooth',
             block: 'start',
           });
-          // Update URL without jump
           window.history.pushState(null, '', anchor.hash);
         }
       }
@@ -74,18 +95,17 @@ const App: React.FC = () => {
 
     document.addEventListener('click', handleAnchorClick);
     return () => document.removeEventListener('click', handleAnchorClick);
-  }, []);
+  }, [currentView]);
 
   // Lazy Scroll Promo Trigger
   useEffect(() => {
-    if (showLangSelector || hasShownPromo || isLoading) return;
+    if (showLangSelector || hasShownPromo || isLoading || currentView === 'quote') return;
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
       
-      // Trigger when user has scrolled 20% of the page
       if (scrollY > (docHeight - windowHeight) * 0.2) {
         setIsPromoVisible(true);
         setHasShownPromo(true);
@@ -94,20 +114,20 @@ const App: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [showLangSelector, hasShownPromo, isLoading]);
+  }, [showLangSelector, hasShownPromo, isLoading, currentView]);
 
   const handleSelectLanguage = (selectedLanguage: Language) => {
     setLanguage(selectedLanguage);
     setIsExitingLangSelector(true);
-    
-    // Smooth exit animation before hiding the overlay
     setTimeout(() => {
       setShowLangSelector(false);
     }, 600);
   };
 
-  const handleOpenQuoteForm = () => setIsQuoteFormOpen(true);
-  const handleCloseQuoteForm = () => setIsQuoteFormOpen(false);
+  const handleOpenQuotePage = () => {
+    window.location.hash = '/devis';
+  };
+
   const handleClosePromo = () => setIsPromoVisible(false);
   
   const t = translations[language] || translations['fr'];
@@ -118,7 +138,6 @@ const App: React.FC = () => {
       
       {isLoading && <SplashScreen />}
 
-      {/* Floating Buttons */}
       {!isLoading && (
         <>
           <WhatsAppPromoPopup 
@@ -135,7 +154,6 @@ const App: React.FC = () => {
         </>
       )}
 
-      {/* Language Popup Overlay */}
       {!isLoading && showLangSelector && (
         <div 
           key="lang-selector-overlay" 
@@ -147,28 +165,31 @@ const App: React.FC = () => {
         </div>
       )}
       
-      {/* Main Content */}
       <div 
         key="main-content" 
         className={`relative z-10 flex flex-col min-h-screen transition-all duration-1000 ${isLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'} ${showLangSelector || isPromoVisible ? 'filter blur-md' : 'filter blur-0'}`}
       >
-        <Header translations={t.header} onQuoteClick={handleOpenQuoteForm} />
-        <main className="flex-grow">
-          <Hero translations={t.hero} onQuoteClick={handleOpenQuoteForm} />
-          <ClientLogos translations={t.clientLogos} />
-          <Services translations={t.services} />
-          <VisualShowcase translations={t.visualShowcase} />
-          <Process translations={t.process} />
-          <Portfolio translations={t.portfolio} onQuoteClick={handleOpenQuoteForm} />
-          <Testimonials translations={t.testimonials} />
-          <FAQ translations={t.faq} />
+        <Header translations={t.header} onQuoteClick={handleOpenQuotePage} />
+        
+        <main className="flex-grow pt-24">
+          {currentView === 'home' ? (
+            <>
+              <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
+              <ClientLogos translations={t.clientLogos} />
+              <Services translations={t.services} />
+              <VisualShowcase translations={t.visualShowcase} />
+              <Process translations={t.process} />
+              <Portfolio translations={t.portfolio} onQuoteClick={handleOpenQuotePage} />
+              <Testimonials translations={t.testimonials} />
+              <FAQ translations={t.faq} />
+            </>
+          ) : (
+            <QuoteForm translations={t.contact} />
+          )}
         </main>
+
         <Footer translations={t.footer} />
       </div>
-
-      {isQuoteFormOpen && (
-        <QuoteForm translations={t.contact} onClose={handleCloseQuoteForm} />
-      )}
     </div>
   );
 };
