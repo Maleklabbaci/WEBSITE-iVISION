@@ -256,7 +256,7 @@ const textContent = {
         { 
           client: 'علامة تجارية لمستحضرات التجميل', 
           title: 'إطلاق منتج واسع الانتشار',
-          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop',
+          image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop',
           results: [
             { value: '+5 مليون', label: 'ظهور في شهر واحد' },
             { value: 'المرتبة الأولى', label: 'في الترند على الشبكات' },
@@ -419,7 +419,16 @@ const textContent = {
       phoneLabel: { fr: 'Numéro de téléphone', en: 'Phone Number', ar: 'رقم الهاتف' },
       serviceLabel: { fr: 'Service souhaité', en: 'Service Needed', ar: 'الخدمة المطلوبة' },
       serviceLabelHint: { fr: '(choix multiple)', en: '(multiple choice)', ar: '(اختيار متعدد)' },
-      budgetLabel: { fr: 'Budget estimé (DZD)', en: 'Estimated Budget (DZD)', ar: 'الميزانية التقديرية (دينار جزائري)' },
+      budgetLabel: { 
+        fr: 'Budget estimé (DZD)', 
+        en: 'Estimated Budget (DZD)', 
+        ar: 'الميزانية التقديرية (دينار جزائري)' 
+      },
+      budgetLabelHint: {
+        fr: 'Min. 10 000 DZD',
+        en: 'Min. 10,000 DZD',
+        ar: 'نبدأ العمل على المشاريع التي تفوق ميزانيتها 10,000 دج.',
+      },
       projectLabel: { fr: 'Description du projet', en: 'Project Description', ar: 'وصف المشروع' },
       namePlaceholder: { fr: 'Votre nom', en: 'Your name', ar: 'اسمك' },
       companyNamePlaceholder: { fr: 'Votre entreprise', en: 'Your company', ar: 'شركتك' },
@@ -433,9 +442,9 @@ const textContent = {
       },
       budget: { fr: 'Choisir un budget', en: 'Choose a budget', ar: 'اختر ميزانية' },
       budgetOptions: {
-        fr: ['Moins de 100 000 DZD', '100 000 - 250 000 DZD', '250 000 - 500 000 DZD', 'Plus de 500 000 DZD'],
-        en: ['Less than 100,000 DZD', '100,000 - 250,000 DZD', '250,000 - 500,000 DZD', 'More than 500,000 DZD'],
-        ar: ['أقل من 100,000 دج', '100,000 - 250,000 دج', '250,000 - 500,000 دج', 'أكثر من 500,000 دج'],
+        fr: ['10 000 - 30 000 DZD', '30 000 - 50 000 DZD', '50 000 - 100 000 DZD', 'Plus de 100 000 DZD'],
+        en: ['10,000 - 30,000 DZD', '30,000 - 50,000 DZD', '50,000 - 100,000 DZD', 'More than 100,000 DZD'],
+        ar: ['10,000 دج – 30,000 دج', '30,000 دج – 50,000 دج', '50,000 دج – 100,000 دج', 'أكثر من 100,000 دج'],
       },
       projectPlaceholder: { fr: 'Décrivez votre projet', en: 'Describe your project', ar: 'صف مشروعك' },
       cta: { fr: 'Envoyer la demande', en: 'Send request', ar: 'إرسال الطلب' },
@@ -549,6 +558,7 @@ const processTranslations = (lang: Language) => ({
             serviceLabel: textContent.contact.form.serviceLabel[lang],
             serviceLabelHint: textContent.contact.form.serviceLabelHint[lang],
             budgetLabel: textContent.contact.form.budgetLabel[lang],
+            budgetLabelHint: textContent.contact.form.budgetLabelHint[lang],
             projectLabel: textContent.contact.form.projectLabel[lang],
             namePlaceholder: textContent.contact.form.namePlaceholder[lang],
             companyNamePlaceholder: textContent.contact.form.companyNamePlaceholder[lang],

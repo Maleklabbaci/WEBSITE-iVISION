@@ -14,6 +14,7 @@ interface ContactTranslations {
         serviceLabel: string;
         serviceLabelHint: string;
         budgetLabel: string;
+        budgetLabelHint: string;
         projectLabel: string;
         namePlaceholder: string;
         companyNamePlaceholder: string;
@@ -115,6 +116,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ label, hint, name, option
 
 interface RadioBoxGroupProps {
   label: string;
+  hint?: string;
   name: string;
   options: string[];
   selectedValue: string;
@@ -122,9 +124,11 @@ interface RadioBoxGroupProps {
   required?: boolean;
 }
 
-const RadioBoxGroup: React.FC<RadioBoxGroupProps> = ({ label, name, options, selectedValue, onChange, required }) => (
+const RadioBoxGroup: React.FC<RadioBoxGroupProps> = ({ label, hint, name, options, selectedValue, onChange, required }) => (
   <div>
-    <label className="block text-sm font-bold text-brand-gray mb-3 uppercase tracking-wider text-[10px]">{label}</label>
+    <label className="block text-sm font-bold text-brand-gray mb-3 uppercase tracking-wider text-[10px]">
+      {label} {hint && <span className="block mt-1 text-[9px] text-brand-accent font-medium normal-case tracking-normal">{hint}</span>}
+    </label>
     <div className="grid grid-cols-2 gap-2">
       {options.map((option) => (
         <label key={option} className={`cursor-pointer text-center p-3 border rounded-xl transition-all duration-300 text-xs flex items-center justify-center h-full font-medium ${
@@ -278,7 +282,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
             <>
                 <h3 className="text-3xl md:text-4xl font-black mb-6 text-center tracking-tighter uppercase">{translations.form.title}</h3>
                 
-                {/* Premium Qualification Warning */}
                 <div className="bg-brand-accent/5 border border-brand-accent/20 rounded-3xl p-6 mb-10 relative overflow-hidden group">
                   <div className="absolute top-0 left-0 w-1 h-full bg-brand-accent"></div>
                   <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
@@ -316,19 +319,19 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
                         <div className="space-y-4">
                             <div>
                                 <label htmlFor="name" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.nameLabel}</label>
-                                <input id="name" type="text" name="name" placeholder={translations.form.namePlaceholder} value={formData.name} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30" required disabled={isSubmitting} />
+                                <input id="name" type="text" name="name" placeholder={translations.form.namePlaceholder} value={formData.name} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 text-xs" required disabled={isSubmitting} />
                             </div>
                             <div>
                                 <label htmlFor="companyName" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.companyNameLabel}</label>
-                                <input id="companyName" type="text" name="companyName" placeholder={translations.form.companyNamePlaceholder} value={formData.companyName} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30" disabled={isSubmitting} />
+                                <input id="companyName" type="text" name="companyName" placeholder={translations.form.companyNamePlaceholder} value={formData.companyName} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 text-xs" disabled={isSubmitting} />
                             </div>
                             <div>
                                 <label htmlFor="email" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.emailLabel}</label>
-                                <input id="email" type="email" name="email" placeholder={translations.form.emailPlaceholder} value={formData.email} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30" required disabled={isSubmitting} />
+                                <input id="email" type="email" name="email" placeholder={translations.form.emailPlaceholder} value={formData.email} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 text-xs" required disabled={isSubmitting} />
                             </div>
                             <div>
                                 <label htmlFor="phone" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.phoneLabel}</label>
-                                <input id="phone" type="tel" name="phone" placeholder={translations.form.phonePlaceholder} value={formData.phone} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30" disabled={isSubmitting} />
+                                <input id="phone" type="tel" name="phone" placeholder={translations.form.phonePlaceholder} value={formData.phone} onChange={handleChange} className="w-full p-4 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 text-xs" disabled={isSubmitting} />
                             </div>
                         </div>
                     </div>
@@ -351,6 +354,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
                             />
                             <RadioBoxGroup
                               label={translations.form.budgetLabel}
+                              hint={translations.form.budgetLabelHint}
                               name="budget"
                               options={translations.form.budgetOptions}
                               selectedValue={formData.budget}
@@ -364,7 +368,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
                   {/* Message Field */}
                   <div className="w-full">
                       <label htmlFor="project" className="block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ml-1">{translations.form.projectLabel}</label>
-                      <textarea id="project" name="project" placeholder={translations.form.projectPlaceholder} value={formData.project} onChange={handleChange} rows={4} className="w-full p-5 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 resize-none" required disabled={isSubmitting}></textarea>
+                      <textarea id="project" name="project" placeholder={translations.form.projectPlaceholder} value={formData.project} onChange={handleChange} rows={4} className="w-full p-5 bg-brand-dark border border-brand-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all placeholder:text-brand-gray/30 resize-none text-xs" required disabled={isSubmitting}></textarea>
                   </div>
 
                   {/* Actions */}
@@ -372,7 +376,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
                     <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className={`w-full sm:w-auto min-w-[200px] bg-brand-light text-brand-dark font-black py-5 px-10 rounded-2xl transition-all duration-300 ${isSubmitting ? 'opacity-40 cursor-not-allowed' : 'hover:scale-[1.03] active:scale-95 shadow-2xl shadow-brand-light/10'} uppercase tracking-widest text-xs`}
+                        className={`w-full sm:w-auto min-w-[200px] bg-brand-light text-brand-dark font-black py-4 px-10 rounded-2xl transition-all duration-300 ${isSubmitting ? 'opacity-40 cursor-not-allowed' : 'hover:scale-[1.03] active:scale-95 shadow-2xl shadow-brand-light/10'} uppercase tracking-widest text-[11px]`}
                     >
                         {isSubmitting ? translations.form.cta + '...' : translations.form.cta}
                     </button>
@@ -382,11 +386,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations, onClose }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={handleWhatsAppClick}
-                        className={`w-full sm:w-auto min-w-[250px] bg-whatsapp-green text-white font-black py-5 px-10 rounded-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-2xl shadow-whatsapp-green/30 flex items-center justify-center gap-3 uppercase tracking-widest text-xs`}
+                        className={`w-full sm:w-auto min-w-[250px] bg-whatsapp-green text-white font-black py-4 px-10 rounded-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-2xl shadow-whatsapp-green/30 flex items-center justify-center gap-3 uppercase tracking-widest text-[11px]`}
                     >
                         <svg 
                           viewBox="0 0 24 24" 
-                          className="w-6 h-6 fill-white"
+                          className="w-5 h-5 fill-white"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.411 0 .01 5.403.007 12.04c0 2.123.554 4.197 1.607 6.034L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.637 0 12.038-5.402 12.041-12.04a11.817 11.817 0 00-3.517-8.482" />
