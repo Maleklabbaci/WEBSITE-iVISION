@@ -256,7 +256,7 @@ const textContent = {
         { 
           client: 'علامة تجارية لمستحضرات التجميل', 
           title: 'إطلاق منتج واسع الانتشار',
-          image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop',
+          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop',
           results: [
             { value: '+5 مليون', label: 'ظهور في شهر واحد' },
             { value: 'المرتبة الأولى', label: 'في الترند على الشبكات' },
@@ -415,8 +415,32 @@ const textContent = {
       projectInfoTitle: { fr: 'Informations sur le projet', en: 'Project Information', ar: 'معلومات المشروع' },
       nameLabel: { fr: 'Nom complet', en: 'Full Name', ar: 'الاسم الكامل' },
       companyNameLabel: { fr: "Nom de l'entreprise", en: 'Company Name', ar: 'اسم الشركة' },
-      emailLabel: { fr: 'Adresse e-mail', en: 'Email Address', ar: 'البريد الإلكتروني' },
-      phoneLabel: { fr: 'Numéro de téléphone', en: 'Phone Number', ar: 'رقم الهاتف' },
+      emailLabel: { fr: 'البريد الإلكتروني (اختياري)', en: 'Email Address (optional)', ar: 'البريد الإلكتروني (اختياري)' },
+      phoneLabel: { 
+        fr: 'Numéro de téléphone / WhatsApp', 
+        en: 'Phone Number / WhatsApp', 
+        ar: 'رقم الهاتف / واتساب (مهم للتواصل السريع)' 
+      },
+      activityLabel: {
+        fr: 'Secteur d\'activité (resto, clinique, habits...)',
+        en: 'Business Sector (restaurant, clinic, clothing...)',
+        ar: 'مجال النشاط (مطعم، عيادة، ملابس، تدريب، …)'
+      },
+      goalLabel: {
+        fr: 'Objectif du projet',
+        en: 'Project Goal',
+        ar: 'هدف المشروع'
+      },
+      goalLabelHint: {
+        fr: '(choix multiple)',
+        en: '(multiple choice)',
+        ar: '(اختيار متعدد)'
+      },
+      goalOptions: {
+        fr: ['Augmenter les ventes', 'Prendre des RDV', 'Image de marque', 'Lancement de projet', 'Autre'],
+        en: ['Increase sales', 'Book appointments', 'Brand building', 'Project launch', 'Other'],
+        ar: ['زيادة المبيعات', 'حجز مواعيد', 'بناء علامة تجارية', 'إطلاق مشروع جديد', 'أخرى']
+      },
       serviceLabel: { fr: 'Service souhaité', en: 'Service Needed', ar: 'الخدمة المطلوبة' },
       serviceLabelHint: { fr: '(choix multiple)', en: '(multiple choice)', ar: '(اختيار متعدد)' },
       budgetLabel: { 
@@ -425,15 +449,16 @@ const textContent = {
         ar: 'الميزانية التقديرية (دينار جزائري)' 
       },
       budgetLabelHint: {
-        fr: 'Min. 10 000 DZD',
-        en: 'Min. 10,000 DZD',
-        ar: 'نبدأ العمل على المشاريع التي تفوق ميزانيتها 10,000 دج.',
+        fr: 'Min. 5 000 DZD',
+        en: 'Min. 5,000 DZD',
+        ar: 'نبدأ العمل على المشاريع التي تفوق ميزانيتها 5,000 دج.',
       },
       projectLabel: { fr: 'Description du projet', en: 'Project Description', ar: 'وصف المشروع' },
       namePlaceholder: { fr: 'Votre nom', en: 'Your name', ar: 'اسمك' },
       companyNamePlaceholder: { fr: 'Votre entreprise', en: 'Your company', ar: 'شركتك' },
       emailPlaceholder: { fr: 'Votre email', en: 'Your email', ar: 'بريدك الإلكتروني' },
-      phonePlaceholder: { fr: 'Votre numéro de téléphone', en: 'Your phone number', ar: 'رقم هاتفك' },
+      phonePlaceholder: { fr: 'Numéro avec indicatif', en: 'Number with code', ar: 'رقم الهاتف' },
+      activityPlaceholder: { fr: 'Ex: Restauration, Prêt-à-porter', en: 'Ex: Catering, Fashion', ar: 'مثال: مطعم، ملابس...' },
       servicePlaceholder: { fr: 'Choisir un service', en: 'Choose a service', ar: 'اختر خدمة' },
       serviceOptions: {
           fr: ['Marketing digital complet', 'Création de contenu', 'Sponsoring Meta Ads', 'Website e-commerce', 'Autre'],
@@ -442,11 +467,16 @@ const textContent = {
       },
       budget: { fr: 'Choisir un budget', en: 'Choose a budget', ar: 'اختر ميزانية' },
       budgetOptions: {
-        fr: ['10 000 - 30 000 DZD', '30 000 - 50 000 DZD', '50 000 - 100 000 DZD', 'Plus de 100 000 DZD'],
-        en: ['10,000 - 30,000 DZD', '30,000 - 50,000 DZD', '50,000 - 100,000 DZD', 'More than 100,000 DZD'],
-        ar: ['10,000 دج – 30,000 دج', '30,000 دج – 50,000 دج', '50,000 دج – 100,000 دج', 'أكثر من 100,000 دج'],
+        fr: ['5 000 - 10 000 DZD', '10 000 - 30 000 DZD', '30 000 - 70 000 DZD', 'Plus de 100 000 DZD'],
+        en: ['5,000 - 10,000 DZD', '10,000 - 30,000 DZD', '30,000 - 70,000 DZD', 'More than 100,000 DZD'],
+        ar: ['5,000 دج – 10,000 دج', '10,000 دج – 30,000 دج', '30,000 دج – 70,000 دج', 'أكثر من 100,000 دج'],
       },
       projectPlaceholder: { fr: 'Décrivez votre projet', en: 'Describe your project', ar: 'صف مشروعك' },
+      privacyNote: {
+        fr: 'Nous utilisons vos informations uniquement pour vous contacter et envoyer le devis. Aucun partage tiers.',
+        en: 'We only use your info to contact you and send the quote. No third-party sharing.',
+        ar: 'نستخدم معلوماتك فقط للاتصال بك وإرسال عرض السعر، ولا نشاركها مع أي طرف ثالث.'
+      },
       cta: { fr: 'Envoyer la demande', en: 'Send request', ar: 'إرسال الطلب' },
       whatsappCta: { fr: 'Envoyer via WhatsApp', en: 'Send via WhatsApp', ar: 'إرسال عبر واتساب' },
       successTitle: { fr: 'Merci !', en: 'Thank you!', ar: 'شكراً لك!' },
@@ -555,6 +585,10 @@ const processTranslations = (lang: Language) => ({
             companyNameLabel: textContent.contact.form.companyNameLabel[lang],
             emailLabel: textContent.contact.form.emailLabel[lang],
             phoneLabel: textContent.contact.form.phoneLabel[lang],
+            activityLabel: textContent.contact.form.activityLabel[lang],
+            goalLabel: textContent.contact.form.goalLabel[lang],
+            goalLabelHint: textContent.contact.form.goalLabelHint[lang],
+            goalOptions: textContent.contact.form.goalOptions[lang],
             serviceLabel: textContent.contact.form.serviceLabel[lang],
             serviceLabelHint: textContent.contact.form.serviceLabelHint[lang],
             budgetLabel: textContent.contact.form.budgetLabel[lang],
@@ -564,11 +598,13 @@ const processTranslations = (lang: Language) => ({
             companyNamePlaceholder: textContent.contact.form.companyNamePlaceholder[lang],
             emailPlaceholder: textContent.contact.form.emailPlaceholder[lang],
             phonePlaceholder: textContent.contact.form.phonePlaceholder[lang],
+            activityPlaceholder: textContent.contact.form.activityPlaceholder[lang],
             servicePlaceholder: textContent.contact.form.servicePlaceholder[lang],
             serviceOptions: textContent.contact.form.serviceOptions[lang],
             budget: textContent.contact.form.budget[lang],
             budgetOptions: textContent.contact.form.budgetOptions[lang],
             projectPlaceholder: textContent.contact.form.projectPlaceholder[lang],
+            privacyNote: textContent.contact.form.privacyNote[lang],
             cta: textContent.contact.form.cta[lang],
             whatsappCta: textContent.contact.form.whatsappCta[lang],
             successTitle: textContent.contact.form.successTitle[lang],
