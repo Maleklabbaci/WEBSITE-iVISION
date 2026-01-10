@@ -1,3 +1,4 @@
+
 export type Language = 'fr' | 'en' | 'ar';
 
 const textContent = {
@@ -425,6 +426,9 @@ const textContent = {
         en: 'Business Sector (restaurant, clinic, clothing...)',
         ar: 'مجال النشاط (مطعم، عيادة، ملابس، تدريب، …)'
       },
+      facebookLabel: { fr: 'Page Facebook (Optionnel)', en: 'Facebook Page (Optional)', ar: 'صفحة فيسبوك (اختياري)' },
+      instagramLabel: { fr: 'Compte Instagram (Optionnel)', en: 'Instagram Account (Optional)', ar: 'حساب إنستغرام (اختياري)' },
+      tiktokLabel: { fr: 'Compte TikTok (Optionnel)', en: 'TikTok Account (Optional)', ar: 'حساب تيك توك (اختياري)' },
       goalLabel: {
         fr: 'Objectif du projet',
         en: 'Project Goal',
@@ -463,6 +467,9 @@ const textContent = {
       emailPlaceholder: { fr: 'Votre email', en: 'Your email', ar: 'بريدك الإلكتروني' },
       phonePlaceholder: { fr: 'Numéro avec indicatif', en: 'Number with code', ar: 'رقم الهاتف' },
       activityPlaceholder: { fr: 'Ex: Restauration, Prêt-à-porter', en: 'Ex: Catering, Fashion', ar: 'مثال: مطعم، ملابس...' },
+      facebookPlaceholder: { fr: '@page_nom', en: '@page_name', ar: '@اسم_الصفحة' },
+      instagramPlaceholder: { fr: '@username', en: '@username', ar: '@اسم_المستخدم' },
+      tiktokPlaceholder: { fr: '@username', en: '@username', ar: '@اسم_المستخدم' },
       servicePlaceholder: { fr: 'Choisir un service', en: 'Choose a service', ar: 'اختر خدمة' },
       serviceOptions: {
           fr: ['Marketing digital complet', 'Création de contenu', 'Sponsoring Meta Ads', 'Website e-commerce', 'Autre'],
@@ -590,6 +597,9 @@ const processTranslations = (lang: Language) => ({
             emailLabel: textContent.contact.form.emailLabel[lang],
             phoneLabel: textContent.contact.form.phoneLabel[lang],
             activityLabel: textContent.contact.form.activityLabel[lang],
+            facebookLabel: (textContent.contact.form as any).facebookLabel[lang],
+            instagramLabel: (textContent.contact.form as any).instagramLabel[lang],
+            tiktokLabel: (textContent.contact.form as any).tiktokLabel[lang],
             goalLabel: textContent.contact.form.goalLabel[lang],
             goalLabelHint: textContent.contact.form.goalLabelHint[lang],
             goalOptions: textContent.contact.form.goalOptions[lang],
@@ -604,6 +614,9 @@ const processTranslations = (lang: Language) => ({
             emailPlaceholder: textContent.contact.form.emailPlaceholder[lang],
             phonePlaceholder: textContent.contact.form.phonePlaceholder[lang],
             activityPlaceholder: textContent.contact.form.activityPlaceholder[lang],
+            facebookPlaceholder: (textContent.contact.form as any).facebookPlaceholder[lang],
+            instagramPlaceholder: (textContent.contact.form as any).instagramPlaceholder[lang],
+            tiktokPlaceholder: (textContent.contact.form as any).tiktokPlaceholder[lang],
             servicePlaceholder: textContent.contact.form.servicePlaceholder[lang],
             serviceOptions: textContent.contact.form.serviceOptions[lang],
             budget: textContent.contact.form.budget[lang],

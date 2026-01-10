@@ -7,11 +7,16 @@ const WHATSAPP_NUMBER = "213697660969";
 interface ContactTranslations {
     form: {
         title: string;
+        yourInfoTitle: string;
+        projectInfoTitle: string;
         nameLabel: string;
         companyNameLabel: string;
         emailLabel: string;
         phoneLabel: string;
         activityLabel: string;
+        facebookLabel: string;
+        instagramLabel: string;
+        tiktokLabel: string;
         goalLabel: string;
         goalLabelHint: string;
         goalOptions: string[];
@@ -26,6 +31,9 @@ interface ContactTranslations {
         emailPlaceholder: string;
         phonePlaceholder: string;
         activityPlaceholder: string;
+        facebookPlaceholder: string;
+        instagramPlaceholder: string;
+        tiktokPlaceholder: string;
         servicePlaceholder: string;
         serviceOptions: string[];
         budget: string;
@@ -36,8 +44,6 @@ interface ContactTranslations {
         whatsappCta: string;
         successTitle: string;
         successMessage: string;
-        yourInfoTitle: string;
-        projectInfoTitle: string;
     };
     qualification?: {
       title: string;
@@ -66,6 +72,24 @@ const IconDots = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-
 const IconCalendar = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>;
 const IconSparkles = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-12v4m-2-2h4m5 4h.01M17 17v4m-2-2h4M12 21a9 9 0 110-18 9 9 0 010 18z" /></svg>;
 const IconRocket = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.585 15.585a1.826 1.826 0 102.582-2.582 1.826 1.826 0 00-2.582 2.582zM4.318 19.682l2.122-2.122m5.656-5.656l2.122-2.122M11 9.9l1.414-1.414m-1.414 4.242L12.414 11.3M7 7l.707-.707m4.243 4.243l.707-.707m-5.657 5.657l.707-.707m11.314-11.314a8.001 8.001 0 010 11.314l-2.828 2.828a1 1 0 01-1.414 0L4.343 7.879a1 1 0 010-1.414L7.172 3.636a8.001 8.001 0 0111.314 0z" /></svg>;
+
+const IconFacebookBrand = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#1877F2]" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+  </svg>
+);
+
+const IconInstagramBrand = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#E4405F]" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919 4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z" />
+  </svg>
+);
+
+const IconTikTokBrand = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.06-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.33-.85.51-1.44 1.43-1.58 2.41-.05.34-.02.68-.01 1.03.11 1.04.81 2.01 1.8 2.33.5.18 1.05.21 1.57.18.82-.01 1.62-.33 2.22-.88.71-.62 1.09-1.54 1.12-2.47.01-4.75-.01-9.51 0-14.27z" />
+  </svg>
+);
 
 const serviceIcons = [
   <IconTrendingUp />,
@@ -139,6 +163,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     email: '',
     phone: '',
     activity: '',
+    facebook: '',
+    instagram: '',
+    tiktok: '',
     goals: [] as string[],
     services: [] as string[],
     budget: '',
@@ -172,6 +199,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
       `📧 *Email:* ${formData.email || 'N/A'}\n` +
       `📞 *Tel/WA:* ${formData.phone || 'N/A'}\n` +
       `🏪 *Activité:* ${formData.activity || '...'}\n` +
+      `📱 *Facebook:* ${formData.facebook || 'N/A'}\n` +
+      `📸 *Instagram:* ${formData.instagram || 'N/A'}\n` +
+      `🎵 *TikTok:* ${formData.tiktok || 'N/A'}\n` +
       `🎯 *Objectifs:* ${formData.goals.length > 0 ? formData.goals.join(', ') : '...'}\n` +
       `🛠️ *Services:* ${formData.services.length > 0 ? formData.services.join(', ') : '...'}\n` +
       `💰 *Budget:* ${formData.budget || 'N/A'}\n\n` +
@@ -218,7 +248,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     const error = validateForm();
     if (error) {
       setFormError(error);
-      // Scroll to error if visible
       const errorEl = document.getElementById('form-error-display');
       if (errorEl) errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
@@ -227,6 +256,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   };
 
   const inputClass = "w-full p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs text-start rtl:text-right";
+  
+  // Refined input base class for social media fields (removed padding that would clash with separated icon)
+  const socialInputBaseClass = "flex-grow p-4 bg-brand-dark/30 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-[13px] text-start rtl:text-right placeholder:text-white/10";
+  
   const labelClass = "block text-[9px] font-black uppercase tracking-widest text-brand-gray mb-1.5 ms-1 text-start";
 
   return (
@@ -255,10 +288,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                   <div className="text-center md:text-left rtl:md:text-right">
                     <div className="flex items-center justify-center md:justify-start rtl:md:justify-start gap-3 mb-1">
-                      <h4 className="text-brand-accent font-black uppercase tracking-widest text-[10px]">{translations.qualification.title}</h4>
-                      <span className="bg-brand-accent/10 text-brand-accent text-[8px] font-black px-2 py-0.5 rounded-full">{translations.qualification.badge}</span>
+                      <h4 className="text-brand-accent font-black uppercase tracking-widest text-[10px]">{translations.qualification?.title}</h4>
+                      <span className="bg-brand-accent/10 text-brand-accent text-[8px] font-black px-2 py-0.5 rounded-full">{translations.qualification?.badge}</span>
                     </div>
-                    <p className="text-brand-gray text-[13px] leading-relaxed">{translations.qualification.message}</p>
+                    <p className="text-brand-gray text-[13px] leading-relaxed">{translations.qualification?.message}</p>
                   </div>
               </div>
 
@@ -276,30 +309,82 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   <div className="space-y-6">
                     <h4 className="text-[10px] font-black text-brand-accent uppercase tracking-[0.3em] border-b border-white/5 pb-2 mb-6 text-start">{translations.form.yourInfoTitle}</h4>
                     <div className="space-y-4">
-                      {/* 1. الاسم الكامل */}
                       <div>
                         <label className={labelClass}>{translations.form.nameLabel}</label>
                         <input type="text" name="name" placeholder={translations.form.namePlaceholder} value={formData.name} onChange={handleChange} className={inputClass} required />
                       </div>
-                      {/* 2. البريد الإلكتروني (اختياري) */}
                       <div>
                         <label className={labelClass}>{translations.form.emailLabel}</label>
                         <input type="email" name="email" placeholder={translations.form.emailPlaceholder} value={formData.email} onChange={handleChange} className={inputClass} />
                       </div>
-                      {/* 3. رقم الهاتف / واتساب */}
                       <div>
                         <label className={labelClass}>{translations.form.phoneLabel}</label>
                         <input type="tel" name="phone" placeholder={translations.form.phonePlaceholder} value={formData.phone} onChange={handleChange} className={inputClass} required />
                       </div>
-                      {/* 4. اسم الشركة */}
                       <div>
                         <label className={labelClass}>{translations.form.companyNameLabel}</label>
                         <input type="text" name="companyName" placeholder={translations.form.companyNamePlaceholder} value={formData.companyName} onChange={handleChange} className={inputClass} />
                       </div>
-                      {/* 5. مجال النشاط */}
-                      <div>
+                      <div className="pb-2">
                         <label className={labelClass}>{translations.form.activityLabel}</label>
                         <input type="text" name="activity" placeholder={translations.form.activityPlaceholder} value={formData.activity} onChange={handleChange} className={inputClass} />
+                      </div>
+                      
+                      {/* Premium Optional Social Media fields - Correctly Separated with Icons on "Other side" */}
+                      <div className="space-y-6 pt-4 border-t border-white/5">
+                        {/* Facebook */}
+                        <div className="space-y-1.5 group/social">
+                          <label className={labelClass}>{translations.form.facebookLabel}</label>
+                          <div className="flex items-stretch gap-3 ltr:flex-row rtl:flex-row-reverse">
+                            <input 
+                              type="text" 
+                              name="facebook" 
+                              placeholder={translations.form.facebookPlaceholder} 
+                              value={formData.facebook} 
+                              onChange={handleChange} 
+                              className={socialInputBaseClass} 
+                            />
+                            <div className="w-12 h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
+                              <IconFacebookBrand />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Instagram */}
+                        <div className="space-y-1.5 group/social">
+                          <label className={labelClass}>{translations.form.instagramLabel}</label>
+                          <div className="flex items-stretch gap-3 ltr:flex-row rtl:flex-row-reverse">
+                            <input 
+                              type="text" 
+                              name="instagram" 
+                              placeholder={translations.form.instagramPlaceholder} 
+                              value={formData.instagram} 
+                              onChange={handleChange} 
+                              className={socialInputBaseClass} 
+                            />
+                            <div className="w-12 h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
+                              <IconInstagramBrand />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* TikTok */}
+                        <div className="space-y-1.5 group/social">
+                          <label className={labelClass}>{translations.form.tiktokLabel}</label>
+                          <div className="flex items-stretch gap-3 ltr:flex-row rtl:flex-row-reverse">
+                            <input 
+                              type="text" 
+                              name="tiktok" 
+                              placeholder={translations.form.tiktokPlaceholder} 
+                              value={formData.tiktok} 
+                              onChange={handleChange} 
+                              className={socialInputBaseClass} 
+                            />
+                            <div className="w-12 h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
+                              <IconTikTokBrand />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
