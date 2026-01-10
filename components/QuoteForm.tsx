@@ -19,6 +19,7 @@ interface ContactTranslations {
         serviceLabelHint: string;
         budgetLabel: string;
         budgetLabelHint: string;
+        budgetError?: string;
         projectLabel: string;
         namePlaceholder: string;
         companyNamePlaceholder: string;
@@ -181,6 +182,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   const validateForm = () => {
     if (!formData.name.trim()) return "Veuillez entrer votre nom.";
     if (!formData.phone.trim()) return "Veuillez entrer votre numéro de téléphone.";
+    if (!formData.budget) return translations.form.budgetError || "Veuillez sélectionner votre budget.";
     if (formData.services.length === 0) return "Veuillez sélectionner au moins un service.";
     if (formData.goals.length === 0) return "Veuillez sélectionner au moins un objectif.";
     if (!formData.project.trim()) return "Veuillez décrire votre projet.";
@@ -209,6 +211,19 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     } catch {
       setFormError("Erreur de connexion. Veuillez essayer via WhatsApp.");
     } finally { setIsSubmitting(false); }
+  };
+
+  const handleWhatsAppClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const error = validateForm();
+    if (error) {
+      setFormError(error);
+      // Scroll to error if visible
+      const errorEl = document.getElementById('form-error-display');
+      if (errorEl) errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   const inputClass = "w-full p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs text-start rtl:text-right";
@@ -247,7 +262,14 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
               </div>
 
-              {formError && <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-2xl mb-8 text-center text-xs font-bold animate-shake">{formError}</div>}
+              {formError && (
+                <div 
+                  id="form-error-display"
+                  className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-2xl mb-8 text-center text-xs font-bold animate-shake"
+                >
+                  {formError}
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -326,8 +348,23 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-                  <button type="submit" disabled={isSubmitting} className="w-full sm:w-auto min-w-[200px] bg-white text-brand-dark font-black py-4 px-10 rounded-xl transition-all uppercase tracking-widest text-[10px]">{isSubmitting ? 'Envoi...' : translations.form.cta}</button>
-                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto min-w-[200px] bg-whatsapp-green text-white font-black py-4 px-10 rounded-xl transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-[10px]">{translations.form.whatsappCta}</a>
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting} 
+                    className="w-full sm:w-auto min-w-[200px] bg-white text-brand-dark font-black py-4 px-10 rounded-xl transition-all uppercase tracking-widest text-[10px]"
+                  >
+                    {isSubmitting ? 'Envoi...' : translations.form.cta}
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={handleWhatsAppClick}
+                    className="w-full sm:w-auto min-w-[200px] bg-whatsapp-green text-white font-black py-4 px-10 rounded-xl transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-[10px]"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.411 0 .01 5.403.007 12.04c0 2.123.554 4.197 1.607 6.034L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.637 0 12.038-5.402 12.041-12.04a11.817 11.817 0 00-3.517-8.482" />
+                    </svg>
+                    {translations.form.whatsappCta}
+                  </button>
                 </div>
               </form>
             </>

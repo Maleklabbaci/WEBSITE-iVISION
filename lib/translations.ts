@@ -1,4 +1,3 @@
-
 export type Language = 'fr' | 'en' | 'ar';
 
 const textContent = {
@@ -415,7 +414,7 @@ const textContent = {
       projectInfoTitle: { fr: 'Informations sur le projet', en: 'Project Information', ar: 'معلومات المشروع' },
       nameLabel: { fr: 'Nom complet', en: 'Full Name', ar: 'الاسم الكامل' },
       companyNameLabel: { fr: "Nom de l'entreprise", en: 'Company Name', ar: 'اسم الشركة' },
-      emailLabel: { fr: 'البريد الإلكتروني (اختياري)', en: 'Email Address (optional)', ar: 'البريد الإلكتروني (اختياري)' },
+      emailLabel: { fr: 'Adresse e-mail (optionnel)', en: 'Email Address (optional)', ar: 'البريد الإلكتروني (اختياري)' },
       phoneLabel: { 
         fr: 'Numéro de téléphone / WhatsApp', 
         en: 'Phone Number / WhatsApp', 
@@ -449,9 +448,14 @@ const textContent = {
         ar: 'الميزانية التقديرية (دينار جزائري)' 
       },
       budgetLabelHint: {
-        fr: 'Min. 5 000 DZD',
-        en: 'Min. 5,000 DZD',
-        ar: 'نبدأ العمل على المشاريع التي تفوق ميزانيتها 5,000 دج.',
+        fr: 'Min. 5 000 DZD (Obligatoire)',
+        en: 'Min. 5,000 DZD (Mandatory)',
+        ar: 'نبدأ العمل على المشاريع التي تفوق ميزانيتها 5,000 دج. (اختيار إلزامي)',
+      },
+      budgetError: {
+        fr: 'Veuillez sélectionner votre budget.',
+        en: 'Please select your budget.',
+        ar: 'يرجى اختيار ميزانيتك، هذا الحقل إلزامي.',
       },
       projectLabel: { fr: 'Description du projet', en: 'Project Description', ar: 'وصف المشروع' },
       namePlaceholder: { fr: 'Votre nom', en: 'Your name', ar: 'اسمك' },
@@ -467,8 +471,8 @@ const textContent = {
       },
       budget: { fr: 'Choisir un budget', en: 'Choose a budget', ar: 'اختر ميزانية' },
       budgetOptions: {
-        fr: ['5 000 - 10 000 DZD', '10 000 - 30 000 DZD', '30 000 - 70 000 DZD', 'Plus de 100 000 DZD'],
-        en: ['5,000 - 10,000 DZD', '10,000 - 30,000 DZD', '30,000 - 70,000 DZD', 'More than 100,000 DZD'],
+        fr: ['5 000 – 10 000 DZD', '10 000 – 30 000 DZD', '30 000 – 70 000 DZD', 'Plus de 100 000 DZD'],
+        en: ['5,000 – 10,000 DZD', '10,000 – 30,000 DZD', '30,000 – 70,000 DZD', 'More than 100,000 DZD'],
         ar: ['5,000 دج – 10,000 دج', '10,000 دج – 30,000 دج', '30,000 دج – 70,000 دج', 'أكثر من 100,000 دج'],
       },
       projectPlaceholder: { fr: 'Décrivez votre projet', en: 'Describe your project', ar: 'صف مشروعك' },
@@ -593,6 +597,7 @@ const processTranslations = (lang: Language) => ({
             serviceLabelHint: textContent.contact.form.serviceLabelHint[lang],
             budgetLabel: textContent.contact.form.budgetLabel[lang],
             budgetLabelHint: textContent.contact.form.budgetLabelHint[lang],
+            budgetError: (textContent.contact.form as any).budgetError?.[lang] || "Veuillez choisir un budget.",
             projectLabel: textContent.contact.form.projectLabel[lang],
             namePlaceholder: textContent.contact.form.namePlaceholder[lang],
             companyNamePlaceholder: textContent.contact.form.companyNamePlaceholder[lang],
