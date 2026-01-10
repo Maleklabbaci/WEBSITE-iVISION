@@ -25,6 +25,9 @@ interface ContactTranslations {
         budgetLabel: string;
         budgetLabelHint: string;
         budgetError?: string;
+        budgetSmall: string;
+        budgetMedium: string;
+        budgetStrong: string;
         projectLabel: string;
         namePlaceholder: string;
         companyNamePlaceholder: string;
@@ -208,6 +211,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
       `📝 *Projet:* \n${formData.project || '...'}`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   }, [formData]);
+
+  const budgetAdvice = useMemo(() => {
+    if (!formData.budget) return null;
+    const index = translations.form.budgetOptions.indexOf(formData.budget);
+    if (index === 0) return translations.form.budgetSmall;
+    if (index === 1) return translations.form.budgetMedium;
+    if (index >= 2) return translations.form.budgetStrong;
+    return null;
+  }, [formData.budget, translations.form]);
 
   const validateForm = () => {
     if (!formData.name.trim()) return "Veuillez entrer votre nom.";
@@ -425,6 +437,21 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   <label className={labelClass}>{translations.form.projectLabel}</label>
                   <textarea name="project" placeholder={translations.form.projectPlaceholder} value={formData.project} onChange={handleChange} rows={5} className={`${inputClass} resize-none`} required></textarea>
                 </div>
+
+                {/* Dynamic Budget Advice Box */}
+                {budgetAdvice && (
+                  <div className="animate-fade-in-up bg-brand-accent/5 border border-brand-accent/20 p-5 rounded-2xl flex items-start gap-4 transition-all duration-500 shadow-[0_0_20px_rgba(56,189,248,0.05)]">
+                    <div className="w-10 h-10 shrink-0 bg-brand-accent/10 rounded-xl flex items-center justify-center text-brand-accent">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h5 className="text-[10px] font-black uppercase text-brand-accent tracking-widest mb-1 text-start">Analyse Stratégique</h5>
+                      <p className="text-[13px] text-brand-gray/90 leading-relaxed text-start">{budgetAdvice}</p>
+                    </div>
+                  </div>
+                )}
 
                 <div className="pt-2 text-center">
                   <p className="text-[11px] text-brand-gray/60 italic leading-relaxed max-w-lg mx-auto">

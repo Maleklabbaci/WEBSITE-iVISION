@@ -461,6 +461,21 @@ const textContent = {
         en: 'Please select your budget.',
         ar: 'يرجى اختيار ميزانيتك، هذا الحقل إلزامي.',
       },
+      budgetSmall: {
+        fr: "C'est un petit budget idéal pour un projet unique. N'attendez pas un grand résultat ou une longue durée.",
+        en: "This is a small budget ideal for a single project. Do not expect a big result or long duration.",
+        ar: "هذه ميزانية صغيرة ومثالية لمشروع واحد. لا تتوقع نتائج ضخمة أو مدة طويلة."
+      },
+      budgetMedium: {
+        fr: "C'est un budget moyen permettant d'atteindre pas mal de trucs, mais pour un grand brand il reste un peu petit.",
+        en: "This is a medium budget that allows achieving quite a few things, but for a big brand it remains a bit small.",
+        ar: "هذه ميزانية متوسطة تسمح بتحقيق عدة أهداف، لكنها تظل محدودة بالنسبة لعلامة تجارية كبرى."
+      },
+      budgetStrong: {
+        fr: "Budget fort. On peut faire pas mal de trucs pour faire réussir votre brand et on est là vous pouvez compter sur moi !",
+        en: "Strong budget. We can do a lot of things to make your brand succeed and we are here, you can count on me!",
+        ar: "ميزانية قوية. يمكننا القيام بالكثير من الأمور لإنجاح علامتك التجارية ونحن هنا، يمكنك الاعتماد علينا!"
+      },
       projectLabel: { fr: 'Description du projet', en: 'Project Description', ar: 'وصف المشروع' },
       namePlaceholder: { fr: 'Votre nom', en: 'Your name', ar: 'اسمك' },
       companyNamePlaceholder: { fr: 'Votre entreprise', en: 'Your company', ar: 'شركتك' },
@@ -608,6 +623,9 @@ const processTranslations = (lang: Language) => ({
             budgetLabel: textContent.contact.form.budgetLabel[lang],
             budgetLabelHint: textContent.contact.form.budgetLabelHint[lang],
             budgetError: (textContent.contact.form as any).budgetError?.[lang] || "Veuillez choisir un budget.",
+            budgetSmall: (textContent.contact.form as any).budgetSmall[lang],
+            budgetMedium: (textContent.contact.form as any).budgetMedium[lang],
+            budgetStrong: (textContent.contact.form as any).budgetStrong[lang],
             projectLabel: textContent.contact.form.projectLabel[lang],
             namePlaceholder: textContent.contact.form.namePlaceholder[lang],
             companyNamePlaceholder: textContent.contact.form.companyNamePlaceholder[lang],
