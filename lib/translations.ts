@@ -348,15 +348,6 @@ const textContent = {
           avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
         }
       ]
-    },
-    form: {
-      title: { fr: 'Laissez votre témoignage', en: 'Leave your testimonial', ar: 'اترك شهادتك' },
-      nameLabel: { fr: 'Nom complet', en: 'Full Name', ar: 'الاسم الكامل' },
-      brandLabel: { fr: 'Société / Marque', en: 'Company / Brand', ar: 'الشركة / العلامة التجارية' },
-      ratingLabel: { fr: 'Votre note', en: 'Your rating', ar: 'تقييمك' },
-      messageLabel: { fr: 'Description (max 100 caractères)', en: 'Description (max 100 chars)', ar: 'الوصف (بحد أقصى 100 حرف)' },
-      cta: { fr: 'Publier', en: 'Publish', ar: 'نشر' },
-      success: { fr: 'Merci ! Votre témoignage est en cours de validation.', en: 'Thank you! Your testimonial is being validated.', ar: 'شكراً لك! شهادتك قيد المراجعة.' }
     }
   },
   faq: {
@@ -594,15 +585,6 @@ const processTranslations = (lang: Language) => ({
       title: textContent.testimonials.title[lang],
       subtitle: textContent.testimonials.subtitle[lang],
       items: textContent.testimonials.items[lang],
-      form: {
-          title: textContent.testimonials.form.title[lang],
-          nameLabel: textContent.testimonials.form.nameLabel[lang],
-          brandLabel: textContent.testimonials.form.brandLabel[lang],
-          ratingLabel: textContent.testimonials.form.ratingLabel[lang],
-          messageLabel: textContent.testimonials.form.messageLabel[lang],
-          cta: textContent.testimonials.form.cta[lang],
-          success: textContent.testimonials.form.success[lang]
-      }
     },
     faq: {
         title: textContent.faq.title[lang],

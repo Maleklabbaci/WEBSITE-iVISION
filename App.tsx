@@ -13,7 +13,6 @@ import WhatsAppPromoPopup from './components/WhatsAppPromoPopup';
 import LanguageSelector from './components/LanguageSelector';
 import { translations, Language } from './lib/translations';
 import QuoteForm from './components/QuoteForm';
-import TestimonialForm from './components/TestimonialForm';
 import SplashScreen from './components/SplashScreen';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Process from './components/Process';
@@ -36,7 +35,7 @@ const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('fr');
   const [showLangSelector, setShowLangSelector] = useState(true);
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quote' | 'testimonial'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'quote'>('home');
   const [isPromoVisible, setIsPromoVisible] = useState(false);
   const [hasShownPromo, setHasShownPromo] = useState(false);
   
@@ -50,12 +49,8 @@ const App: React.FC = () => {
   // Handle Hash Routing
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash === '#/devis') {
+      if (window.location.hash === '#/devis') {
         setCurrentView('quote');
-        window.scrollTo(0, 0);
-      } else if (hash === '#/avis') {
-        setCurrentView('testimonial');
         window.scrollTo(0, 0);
       } else {
         setCurrentView('home');
@@ -80,8 +75,8 @@ const App: React.FC = () => {
       const anchor = target.closest('a');
       
       if (anchor && anchor.hash && anchor.origin === window.location.origin) {
-        // If we are not on home, navigating home should work via hash
-        if (currentView !== 'home') {
+        // If we are on the quote page and want to go home
+        if (currentView === 'quote') {
             window.location.hash = anchor.hash.replace('#', '');
             return;
         }
@@ -104,7 +99,7 @@ const App: React.FC = () => {
 
   // Lazy Scroll Promo Trigger
   useEffect(() => {
-    if (showLangSelector || hasShownPromo || isLoading || currentView !== 'home') return;
+    if (showLangSelector || hasShownPromo || isLoading || currentView === 'quote') return;
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -177,7 +172,7 @@ const App: React.FC = () => {
         <Header translations={t.header} onQuoteClick={handleOpenQuotePage} />
         
         <main className="flex-grow pt-24">
-          {currentView === 'home' && (
+          {currentView === 'home' ? (
             <>
               <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
               <ClientLogos translations={t.clientLogos} />
@@ -188,12 +183,8 @@ const App: React.FC = () => {
               <Testimonials translations={t.testimonials} />
               <FAQ translations={t.faq} />
             </>
-          )}
-          {currentView === 'quote' && (
+          ) : (
             <QuoteForm translations={t.contact} />
-          )}
-          {currentView === 'testimonial' && (
-            <TestimonialForm translations={t.testimonials.form} />
           )}
         </main>
 
