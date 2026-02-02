@@ -9,10 +9,10 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
-import WhatsAppPromoPopup from './components/WhatsAppPromoPopup';
 import LanguageSelector from './components/LanguageSelector';
 import { translations, Language } from './lib/translations';
 import QuoteForm from './components/QuoteForm';
+import TestimonialForm from './components/TestimonialForm';
 import SplashScreen from './components/SplashScreen';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Process from './components/Process';
@@ -23,7 +23,7 @@ const StaticBackground: React.FC = () => (
     <div 
       className="absolute inset-0 z-0" 
       style={{
-        backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(56, 189, 248, 0.1) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(56, 189, 248, 0.1) 0%, transparent 40%)',
+        backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.05) 0%, transparent 50%)',
         backgroundSize: '100% 100%',
       }}
     ></div>
@@ -35,9 +35,7 @@ const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('fr');
   const [showLangSelector, setShowLangSelector] = useState(true);
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quote'>('home');
-  const [isPromoVisible, setIsPromoVisible] = useState(false);
-  const [hasShownPromo, setHasShownPromo] = useState(false);
+  const [currentView, setCurrentView] = useState<'home' | 'quote' | 'testimonial'>('home');
   
   const WHATSAPP_NUMBER = "213697660969";
 
@@ -49,8 +47,12 @@ const App: React.FC = () => {
   // Handle Hash Routing
   useEffect(() => {
     const handleHashChange = () => {
-      if (window.location.hash === '#/devis') {
+      const hash = window.location.hash;
+      if (hash === '#/devis') {
         setCurrentView('quote');
+        window.scrollTo(0, 0);
+      } else if (hash === '#/avis') {
+        setCurrentView('testimonial');
         window.scrollTo(0, 0);
       } else {
         setCurrentView('home');
@@ -75,8 +77,8 @@ const App: React.FC = () => {
       const anchor = target.closest('a');
       
       if (anchor && anchor.hash && anchor.origin === window.location.origin) {
-        // If we are on the quote page and want to go home
-        if (currentView === 'quote') {
+        // If we are not on the home page, navigating home should work via hash
+        if (currentView !== 'home') {
             window.location.hash = anchor.hash.replace('#', '');
             return;
         }
@@ -97,25 +99,6 @@ const App: React.FC = () => {
     return () => document.removeEventListener('click', handleAnchorClick);
   }, [currentView]);
 
-  // Lazy Scroll Promo Trigger
-  useEffect(() => {
-    if (showLangSelector || hasShownPromo || isLoading || currentView === 'quote') return;
-
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight;
-      
-      if (scrollY > (docHeight - windowHeight) * 0.2) {
-        setIsPromoVisible(true);
-        setHasShownPromo(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [showLangSelector, hasShownPromo, isLoading, currentView]);
-
   const handleSelectLanguage = (selectedLanguage: Language) => {
     setLanguage(selectedLanguage);
     setIsExitingLangSelector(true);
@@ -127,8 +110,6 @@ const App: React.FC = () => {
   const handleOpenQuotePage = () => {
     window.location.hash = '/devis';
   };
-
-  const handleClosePromo = () => setIsPromoVisible(false);
   
   const t = translations[language] || translations['fr'];
 
@@ -140,15 +121,6 @@ const App: React.FC = () => {
 
       {!isLoading && (
         <>
-          <WhatsAppPromoPopup 
-            isVisible={isPromoVisible}
-            onClose={handleClosePromo}
-            title={t.whatsapp.promoTitle}
-            message={t.whatsapp.promo} 
-            btnLabel={t.whatsapp.promoBtn}
-            phoneNumber={WHATSAPP_NUMBER} 
-            whatsappMessage={t.whatsapp.message} 
-          />
           <WhatsAppButton phoneNumber={WHATSAPP_NUMBER} message={t.whatsapp.message} />
           <ScrollToTopButton />
         </>
@@ -167,12 +139,12 @@ const App: React.FC = () => {
       
       <div 
         key="main-content" 
-        className={`relative z-10 flex flex-col min-h-screen transition-all duration-1000 ${isLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'} ${showLangSelector || isPromoVisible ? 'filter blur-md' : 'filter blur-0'}`}
+        className={`relative z-10 flex flex-col min-h-screen transition-all duration-1000 ${isLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'} ${showLangSelector ? 'filter blur-md' : 'filter blur-0'}`}
       >
         <Header translations={t.header} onQuoteClick={handleOpenQuotePage} />
         
         <main className="flex-grow pt-24">
-          {currentView === 'home' ? (
+          {currentView === 'home' && (
             <>
               <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
               <ClientLogos translations={t.clientLogos} />
@@ -183,8 +155,12 @@ const App: React.FC = () => {
               <Testimonials translations={t.testimonials} />
               <FAQ translations={t.faq} />
             </>
-          ) : (
+          )}
+          {currentView === 'quote' && (
             <QuoteForm translations={t.contact} />
+          )}
+          {currentView === 'testimonial' && (
+            <TestimonialForm translations={t.testimonials.form} />
           )}
         </main>
 

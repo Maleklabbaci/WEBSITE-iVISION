@@ -6,11 +6,11 @@ const Logo: React.FC = () => (
     <div className="w-9 h-9 bg-brand-accent text-brand-dark rounded-xl flex items-center justify-center font-black text-lg transition-all duration-300 group-hover:rotate-6 group-hover:scale-105 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
       iV
     </div>
-    <div className="flex flex-col -space-y-1">
-      <span className="text-lg font-black tracking-tighter text-brand-light">
+    <div className="flex flex-col -space-y-1.5">
+      <span className="text-xl font-bold tracking-tighter text-brand-light">
         iVISION
       </span>
-      <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-brand-accent opacity-80">
+      <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-brand-accent opacity-90">
         Agency
       </span>
     </div>
@@ -32,7 +32,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ className, onItemClick, links }) =>
           key={link} 
           href={`#${staticLinks[index]}`} 
           onClick={onItemClick}
-          className="block py-1.5 px-3.5 text-[11px] font-black uppercase tracking-widest text-brand-gray hover:text-brand-accent transition-colors duration-300"
+          className="block py-1.5 px-3.5 text-[11px] font-bold uppercase tracking-widest text-brand-gray hover:text-brand-accent transition-colors duration-300"
         >
           {link}
         </a>
@@ -70,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick }) => {
           <NavLinks className="flex space-x-1" links={translations.links} />
           <button 
             onClick={onQuoteClick} 
-            className="group relative bg-brand-accent text-brand-dark font-black py-2.5 px-7 rounded-xl text-[10px] transition-all duration-300 transform hover:scale-105 shadow-md shadow-brand-accent/10 uppercase tracking-widest"
+            className="group relative bg-brand-accent text-brand-dark font-bold py-2.5 px-7 rounded-xl text-[10px] transition-all duration-300 transform hover:scale-105 shadow-md shadow-brand-accent/10 uppercase tracking-widest"
           >
             <span className="relative z-10">{translations.cta}</span>
             <div className="absolute inset-0 bg-white rounded-xl opacity-0 group-hover:opacity-20 transition-opacity"></div>
@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick }) => {
               setIsOpen(false);
               onQuoteClick();
             }} 
-            className="w-full bg-brand-accent text-brand-dark font-black py-3.5 rounded-xl shadow-lg uppercase tracking-widest text-[11px]"
+            className="w-full bg-brand-accent text-brand-dark font-bold py-3.5 rounded-xl shadow-lg uppercase tracking-widest text-[11px]"
           >
             {translations.cta}
           </button>

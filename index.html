@@ -3,9 +3,9 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iVISION | Marketing Agency</title>
+    <title>iVISION Agency - Digital Marketing</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -25,15 +25,15 @@
           },
           extend: {
             colors: {
-              'brand-dark': '#0D1117',
+              'brand-dark': '#050E1F',
               'brand-light': '#FFFFFF',
-              'brand-gray': '#8D96A0',
+              'brand-gray': '#94A3B8',
               'brand-accent': '#38BDF8',
-              'brand-border': 'rgba(255, 255, 255, 0.08)',
+              'brand-border': 'rgba(255, 255, 255, 0.12)',
               'whatsapp-green': '#25D366',
             },
             fontFamily: {
-              sans: ['Inter', 'Cairo', 'sans-serif'],
+              sans: ['"Plus Jakarta Sans"', '"Readex Pro"', 'sans-serif'],
             },
             animation: {
               'fade-in-up': 'fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
@@ -113,21 +113,31 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Readex+Pro:wght@200..700&display=swap" rel="stylesheet">
     <style>
       :lang(ar) {
-        font-family: 'Cairo', sans-serif !important;
+        font-family: 'Readex Pro', sans-serif !important;
       }
       body {
-        font-family: 'Inter', 'Cairo', sans-serif;
-        font-size: 13px; /* Refined smaller base font */
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
         line-height: 1.6;
-        background-color: #0D1117;
+        background-color: #050E1F;
         color: #FFFFFF;
         overflow-x: hidden;
+        letter-spacing: -0.01em;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        letter-spacing: -0.02em;
+        font-weight: 700;
       }
       .container {
-        max-width: 880px !important; /* Elegant compact container */
+        max-width: 1000px !important;
+      }
+      /* Custom selection color */
+      ::selection {
+        background: rgba(56, 189, 248, 0.3);
+        color: white;
       }
     </style>
   <script type="importmap">
