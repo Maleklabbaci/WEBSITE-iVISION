@@ -11,7 +11,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ translations }) => {
   const year = new Date().getFullYear();
-  const staticLinks = ['accueil', 'services', 'process', 'portfolio'];
+  const staticLinks = ['accueil', 'services', 'process'];
   const footerRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 

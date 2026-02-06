@@ -4,9 +4,9 @@ export type Language = 'fr' | 'en' | 'ar';
 const textContent = {
   header: {
     links: {
-      fr: ['Accueil', 'Services', 'Processus', 'Portfolio'],
-      en: ['Home', 'Services', 'Process', 'Portfolio'],
-      ar: ['الرئيسية', 'خدماتنا', 'عمليتنا', 'أعمالنا'],
+      fr: ['Accueil', 'Services', 'Notre Méthode'],
+      en: ['Home', 'Services', 'Our Method'],
+      ar: ['الرئيسية', 'خدماتنا', 'طريقتنا'],
     },
     cta: {
       fr: 'Devis Gratuit',
@@ -23,7 +23,7 @@ const textContent = {
     message: {
       fr: 'Nous limitons nos collaborations à 3 nouveaux clients par mois pour garantir une excellence maximale. Nous travaillons exclusivement avec des entrepreneurs prêts à investir sérieusement dans leur croissance.',
       en: 'We limit our collaborations to 3 new clients per month to ensure maximum excellence. We work exclusively with entrepreneurs ready to seriously invest in their growth.',
-      ar: 'نحن نقصر تعاوننا على 3 عملاء جدد فقط شهريًا لضمان أقصى قدر من التميز. نحن نعمل حصريًا مع رواد الأعمال المستعدين للاستثمار بجدية في نقوهم.',
+      ar: 'نحن نقصر تعاوننا على 3 عملاء جدد فقط شهريًا لضمان أقصى قدر من التميز. نحن نعمل خسريًا مع رواد الأعمال المستعدين للاستثمار بجدية في نقوهم.',
     },
     badge: {
       fr: 'Sélectivité Active',
@@ -53,9 +53,9 @@ const textContent = {
       ar: 'اطلب تدقيقاً مجانياً',
     },
     secondaryCta: {
-      fr: 'VOIR NOS TRAVAUX',
-      en: 'SEE OUR WORK',
-      ar: 'عرض أعمالنا',
+      fr: 'NOTRE MÉTHODE',
+      en: 'OUR METHOD',
+      ar: 'طريقة عملنا',
     }
   },
   visualShowcase: {
@@ -85,7 +85,7 @@ const textContent = {
       fr: [
         { title: 'Expertise Ciblée', description: 'Nous vivons et respirons l\'e-commerce. Notre spécialisation nous permet de créer des stratégies qui frappent juste.' },
         { title: 'Approche Partenaire', description: 'Votre succès est notre succès. Nous nous intégrons à votre équipe pour atteindre des objectifs communs.' },
-        { title: 'Stratégie Basée sur la Data', description: 'Chaque décision est guidée par des données concrètes, assurant une optimisation continue et un ROI maximal.' },
+        { title: 'Stratégie Basée sur la Data', description: 'Chaque décision est guided by des données concrètes, assurant une optimisation continue et un ROI maximal.' },
         { title: 'Résultats Concrets', description: 'Nous nous concentrons sur des métriques qui comptent vraiment : augmentation des ventes et croissance durable.' },
       ],
       en: [
@@ -116,7 +116,7 @@ const textContent = {
     items: {
       fr: [
         { title: 'Marketing digital complet', description: 'Stratégie digitale 360° pour booster votre présence et vos ventes en ligne.' },
-        { title: 'Création de contenu (design & vidéo)', description: 'Contenus visuels et vidéos qui attirent et convertissent.' },
+        { title: 'Création de contenu (design & vidéo)', description: 'Contenus visuels et فيديوهات تجذب وتحول الزوار إلى عملاء.' },
         { title: 'Sponsoring Meta Ads', description: 'Campagnes Meta Ads optimisées pour maximiser votre ROI.' },
         { title: 'Website e-commerce', description: 'Sites e-commerce modernes, responsive et performants.' },
       ],
@@ -134,147 +134,37 @@ const textContent = {
       ],
     },
   },
-  process: {
+  howWeWork: {
     title: {
-      fr: 'Notre Processus en 4 Étapes',
-      en: 'Our 4-Step Process',
-      ar: 'عمليتنا في 4 خطوات',
+      fr: 'Comment nous travaillons',
+      en: 'How we work',
+      ar: 'كيف نعمل',
     },
     subtitle: {
-      fr: 'Un parcours transparent et efficace, de la stratégie aux résultats.',
-      en: 'A transparent and effective journey, from strategy to results.',
-      ar: 'رحلة شفافة وفعالة، من الاستراتيجية إلى النتائج.',
+      fr: 'Une approche professionnelle, centrée sur la stratégie et adaptée à votre investissement.',
+      en: 'A professional approach, strategy-centered and adapted to your investment.',
+      ar: 'نهج احترافي، متمحور حول الاستراتيجية ومصمم حسب استثمارك.',
     },
     steps: {
       fr: [
-        { step: '01', title: 'Découverte & Stratégie', description: 'Nous plongeons dans votre univers pour comprendre vos objectifs, votre audience et votre marché afin de construire une stratégie sur-mesure.' },
-        { step: '02', title: 'Création & Implémentation', description: 'Nos experts créatifs et techniques donnent vie à la stratégie à travers des contenus percutants et des campagnes ciblées.' },
-        { step: '03', title: 'Lancement & Promotion', description: 'Nous déployons les campagnes sur les canaux les plus pertinents pour atteindre votre audience et générer un engagement maximal.' },
-        { step: '04', title: 'Analyse & Optimisation', description: 'Nous suivons les performances en temps réel, analysons les données et optimisons continuellement pour garantir le meilleur ROI.' },
+        { title: 'Stratégie d\'abord', description: 'Aucun service n\'est lancé sans une stratégie solide. Nous analysons votre business pour créer un plan d\'action sur-mesure.' },
+        { title: 'Équipe Pro dédiée', description: 'Vous travaillez avec des experts seniors (Designers, Media Buyers, Stratèges) pour une exécution sans faille.' },
+        { title: 'Adaptation au Budget', description: 'L\'intensité de nos actions dépend de votre budget mensuel. Nous optimisons chaque centime pour un ROI maximal.' },
+        { title: 'Excellence Opérationnelle', description: 'Des étapes de travail professionnelles strictes pour garantir des résultats prévisibles et scalables.' },
       ],
       en: [
-        { step: '01', title: 'Discovery & Strategy', description: 'We dive into your world to understand your goals, audience, and market to build a tailor-made strategy.' },
-        { step: '02', title: 'Creation & Implementation', description: 'Our creative and technical experts bring the strategy to life through impactful content and targeted campaigns.' },
-        { step: '03', title: 'Launch & Promotion', description: 'We deploy campaigns on the most relevant channels to reach your audience and generate maximum engagement.' },
-        { step: '04', title: 'Analysis & Optimization', description: 'We track performance in real-time, analyze data, and continuously optimize to ensure the best ROI.' },
+        { title: 'Strategy First', description: 'No service is launched without a solid strategy. We analyze your business to create a custom action plan.' },
+        { title: 'Dedicated Pro Team', description: 'You work with senior experts (Designers, Media Buyers, Strategists) for flawless execution.' },
+        { title: 'Budget Scaling', description: 'The intensity of our actions depends on your monthly budget. We optimize every cent for maximum ROI.' },
+        { title: 'Operational Excellence', description: 'Strict professional work steps to ensure predictable and scalable results.' },
       ],
       ar: [
-        { step: '01', title: 'الاكتشاف والاستراتيجية', description: 'نتعمق في عالمك لفهم أهدافك وجمهورك وسوقك لبناء استراتيجية مخصصة.' },
-        { step: '02', title: 'الإنشاء والتنفيذ', description: 'يقوم خبراؤنا المبدعون والتقنيون بإحياء الاستراتيجية من خلال محتوى مؤثر وحملات مستهدفة.' },
-        { step: '03', title: 'الإطلاق والترويج', description: 'ننشر الحملات على القنوات الأكثر صلة للوصول إلى جمهورك وتوليد أقصى قدر من المشاركة.' },
-        { step: '04', title: 'التحليل والتحسين', description: 'نتتبع الأداء في الوقت الفعلي، ونحلل البيانات، ونحسن باستمرار لضمان أفضل عائد على الاستثمار.' },
+        { title: 'الاستراتيجية أولاً', description: 'لا يتم إطلاق أي خدمة بدون استراتيجية قوية. نحلل عملك لإنشاء خطة عمل مخصصة.' },
+        { title: 'فريق محترف متخصص', description: 'أنت تعمل مع خبراء كبار (مصممون، مشترو وسائط، استراتيجيون) لتنفيذ لا تشوبه شائبة.' },
+        { title: 'التكيف مع الميزانية', description: 'تعتمد كثافة إجراءاتنا على ميزانيتك الشهرية. نحن نحسن كل مليم لتحقيق أقصى عائد على الاستثمار.' },
+        { title: 'التميز التشغيلي', description: 'خطوات عمل احترافية صارمة لضمان نتائج يمكن التنبؤ بها وقابلة للتطوير.' },
       ]
     }
-  },
-  portfolio: {
-    title: {
-      fr: 'Nos Réalisations',
-      en: 'Our Achievements',
-      ar: 'إنجازاتنا',
-    },
-    subtitle: {
-      fr: 'Des résultats qui parlent d\'eux-mêmes.',
-      en: 'Results that speak for themselves.',
-      ar: 'نتائج تتحدث عن نفسها.',
-    },
-    projects: {
-      fr: [
-        { 
-          client: 'Client E-commerce Mode', 
-          title: 'Campagne Meta Ads Explosive',
-          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+350%', label: 'Augmentation du ROI' },
-            { value: '+200%', label: 'Taux de Conversion' },
-          ],
-          cta: 'Discuter de votre projet'
-        },
-        { 
-          client: 'Marque de Cosmétiques', 
-          title: 'Lancement de Produit Viral',
-          image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+5M', label: 'Impressions en 1 mois' },
-            { value: 'Top 1', label: 'Tendance sur les réseaux' },
-          ],
-          cta: 'Discuter de votre projet'
-        },
-        { 
-          client: 'Startup Tech', 
-          title: 'Création Visuelle',
-          image: 'https://images.unsplash.com/photo-1558655146-364adaf1fcc9?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+400%', label: 'Trafic Organique' },
-            { value: 'Top 3', label: 'Classement Google' },
-          ],
-          cta: 'Discuter de votre projet'
-        },
-      ],
-      en: [
-        { 
-          client: 'Fashion E-commerce Client', 
-          title: 'Explosive Meta Ads Campaign',
-          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+350%', label: 'ROI Increase' },
-            { value: '+200%', label: 'Conversion Rate' },
-          ],
-          cta: 'Discuss your project'
-        },
-        { 
-          client: 'Cosmetics Brand', 
-          title: 'Viral Product Launch',
-          image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+5M', label: 'Impressions in 1 month' },
-            { value: 'Top 1', label: 'Trending on social media' },
-          ],
-          cta: 'Discuss your project'
-        },
-        { 
-          client: 'Tech Startup', 
-          title: 'Visual Creation',
-          image: 'https://images.unsplash.com/photo-1558655146-364adaf1fcc9?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+400%', label: 'Organic Traffic' },
-            { value: 'Top 3', label: 'Google Ranking' },
-          ],
-          cta: 'Discuss your project'
-        },
-      ],
-      ar: [
-        { 
-          client: 'عميل في تجارة الأزياء', 
-          title: 'حملة إعلانات ميتا ناجحة',
-          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+350%', label: 'زيادة في عائد الاستثمار' },
-            { value: '+200%', label: 'معدل التحويل' },
-          ],
-          cta: 'ناقش مشروعك'
-        },
-        { 
-          client: 'علامة تجارية لمستحضرات التجميل', 
-          title: 'إطلاق منتج واسع الانتشار',
-          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+5 مليون', label: 'ظهور في شهر واحد' },
-            { value: 'المرتبة الأولى', label: 'في الترند على الشبكات' },
-          ],
-          cta: 'ناقش مشروعك'
-        },
-        { 
-          client: 'شركة تقنية ناشئة', 
-          title: 'إنشاء بصري',
-          image: 'https://images.unsplash.com/photo-1558655146-364adaf1fcc9?q=80&w=800&auto=format&fit=crop',
-          results: [
-            { value: '+400%', label: 'زيارات عضوية' },
-            { value: 'أعلى 3', label: 'ترتيب جوجل' },
-          ],
-          cta: 'ناقش مشروعك'
-        },
-      ],
-    },
   },
   testimonials: {
     title: {
@@ -325,7 +215,7 @@ const textContent = {
           quote: "A professional, responsive, and creative agency. They understood our needs and proposed custom solutions that exceeded our expectations. The ROI is definitely there.",
           author: 'Michael Chen',
           position: 'Founder, Tech Startup',
-          avatar: 'https://randomuser.me/api/portraits/men/51.jpg'
+          avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
         }
       ],
       ar: [
@@ -371,6 +261,7 @@ const textContent = {
       en: [
         { question: 'What types of businesses do you help?', answer: 'We specialize in helping e-commerce businesses, from startups to established brands, increase their online visibility and sales.' },
         { question: 'How long does it take to see results?', answer: 'Results can vary, but you can typically expect to see significant improvements in key metrics within 3 to 6 months, depending on the strategy and services chosen.' },
+        // Fix duplicate 'answer' property in English FAQ translations
         { question: 'How do you measure the success of a campaign?', answer: 'We measure success using key performance indicators (KPIs) such as Return On Ad Spend (ROAS), Cost Per Acquisition (CPA), conversion rate, and overall growth in traffic and revenue.' },
         { question: 'Do you offer long-term contracts?', answer: 'We offer flexible options, including one-time projects and monthly retainers. Our goal is to build a partnership that fits your needs and objectives.' },
       ],
@@ -511,9 +402,9 @@ const textContent = {
   },
   whatsapp: {
     message: {
-      fr: 'Bonjour iVISION, je souhaite en savoir plus sur vos services.',
-      en: 'Hello iVISION, I would like to know more about your services.',
-      ar: 'مرحبًا iVISION ، أود معرفة المزيد عن خدماتكم.',
+      fr: "Bonjour iVISION, j'ai vu vos résultats de croissance et je veux la même chose pour mon business. Quel est le prochain pas pour lancer ma stratégie et exploser mon chiffre d'affaires ?",
+      en: "Hello iVISION, I've seen your growth results and I want the same for my business. What's the next step to launch my strategy and skyrocket my revenue?",
+      ar: "مرحباً iVISION، لقد شاهدت نتائج النمو التي حققتموها وأريد نفس الشيء لعملي. ما هي الخطوة التالية لإطلاق استراتيجيتي ومضاعفة أرباحي؟",
     },
     promo: {
       title: {
@@ -571,15 +462,10 @@ const processTranslations = (lang: Language) => ({
         subtitle: textContent.services.subtitle[lang],
         items: textContent.services.items[lang],
     },
-    process: {
-      title: textContent.process.title[lang],
-      subtitle: textContent.process.subtitle[lang],
-      steps: textContent.process.steps[lang],
-    },
-    portfolio: {
-        title: textContent.portfolio.title[lang],
-        subtitle: textContent.portfolio.subtitle[lang],
-        projects: textContent.portfolio.projects[lang],
+    howWeWork: {
+      title: textContent.howWeWork.title[lang],
+      subtitle: textContent.howWeWork.subtitle[lang],
+      steps: textContent.howWeWork.steps[lang],
     },
     testimonials: {
       title: textContent.testimonials.title[lang],

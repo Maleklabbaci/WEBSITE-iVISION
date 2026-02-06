@@ -24,7 +24,7 @@ interface NavLinksProps {
 }
 
 const NavLinks: React.FC<NavLinksProps> = ({ className, onItemClick, links }) => {
-  const staticLinks = ['accueil', 'services', 'process', 'portfolio'];
+  const staticLinks = ['accueil', 'services', 'process'];
   return (
     <nav className={className}>
       {links.map((link, index) => (

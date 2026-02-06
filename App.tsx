@@ -4,19 +4,18 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import ClientLogos from './components/ClientLogos';
 import Services from './components/Services';
-import Portfolio from './components/Portfolio';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
-import LanguageSelector from './components/LanguageSelector';
-import { translations, Language } from './lib/translations';
+import ScrollToTopButton from './components/ScrollToTopButton';
+import VisualShowcase from './components/VisualShowcase';
+import HowWeWork from './components/HowWeWork';
 import QuoteForm from './components/QuoteForm';
 import TestimonialForm from './components/TestimonialForm';
 import SplashScreen from './components/SplashScreen';
-import ScrollToTopButton from './components/ScrollToTopButton';
-import Process from './components/Process';
-import VisualShowcase from './components/VisualShowcase';
+import LanguageSelector from './components/LanguageSelector';
+import { translations, Language } from './lib/translations';
 
 const StaticBackground: React.FC = () => (
   <div className="fixed top-0 left-0 w-full h-full z-[-1] bg-brand-dark">
@@ -37,7 +36,7 @@ const App: React.FC = () => {
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'quote' | 'testimonial'>('home');
   
-  const WHATSAPP_NUMBER = "213697660969";
+  const WHATSAPP_NUMBER = "213563839404";
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1600);
@@ -150,8 +149,7 @@ const App: React.FC = () => {
               <ClientLogos translations={t.clientLogos} />
               <Services translations={t.services} />
               <VisualShowcase translations={t.visualShowcase} />
-              <Process translations={t.process} />
-              <Portfolio translations={t.portfolio} onQuoteClick={handleOpenQuotePage} />
+              <HowWeWork translations={t.howWeWork} />
               <Testimonials translations={t.testimonials} />
               <FAQ translations={t.faq} />
             </>
