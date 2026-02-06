@@ -102,7 +102,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
     <section 
       id="accueil" 
       ref={sectionRef}
-      className="relative min-h-[75vh] md:min-h-[80vh] flex items-center justify-center text-white text-center overflow-hidden bg-brand-dark"
+      className="relative min-h-[85vh] flex items-center justify-center text-white text-center overflow-hidden bg-brand-dark"
     >
       <style>{`
         @keyframes float {
@@ -112,7 +112,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
       `}</style>
 
       {/* Background Montage - Multi-images Growth Theme */}
-      <div className="absolute inset-0 z-0 opacity-[0.18] grid grid-cols-2 grid-rows-2 gap-4 scale-110">
+      <div className="absolute inset-0 z-0 opacity-[0.2] grid grid-cols-2 grid-rows-2 gap-0 scale-110">
         <img
           src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200"
           alt="Growth Chart"
@@ -139,12 +139,14 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
         />
       </div>
       
-      {/* Dense overlays to fill space and lead eye */}
-      <div className="absolute inset-0 bg-brand-dark/50 z-[1]"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/20 to-brand-dark z-[2]"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-transparent to-brand-dark z-[2]"></div>
+      {/* SMOOTH GRADIENT OVERLAYS - No hard edges */}
+      <div className="absolute inset-0 bg-brand-dark/40 z-[1]"></div>
+      {/* Bottom smooth fade to brand-dark */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-dark/20 to-brand-dark z-[2] h-full"></div>
+      {/* Side fades to focus on center content */}
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-transparent to-brand-dark/80 z-[2]"></div>
 
-      <div className="container relative z-10 px-6 py-12 md:py-16">
+      <div className="container relative z-10 px-6 py-12">
         <div className="max-w-4xl mx-auto">
           
           <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-brand-accent text-[10px] font-black uppercase tracking-[0.4em] mb-8 transition-all duration-1000 ${isVisible ? 'animate-fade-in-down opacity-100' : 'opacity-0'}`}>
@@ -155,7 +157,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
             {translations.badge}
           </div>
 
-          <div className={`relative p-8 md:p-14 rounded-[4rem] bg-white/[0.04] border border-white/10 backdrop-blur-3xl shadow-2xl transition-all duration-[1200ms] ${isVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-10'}`}>
+          <div className={`relative p-8 md:p-14 rounded-[4rem] bg-white/[0.03] border border-white/5 backdrop-blur-2xl shadow-2xl transition-all duration-[1200ms] ${isVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-10'}`}>
             <h1 
               className={`text-4xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-8 tracking-tighter transition-all duration-[1500ms] ease-out ${isVisible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'}`}
               style={{ transitionDelay: '200ms' }} 
@@ -190,7 +192,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
             </div>
           </div>
 
-          {/* Draggable Cards - Better positioned to fill "vide" */}
+          {/* Draggable Cards - Positioned to blend with content */}
           <DraggableFloatingCard isVisible={isVisible} className="top-[0%] left-[-15%] ltr:flex rtl:hidden" delay="0s">
             <div className="bg-brand-accent/20 p-3 rounded-xl text-brand-accent">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
