@@ -15,3 +15,4 @@ import TestimonialForm from '../components/TestimonialForm';
 import SplashScreen from '../components/SplashScreen';
 import LanguageSelector from '../components/LanguageSelector';
 import { translations, Language } from '../lib/translations';
+export default App;
