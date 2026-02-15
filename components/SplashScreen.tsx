@@ -1,13 +1,21 @@
+
 import React from 'react';
 
 const SplashScreen: React.FC = () => {
   return (
-    <div className="fixed inset-0 bg-brand-dark flex items-center justify-center z-50 animate-splash-fade-out">
-      <h1 className="text-5xl md:text-7xl font-bold text-brand-light tracking-tight flex items-center">
-        <span className="animate-slide-in-left">i</span>
-        <span className="text-brand-accent animate-pulse-glow">V</span>
-        <span className="animate-slide-in-right">ISION</span>
-      </h1>
+    <div className="fixed inset-0 bg-brand-dark flex flex-col items-center justify-center z-[100] animate-splash-fade-out">
+      <div className="relative animate-scale-in text-center">
+        <img 
+          src="https://i.ibb.co/rf42xscR/i-VISIONLOGO.png" 
+          alt="iVISION" 
+          className="h-16 md:h-20 w-auto object-contain mb-8"
+        />
+        <div className="flex gap-2 justify-center">
+          <div className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-bounce [animation-delay:0s]"></div>
+          <div className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-bounce [animation-delay:0.2s]"></div>
+          <div className="w-1.5 h-1.5 bg-brand-accent rounded-full animate-bounce [animation-delay:0.4s]"></div>
+        </div>
+      </div>
     </div>
   );
 };

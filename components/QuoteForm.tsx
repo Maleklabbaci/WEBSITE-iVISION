@@ -111,16 +111,16 @@ const goalIcons = [
 ];
 
 const CheckboxGroup: React.FC<any> = ({ label, hint, name, options, selectedValues, onChange, icons }) => (
-  <div>
+  <div className="w-full">
     <label className="block text-sm font-bold text-brand-gray mb-3 uppercase tracking-wider text-[10px] text-start">
       {label} <span className="text-[9px] opacity-60 lowercase font-normal">{hint}</span>
     </label>
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-2 gap-2 sm:gap-3">
       {options.map((option: string, index: number) => {
         const isSelected = selectedValues.includes(option);
         const Icon = icons ? icons[index] : null;
         return (
-          <label key={option} className={`cursor-pointer flex flex-col items-center justify-center gap-2 p-3 border rounded-xl transition-all duration-300 text-xs h-full ${
+          <label key={option} className={`cursor-pointer flex flex-col items-center justify-center gap-2 p-2.5 sm:p-3 border rounded-xl transition-all duration-300 text-[10px] sm:text-xs h-full ${
             isSelected
               ? 'bg-brand-accent/20 text-brand-accent border-brand-accent shadow-[0_0_15px_rgba(56,189,248,0.15)]'
               : 'bg-brand-dark/50 border-brand-border hover:border-brand-accent/40'
@@ -140,13 +140,13 @@ const CheckboxGroup: React.FC<any> = ({ label, hint, name, options, selectedValu
 );
 
 const RadioBoxGroup: React.FC<any> = ({ label, hint, name, options, selectedValue, onChange, required }) => (
-  <div>
+  <div className="w-full">
     <label className="block text-sm font-bold text-brand-gray mb-3 uppercase tracking-wider text-[10px] text-start">
       {label} {hint && <span className="block mt-1 text-[9px] text-brand-accent font-medium normal-case tracking-normal">{hint}</span>}
     </label>
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
       {options.map((option: string) => (
-        <label key={option} className={`cursor-pointer text-center p-3 border rounded-xl transition-all duration-300 text-xs flex items-center justify-center h-full font-medium ${
+        <label key={option} className={`cursor-pointer text-center p-3 border rounded-xl transition-all duration-300 text-[11px] sm:text-xs flex items-center justify-center h-full font-medium ${
           selectedValue === option
             ? 'bg-brand-accent/20 text-brand-accent border-brand-accent shadow-[0_0_15px_rgba(56,189,248,0.15)]'
             : 'bg-brand-dark/50 border-brand-border hover:border-brand-accent/40'
@@ -267,59 +267,58 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
-  const inputClass = "w-full p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs text-start rtl:text-right";
+  const inputClass = "w-full p-3 sm:p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs text-start rtl:text-right outline-none";
   
-  // Refined input base class for social media fields (removed padding that would clash with separated icon)
-  const socialInputBaseClass = "flex-grow p-4 bg-brand-dark/30 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-[13px] text-start rtl:text-right placeholder:text-white/10";
+  const socialInputBaseClass = "flex-grow p-3 sm:p-4 bg-brand-dark/30 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs sm:text-[13px] text-start rtl:text-right placeholder:text-white/10 outline-none";
   
   const labelClass = "block text-[9px] font-black uppercase tracking-widest text-brand-gray mb-1.5 ms-1 text-start";
 
   return (
-    <section className="py-12 md:py-20 animate-fade-in-up">
-      <div className="container px-6">
-        <div className="bg-brand-dark/40 border border-brand-border p-8 md:p-14 rounded-[3.5rem] shadow-2xl relative overflow-hidden">
+    <section className="py-8 md:py-20 animate-fade-in-up">
+      <div className="container px-4 md:px-6">
+        <div className="bg-brand-dark/40 border border-brand-border p-6 sm:p-8 md:p-14 rounded-[2rem] sm:rounded-[3.5rem] shadow-2xl relative overflow-hidden">
           {isSubmitted ? (
-            <div className="text-center py-16">
-               <div className="mx-auto bg-brand-accent/20 text-brand-accent w-20 h-20 rounded-full flex items-center justify-center mb-8">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+            <div className="text-center py-10 md:py-16">
+               <div className="mx-auto bg-brand-accent/20 text-brand-accent w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-6 md:mb-8">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                </div>
-              <h3 className="text-3xl font-black mb-4 tracking-tight">{translations.form.successTitle}</h3>
-              <p className="text-brand-gray text-lg max-w-md mx-auto">{translations.form.successMessage}</p>
-              <a href="#accueil" className="mt-12 inline-block bg-brand-accent text-brand-dark font-black py-4 px-12 rounded-2xl transition-all shadow-xl shadow-brand-accent/20">Accueil</a>
+              <h3 className="text-2xl md:text-3xl font-black mb-4 tracking-tight">{translations.form.successTitle}</h3>
+              <p className="text-brand-gray text-base md:text-lg max-w-md mx-auto">{translations.form.successMessage}</p>
+              <a href="#accueil" className="mt-8 md:mt-12 inline-block bg-brand-accent text-brand-dark font-black py-4 px-10 md:px-12 rounded-2xl transition-all shadow-xl shadow-brand-accent/20">Accueil</a>
             </div>
           ) : (
             <>
-              <div className="mb-12 text-center">
-                <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tighter uppercase">{translations.form.title}</h2>
-                <div className="w-16 h-0.5 bg-brand-accent mx-auto rounded-full opacity-50"></div>
+              <div className="mb-8 md:mb-12 text-center">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-black mb-3 tracking-tighter uppercase">{translations.form.title}</h2>
+                <div className="w-12 md:w-16 h-0.5 bg-brand-accent mx-auto rounded-full opacity-50"></div>
               </div>
 
-              <div className="bg-brand-accent/5 border border-brand-accent/10 rounded-3xl p-6 mb-12 flex flex-col md:flex-row items-center gap-6">
-                  <div className="w-12 h-12 bg-brand-accent/10 rounded-2xl flex items-center justify-center text-brand-accent">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+              <div className="bg-brand-accent/5 border border-brand-accent/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 mb-8 md:mb-12 flex flex-col md:flex-row items-center gap-4 md:gap-6">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-brand-accent/10 rounded-xl md:rounded-2xl flex items-center justify-center text-brand-accent shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                   </div>
                   <div className="text-center md:text-left rtl:md:text-right">
-                    <div className="flex items-center justify-center md:justify-start rtl:md:justify-start gap-3 mb-1">
-                      <h4 className="text-brand-accent font-black uppercase tracking-widest text-[10px]">{translations.qualification?.title}</h4>
-                      <span className="bg-brand-accent/10 text-brand-accent text-[8px] font-black px-2 py-0.5 rounded-full">{translations.qualification?.badge}</span>
+                    <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
+                      <h4 className="text-brand-accent font-black uppercase tracking-widest text-[9px] md:text-[10px]">{translations.qualification?.title}</h4>
+                      <span className="bg-brand-accent/10 text-brand-accent text-[7px] md:text-[8px] font-black px-2 py-0.5 rounded-full whitespace-nowrap">{translations.qualification?.badge}</span>
                     </div>
-                    <p className="text-brand-gray text-[13px] leading-relaxed">{translations.qualification?.message}</p>
+                    <p className="text-brand-gray text-[11px] md:text-[13px] leading-relaxed">{translations.qualification?.message}</p>
                   </div>
               </div>
 
               {formError && (
                 <div 
                   id="form-error-display"
-                  className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-2xl mb-8 text-center text-xs font-bold animate-shake"
+                  className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl md:rounded-2xl mb-6 md:mb-8 text-center text-[10px] sm:text-xs font-bold animate-shake"
                 >
                   {formError}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                  <div className="space-y-6">
-                    <h4 className="text-[10px] font-black text-brand-accent uppercase tracking-[0.3em] border-b border-white/5 pb-2 mb-6 text-start">{translations.form.yourInfoTitle}</h4>
+              <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                  <div className="space-y-5 md:space-y-6">
+                    <h4 className="text-[9px] md:text-[10px] font-black text-brand-accent uppercase tracking-[0.2em] md:tracking-[0.3em] border-b border-white/5 pb-2 mb-4 md:mb-6 text-start">{translations.form.yourInfoTitle}</h4>
                     <div className="space-y-4">
                       <div>
                         <label className={labelClass}>{translations.form.nameLabel}</label>
@@ -342,12 +341,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                         <input type="text" name="activity" placeholder={translations.form.activityPlaceholder} value={formData.activity} onChange={handleChange} className={inputClass} />
                       </div>
                       
-                      {/* Premium Optional Social Media fields - Correctly Separated with Icons on "Other side" */}
-                      <div className="space-y-6 pt-4 border-t border-white/5">
+                      {/* Premium Social Media fields */}
+                      <div className="space-y-5 md:space-y-6 pt-4 border-t border-white/5">
                         {/* Facebook */}
                         <div className="space-y-1.5 group/social">
                           <label className={labelClass}>{translations.form.facebookLabel}</label>
-                          <div className="flex items-stretch gap-3 ltr:flex-row rtl:flex-row-reverse">
+                          <div className="flex items-stretch gap-2 md:gap-3 ltr:flex-row rtl:flex-row-reverse">
                             <input 
                               type="text" 
                               name="facebook" 
@@ -356,7 +355,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                               onChange={handleChange} 
                               className={socialInputBaseClass} 
                             />
-                            <div className="w-12 h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
+                            <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
                               <IconFacebookBrand />
                             </div>
                           </div>
@@ -365,7 +364,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                         {/* Instagram */}
                         <div className="space-y-1.5 group/social">
                           <label className={labelClass}>{translations.form.instagramLabel}</label>
-                          <div className="flex items-stretch gap-3 ltr:flex-row rtl:flex-row-reverse">
+                          <div className="flex items-stretch gap-2 md:gap-3 ltr:flex-row rtl:flex-row-reverse">
                             <input 
                               type="text" 
                               name="instagram" 
@@ -374,7 +373,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                               onChange={handleChange} 
                               className={socialInputBaseClass} 
                             />
-                            <div className="w-12 h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
+                            <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
                               <IconInstagramBrand />
                             </div>
                           </div>
@@ -383,7 +382,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                         {/* TikTok */}
                         <div className="space-y-1.5 group/social">
                           <label className={labelClass}>{translations.form.tiktokLabel}</label>
-                          <div className="flex items-stretch gap-3 ltr:flex-row rtl:flex-row-reverse">
+                          <div className="flex items-stretch gap-2 md:gap-3 ltr:flex-row rtl:flex-row-reverse">
                             <input 
                               type="text" 
                               name="tiktok" 
@@ -392,7 +391,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                               onChange={handleChange} 
                               className={socialInputBaseClass} 
                             />
-                            <div className="w-12 h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
+                            <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 bg-brand-dark/40 border border-brand-border rounded-xl flex items-center justify-center transition-all group-focus-within/social:border-brand-accent/50 group-focus-within/social:scale-105">
                               <IconTikTokBrand />
                             </div>
                           </div>
@@ -400,9 +399,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="space-y-6">
-                    <h4 className="text-[10px] font-black text-brand-accent uppercase tracking-[0.3em] border-b border-white/5 pb-2 mb-6 text-start">{translations.form.projectInfoTitle}</h4>
-                    <div className="space-y-8">
+                  <div className="space-y-5 md:space-y-6">
+                    <h4 className="text-[9px] md:text-[10px] font-black text-brand-accent uppercase tracking-[0.2em] md:tracking-[0.3em] border-b border-white/5 pb-2 mb-4 md:mb-6 text-start">{translations.form.projectInfoTitle}</h4>
+                    <div className="space-y-6 md:space-y-8">
                       <CheckboxGroup 
                         label={translations.form.goalLabel} 
                         hint={translations.form.goalLabelHint} 
@@ -440,39 +439,39 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
                 {/* Dynamic Budget Advice Box */}
                 {budgetAdvice && (
-                  <div className="animate-fade-in-up bg-brand-accent/5 border border-brand-accent/20 p-5 rounded-2xl flex items-start gap-4 transition-all duration-500 shadow-[0_0_20px_rgba(56,189,248,0.05)]">
-                    <div className="w-10 h-10 shrink-0 bg-brand-accent/10 rounded-xl flex items-center justify-center text-brand-accent">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="animate-fade-in-up bg-brand-accent/5 border border-brand-accent/20 p-4 sm:p-5 rounded-2xl flex items-start gap-3 md:gap-4 transition-all duration-500 shadow-[0_0_20px_rgba(56,189,248,0.05)]">
+                    <div className="w-8 h-8 md:w-10 md:h-10 shrink-0 bg-brand-accent/10 rounded-lg md:rounded-xl flex items-center justify-center text-brand-accent">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div>
-                      <h5 className="text-[10px] font-black uppercase text-brand-accent tracking-widest mb-1 text-start">Analyse Stratégique</h5>
-                      <p className="text-[13px] text-brand-gray/90 leading-relaxed text-start">{budgetAdvice}</p>
+                      <h5 className="text-[9px] md:text-[10px] font-black uppercase text-brand-accent tracking-widest mb-1 text-start">Analyse Stratégique</h5>
+                      <p className="text-[12px] md:text-[13px] text-brand-gray/90 leading-relaxed text-start">{budgetAdvice}</p>
                     </div>
                   </div>
                 )}
 
                 <div className="pt-2 text-center">
-                  <p className="text-[11px] text-brand-gray/60 italic leading-relaxed max-w-lg mx-auto">
+                  <p className="text-[10px] md:text-[11px] text-brand-gray/60 italic leading-relaxed max-w-lg mx-auto">
                     {translations.form.privacyNote}
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 items-center justify-center">
                   <button 
                     type="submit" 
                     disabled={isSubmitting} 
-                    className="w-full sm:w-auto min-w-[200px] bg-white text-brand-dark font-black py-4 px-10 rounded-xl transition-all uppercase tracking-widest text-[10px]"
+                    className="w-full sm:w-auto min-w-[180px] md:min-w-[200px] bg-white text-brand-dark font-black py-4 px-8 md:px-10 rounded-xl transition-all uppercase tracking-widest text-[9px] md:text-[10px]"
                   >
                     {isSubmitting ? 'Envoi...' : translations.form.cta}
                   </button>
                   <button 
                     type="button"
                     onClick={handleWhatsAppClick}
-                    className="w-full sm:w-auto min-w-[200px] bg-whatsapp-green text-white font-black py-4 px-10 rounded-xl transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-[10px]"
+                    className="w-full sm:w-auto min-w-[180px] md:min-w-[200px] bg-whatsapp-green text-white font-black py-4 px-8 md:px-10 rounded-xl transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-[9px] md:text-[10px]"
                   >
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 24 24" className="w-4 h-4 md:w-5 md:h-5 fill-white" xmlns="http://www.w3.org/2000/svg">
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.411 0 .01 5.403.007 12.04c0 2.123.554 4.197 1.607 6.034L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.637 0 12.038-5.402 12.041-12.04a11.817 11.817 0 00-3.517-8.482" />
                     </svg>
                     {translations.form.whatsappCta}

@@ -42,19 +42,13 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
     <footer ref={footerRef} className={`bg-brand-dark border-t border-brand-border text-brand-gray py-16 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
-          <div className="flex flex-col gap-4">
-             <a href="#accueil" aria-label="iVISION Home" className="flex items-center gap-3 group">
-                <div className="w-12 h-12 bg-brand-accent text-brand-dark rounded-2xl flex items-center justify-center font-black text-2xl">
-                  iV
-                </div>
-                <div className="flex flex-col -space-y-1">
-                  <span className="text-2xl font-black tracking-tighter text-brand-light">
-                    iVISION
-                  </span>
-                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand-accent opacity-80">
-                    Agency
-                  </span>
-                </div>
+          <div className="flex flex-col gap-6">
+             <a href="#accueil" aria-label="iVISION Home" className="flex items-center">
+                <img 
+                  src="https://i.ibb.co/rf42xscR/i-VISIONLOGO.png" 
+                  alt="iVISION" 
+                  className="h-8 md:h-10 w-auto object-contain"
+                />
               </a>
              <p className="max-w-xs text-sm leading-relaxed text-brand-gray/80">
                {translations.tagline}
