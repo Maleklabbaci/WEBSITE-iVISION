@@ -42,26 +42,30 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-32 pb-20 bg-transparent text-brand-light">
+    <section ref={sectionRef} className="py-24 bg-brand-dark scroll-mt-24">
       <div className="container mx-auto px-6">
-        <div className={`text-center mb-12 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold">{translations.title}</h2>
-          <p className="text-lg text-brand-gray mt-2 max-w-2xl mx-auto">{translations.subtitle}</p>
-          <div className="w-24 h-1 bg-brand-accent mx-auto mt-4 rounded-full"></div>
+        <div className={`text-center mb-20 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="uni-badge mb-6">Expertise Agency</div>
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">
+            Pourquoi <span className="text-brand-accent">iVISION ?</span>
+          </h2>
+          <p className="text-brand-gray text-lg md:text-xl max-w-2xl mx-auto font-medium opacity-80">
+            {translations.subtitle}
+          </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {translations.points.map((point, index) => (
             <div 
               key={index}
-              className={`group bg-brand-dark/50 border border-brand-border p-8 rounded-lg text-center transition-all duration-[1000ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-brand-accent hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+              className={`uni-card p-10 flex flex-col items-center text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <div className="text-brand-accent mb-4 inline-block transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(56,189,248,0.7)]">
+              <div className="text-brand-accent mb-8 p-4 bg-brand-accent/10 rounded-2xl">
                   {icons[index]}
               </div>
-              <h3 className="text-xl font-bold text-brand-light mb-2">{point.title}</h3>
-              <p className="text-brand-gray text-sm leading-relaxed">{point.description}</p>
+              <h3 className="text-xl md:text-2xl font-black text-white mb-4 uppercase tracking-tighter">{point.title}</h3>
+              <p className="text-brand-gray text-sm md:text-base leading-relaxed font-medium">{point.description}</p>
             </div>
           ))}
         </div>
