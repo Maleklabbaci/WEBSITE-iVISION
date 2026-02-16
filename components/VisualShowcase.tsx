@@ -49,7 +49,9 @@ const VisualCard: React.FC<{ item: ShowcaseItem; index: number; isVisible: boole
           <div className="inline-block px-4 py-1.5 md:px-6 md:py-2 bg-brand-blue text-white text-[9px] md:text-[11px] font-black uppercase rounded-xl shadow-lg shadow-brand-blue/30">
             {item.stat}
           </div>
-          <h3 className="text-3xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">{item.label}</h3>
+          <h3 className="text-2xl sm:text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none break-words">
+            {item.label}
+          </h3>
           <p className="text-brand-gray text-sm md:text-lg font-medium opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 max-w-sm">
             {item.description}
           </p>

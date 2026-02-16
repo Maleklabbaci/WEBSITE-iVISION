@@ -6,6 +6,7 @@ interface FooterProps {
       tagline: string; 
       links: string[]; 
       copyright: string; 
+      contactUs: string;
       contact: { email: string; support: string; phone: string; }
     }
 }
@@ -38,18 +39,34 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
                     {link}
                   </a>
                 ))}
+                {/* Clear Contact Us Link */}
+                <a href="#/devis" className="text-xs font-black uppercase tracking-widest text-brand-accent hover:brightness-110 transition-all">
+                  {translations.contactUs}
+                </a>
             </div>
 
-            {/* Contact */}
+            {/* Contact Direct */}
             <div className="flex flex-col gap-6">
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/20">Contact</span>
                 <div className="flex flex-col gap-4">
-                  <a href={`mailto:${translations.contact.email}`} className="text-xs font-bold text-brand-gray hover:text-brand-accent transition-colors break-all">
-                    {translations.contact.email}
-                  </a>
-                  <a href={`tel:${translations.contact.phone.replace(/\s/g, '')}`} className="text-xs font-bold text-brand-gray hover:text-brand-accent transition-colors">
-                    {translations.contact.phone}
-                  </a>
+                  <div>
+                    <span className="block text-[8px] font-black uppercase tracking-widest text-brand-gray/40 mb-1">Général</span>
+                    <a href={`mailto:${translations.contact.email}`} className="text-xs font-bold text-brand-gray hover:text-brand-accent transition-colors break-all">
+                      {translations.contact.email}
+                    </a>
+                  </div>
+                  <div>
+                    <span className="block text-[8px] font-black uppercase tracking-widest text-brand-gray/40 mb-1">Support</span>
+                    <a href={`mailto:${translations.contact.support}`} className="text-xs font-bold text-brand-gray hover:text-brand-accent transition-colors break-all">
+                      {translations.contact.support}
+                    </a>
+                  </div>
+                  <div>
+                    <span className="block text-[8px] font-black uppercase tracking-widest text-brand-gray/40 mb-1">Ligne Directe</span>
+                    <a href={`tel:${translations.contact.phone.replace(/\s/g, '')}`} className="text-xs font-black text-brand-accent hover:brightness-110 transition-all">
+                      {translations.contact.phone}
+                    </a>
+                  </div>
                 </div>
             </div>
 

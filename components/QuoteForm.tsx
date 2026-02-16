@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 const FORMSPARK_ID = "3hB9voxjF";
@@ -27,10 +28,17 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation client side
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.business || !formData.problem || !formData.budget) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
+
     setStatus('submitting');
     
     // Prepare data for submission (merging Other if applicable)
-    const submissionData = { ...formData };
+    const submissionData: any = { ...formData };
     if (formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1]) {
         submissionData.business = `Autre: ${formData.businessOther}`;
     }
@@ -62,7 +70,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
         </div>
         <h2 className="text-5xl font-black mb-6 text-white uppercase tracking-tighter">{translations.form.successTitle}</h2>
         <p className="text-2xl font-medium text-brand-gray max-w-2xl mb-16 opacity-70">{translations.form.successMessage}</p>
-        <button onClick={() => window.location.hash = ''} className="btn-ivision px-16">Retour au Terminal</button>
+        <button 
+          onClick={() => window.location.hash = ''} 
+          className="btn-ivision px-16 group"
+        >
+          <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1.5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+          <span>{translations.form.backToHome}</span>
+        </button>
       </div>
     );
   }

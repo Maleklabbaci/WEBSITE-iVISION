@@ -178,6 +178,7 @@ const textContent = {
       cta: { fr: 'ENVOYER MA DEMANDE', en: 'SEND MY REQUEST', ar: 'إرسال الطلب' },
       successTitle: { fr: 'MERCI !', en: 'THANK YOU!', ar: 'شكراً لك!' },
       successMessage: { fr: 'On vous recontacte très vite sur WhatsApp pour en discuter.', en: 'We will contact you very soon on WhatsApp to discuss.', ar: 'سنتصل بك قريباً جداً على الواتساب للمناقشة.' },
+      backToHome: { fr: 'Retour à l\'accueil', en: 'Back to Home', ar: 'العودة للرئيسية' },
     },
     modal: {
         cta: { fr: 'Discuter sur WhatsApp', en: 'Chat on WhatsApp', ar: 'تحدث عبر واتساب' },
@@ -187,6 +188,7 @@ const textContent = {
   footer: {
     tagline: { fr: 'On vous aide à grandir en Algérie.', en: 'Helping you grow in Algeria.', ar: 'نساعدك على النمو في الجزائر.' },
     copyright: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' },
+    contactUs: { fr: 'Contactez-nous', en: 'Contact Us', ar: 'اتصل بنا' },
     contact: {
       email: 'contact@ivision.agency',
       support: 'support@ivision.agency',
@@ -235,6 +237,7 @@ const processTranslations = (lang: Language) => {
         cta: b.contact.form.cta[lang],
         successTitle: b.contact.form.successTitle[lang],
         successMessage: b.contact.form.successMessage[lang],
+        backToHome: b.contact.form.backToHome[lang],
       },
       modal: {
           cta: b.contact.modal.cta[lang],
@@ -245,6 +248,7 @@ const processTranslations = (lang: Language) => {
       tagline: b.footer.tagline[lang],
       links: b.header.links[lang],
       copyright: b.footer.copyright[lang],
+      contactUs: b.footer.contactUs[lang],
       contact: b.footer.contact
     },
     whatsapp: { message: b.whatsapp.message[lang] },
