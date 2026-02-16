@@ -18,7 +18,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -29,7 +29,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation client side
+    // Validation stricte
     if (!formData.name.trim() || !formData.phone.trim() || !formData.business || !formData.problem || !formData.budget) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
@@ -37,22 +37,39 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
     setStatus('submitting');
     
-    // Prepare data for submission (merging Other if applicable)
-    const submissionData: any = { ...formData };
-    if (formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1]) {
-        submissionData.business = `Autre: ${formData.businessOther}`;
-    }
+    // Préparation des données propres
+    const businessValue = formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1]
+        ? `Autre: ${formData.businessOther}`
+        : formData.business;
+
+    const submissionData = {
+      name: formData.name.trim(),
+      phone: formData.phone.trim(),
+      business_type: businessValue,
+      problem: formData.problem,
+      budget_range: formData.budget,
+      _subject: `Nouvelle demande de devis : ${formData.name}`,
+    };
 
     try {
-      await fetch(`https://submit-form.com/${FORMSPARK_ID}`, {
+      const response = await fetch(`https://submit-form.com/${FORMSPARK_ID}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json' 
+        },
         body: JSON.stringify(submissionData),
       });
-      setStatus('done');
-    } catch { 
+
+      if (response.ok) {
+        setStatus('done');
+      } else {
+        throw new Error('Server returned an error');
+      }
+    } catch (error) { 
+      console.error("Submission error:", error);
       setStatus('idle');
-      alert("Erreur de transmission. Vérifiez votre connexion.");
+      alert("Une erreur est survenue lors de l'envoi. Veuillez vérifier votre connexion ou nous contacter directement sur WhatsApp.");
     }
   };
 
@@ -65,7 +82,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   if (status === 'done') {
     return (
       <div className="min-h-screen bg-navy flex flex-col items-center justify-center p-12 text-center animate-fade-in relative overflow-hidden">
-        {/* Decorative elements for success */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-brand-blue/5 blur-[150px] rounded-full pointer-events-none"></div>
         
         <div className="relative z-10 flex flex-col items-center">
@@ -75,7 +91,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               </svg>
             </div>
             
-            <div className="sketch-badge mb-6">Validation terminée</div>
+            <div className="sketch-badge mb-6">Félicitations</div>
             
             <h2 className="text-4xl md:text-7xl font-black mb-6 text-white uppercase tracking-tighter leading-none animate-fade-in-up">
               {translations.form.successTitle}
@@ -121,7 +137,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
         <div className="glass-card p-8 md:p-20 shadow-2xl border-white/10">
           <form onSubmit={onSubmit} className="space-y-16">
             
-            {/* Q1: Nom */}
             <div className="space-y-2">
               <label className={labelClass}>01. {translations.form.nameLabel}</label>
               <input 
@@ -134,7 +149,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               />
             </div>
 
-            {/* Q2: WhatsApp */}
             <div className="space-y-2">
               <label className={labelClass}>02. {translations.form.phoneLabel}</label>
               <input 
@@ -148,7 +162,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               />
             </div>
 
-            {/* Q3: Business */}
             <div className="space-y-6">
               <label className={labelClass}>03. {translations.form.businessLabel}</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -170,7 +183,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 ))}
               </div>
               
-              {/* Other Business Specification */}
               {isOtherBusinessSelected && (
                 <div className="animate-fade-in-up mt-4">
                   <input 
@@ -185,7 +197,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               )}
             </div>
 
-            {/* Q4: Problème */}
             <div className="space-y-6">
               <label className={labelClass}>04. {translations.form.problemLabel}</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -208,7 +219,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               </div>
             </div>
 
-            {/* Q5: Budget */}
             <div className="space-y-6">
               <label className={labelClass}>05. {translations.form.budgetLabel}</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -235,9 +245,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               <button 
                 type="submit" 
                 disabled={status === 'submitting'} 
-                className="btn-ivision w-full md:w-auto px-20 py-10 text-base"
+                className="btn-ivision w-full md:w-auto px-20 py-10 text-base shadow-2xl shadow-brand-blue/30"
               >
-                {status === 'submitting' ? 'SYNCHRONISATION...' : translations.form.cta}
+                {status === 'submitting' ? 'ENVOI EN COURS...' : translations.form.cta}
               </button>
             </div>
           </form>
