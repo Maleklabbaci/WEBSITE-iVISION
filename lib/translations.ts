@@ -176,8 +176,8 @@ const textContent = {
         ar: ['30,000 - 60,000 دج', '60,000 - 120,000 دج', '120,000 - 250,000 دج', 'أكثر من 250,000 دج']
       },
       cta: { fr: 'ENVOYER MA DEMANDE', en: 'SEND MY REQUEST', ar: 'إرسال الطلب' },
-      successTitle: { fr: 'MERCI !', en: 'THANK YOU!', ar: 'شكراً لك!' },
-      successMessage: { fr: 'On vous recontacte très vite sur WhatsApp pour en discuter.', en: 'We will contact you very soon on WhatsApp to discuss.', ar: 'سنتصل بك قريباً جداً على الواتساب للمناقشة.' },
+      successTitle: { fr: 'DEMANDE VALIDÉE !', en: 'REQUEST VALIDATED!', ar: 'تم تأكيد الطلب!' },
+      successMessage: { fr: 'Votre demande a été transmise avec succès. On vous recontacte très vite sur WhatsApp pour lancer votre audit.', en: 'Your request has been successfully transmitted. We will contact you very soon on WhatsApp.', ar: 'تم إرسال طلبك بنجاح. سنتصل بك قريباً جداً على الواتساب لبدء تدقيقك.' },
       backToHome: { fr: 'Retour à l\'accueil', en: 'Back to Home', ar: 'العودة للرئيسية' },
     },
     modal: {

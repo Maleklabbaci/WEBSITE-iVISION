@@ -64,21 +64,38 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
   if (status === 'done') {
     return (
-      <div className="min-h-screen bg-navy flex flex-col items-center justify-center p-12 text-center animate-fade-in">
-        <div className="w-32 h-32 bg-brand-blue rounded-full flex items-center justify-center mb-12 text-white shadow-2xl shadow-brand-blue/30 scale-in">
-          <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+      <div className="min-h-screen bg-navy flex flex-col items-center justify-center p-12 text-center animate-fade-in relative overflow-hidden">
+        {/* Decorative elements for success */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-brand-blue/5 blur-[150px] rounded-full pointer-events-none"></div>
+        
+        <div className="relative z-10 flex flex-col items-center">
+            <div className="w-24 h-24 md:w-32 md:h-32 bg-brand-blue rounded-full flex items-center justify-center mb-8 md:mb-12 text-white shadow-2xl shadow-brand-blue/40 animate-scale-in">
+              <svg className="w-12 h-12 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            
+            <div className="sketch-badge mb-6">Validation terminée</div>
+            
+            <h2 className="text-4xl md:text-7xl font-black mb-6 text-white uppercase tracking-tighter leading-none animate-fade-in-up">
+              {translations.form.successTitle}
+            </h2>
+            
+            <p className="text-lg md:text-2xl font-medium text-brand-gray max-w-2xl mb-12 md:mb-16 opacity-80 leading-relaxed animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              {translations.form.successMessage}
+            </p>
+            
+            <button 
+              onClick={() => window.location.hash = ''} 
+              className="btn-ivision px-12 md:px-16 group py-4 md:py-6 animate-fade-in-up"
+              style={{ animationDelay: '400ms' }}
+            >
+              <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1.5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+              <span>{translations.form.backToHome}</span>
+            </button>
         </div>
-        <h2 className="text-5xl font-black mb-6 text-white uppercase tracking-tighter">{translations.form.successTitle}</h2>
-        <p className="text-2xl font-medium text-brand-gray max-w-2xl mb-16 opacity-70">{translations.form.successMessage}</p>
-        <button 
-          onClick={() => window.location.hash = ''} 
-          className="btn-ivision px-16 group"
-        >
-          <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1.5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-          <span>{translations.form.backToHome}</span>
-        </button>
       </div>
     );
   }
