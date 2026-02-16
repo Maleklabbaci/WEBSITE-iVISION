@@ -1,4 +1,4 @@
-name: Deploy Vite site to GitHub Pages
+name: pages-build-deployment
 
 on:
   push:
@@ -36,7 +36,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./dist   # <-- très important
 
   deploy:
     environment:
