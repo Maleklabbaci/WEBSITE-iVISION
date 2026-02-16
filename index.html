@@ -1,103 +1,142 @@
 
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="fr" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iVISION Agency - Croissance Digitale Professionnelle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050A1F" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>iVISION | Ingénierie de Croissance Digitale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           container: {
             center: true,
-            padding: {
-              DEFAULT: '1.5rem',
-              sm: '2rem',
-              lg: '4rem',
-            },
-            screens: {
-              sm: '640px',
-              md: '768px',
-              lg: '1024px',
-            },
+            padding: { DEFAULT: '1.25rem', md: '2rem', lg: '8rem' },
           },
           extend: {
             colors: {
-              'brand-dark': '#0A0F1A',
-              'brand-light': '#FFFFFF',
+              'navy': '#050A1F',
+              'brand-blue': '#0033FF',
+              'brand-white': '#FFFFFF',
               'brand-gray': '#94A3B8',
-              'brand-accent': '#38BDF8',
-              'brand-border': 'rgba(255, 255, 255, 0.08)',
-              'whatsapp-green': '#16A34A',
             },
             fontFamily: {
-              sans: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
+              sans: ['"Inter"', 'system-ui', 'sans-serif'],
             },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              'scale-in': 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'slide-in-right': 'slideInRight 0.5s ease-out forwards',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              scaleIn: {
+                '0%': { opacity: '0', transform: 'scale(0.9)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              slideInRight: {
+                '0%': { transform: 'translateX(100%)' },
+                '100%': { transform: 'translateX(0)' },
+              }
+            }
           }
         }
       }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+      :root { color-scheme: dark; }
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #0A0F1A;
+        background-color: #050A1F;
         color: #FFFFFF;
-        overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        padding-bottom: env(safe-area-inset-bottom);
       }
-      /* Charte Unifiée pour les cartes */
-      .uni-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 2.5rem;
-        backdrop-filter: blur(12px);
-        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-      }
-      .uni-card:hover {
-        border-color: rgba(56, 189, 248, 0.4);
-        background: rgba(255, 255, 255, 0.05);
-        transform: translateY(-8px);
-      }
-      /* Badges Unifiés */
-      .uni-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.5rem 1.25rem;
-        border-radius: 9999px;
-        border: 1px solid rgba(56, 189, 248, 0.3);
-        background: rgba(56, 189, 248, 0.1);
-        color: #38BDF8;
-        font-size: 10px;
+      
+      .perspective-stage { perspective: 2000px; }
+      .layer-3d { transform-style: preserve-3d; }
+
+      .sketch-badge {
+        border: 2px solid #0033FF;
+        padding: 4px 12px;
+        transform: rotate(-2deg);
+        display: inline-block;
+        font-size: 0.65rem;
         font-weight: 900;
         text-transform: uppercase;
-        letter-spacing: 0.3em;
-        backdrop-filter: blur(8px);
+        letter-spacing: 0.12em;
+        color: #0033FF;
+        background: rgba(0, 51, 255, 0.05);
       }
-      h1, h2, h3 {
-        letter-spacing: -0.04em;
+
+      .btn-ivision {
+        background-color: #0033FF;
+        color: #FFFFFF;
+        font-weight: 800;
+        padding: 0.75rem 1.75rem;
+        border-radius: 12px;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
         text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.7rem;
+        transform-style: preserve-3d;
       }
-      .container {
-        max-width: 1200px !important;
+
+      @media (min-width: 768px) {
+        .btn-ivision {
+          padding: 0.8rem 2rem;
+          font-size: 0.75rem;
+          gap: 0.75rem;
+        }
       }
-      ::selection {
-        background: #38BDF8;
-        color: #0A0F1A;
+      
+      .btn-ivision:hover {
+        transform: translateY(-4px) translateZ(10px);
+        box-shadow: 0 20px 40px rgba(0, 51, 255, 0.3);
       }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-style: preserve-3d;
+      }
+
+      @media (min-width: 768px) {
+        .glass-card { border-radius: 24px; }
+        .glass-card:hover {
+          border-color: rgba(0, 51, 255, 0.4);
+          background: rgba(0, 51, 255, 0.05);
+          transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+        }
+      }
+
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: #050A1F; }
+      ::-webkit-scrollbar-thumb { background: #0033FF; border-radius: 10px; }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
   }
 }
 </script>

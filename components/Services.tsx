@@ -1,40 +1,11 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 
-const IconTrendingUp = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
-const IconCamera = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>;
-const IconMegaphone = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-2.236 9.168-5.514C18.332 18.89 12.056 22 7 22a4.001 4.001 0 01-1.564-.317z" /></svg>;
-const IconShoppingCart = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>;
-
-const icons = [<IconTrendingUp />, <IconCamera />, <IconMegaphone />, <IconShoppingCart />];
-
-interface Service {
-  title: string;
-  description: string;
-}
-
-const ServiceCard: React.FC<{ service: Service; icon: React.ReactElement; index: number; isVisible: boolean }> = ({ service, icon, index, isVisible }) => (
-    <div 
-        className={`uni-card p-10 flex flex-col items-center text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-        style={{ transitionDelay: `${index * 150}ms` }}
-    >
-        <div className="text-brand-accent mb-8 p-4 bg-brand-accent/10 rounded-2xl">
-            {icon}
-        </div>
-        <h3 className="text-xl md:text-2xl font-black text-white mb-4 uppercase tracking-tighter">{service.title}</h3>
-        <p className="text-brand-gray text-sm md:text-base leading-relaxed font-medium">{service.description}</p>
-    </div>
-);
-
 interface ServicesProps {
-  translations: {
-    title: string;
-    subtitle: string;
-    items: Service[];
-  }
+  translations: { title: string; subtitle: string; items: any[]; modal: any; },
+  onQuoteClick: () => void;
 }
 
-const Services: React.FC<ServicesProps> = ({ translations }) => {
+const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -44,21 +15,49 @@ const Services: React.FC<ServicesProps> = ({ translations }) => {
     return () => observer.disconnect();
   }, []);
 
+  const words = translations?.title?.split(' ') || [];
+  const splitIndex = Math.ceil(words.length / 2);
+
   return (
-    <section id="services" ref={sectionRef} className="py-24 bg-brand-dark scroll-mt-24">
-      <div className="container mx-auto px-6">
-        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="uni-badge mb-6">Expert Solutions</div>
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">
-            Nos Solutions <span className="text-brand-accent">Expert</span>
-          </h2>
-          <p className="text-brand-gray text-lg md:text-xl max-w-2xl mx-auto font-medium opacity-80">{translations.subtitle}</p>
+    <section id="services" ref={sectionRef} className="py-24 md:py-40 bg-navy relative border-t border-white/5 overflow-hidden">
+      <div className="container">
+        <div className={`mb-16 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
+            <div className="max-w-4xl">
+              <div className="sketch-badge mb-6 md:mb-8">Expertise</div>
+              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase">
+                {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
+                <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
+              </h2>
+            </div>
+            <p className="text-base md:text-2xl text-brand-gray max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
+              {translations.subtitle}
+            </p>
+          </div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {translations.items.map((item, index) => (
-                <ServiceCard key={index} service={item} icon={icons[index]} index={index} isVisible={isVisible} />
-            ))}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {translations.items.map((item, i) => (
+            <div key={i} className="group glass-card p-8 md:p-12 hover:border-brand-blue/30 transition-all duration-500 flex flex-col h-full">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue mb-8 md:mb-10 group-hover:bg-brand-blue group-hover:text-white transition-all transform group-hover:rotate-6">
+                <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-white uppercase tracking-tighter leading-none group-hover:text-brand-blue transition-colors">{item.title}</h4>
+              <p className="text-brand-blue text-[10px] md:text-[11px] font-black uppercase mb-4 md:mb-6 tracking-tight">{item.description}</p>
+              <p className="text-brand-gray text-xs md:text-sm leading-relaxed mb-8 md:mb-12 font-medium opacity-60 group-hover:opacity-100">
+                {item.details}
+              </p>
+              <button 
+                onClick={onQuoteClick} 
+                className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-brand-blue hover:gap-5 transition-all"
+              >
+                DÉMARRER
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </section>

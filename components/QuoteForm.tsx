@@ -1,107 +1,213 @@
+import React, { useState } from 'react';
 
-import React, { useState, useMemo } from 'react';
-
-const FORMSPARK_FORM_ID = "3hB9voxjF";
-const WHATSAPP_NUMBER = "213563839404";
+const FORMSPARK_ID = "3hB9voxjF";
 
 interface QuoteFormProps {
-    translations: { 
-      form: any;
-      qualification: any;
-    };
+    translations: { form: any; };
 }
 
-const CardSelector: React.FC<any> = ({ label, name, options, selectedValue, onChange }) => (
-  <div className="w-full">
-    <label className="block text-[11px] font-extrabold uppercase tracking-widest text-brand-gray mb-4 text-start rtl:text-right">
-      {label}
-    </label>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-      {options.map((option: string) => {
-        const isSelected = selectedValue === option;
-        return (
-          <label key={option} className={`cursor-pointer flex items-center justify-center p-4 border rounded-xl transition-all duration-300 ${
-            isSelected
-              ? 'bg-brand-accent text-brand-dark border-brand-accent font-bold'
-              : 'bg-white/[0.02] border-brand-border text-brand-gray hover:border-brand-gray/50'
-          }`}>
-            <input type="radio" name={name} value={option} checked={isSelected} onChange={onChange} className="sr-only" required />
-            <span className="text-[12px] text-center leading-tight uppercase tracking-tight">{option}</span>
-          </label>
-        );
-      })}
-    </div>
-  </div>
-);
-
 const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
-  const [formData, setFormData] = useState({ name: '', phone: '', businessType: '', otherBusiness: '', problem: '', budget: '' });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    phone: '', 
+    business: '', 
+    businessOther: '',
+    problem: '', 
+    budget: '' 
+  });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const whatsappUrl = useMemo(() => {
-    const biz = formData.businessType === 'Autre' || formData.businessType === 'Other' || formData.businessType === 'آخر' ? formData.otherBusiness : formData.businessType;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`*Lead iVISION*\nNom: ${formData.name}\nWhatsApp: ${formData.phone}\nBusiness: ${biz}\nProblème: ${formData.problem}\nBudget: ${formData.budget}`)}`;
-  }, [formData]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      await fetch(`https://submit-form.com/${FORMSPARK_FORM_ID}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      setIsSubmitted(true);
-    } catch { alert("Erreur."); } finally { setIsSubmitting(false); }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const inputClass = "w-full p-4 bg-white/[0.02] border border-brand-border rounded-xl focus:border-brand-accent transition-all text-sm outline-none text-start rtl:text-right text-white font-medium";
-  const labelClass = "block text-[11px] font-extrabold uppercase tracking-widest text-brand-gray mb-2 text-start rtl:text-right";
+  const handleSelect = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('submitting');
+    
+    // Prepare data for submission (merging Other if applicable)
+    const submissionData = { ...formData };
+    if (formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1]) {
+        submissionData.business = `Autre: ${formData.businessOther}`;
+    }
+
+    try {
+      await fetch(`https://submit-form.com/${FORMSPARK_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(submissionData),
+      });
+      setStatus('done');
+    } catch { 
+      setStatus('idle');
+      alert("Erreur de transmission. Vérifiez votre connexion.");
+    }
+  };
+
+  const labelClass = "text-[11px] font-black uppercase text-brand-blue ml-2 tracking-widest block mb-4";
+  const inputClass = "w-full p-6 md:p-8 bg-white/5 border border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-white font-bold placeholder:text-white/20";
+  const cardBaseClass = "relative p-5 md:p-6 rounded-2xl border transition-all duration-300 text-left cursor-pointer group";
+  const cardSelectedClass = "bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/20";
+  const cardUnselectedClass = "bg-white/5 border-white/10 hover:border-white/30";
+
+  if (status === 'done') {
+    return (
+      <div className="min-h-screen bg-navy flex flex-col items-center justify-center p-12 text-center animate-fade-in">
+        <div className="w-32 h-32 bg-brand-blue rounded-full flex items-center justify-center mb-12 text-white shadow-2xl shadow-brand-blue/30 scale-in">
+          <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <h2 className="text-5xl font-black mb-6 text-white uppercase tracking-tighter">{translations.form.successTitle}</h2>
+        <p className="text-2xl font-medium text-brand-gray max-w-2xl mb-16 opacity-70">{translations.form.successMessage}</p>
+        <button onClick={() => window.location.hash = ''} className="btn-ivision px-16">Retour au Terminal</button>
+      </div>
+    );
+  }
+
+  const isOtherBusinessSelected = formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1];
 
   return (
-    <section className="py-20">
-      <div className="container px-6">
-        <div className="max-w-4xl mx-auto bg-white/[0.01] border border-brand-border p-8 md:p-16 rounded-3xl">
-          {isSubmitted ? (
-            <div className="text-center py-12">
-              <h2 className="text-4xl font-black mb-6 uppercase tracking-tighter">{translations.form.successTitle}</h2>
-              <p className="text-brand-gray mb-10 text-lg">{translations.form.successMessage}</p>
-              <a href="#accueil" className="bg-brand-accent text-brand-dark font-black py-4 px-12 rounded-xl uppercase tracking-widest text-[11px]">Retour Accueil</a>
+    <section className="min-h-screen bg-navy pt-48 pb-32 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-1/4 h-full bg-brand-blue/[0.02] transform -skew-x-12"></div>
+      
+      <div className="container max-w-5xl relative z-10">
+        <div className="mb-20 text-center">
+            <div className="sketch-badge mb-8">On passe à l'action</div>
+            <h2 className="text-5xl md:text-[6rem] font-black text-white leading-[0.8] mb-12 uppercase tracking-tighter">
+              Bâtissons <br />
+              <span className="text-brand-blue">votre empire.</span>
+            </h2>
+            <p className="text-brand-gray text-xl md:text-2xl font-medium max-w-2xl mx-auto opacity-60 leading-tight border-l-2 md:border-l-0 md:border-b-2 border-brand-blue/30 pl-8 md:pl-0 md:pb-8">
+                Répondez à ces 5 questions pour lancer votre audit stratégique.
+            </p>
+        </div>
+
+        <div className="glass-card p-8 md:p-20 shadow-2xl border-white/10">
+          <form onSubmit={onSubmit} className="space-y-16">
+            
+            {/* Q1: Nom */}
+            <div className="space-y-2">
+              <label className={labelClass}>01. {translations.form.nameLabel}</label>
+              <input 
+                  name="name" 
+                  required 
+                  placeholder="..." 
+                  value={formData.name}
+                  onChange={handleChange} 
+                  className={inputClass}
+              />
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-12">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tighter uppercase">{translations.form.title}</h2>
-                <p className="text-brand-gray font-medium uppercase tracking-[0.3em] text-[10px]">{translations.qualification?.title}</p>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <label className={labelClass}>{translations.form.nameLabel}</label>
-                  <input type="text" name="name" placeholder={translations.form.placeholderName} value={formData.name} onChange={handleChange} className={inputClass} required />
-                </div>
-                <div>
-                  <label className={labelClass}>{translations.form.phoneLabel}</label>
-                  <input type="tel" name="phone" placeholder={translations.form.placeholderPhone} value={formData.phone} onChange={handleChange} className={inputClass} required />
-                </div>
-              </div>
+            {/* Q2: WhatsApp */}
+            <div className="space-y-2">
+              <label className={labelClass}>02. {translations.form.phoneLabel}</label>
+              <input 
+                  name="phone" 
+                  required 
+                  type="tel" 
+                  placeholder="+213..." 
+                  value={formData.phone}
+                  onChange={handleChange} 
+                  className={inputClass}
+              />
+            </div>
 
-              <CardSelector label={translations.form.businessLabel} name="businessType" options={translations.form.businessOptions} selectedValue={formData.businessType} onChange={handleChange} />
+            {/* Q3: Business */}
+            <div className="space-y-6">
+              <label className={labelClass}>03. {translations.form.businessLabel}</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {translations.form.businessOptions.map((option: string) => (
+                  <div 
+                    key={option}
+                    onClick={() => handleSelect('business', option)}
+                    className={`${cardBaseClass} ${formData.business === option ? cardSelectedClass : cardUnselectedClass}`}
+                  >
+                    <div className="flex items-center gap-4">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.business === option ? 'border-brand-blue bg-brand-blue' : 'border-white/20'}`}>
+                            {formData.business === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
+                        </div>
+                        <span className={`font-bold transition-colors ${formData.business === option ? 'text-white' : 'text-brand-gray group-hover:text-white'}`}>
+                            {option}
+                        </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
               
-              <CardSelector label={translations.form.problemLabel} name="problem" options={translations.form.problemOptions} selectedValue={formData.problem} onChange={handleChange} />
+              {/* Other Business Specification */}
+              {isOtherBusinessSelected && (
+                <div className="animate-fade-in-up mt-4">
+                  <input 
+                    name="businessOther"
+                    placeholder="Précisez votre activité..."
+                    required
+                    value={formData.businessOther}
+                    onChange={handleChange}
+                    className={inputClass}
+                  />
+                </div>
+              )}
+            </div>
 
-              <CardSelector label={translations.form.budgetLabel} name="budget" options={translations.form.budgetOptions} selectedValue={formData.budget} onChange={handleChange} />
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-8">
-                <button type="submit" disabled={isSubmitting} className="flex-1 bg-white text-brand-dark font-black py-5 rounded-xl uppercase tracking-widest text-[12px] hover:brightness-90 transition-all">{isSubmitting ? '...' : translations.form.cta}</button>
-                <button type="button" onClick={() => window.open(whatsappUrl, '_blank')} className="flex-1 bg-whatsapp-green text-white font-black py-5 rounded-xl uppercase tracking-widest text-[12px] hover:brightness-110 transition-all">WhatsApp Direct</button>
+            {/* Q4: Problème */}
+            <div className="space-y-6">
+              <label className={labelClass}>04. {translations.form.problemLabel}</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {translations.form.problemOptions.map((option: string) => (
+                  <div 
+                    key={option}
+                    onClick={() => handleSelect('problem', option)}
+                    className={`${cardBaseClass} ${formData.problem === option ? cardSelectedClass : cardUnselectedClass}`}
+                  >
+                    <div className="flex items-center gap-4">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.problem === option ? 'border-brand-blue bg-brand-blue' : 'border-white/20'}`}>
+                            {formData.problem === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
+                        </div>
+                        <span className={`font-bold transition-colors ${formData.problem === option ? 'text-white' : 'text-brand-gray group-hover:text-white'}`}>
+                            {option}
+                        </span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </form>
-          )}
+            </div>
+
+            {/* Q5: Budget */}
+            <div className="space-y-6">
+              <label className={labelClass}>05. {translations.form.budgetLabel}</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {translations.form.budgetOptions.map((option: string) => (
+                  <div 
+                    key={option}
+                    onClick={() => handleSelect('budget', option)}
+                    className={`${cardBaseClass} ${formData.budget === option ? cardSelectedClass : cardUnselectedClass}`}
+                  >
+                    <div className="flex items-center gap-4">
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.budget === option ? 'border-brand-blue bg-brand-blue' : 'border-white/20'}`}>
+                            {formData.budget === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
+                        </div>
+                        <span className={`font-bold transition-colors ${formData.budget === option ? 'text-white' : 'text-brand-gray group-hover:text-white'}`}>
+                            {option}
+                        </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-10 flex justify-center">
+              <button 
+                type="submit" 
+                disabled={status === 'submitting'} 
+                className="btn-ivision w-full md:w-auto px-20 py-10 text-base"
+              >
+                {status === 'submitting' ? 'SYNCHRONISATION...' : translations.form.cta}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </section>

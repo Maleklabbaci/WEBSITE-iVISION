@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 
 interface ContactProps {
@@ -51,17 +52,26 @@ const Contact: React.FC<ContactProps> = ({ translations }) => {
         </div>
         <div className={`max-w-lg mx-auto text-center ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '200ms' }}>
           <div className="space-y-8">
-            <div>
+            <div className="flex flex-col gap-4">
               <h4 className="text-xl font-semibold text-brand-accent mb-2">{translations.info.contactDetails}</h4>
-              <p className="text-brand-gray">Email: contact@ivision.agency</p>
-              <p className="text-brand-gray">Téléphone: +33 1 23 45 67 89</p>
-              <p className="text-brand-gray">Adresse: 123 Rue de Paris, 75001 Paris</p>
+              <div className="space-y-2">
+                <p className="text-brand-gray flex flex-col sm:flex-row items-center justify-center gap-2">
+                  <span className="font-bold text-white/50 text-xs uppercase tracking-widest">Contact :</span>
+                  <span>contact@ivision.agency</span>
+                </p>
+                <p className="text-brand-gray flex flex-col sm:flex-row items-center justify-center gap-2">
+                  <span className="font-bold text-white/50 text-xs uppercase tracking-widest">Réclamation :</span>
+                  <span>support@ivision.agency</span>
+                </p>
+              </div>
+              <p className="text-brand-gray">Téléphone: +213 563 83 94 04</p>
+              <p className="text-brand-gray">Algérie, Business District</p>
             </div>
             <div>
                <h4 className="text-xl font-semibold text-brand-accent mb-2">{translations.info.followUs}</h4>
-              <div className="flex space-x-4 justify-center">
-                <a href="https://web.facebook.com/agencyivision" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-brand-accent transition-colors"><IconFacebook /></a>
-                <a href="https://www.instagram.com/ivision_agency/" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-brand-accent transition-colors"><IconInstagram /></a>
+              <div className="flex space-x-6 justify-center">
+                <a href="https://web.facebook.com/agencyivision" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-brand-accent transition-all hover:scale-125"><IconFacebook /></a>
+                <a href="https://www.instagram.com/ivision_agency/" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-brand-accent transition-all hover:scale-125"><IconInstagram /></a>
               </div>
             </div>
           </div>

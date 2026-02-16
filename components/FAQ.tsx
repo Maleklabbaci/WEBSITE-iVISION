@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 
 interface QA {
@@ -19,28 +18,25 @@ const FAQItem: React.FC<{ qa: QA; isOpen: boolean; onClick: () => void; isVisibl
 
   return (
     <div 
-      className={`border-b border-brand-border transition-all duration-[1000ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+      className={`glass-card p-8 md:p-12 mb-6 cursor-pointer transition-all duration-[1s] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
       style={{ transitionDelay: `${index * 100}ms` }}
+      onClick={onClick}
     >
-      <button
-        onClick={onClick}
-        className="w-full flex justify-between items-center py-6 text-left group"
-        aria-expanded={isOpen}
-      >
-        <span className="text-lg font-semibold text-brand-light group-hover:text-brand-accent transition-colors duration-300">{qa.question}</span>
-        <span className={`transform transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isOpen ? 'rotate-45' : 'rotate-0'}`}>
-           <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-colors duration-300 ${isOpen ? 'text-brand-accent' : 'text-brand-gray group-hover:text-brand-accent'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-           </svg>
+      <div className="flex justify-between items-center text-left">
+        <span className={`text-xl md:text-2xl font-black uppercase tracking-tighter transition-colors duration-500 ${isOpen ? 'text-brand-blue' : 'text-white'}`}>
+          {qa.question}
         </span>
-      </button>
+        <div className={`w-12 h-12 rounded-xl flex items-center justify-center border border-white/10 transition-all duration-500 ${isOpen ? 'bg-brand-blue border-brand-blue rotate-45' : 'bg-white/5'}`}>
+           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+        </div>
+      </div>
       <div
         ref={contentRef}
-        className="overflow-hidden transition-all duration-500 ease-in-out"
+        className="overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)]"
         style={{ maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : '0px' }}
       >
-        <div className={`pb-6 text-brand-gray leading-relaxed transition-opacity duration-500 ease-in-out ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
-          <p>{qa.answer}</p>
+        <div className="pt-8 text-brand-gray text-lg font-medium leading-relaxed opacity-80 max-w-4xl border-t border-white/5 mt-8">
+          {qa.answer}
         </div>
       </div>
     </div>
@@ -49,45 +45,45 @@ const FAQItem: React.FC<{ qa: QA; isOpen: boolean; onClick: () => void; isVisibl
 
 
 const FAQ: React.FC<FAQProps> = ({ translations }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { root: null, rootMargin: '0px', threshold: 0.15 }
-    );
-    
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setIsVisible(true); }, { threshold: 0.1 });
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const handleToggle = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const words = translations?.title?.split(' ') || [];
+  const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="faq" ref={sectionRef} className="py-20 bg-transparent">
-      <div className="container mx-auto px-6">
-        <div className={`text-center mb-12 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold text-brand-light">{translations.title}</h2>
-          <p className="text-lg text-brand-gray mt-2 max-w-2xl mx-auto">{translations.subtitle}</p>
-          <div className="w-24 h-1 bg-brand-accent mx-auto mt-4 rounded-full"></div>
+    <section id="faq" ref={sectionRef} className="py-40 bg-navy relative border-t border-white/5 overflow-hidden">
+      <div className="container">
+        {/* Harmonized Header */}
+        <div className={`mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="flex flex-col md:flex-row justify-between items-end gap-12">
+            <div className="max-w-4xl">
+              <div className="sketch-badge mb-8">Support</div>
+              <h2 className="text-5xl md:text-[8rem] font-black text-white tracking-tighter leading-[0.8] uppercase">
+                {words.slice(0, splitIndex).join(' ')} <br />
+                <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
+              </h2>
+            </div>
+            <p className="text-xl md:text-2xl text-brand-gray max-w-sm font-medium leading-tight opacity-70 border-l-2 border-brand-blue/30 pl-8">
+              {translations?.subtitle}
+            </p>
+          </div>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          {translations.faqs.map((qa, index) => (
+        <div className="max-w-6xl mx-auto perspective-stage">
+          {translations?.faqs?.map((qa, index) => (
             <FAQItem
               key={index}
               qa={qa}
               isOpen={openIndex === index}
-              onClick={() => handleToggle(index)}
+              onClick={() => setOpenIndex(openIndex === index ? null : index)}
               isVisible={isVisible}
               index={index}
             />

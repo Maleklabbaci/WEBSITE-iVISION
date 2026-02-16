@@ -54,39 +54,41 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelectLanguage })
   ];
 
   return (
-    <div className="relative animate-scale-in">
+    <div className="relative animate-scale-in perspective-stage">
       {/* Glow Effect behind the popup */}
-      <div className="absolute -inset-4 bg-brand-accent/20 blur-3xl rounded-full"></div>
+      <div className="absolute -inset-10 bg-brand-blue/30 blur-[100px] rounded-full opacity-50"></div>
       
-      <div className="relative bg-brand-dark/80 border border-white/10 backdrop-blur-2xl rounded-[3rem] p-8 md:p-12 shadow-[0_0_100px_rgba(0,0,0,0.8)] max-w-md w-full">
-        <div className="text-center mb-10">
-          <div className="text-3xl font-black mb-2 tracking-tighter">
-            i<span className="text-brand-accent">V</span>ISION
-          </div>
-          <div className="h-1 w-8 bg-brand-accent mx-auto rounded-full opacity-50"></div>
+      <div className="relative float-3d bg-brand-dark/80 border border-white/10 backdrop-blur-3xl rounded-[3.5rem] p-8 md:p-14 shadow-[0_60px_120px_rgba(0,0,0,0.9)] max-w-md w-full layer-3d">
+        <div className="text-center mb-12">
+          <img 
+            src="https://i.ibb.co/rf42xscR/i-VISIONLOGO.png" 
+            alt="iVISION" 
+            className="h-16 w-auto object-contain mx-auto mb-3"
+          />
+          <div className="h-1.5 w-10 bg-brand-blue mx-auto rounded-full opacity-40"></div>
         </div>
 
-        <div className="flex justify-around items-center gap-6">
+        <div className="flex justify-around items-center gap-8">
           {languages.map((lang) => (
             <button
               key={lang.id}
               onClick={() => onSelectLanguage(lang.id)}
-              className="group flex flex-col items-center gap-3 transition-all duration-300"
+              className="group flex flex-col items-center gap-4 transition-all duration-300"
+              style={{ transform: 'translateZ(20px)' }}
             >
-              <div className="relative p-1 rounded-full border-2 border-transparent group-hover:border-brand-accent transition-all duration-500 scale-100 group-hover:scale-110 shadow-lg group-hover:shadow-brand-accent/20">
+              <div className="relative p-1 rounded-full border-2 border-transparent group-hover:border-brand-blue transition-all duration-500 scale-100 group-hover:scale-125 shadow-xl group-hover:shadow-brand-blue/30">
                 {lang.icon}
-                {/* Internal Glow on Hover */}
-                <div className="absolute inset-0 bg-brand-accent/0 group-hover:bg-brand-accent/10 rounded-full transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/10 rounded-full transition-all duration-500"></div>
               </div>
-              <span className="text-[10px] font-black tracking-widest text-brand-gray group-hover:text-brand-accent transition-colors">
+              <span className="text-[11px] font-black text-brand-gray group-hover:text-brand-blue transition-colors">
                 {lang.label}
               </span>
             </button>
           ))}
         </div>
 
-        <p className="mt-12 text-center text-[9px] uppercase tracking-[0.5em] text-brand-gray/40 font-bold">
-          Choose Language
+        <p className="mt-14 text-center text-[11px] uppercase text-brand-gray/30 font-black">
+          SÉLECTION DU TERMINAL
         </p>
       </div>
     </div>

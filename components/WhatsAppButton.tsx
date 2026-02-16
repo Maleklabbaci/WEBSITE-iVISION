@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 
 interface WhatsAppButtonProps {
@@ -7,7 +6,7 @@ interface WhatsAppButtonProps {
 }
 
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ phoneNumber, message }) => {
-  const [position, setPosition] = useState({ x: 32, y: window.innerHeight - 100 });
+  const [position, setPosition] = useState({ x: 16, y: window.innerHeight - 80 });
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
   const initialPos = useRef({ x: 0, y: 0 });
@@ -26,18 +25,10 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ phoneNumber, message })
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDragging) return;
-    
     const dx = e.clientX - dragStart.current.x;
     const dy = e.clientY - dragStart.current.y;
-    
-    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
-      hasMoved.current = true;
-    }
-
-    setPosition({
-      x: initialPos.current.x + dx,
-      y: initialPos.current.y + dy
-    });
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) hasMoved.current = true;
+    setPosition({ x: initialPos.current.x + dx, y: initialPos.current.y + dy });
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
@@ -45,18 +36,12 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ phoneNumber, message })
     setIsDragging(false);
     if (buttonRef.current) buttonRef.current.releasePointerCapture(e.pointerId);
 
-    // Snapping to edges
     const screenWidth = window.innerWidth;
-    const padding = 20;
-    const buttonWidth = 64;
+    const padding = 16;
+    const buttonWidth = window.innerWidth < 768 ? 56 : 64;
     
-    let targetX = position.x < (screenWidth / 2) - (buttonWidth / 2) 
-      ? padding 
-      : screenWidth - buttonWidth - padding;
-
-    // Boundary checks for Y
-    const screenHeight = window.innerHeight;
-    let targetY = Math.max(padding, Math.min(position.y, screenHeight - buttonWidth - padding));
+    let targetX = position.x < (screenWidth / 2) - (buttonWidth / 2) ? padding : screenWidth - buttonWidth - padding;
+    let targetY = Math.max(padding, Math.min(position.y, window.innerHeight - buttonWidth - padding - 20));
 
     setPosition({ x: targetX, y: targetY });
 
@@ -77,15 +62,11 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ phoneNumber, message })
         transition: isDragging ? 'none' : 'all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28)',
         touchAction: 'none'
       }}
-      className="fixed z-40 group cursor-grab active:cursor-grabbing"
+      className="fixed z-[90] group cursor-grab active:cursor-grabbing"
       aria-label="Contact us on WhatsApp"
     >
-      {/* Pulse Rings */}
-      <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 group-hover:opacity-40 transition-opacity"></span>
-      <span className="absolute -inset-2 rounded-full bg-[#25D366] animate-pulse opacity-10 group-hover:opacity-30 transition-opacity"></span>
-      
-      {/* Main Button */}
-      <div className="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-[#25D366] rounded-full shadow-[0_8px_30px_rgb(37,211,102,0.4)] transition-all duration-300 transform group-hover:scale-110 group-active:scale-95 group-hover:shadow-[0_15px_35px_rgb(37,211,102,0.6)]">
+      <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 group-hover:opacity-40"></span>
+      <div className="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-[#25D366] rounded-full shadow-lg transition-all duration-300 transform group-hover:scale-110 active:scale-95">
         <svg 
           viewBox="0 0 24 24" 
           className="w-8 h-8 md:w-10 md:h-10 fill-white pointer-events-none"
