@@ -1,3 +1,4 @@
+
 export type Language = 'fr' | 'en' | 'ar';
 
 const textContent = {
@@ -83,7 +84,7 @@ const textContent = {
         { title: 'RÉSULTATS', description: 'Expansion et domination totale.', details: 'Une fois la rentabilité prouvée, on scale. On augmente les budgets intelligemment pour multiplier vos ventes tout en maintenant vos marges bénéficiaires élevées pour une croissance exponentielle.' }
       ],
       en: [
-        { title: 'ANALYSIS', description: 'Full business audit.', details: 'We dive into your numbers and market. We identify winning products and untapped growth opportunities to build a solid battle plan.' },
+        { title: 'ANALYSIS', description: 'Full business audit.', details: 'We dive into your numbers and market. We identify winning products and untapped growth opportunities to build a solid plan.' },
         { title: 'ACTION', description: 'Fast strategic deployment.', details: 'We launch creative production and campaign setup. Our team ensures everything is ready to capture the market from day one.' },
         { title: 'OPTIMIZATION', description: 'Profitability management.', details: 'We don\'t launch and forget. We analyze data daily to cut what doesn\'t work and boost the most profitable segments.' },
         { title: 'RESULTS', description: 'Expansion and domination.', details: 'Once profitability is proven, we scale. We increase budgets intelligently to multiply sales while maintaining high margins.' }
@@ -185,7 +186,12 @@ const textContent = {
   },
   footer: {
     tagline: { fr: 'On vous aide à grandir en Algérie.', en: 'Helping you grow in Algeria.', ar: 'نساعدك على النمو في الجزائر.' },
-    copyright: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' }
+    copyright: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' },
+    contact: {
+      email: 'contact@ivision.agency',
+      support: 'support@ivision.agency',
+      phone: '+213 563 83 94 04'
+    }
   },
   whatsapp: { message: { fr: "Bonjour iVISION, j'aimerais booster mon business.", en: "Hello iVISION, I would like to boost my business.", ar: "مرحباً iVISION، أود تطوير عملي." } }
 };
@@ -239,6 +245,7 @@ const processTranslations = (lang: Language) => {
       tagline: b.footer.tagline[lang],
       links: b.header.links[lang],
       copyright: b.footer.copyright[lang],
+      contact: b.footer.contact
     },
     whatsapp: { message: b.whatsapp.message[lang] },
     faq: { title: b.faq.title[lang], subtitle: b.faq.subtitle[lang], faqs: b.faq.faqs[lang] },

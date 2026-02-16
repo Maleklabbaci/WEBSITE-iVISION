@@ -2,12 +2,17 @@
 import React from 'react';
 
 interface FooterProps {
-    translations: { tagline: string; links: string[]; copyright: string; }
+    translations: { 
+      tagline: string; 
+      links: string[]; 
+      copyright: string; 
+      contact: { email: string; support: string; phone: string; }
+    }
 }
 
 const Footer: React.FC<FooterProps> = ({ translations }) => {
   const year = new Date().getFullYear();
-  const staticLinks = ['accueil', 'services', 'process'];
+  const staticLinks = ['accueil', 'services', 'projets'];
 
   return (
     <footer className="bg-brand-dark border-t border-white/5 pt-32 pb-16">
@@ -24,7 +29,8 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 gap-20">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-20">
+            {/* Navigation */}
             <div className="flex flex-col gap-6">
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/20">Navigation</span>
                 {translations.links.map((link, index) => (
@@ -33,10 +39,25 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
                   </a>
                 ))}
             </div>
+
+            {/* Contact */}
+            <div className="flex flex-col gap-6">
+                <span className="text-[10px] font-black uppercase tracking-widest text-white/20">Contact</span>
+                <div className="flex flex-col gap-4">
+                  <a href={`mailto:${translations.contact.email}`} className="text-xs font-bold text-brand-gray hover:text-brand-accent transition-colors break-all">
+                    {translations.contact.email}
+                  </a>
+                  <a href={`tel:${translations.contact.phone.replace(/\s/g, '')}`} className="text-xs font-bold text-brand-gray hover:text-brand-accent transition-colors">
+                    {translations.contact.phone}
+                  </a>
+                </div>
+            </div>
+
+            {/* Social */}
             <div className="flex flex-col gap-6">
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/20">Social</span>
-                <a href="#" className="text-xs font-bold uppercase tracking-widest text-brand-gray hover:text-brand-accent transition-colors">Instagram</a>
-                <a href="#" className="text-xs font-bold uppercase tracking-widest text-brand-gray hover:text-brand-accent transition-colors">LinkedIn</a>
+                <a href="https://www.instagram.com/ivision_agency/" target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest text-brand-gray hover:text-brand-accent transition-colors">Instagram</a>
+                <a href="https://web.facebook.com/agencyivision" target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest text-brand-gray hover:text-brand-accent transition-colors">Facebook</a>
             </div>
           </div>
         </div>
