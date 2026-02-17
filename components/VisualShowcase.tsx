@@ -35,7 +35,7 @@ const showcaseItems: ShowcaseItem[] = [
 const VisualCard: React.FC<{ item: ShowcaseItem; index: number; isVisible: boolean }> = ({ item, index, isVisible }) => {
   return (
     <div 
-      className={`${item.gridClass} group relative overflow-hidden rounded-[30px] md:rounded-[40px] border border-white/5 transition-all duration-[1s] ease-out shadow-2xl min-h-[300px] md:min-h-0 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+      className={`${item.gridClass} group relative overflow-hidden rounded-[30px] md:rounded-[40px] border border-navy/5 dark:border-white/5 transition-all duration-[1s] ease-out shadow-2xl min-h-[300px] md:min-h-0 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <img 
@@ -82,7 +82,7 @@ const VisualShowcase: React.FC<VisualShowcaseProps> = ({ translations }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section ref={sectionRef} id="projets" className="py-24 md:py-40 bg-navy overflow-hidden relative border-t border-white/5">
+    <section ref={sectionRef} id="projets" className="py-24 md:py-40 bg-white dark:bg-navy overflow-hidden relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
       <div className="absolute left-0 bottom-0 w-[500px] h-[500px] bg-brand-blue/5 blur-[150px] rounded-full pointer-events-none"></div>
       
       <div className="container relative z-10">
@@ -90,12 +90,12 @@ const VisualShowcase: React.FC<VisualShowcaseProps> = ({ translations }) => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
             <div className="max-w-4xl">
               <div className="sketch-badge mb-6 md:mb-8">Portefeuille</div>
-              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase">
+              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
                 {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
                 <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
               </h2>
             </div>
-            <p className="text-base md:text-2xl text-brand-gray max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
+            <p className="text-base md:text-2xl text-brand-gray dark:text-brand-gray/80 max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
               {translations.subtitle}
             </p>
           </div>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import InfoModal from './InfoModal';
 
@@ -34,18 +35,18 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="methodologie" ref={sectionRef} className="py-24 md:py-40 bg-navy scroll-mt-24 border-t border-white/5 overflow-hidden">
+    <section id="methodologie" ref={sectionRef} className="py-24 md:py-40 bg-white dark:bg-navy transition-colors duration-500 scroll-mt-24 border-t border-navy/5 dark:border-white/5 overflow-hidden">
       <div className="container">
         <div className={`mb-16 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
             <div className="max-w-4xl">
               <div className="sketch-badge mb-6 md:mb-8">Processus</div>
-              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase">
+              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
                 {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
                 <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
               </h2>
             </div>
-            <p className="text-base md:text-2xl text-brand-gray max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
+            <p className="text-base md:text-2xl text-brand-gray dark:text-brand-gray/80 max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
               {translations?.subtitle}
             </p>
           </div>
@@ -55,7 +56,7 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
           {steps.map((step, index) => (
             <div 
               key={index}
-              className={`glass-card p-8 md:p-12 group transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'} flex flex-col h-full`}
+              className={`glass-card p-8 md:p-12 group transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'} flex flex-col h-full hover:border-brand-blue/30`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue mb-8 md:mb-10 group-hover:bg-brand-blue group-hover:text-white transition-all transform group-hover:rotate-6">
@@ -64,11 +65,11 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
 
               <div className="text-[10px] md:text-[11px] font-black text-brand-blue/40 mb-4 uppercase tracking-tight">Protocole 0{index + 1}</div>
               
-              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-white uppercase tracking-tighter leading-none group-hover:text-brand-blue transition-colors">{step.title}</h4>
+              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-navy dark:text-white uppercase tracking-tighter leading-none group-hover:text-brand-blue transition-colors duration-500">{step.title}</h4>
               
               <p className="text-brand-blue text-[10px] md:text-[11px] font-black uppercase mb-4 md:mb-6 tracking-tight">{step.description}</p>
               
-              <p className="text-brand-gray text-xs md:text-sm leading-relaxed mb-8 md:mb-12 font-medium opacity-60 group-hover:opacity-100">
+              <p className="text-brand-gray dark:text-brand-gray/80 text-xs md:text-sm leading-relaxed mb-8 md:mb-12 font-medium opacity-60 group-hover:opacity-100 transition-opacity">
                 {step.details}
               </p>
               

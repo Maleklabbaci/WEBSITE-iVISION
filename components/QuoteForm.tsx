@@ -29,7 +29,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation stricte
     if (!formData.name.trim() || !formData.phone.trim() || !formData.business || !formData.problem || !formData.budget) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
@@ -37,7 +36,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
     setStatus('submitting');
     
-    // Préparation des données propres
     const businessValue = formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1]
         ? `Autre: ${formData.businessOther}`
         : formData.business;
@@ -74,14 +72,14 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   };
 
   const labelClass = "text-[11px] font-black uppercase text-brand-blue ml-2 tracking-widest block mb-4";
-  const inputClass = "w-full p-6 md:p-8 bg-white/5 border border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-white font-bold placeholder:text-white/20";
+  const inputClass = "w-full p-6 md:p-8 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-navy dark:text-white font-bold placeholder:text-navy/20 dark:placeholder:text-white/20";
   const cardBaseClass = "relative p-5 md:p-6 rounded-2xl border transition-all duration-300 text-left cursor-pointer group";
   const cardSelectedClass = "bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/20";
-  const cardUnselectedClass = "bg-white/5 border-white/10 hover:border-white/30";
+  const cardUnselectedClass = "bg-navy/5 dark:bg-white/5 border-navy/10 dark:border-white/10 hover:border-brand-blue/40";
 
   if (status === 'done') {
     return (
-      <div className="min-h-screen bg-navy flex flex-col items-center justify-center p-12 text-center animate-fade-in relative overflow-hidden">
+      <div className="min-h-screen bg-white dark:bg-navy flex flex-col items-center justify-center p-12 text-center animate-fade-in relative overflow-hidden transition-colors duration-500">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-brand-blue/5 blur-[150px] rounded-full pointer-events-none"></div>
         
         <div className="relative z-10 flex flex-col items-center">
@@ -91,13 +89,13 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               </svg>
             </div>
             
-            <div className="sketch-badge mb-6">Félicitations</div>
+            <div className="sketch-badge mb-6">Validation terminée</div>
             
-            <h2 className="text-4xl md:text-7xl font-black mb-6 text-white uppercase tracking-tighter leading-none animate-fade-in-up">
+            <h2 className="text-4xl md:text-7xl font-black mb-6 text-navy dark:text-white uppercase tracking-tighter leading-none animate-fade-in-up transition-colors duration-500">
               {translations.form.successTitle}
             </h2>
             
-            <p className="text-lg md:text-2xl font-medium text-brand-gray max-w-2xl mb-12 md:mb-16 opacity-80 leading-relaxed animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+            <p className="text-lg md:text-2xl font-medium text-brand-gray dark:text-brand-gray/80 max-w-2xl mb-12 md:mb-16 opacity-80 leading-relaxed animate-fade-in-up" style={{ animationDelay: '200ms' }}>
               {translations.form.successMessage}
             </p>
             
@@ -119,23 +117,23 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   const isOtherBusinessSelected = formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1];
 
   return (
-    <section className="min-h-screen bg-navy pt-48 pb-32 relative overflow-hidden">
+    <section className="min-h-screen bg-white dark:bg-navy transition-colors duration-500 pt-32 md:pt-48 pb-32 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/4 h-full bg-brand-blue/[0.02] transform -skew-x-12"></div>
       
       <div className="container max-w-5xl relative z-10">
         <div className="mb-20 text-center">
             <div className="sketch-badge mb-8">On passe à l'action</div>
-            <h2 className="text-5xl md:text-[6rem] font-black text-white leading-[0.8] mb-12 uppercase tracking-tighter">
+            <h2 className="text-4xl md:text-[6rem] font-black text-navy dark:text-white leading-[1] md:leading-[0.8] mb-8 md:mb-12 uppercase tracking-tighter transition-colors duration-500">
               Bâtissons <br />
               <span className="text-brand-blue">votre empire.</span>
             </h2>
-            <p className="text-brand-gray text-xl md:text-2xl font-medium max-w-2xl mx-auto opacity-60 leading-tight border-l-2 md:border-l-0 md:border-b-2 border-brand-blue/30 pl-8 md:pl-0 md:pb-8">
+            <p className="text-brand-gray dark:text-brand-gray/80 text-lg md:text-2xl font-medium max-w-2xl mx-auto opacity-60 leading-tight md:border-b-2 border-brand-blue/30 md:pb-8 transition-colors duration-500">
                 Répondez à ces 5 questions pour lancer votre audit stratégique.
             </p>
         </div>
 
-        <div className="glass-card p-8 md:p-20 shadow-2xl border-white/10">
-          <form onSubmit={onSubmit} className="space-y-16">
+        <div className="glass-card p-6 md:p-20 shadow-2xl border-navy/5 dark:border-white/10">
+          <form onSubmit={onSubmit} className="space-y-12 md:space-y-16">
             
             <div className="space-y-2">
               <label className={labelClass}>01. {translations.form.nameLabel}</label>
@@ -172,10 +170,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                     className={`${cardBaseClass} ${formData.business === option ? cardSelectedClass : cardUnselectedClass}`}
                   >
                     <div className="flex items-center gap-4">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.business === option ? 'border-brand-blue bg-brand-blue' : 'border-white/20'}`}>
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.business === option ? 'border-brand-blue bg-brand-blue' : 'border-navy/20 dark:border-white/20'}`}>
                             {formData.business === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
                         </div>
-                        <span className={`font-bold transition-colors ${formData.business === option ? 'text-white' : 'text-brand-gray group-hover:text-white'}`}>
+                        <span className={`font-bold transition-colors ${formData.business === option ? 'text-brand-blue dark:text-white' : 'text-brand-gray group-hover:text-brand-blue dark:group-hover:text-white'}`}>
                             {option}
                         </span>
                     </div>
@@ -207,10 +205,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                     className={`${cardBaseClass} ${formData.problem === option ? cardSelectedClass : cardUnselectedClass}`}
                   >
                     <div className="flex items-center gap-4">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.problem === option ? 'border-brand-blue bg-brand-blue' : 'border-white/20'}`}>
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.problem === option ? 'border-brand-blue bg-brand-blue' : 'border-navy/20 dark:border-white/20'}`}>
                             {formData.problem === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
                         </div>
-                        <span className={`font-bold transition-colors ${formData.problem === option ? 'text-white' : 'text-brand-gray group-hover:text-white'}`}>
+                        <span className={`font-bold transition-colors ${formData.problem === option ? 'text-brand-blue dark:text-white' : 'text-brand-gray group-hover:text-brand-blue dark:group-hover:text-white'}`}>
                             {option}
                         </span>
                     </div>
@@ -229,10 +227,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                     className={`${cardBaseClass} ${formData.budget === option ? cardSelectedClass : cardUnselectedClass}`}
                   >
                     <div className="flex items-center gap-4">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.budget === option ? 'border-brand-blue bg-brand-blue' : 'border-white/20'}`}>
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.budget === option ? 'border-brand-blue bg-brand-blue' : 'border-navy/20 dark:border-white/20'}`}>
                             {formData.budget === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
                         </div>
-                        <span className={`font-bold transition-colors ${formData.budget === option ? 'text-white' : 'text-brand-gray group-hover:text-white'}`}>
+                        <span className={`font-bold transition-colors ${formData.budget === option ? 'text-brand-blue dark:text-white' : 'text-brand-gray group-hover:text-brand-blue dark:group-hover:text-white'}`}>
                             {option}
                         </span>
                     </div>

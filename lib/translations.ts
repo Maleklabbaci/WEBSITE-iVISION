@@ -14,6 +14,31 @@ const textContent = {
       ar: 'اتصل بنا',
     },
   },
+  guide: {
+    steps: {
+      fr: [
+        { title: "VOTRE CONFORT", desc: "Choisissez l'ambiance qui vous convient. Basculez entre le mode clair et sombre ici." },
+        { title: "VOTRE PROJET", desc: "Prêt à scaler ? Demandez votre audit stratégique gratuit en un clic." },
+        { title: "VOTRE SUPPORT", desc: "Une question urgente ? Nos experts vous répondent en direct sur WhatsApp." },
+        { title: "VOTRE EXPLORATION", desc: "C'est parti ! Scrollez maintenant pour découvrir comment nous allons bâtir votre empire." }
+      ],
+      en: [
+        { title: "YOUR COMFORT", desc: "Choose the vibe that suits you. Switch between light and dark mode here." },
+        { title: "YOUR PROJECT", desc: "Ready to scale? Request your free strategic audit in one click." },
+        { title: "YOUR SUPPORT", desc: "Urgent question? Our experts answer you live on WhatsApp." },
+        { title: "YOUR EXPLORATION", desc: "Let's go! Scroll now to discover how we will build your empire." }
+      ],
+      ar: [
+        { title: "راحتك أولاً", desc: "اختر الجو الذي يناسبك. بدل بين الوضع الليلي والنهاري من هنا." },
+        { title: "مشروعك", desc: "مستعد للنمو؟ اطلب تدقيقك الاستراتيجي المجاني بنقرة واحدة." },
+        { title: "دعمنا لك", desc: "سؤال عاجل؟ خبراؤنا يجيبونك مباشرة عبر واتساب." },
+        { title: "استكشافك", desc: "لننطلق! مرر الآن لتكتشف كيف سنبني إمبراطوريتك الرقمية." }
+      ]
+    },
+    next: { fr: 'SUIVANT', en: 'NEXT', ar: 'التالي' },
+    skip: { fr: 'PASSER', en: 'SKIP', ar: 'تخطي' },
+    finish: { fr: 'C\'EST PARTI !', en: 'LET\'S GO!', ar: 'لنبدأ !' }
+  },
   hero: {
     badge: {
       fr: 'VOTRE PARTENAIRE CROISSANCE',
@@ -188,6 +213,7 @@ const textContent = {
   footer: {
     tagline: { fr: 'On vous aide à grandir en Algérie.', en: 'Helping you grow in Algeria.', ar: 'نساعدك على النمو في الجزائر.' },
     copyright: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' },
+    copyright2: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' },
     contactUs: { fr: 'Contactez-nous', en: 'Contact Us', ar: 'اتصل بنا' },
     contact: {
       email: 'contact@ivision.agency',
@@ -202,6 +228,12 @@ const processTranslations = (lang: Language) => {
   const b = textContent;
   return {
     header: { links: b.header.links[lang], cta: b.header.cta[lang] },
+    guide: {
+      steps: b.guide.steps[lang],
+      next: b.guide.next[lang],
+      skip: b.guide.skip[lang],
+      finish: b.guide.finish[lang]
+    },
     hero: {
       badge: b.hero.badge[lang],
       title: b.hero.title[lang],
