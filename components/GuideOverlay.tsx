@@ -31,20 +31,31 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
     const element = document.getElementById(targetId);
     if (element) {
       setTargetRect(element.getBoundingClientRect());
+    } else {
+      // If element not found (e.g. mobile transition), don't block, just try to find it again or skip
+      setTargetRect(null);
     }
   };
 
   useEffect(() => {
-    const timer = setTimeout(updateSpotlight, 150);
+    updateSpotlight();
+    const interval = setInterval(updateSpotlight, 500); // Periodic check to handle layout shifts
     window.addEventListener('resize', updateSpotlight);
-    document.body.style.overflow = 'hidden';
     
     return () => {
-      clearTimeout(timer);
+      clearInterval(interval);
       document.body.style.overflow = 'unset';
       window.removeEventListener('resize', updateSpotlight);
     };
   }, [currentStep, language]);
+
+  useEffect(() => {
+    if (targetRect) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [targetRect]);
 
   const nextStep = () => {
     if (currentStep < stepsCount) {
@@ -60,15 +71,17 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
   const cy = targetRect.top + targetRect.height / 2;
   const r = Math.max(targetRect.width, targetRect.height) / 2 + 15;
 
-  const cardWidth = 320;
+  const cardWidth = Math.min(320, window.innerWidth - 40);
   let cardX = cx - cardWidth / 2;
   let cardY = cy + r + 24;
 
   if (cardX < 20) cardX = 20;
   if (cardX + cardWidth > window.innerWidth - 20) cardX = window.innerWidth - cardWidth - 20;
 
-  if (cardY + 200 > window.innerHeight) {
-    cardY = cy - r - 200;
+  // On very small screens or bottom elements, place card above
+  if (cardY + 180 > window.innerHeight) {
+    cardY = cy - r - 180;
+    if (cardY < 20) cardY = 20; // Last resort fallback
   }
 
   return (

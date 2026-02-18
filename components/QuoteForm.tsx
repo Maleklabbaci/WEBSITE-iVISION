@@ -1,10 +1,16 @@
-
 import React, { useState } from 'react';
 
 const FORMSPARK_ID = "3hB9voxjF";
 
 interface QuoteFormProps {
     translations: { form: any; };
+}
+
+// Déclaration globale pour éviter les erreurs TS sur fbq
+declare global {
+  interface Window {
+    fbq: any;
+  }
 }
 
 const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
@@ -60,6 +66,18 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
       });
 
       if (response.ok) {
+        // --- META PIXEL TRACKING ---
+        if (window.fbq) {
+          window.fbq('track', 'Lead', {
+            content_name: 'Demande Audit iVISION',
+            content_category: 'Lead Prospect',
+            business_type: businessValue,
+            budget_range: formData.budget,
+            value: 0.00,
+            currency: 'DZD'
+          });
+        }
+        // ---------------------------
         setStatus('done');
       } else {
         throw new Error('Server returned an error');
@@ -67,7 +85,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     } catch (error) { 
       console.error("Submission error:", error);
       setStatus('idle');
-      alert("Une erreur est survenue lors de l'envoi. Veuillez vérifier votre connexion ou nous contacter directement sur WhatsApp.");
+      alert("Une erreur est survenue lors de l'envoi.");
     }
   };
 
@@ -101,152 +119,136 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
             
             <button 
               onClick={() => window.location.hash = ''} 
-              className="btn-ivision px-12 md:px-16 group py-4 md:py-6 animate-fade-in-up"
-              style={{ animationDelay: '400ms' }}
+              className="btn-ivision px-12 md:px-20 py-5"
             >
-              <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1.5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-              <span>{translations.form.backToHome}</span>
+              {translations.form.backToHome}
             </button>
         </div>
       </div>
     );
   }
 
-  const isOtherBusinessSelected = formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1];
-
   return (
-    <section className="min-h-screen bg-white dark:bg-navy transition-colors duration-500 pt-32 md:pt-48 pb-32 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-1/4 h-full bg-brand-blue/[0.02] transform -skew-x-12"></div>
-      
-      <div className="container max-w-5xl relative z-10">
-        <div className="mb-20 text-center">
-            <div className="sketch-badge mb-8">On passe à l'action</div>
-            <h2 className="text-4xl md:text-[6rem] font-black text-navy dark:text-white leading-[1] md:leading-[0.8] mb-8 md:mb-12 uppercase tracking-tighter transition-colors duration-500">
-              Bâtissons <br />
-              <span className="text-brand-blue">votre empire.</span>
+    <section className="py-32 md:py-40 bg-white dark:bg-navy transition-colors duration-500 relative overflow-hidden">
+      <div className="container relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-16 md:mb-24 text-center">
+            <div className="sketch-badge mb-8">On vous rappelle sous 2h</div>
+            <h2 className="text-4xl md:text-8xl font-black text-navy dark:text-white uppercase tracking-tighter leading-[0.85] transition-colors duration-500">
+              {translations.form.title}
             </h2>
-            <p className="text-brand-gray dark:text-brand-gray/80 text-lg md:text-2xl font-medium max-w-2xl mx-auto opacity-60 leading-tight md:border-b-2 border-brand-blue/30 md:pb-8 transition-colors duration-500">
-                Répondez à ces 5 questions pour lancer votre audit stratégique.
-            </p>
-        </div>
+          </div>
 
-        <div className="glass-card p-6 md:p-20 shadow-2xl border-navy/5 dark:border-white/10">
-          <form onSubmit={onSubmit} className="space-y-12 md:space-y-16">
-            
-            <div className="space-y-2">
-              <label className={labelClass}>01. {translations.form.nameLabel}</label>
-              <input 
-                  name="name" 
-                  required 
-                  placeholder="..." 
+          <form onSubmit={onSubmit} className="space-y-16 md:space-y-24">
+            {/* Identité */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 animate-fade-in-up">
+              <div>
+                <label className={labelClass}>{translations.form.nameLabel}</label>
+                <input 
+                  type="text" 
+                  name="name"
+                  placeholder="Ex: Mourad Brahimi"
                   value={formData.name}
-                  onChange={handleChange} 
+                  onChange={handleChange}
                   className={inputClass}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className={labelClass}>02. {translations.form.phoneLabel}</label>
-              <input 
-                  name="phone" 
-                  required 
+                />
+              </div>
+              <div>
+                <label className={labelClass}>{translations.form.phoneLabel}</label>
+                <input 
                   type="tel" 
-                  placeholder="+213..." 
+                  name="phone"
+                  placeholder="05 / 06 / 07 ..."
                   value={formData.phone}
-                  onChange={handleChange} 
+                  onChange={handleChange}
                   className={inputClass}
-              />
+                />
+              </div>
             </div>
 
-            <div className="space-y-6">
-              <label className={labelClass}>03. {translations.form.businessLabel}</label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {translations.form.businessOptions.map((option: string) => (
+            {/* Type de Business */}
+            <div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+              <label className={labelClass}>{translations.form.businessLabel}</label>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                {translations.form.businessOptions.map((option: string, i: number) => (
                   <div 
-                    key={option}
+                    key={i}
                     onClick={() => handleSelect('business', option)}
                     className={`${cardBaseClass} ${formData.business === option ? cardSelectedClass : cardUnselectedClass}`}
                   >
-                    <div className="flex items-center gap-4">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.business === option ? 'border-brand-blue bg-brand-blue' : 'border-navy/20 dark:border-white/20'}`}>
-                            {formData.business === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
-                        </div>
-                        <span className={`font-bold transition-colors ${formData.business === option ? 'text-brand-blue dark:text-white' : 'text-brand-gray group-hover:text-brand-blue dark:group-hover:text-white'}`}>
-                            {option}
-                        </span>
+                    <div className="text-xs md:text-sm font-black uppercase tracking-tight text-navy dark:text-white transition-colors">
+                      {option}
                     </div>
+                    {formData.business === option && (
+                        <div className="absolute top-2 right-2 text-brand-blue animate-scale-in">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                        </div>
+                    )}
                   </div>
                 ))}
               </div>
-              
-              {isOtherBusinessSelected && (
-                <div className="animate-fade-in-up mt-4">
-                  <input 
-                    name="businessOther"
-                    placeholder="Précisez votre activité..."
-                    required
-                    value={formData.businessOther}
-                    onChange={handleChange}
-                    className={inputClass}
-                  />
+              {formData.business === translations.form.businessOptions[translations.form.businessOptions.length - 1] && (
+                <div className="mt-8 animate-fade-in-up">
+                    <input 
+                        type="text" 
+                        name="businessOther"
+                        placeholder="Précisez votre activité..."
+                        value={formData.businessOther}
+                        onChange={handleChange}
+                        className={inputClass}
+                    />
                 </div>
               )}
             </div>
 
-            <div className="space-y-6">
-              <label className={labelClass}>04. {translations.form.problemLabel}</label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {translations.form.problemOptions.map((option: string) => (
+            {/* Problématique */}
+            <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <label className={labelClass}>{translations.form.problemLabel}</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                {translations.form.problemOptions.map((option: string, i: number) => (
                   <div 
-                    key={option}
+                    key={i}
                     onClick={() => handleSelect('problem', option)}
                     className={`${cardBaseClass} ${formData.problem === option ? cardSelectedClass : cardUnselectedClass}`}
                   >
-                    <div className="flex items-center gap-4">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.problem === option ? 'border-brand-blue bg-brand-blue' : 'border-navy/20 dark:border-white/20'}`}>
-                            {formData.problem === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
-                        </div>
-                        <span className={`font-bold transition-colors ${formData.problem === option ? 'text-brand-blue dark:text-white' : 'text-brand-gray group-hover:text-brand-blue dark:group-hover:text-white'}`}>
-                            {option}
-                        </span>
+                    <div className="text-xs md:text-sm font-black uppercase tracking-tight text-navy dark:text-white transition-colors">
+                      {option}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-6">
-              <label className={labelClass}>05. {translations.form.budgetLabel}</label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {translations.form.budgetOptions.map((option: string) => (
+            {/* Budget */}
+            <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+              <label className={labelClass}>{translations.form.budgetLabel}</label>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                {translations.form.budgetOptions.map((option: string, i: number) => (
                   <div 
-                    key={option}
+                    key={i}
                     onClick={() => handleSelect('budget', option)}
                     className={`${cardBaseClass} ${formData.budget === option ? cardSelectedClass : cardUnselectedClass}`}
                   >
-                    <div className="flex items-center gap-4">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${formData.budget === option ? 'border-brand-blue bg-brand-blue' : 'border-navy/20 dark:border-white/20'}`}>
-                            {formData.budget === option && <div className="w-2 h-2 bg-white rounded-full"></div>}
-                        </div>
-                        <span className={`font-bold transition-colors ${formData.budget === option ? 'text-brand-blue dark:text-white' : 'text-brand-gray group-hover:text-brand-blue dark:group-hover:text-white'}`}>
-                            {option}
-                        </span>
+                    <div className="text-xs md:text-sm font-black uppercase tracking-tight text-navy dark:text-white transition-colors">
+                      {option}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="pt-10 flex justify-center">
-              <button 
-                type="submit" 
-                disabled={status === 'submitting'} 
-                className="btn-ivision w-full md:w-auto px-20 py-10 text-base shadow-2xl shadow-brand-blue/30"
-              >
-                {status === 'submitting' ? 'ENVOI EN COURS...' : translations.form.cta}
-              </button>
+            {/* CTA Final */}
+            <div className="pt-12 md:pt-20 flex flex-col items-center gap-8 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+               <button 
+                  type="submit" 
+                  disabled={status === 'submitting'}
+                  className="btn-ivision w-full md:w-auto px-16 md:px-32 py-6 md:py-8 text-sm md:text-base disabled:opacity-50"
+               >
+                  {status === 'submitting' ? '...' : translations.form.cta}
+               </button>
+               <p className="text-brand-gray/40 text-[9px] font-black uppercase tracking-[0.3em]">
+                 Données sécurisées & audit gratuit garanti
+               </p>
             </div>
           </form>
         </div>
