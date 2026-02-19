@@ -2,45 +2,38 @@
 <html lang="fr" class="scroll-smooth dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#050A1F" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- SEO Meta Tags -->
+    <title>iVISION | Ingénierie de Croissance Digitale en Algérie</title>
+    <meta name="description" content="iVISION Agency : Agence de marketing digital leader en Algérie. Spécialiste Meta Ads, Google Ads et croissance E-commerce. Nous transformons votre budget pub en profit." />
+    <meta name="keywords" content="marketing digital Algérie, agence web Algérie, Meta Ads Algérie, Google Ads Algérie, acquisition clients, croissance e-commerce Algérie, iVISION Agency, publicité facebook Algérie" />
+    <meta name="author" content="iVISION Agency" />
+    <meta name="robots" content="index, follow" />
 
-<!-- SEO Meta Tags -->
-<title>iVISION | Agence Marketing Digital Algérie</title>
-<meta name="description" content="Agence marketing digital #1 en Algérie. Experts Meta Ads, Google Ads & E-commerce. Transformez votre budget publicitaire en croissance mesurable." />
-<meta name="keywords" content="agence marketing digital algérie, meta ads algérie, google ads algérie, agence web algérie, publicité facebook algérie, e-commerce algérie, growth marketing" />
-<meta name="author" content="iVISION Agency" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://ivision.agency/" />
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      // ID Meta Pixel intégré : 19243026484848955
+      fbq('init', '19243026484848955'); 
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" 
+           src="https://www.facebook.com/tr?id=19243026484848955&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
 
-<!-- Open Graph (Facebook, LinkedIn) -->
-<meta property="og:type" content="website" />
-<meta property="og:title" content="iVISION | Agence Marketing Digital Algérie" />
-<meta property="og:description" content="Experts Meta Ads & Google Ads en Algérie. Boostez votre croissance digitale avec des stratégies ROI-driven." />
-<meta property="og:image" content="https://ivision.agency/images/og-image.jpg" />
-<meta property="og:url" content="https://ivision.agency/" />
-<meta property="og:locale" content="fr_DZ" />
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="iVISION | Agence Marketing Digital Algérie" />
-<meta name="twitter:description" content="Experts Meta Ads & Google Ads. Transformez votre budget pub en profit." />
-<meta name="twitter:image" content="https://ivision.agency/images/twitter-card.jpg" />
-
-<!-- Geo Tags -->
-<meta name="geo.region" content="DZ" />
-<meta name="geo.placename" content="Algérie" />
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NRBK30YBE2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-NRBK30YBE2');
-</script>
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ivision.agency/" />
@@ -188,13 +181,13 @@
           transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
         }
         html.dark .glass-card:hover {
-          border-color: rgba(0, 51, 255, 0.4);
-          background: rgba(0, 51, 255, 0.05);
+            border-color: rgba(0, 51, 255, 0.4);
+            background: rgba(0, 51, 255, 0.05);
         }
         html:not(.dark) .glass-card:hover {
-          border-color: rgba(0, 51, 255, 0.3);
-          background: rgba(0, 51, 255, 0.05);
-          box-shadow: 0 30px 60px rgba(0, 51, 255, 0.1);
+            border-color: rgba(0, 51, 255, 0.3);
+            background: rgba(0, 51, 255, 0.05);
+            box-shadow: 0 30px 60px rgba(0, 51, 255, 0.1);
         }
       }
 
@@ -202,26 +195,18 @@
       ::-webkit-scrollbar-track { background: transparent; }
       ::-webkit-scrollbar-thumb { background: #0033FF; border-radius: 10px; }
     </style>
-
-    <script type="importmap">
-    {
-      "imports": {
-        "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
-        "react/": "https://esm.sh/react@^19.2.4/",
-        "react": "https://esm.sh/react@^19.2.4",
-        "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
-      }
-    }
-    </script>
-  </head>
-
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+  }
+}
+</script>
+</head>
   <body>
-    <!-- Meta Pixel noscript fallback -->
-    <noscript>
-      <img height="1" width="1" style="display:none"
-           src="https://www.facebook.com/tr?id=19243026484848955&ev=PageView&noscript=1" />
-    </noscript>
-
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

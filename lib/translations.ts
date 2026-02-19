@@ -4,14 +4,14 @@ export type Language = 'fr' | 'en' | 'ar';
 const textContent = {
   header: {
     links: {
-      fr: ['Services', 'Résultats', 'Méthode'],
-      en: ['Services', 'Results', 'Method'],
-      ar: ['الخدمات', 'النتائج', 'طريقتنا'],
+      fr: ['Services', 'Résultats', 'Méthode', 'Contact'],
+      en: ['Services', 'Results', 'Method', 'Contact'],
+      ar: ['الخدمات', 'النتائج', 'طريقتنا', 'اتصل بنا'],
     },
     cta: {
-      fr: 'Contact',
-      en: 'Contact',
-      ar: 'اتصل بنا',
+      fr: 'AUDIT GRATUIT',
+      en: 'FREE AUDIT',
+      ar: 'تدقيق مجاني',
     },
   },
   guide: {
@@ -56,9 +56,9 @@ const textContent = {
       ar: 'نساعد الشركات الجزائرية على السيطرة على سوقها بفضل وكالتنا الرقمية المتخصصة في الاستحواذ المكثف.',
     },
     cta: {
-      fr: 'C\'EST PARTI',
-      en: 'LET\'S GO',
-      ar: 'لنبدأ',
+      fr: 'AUDIT GRATUIT',
+      en: 'FREE AUDIT',
+      ar: 'تدقيق مجاني',
     },
     secondaryCta: {
       fr: 'NOS SERVICES',
@@ -177,32 +177,43 @@ const textContent = {
       ] 
     } 
   },
+  contactSection: {
+    title: { fr: 'REJOIGNEZ-NOUS.', en: 'JOIN US.', ar: 'انضم إلينا.' },
+    subtitle: { fr: 'Prêt à dominer votre marché ? Nos experts sont là pour répondre à toutes vos questions et lancer votre croissance.', en: 'Ready to dominate your market? Our experts are here to answer your questions.', ar: 'مستعد للسيطرة على سوقك؟ خبراؤنا هنا للإجابة على جميع أسئلتك وبدء نموك.' },
+    labels: {
+        contact: { fr: 'Contact Direct', en: 'Direct Contact', ar: 'اتصال مباشر' },
+        follow: { fr: 'Suivez l\'Empire', en: 'Follow the Empire', ar: 'تابع الإمبراطورية' }
+    }
+  },
   contact: {
     form: {
-      title: { fr: 'DEMANDER UNE CONSULTATION', en: 'REQUEST A CONSULTATION', ar: 'طلب استشارة مجانية' },
-      nameLabel: { fr: 'Votre Nom + Prénom', en: 'Full Name', ar: 'الاسم الكامل' },
-      phoneLabel: { fr: 'Numéro WhatsApp (Obligatoire)', en: 'WhatsApp Number (Required)', ar: 'رقم الواتساب (إجباري)' },
-      businessLabel: { fr: 'C\'est quoi votre business ?', en: 'What is your business?', ar: 'ما هو نشاطك التجاري؟' },
+      title: { fr: 'VOTRE AUDIT GRATUIT', en: 'YOUR FREE AUDIT', ar: 'تدقيقك المجاني' },
+      back: { fr: 'RETOUR', en: 'BACK', ar: 'رجوع' },
+      nameLabel: { fr: 'Votre Nom complet', en: 'Full Name', ar: 'الاسم الكامل' },
+      phoneLabel: { fr: 'Numéro WhatsApp', en: 'WhatsApp Number', ar: 'رقم الواتساب' },
+      businessLabel: { fr: 'Type d\'activité', en: 'Business Type', ar: 'نوع النشاط' },
+      otherSpecify: { fr: 'Précisez votre activité...', en: 'Specify your business...', ar: 'حدد نشاطك...' },
       businessOptions: {
-        fr: ['Restaurant / Café', 'Clinique / Cabinet médical', 'Immobilier', 'Prêt-à-porter / Mode', 'Salle de sport', 'E-commerce', 'Autre'],
-        en: ['Restaurant / Cafe', 'Medical Clinic', 'Real Estate', 'Fashion / Apparel', 'Gym', 'E-commerce', 'Other'],
-        ar: ['مطعم / مقهى', 'عيادة / مكتب طبي', 'عقارات', 'ملابس / أزياء', 'قاعة رياضة', 'تجارة إلكترونية', 'أخرى']
+        fr: ['Restaurant / Café', 'Clinique médicale', 'Immobilier', 'E-commerce', 'Mode / Beauté', 'Salle de sport', 'Autre'],
+        en: ['Restaurant / Cafe', 'Medical Clinic', 'Real Estate', 'E-commerce', 'Fashion / Beauty', 'Gym', 'Other'],
+        ar: ['مطعم / مقهى', 'عيادة طبية', 'عقارات', 'تجارة إلكترونية', 'موضة / تجميل', 'قاعة رياضة', 'أخرى']
       },
-      problemLabel: { fr: 'Votre plus gros problème aujourd\'hui ?', en: 'Your biggest problem today?', ar: 'ما هي أكبر مشكلة تواجهك اليوم؟' },
+      problemLabel: { fr: 'Votre plus gros blocage ?', en: 'Main obstacle?', ar: 'أكبر عائق يواجهك؟' },
       problemOptions: {
-        fr: ['Je n\'ai pas assez de clients', 'Mon contenu est nul', 'Je ne sais pas gérer mes réseaux', 'Mes pubs ne donnent pas de résultats'],
-        en: ['Not enough clients', 'My content is bad', 'Don\'t know how to manage social media', 'My ads don\'t work'],
-        ar: ['ليس لدي عملاء كافون', 'محتواي ضعيف', 'لا أعرف تسيير حساباتي', 'إعلاناتي لا تعطي نتائج']
+        fr: ['Manque de clients', 'Contenu inefficace', 'Gestion réseaux sociaux', 'Publicité non rentable'],
+        en: ['Lack of clients', 'Ineffective content', 'Social media management', 'Unprofitable ads'],
+        ar: ['نقص العملاء', 'محتوى غير فعال', 'تسيير حسابات', 'إعلانات غير مربحة']
       },
-      budgetLabel: { fr: 'Budget mensuel prêt à investir ?', en: 'Monthly budget ready to invest?', ar: 'الميزانية الشهرية التي تنوي استثمارها؟' },
+      budgetLabel: { fr: 'Budget prêt à investir ?', en: 'Investment budget?', ar: 'الميزانية المستعدة للاستثمار؟' },
       budgetOptions: {
-        fr: ['30,000 - 60,000 DA', '60,000 - 120,000 DA', '120,000 - 250,000 DA', 'Plus de 250,000 DA'],
-        en: ['30,000 - 60,000 DA', '60,000 - 120,000 DA', '120,000 - 250,000 DA', 'Over 250,000 DA'],
-        ar: ['30,000 - 60,000 دج', '60,000 - 120,000 دج', '120,000 - 250,000 دج', 'أكثر من 250,000 دج']
+        fr: ['30k - 60k DA', '60k - 120k DA', '120k - 250k DA', '+250k DA'],
+        en: ['30k - 60k DA', '60k - 120k DA', '120k - 250k DA', '+250k DA'],
+        ar: ['30-60 ألف دج', '60-120 ألف دج', '120-250 ألف دج', '+250 ألف دج']
       },
-      cta: { fr: 'ENVOYER MA DEMANDE', en: 'SEND MY REQUEST', ar: 'إرسال الطلب' },
+      cta: { fr: 'LANCER MON AUDIT', en: 'START MY AUDIT', ar: 'ابدأ تدقيقي' },
+      next: { fr: 'SUIVANT', en: 'NEXT', ar: 'التالي' },
       successTitle: { fr: 'DEMANDE VALIDÉE !', en: 'REQUEST VALIDATED!', ar: 'تم تأكيد الطلب!' },
-      successMessage: { fr: 'Votre demande a été transmise avec succès. On vous recontacte très vite sur WhatsApp pour lancer votre audit.', en: 'Your request has been successfully transmitted. We will contact you very soon on WhatsApp.', ar: 'تم إرسال طلبك بنجاح. سنتصل بك قريباً جداً على الواتساب لبدء تدقيقك.' },
+      successMessage: { fr: 'Un expert vous contactera sur WhatsApp sous 2h.', en: 'An expert will contact you on WhatsApp within 2h.', ar: 'سيتصل بك خبير عبر الواتساب خلال ساعتين.' },
       backToHome: { fr: 'Retour à l\'accueil', en: 'Back to Home', ar: 'العودة للرئيسية' },
     },
     modal: {
@@ -213,8 +224,7 @@ const textContent = {
   footer: {
     tagline: { fr: 'On vous aide à grandir en Algérie.', en: 'Helping you grow in Algeria.', ar: 'نساعدك على النمو في الجزائر.' },
     copyright: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' },
-    copyright2: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' },
-    contactUs: { fr: 'Contactez-nous', en: 'Contact Us', ar: 'اتصل بنا' },
+    contactUs: { fr: 'AUDIT GRATUIT', en: 'FREE AUDIT', ar: 'تدقيق مجاني' },
     contact: {
       email: 'contact@ivision.agency',
       support: 'support@ivision.agency',
@@ -255,18 +265,29 @@ const processTranslations = (lang: Language) => {
       title: b.visualShowcase.title[lang],
       subtitle: b.visualShowcase.subtitle[lang]
     },
+    contactSection: {
+        title: b.contactSection.title[lang],
+        subtitle: b.contactSection.subtitle[lang],
+        labels: {
+            contact: b.contactSection.labels.contact[lang],
+            follow: b.contactSection.labels.follow[lang]
+        }
+    },
     contact: {
       form: {
         title: b.contact.form.title[lang],
+        back: b.contact.form.back[lang],
         nameLabel: b.contact.form.nameLabel[lang],
         phoneLabel: b.contact.form.phoneLabel[lang],
         businessLabel: b.contact.form.businessLabel[lang],
+        otherSpecify: b.contact.form.otherSpecify[lang],
         businessOptions: b.contact.form.businessOptions[lang],
         problemLabel: b.contact.form.problemLabel[lang],
         problemOptions: b.contact.form.problemOptions[lang],
         budgetLabel: b.contact.form.budgetLabel[lang],
         budgetOptions: b.contact.form.budgetOptions[lang],
         cta: b.contact.form.cta[lang],
+        next: b.contact.form.next[lang],
         successTitle: b.contact.form.successTitle[lang],
         successMessage: b.contact.form.successMessage[lang],
         backToHome: b.contact.form.backToHome[lang],

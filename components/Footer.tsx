@@ -14,7 +14,11 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
   const year = new Date().getFullYear();
-  const staticLinks = ['accueil', 'services', 'projets'];
+  const staticLinks = ['accueil', 'services', 'projets', 'methodologie'];
+
+  if (!translations || !translations.contact) {
+    return null;
+  }
 
   return (
     <footer className="bg-white dark:bg-navy border-t border-navy/5 dark:border-white/5 pt-32 pb-16 transition-colors duration-500">
@@ -35,11 +39,14 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
             {/* Navigation */}
             <div className="flex flex-col gap-6">
                 <span className="text-[10px] font-black uppercase tracking-widest text-navy/20 dark:text-white/20">Navigation</span>
-                {translations.links.map((link, index) => (
-                  <a key={link} href={`#${staticLinks[index]}`} className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
-                    {link}
-                  </a>
-                ))}
+                {translations.links.map((link, index) => {
+                  const href = index === 3 ? '#contact' : `#${staticLinks[index]}`;
+                  return (
+                    <a key={link} href={href} className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
+                      {link}
+                    </a>
+                  );
+                })}
                 <a href="#/devis" className="text-xs font-black uppercase tracking-widest text-brand-blue hover:brightness-110 transition-all">
                   {translations.contactUs}
                 </a>
@@ -63,7 +70,7 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
                   </div>
                   <div>
                     <span className="block text-[8px] font-black uppercase tracking-widest text-brand-gray/40 mb-1">Ligne Directe</span>
-                    <a href={`tel:${translations.contact.phone.replace(/\s/g, '')}`} className="text-xs font-black text-brand-blue hover:brightness-110 transition-all">
+                    <a href={`tel:${translations.contact.phone?.replace(/\s/g, '') || ''}`} className="text-xs font-black text-brand-blue hover:brightness-110 transition-all">
                       {translations.contact.phone}
                     </a>
                   </div>

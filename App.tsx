@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import ScrollToTopButton from './components/ScrollToTopButton';
@@ -156,7 +157,7 @@ const App: React.FC = () => {
 
       {!isLoading && (
         <>
-          <WhatsAppButton phoneNumber={WHATSAPP_NUMBER} message={t.whatsapp.message} />
+          <WhatsAppButton phoneNumber={WHATSAPP_NUMBER} message={t.whatsapp?.message || ""} />
           <ScrollToTopButton />
         </>
       )}
@@ -180,10 +181,6 @@ const App: React.FC = () => {
 
       <PolicyModal isOpen={!!policyType} onClose={() => setPolicyType(null)} type={policyType || 'privacy'} />
       
-      {/* 
-          IMPORTANT: Notice the removal of blur-md when showGuide is true. 
-          The overlay itself should handle the focus without blurring the highlighted element.
-      */}
       <div 
         className={`relative z-10 flex flex-col min-h-screen transition-all duration-700 ${isLoading ? 'opacity-0' : 'opacity-100'} ${(showLangSelector || policyType) ? 'filter blur-md' : ''}`}
       >
@@ -198,11 +195,14 @@ const App: React.FC = () => {
           {currentView === 'home' && (
             <>
               <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
-              <Services translations={{...t.services, modal: t.contact.modal}} onQuoteClick={handleOpenQuotePage} />
+              <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
               <VisualShowcase translations={t.visualShowcase} />
-              <HowWeWork translations={{...t.howWeWork, modal: t.contact.modal}} onQuoteClick={handleOpenQuotePage} />
+              <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
               <Testimonials translations={t.testimonials} />
               <FAQ translations={t.faq} />
+              {t.contactSection && t.footer?.contact && (
+                <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />
+              )}
             </>
           )}
           {currentView === 'quote' && (
