@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import PortfolioGallery from './components/PortfolioGallery';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -17,9 +17,20 @@ import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
 
-import BlogList from './components/BlogList';
-import BlogPostPage from './components/BlogPostPage';
-import ServicePage from './components/ServicePage';
+// ===== LAZY LOADING (Performance) =====
+const BlogList = lazy(() => import('./components/BlogList'));
+const BlogPostPage = lazy(() => import('./components/BlogPostPage'));
+const ServicePage = lazy(() => import('./components/ServicePage'));
+
+// ===== PAGE LOADER =====
+const PageLoader: React.FC = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-12 h-12 border-4 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin"></div>
+      <p className="text-brand-gray text-sm font-medium uppercase tracking-widest">Chargement...</p>
+    </div>
+  </div>
+);
 
 const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'privacy' | 'terms' }> = ({ isOpen, onClose, type }) => {
   if (!isOpen) return null;
@@ -108,7 +119,6 @@ const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewType>('home');
   const [currentSlug, setCurrentSlug] = useState<string>('');
 
-  // ===== LOCALSTORAGE : 1ère visite seulement =====
   const [showLangSelector, setShowLangSelector] = useState(() => {
     return !localStorage.getItem('ivision-lang-selected');
   });
@@ -118,13 +128,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
-    
-    // Charger la langue sauvegardee
     const savedLang = localStorage.getItem('ivision-lang-selected') as Language;
     if (savedLang) {
       setLanguage(savedLang);
     }
-    
     return () => clearTimeout(timer);
   }, []);
 
@@ -133,14 +140,11 @@ const App: React.FC = () => {
       const { view, slug } = parseHash();
       setCurrentView(view);
       setCurrentSlug(slug || '');
-      
       if (view !== 'home') {
         setShowGuide(false);
       }
-      
       window.scrollTo(0, 0);
     };
-    
     window.addEventListener('hashchange', handleHashChange);
     handleHashChange();
     return () => window.removeEventListener('hashchange', handleHashChange);
@@ -185,13 +189,25 @@ const App: React.FC = () => {
   const renderContent = () => {
     switch (currentView) {
       case 'blog':
-        return <BlogList />;
+        return (
+          <Suspense fallback={<PageLoader />}>
+            <BlogList />
+          </Suspense>
+        );
 
       case 'blog-post':
-        return <BlogPostPage slug={currentSlug} />;
+        return (
+          <Suspense fallback={<PageLoader />}>
+            <BlogPostPage slug={currentSlug} />
+          </Suspense>
+        );
 
       case 'service':
-        return <ServicePage slug={currentSlug} />;
+        return (
+          <Suspense fallback={<PageLoader />}>
+            <ServicePage slug={currentSlug} />
+          </Suspense>
+        );
 
       case 'quote':
         return <QuoteForm translations={t.contact} />;
