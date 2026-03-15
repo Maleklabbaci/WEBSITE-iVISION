@@ -103,17 +103,28 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [language, setLanguage] = useState<Language>('fr');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-  const [showLangSelector, setShowLangSelector] = useState(true);
-  const [showGuide, setShowGuide] = useState(false);
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
   const [policyType, setPolicyType] = useState<'privacy' | 'terms' | null>(null);
   const [currentView, setCurrentView] = useState<ViewType>('home');
   const [currentSlug, setCurrentSlug] = useState<string>('');
+
+  // ===== LOCALSTORAGE : 1ère visite seulement =====
+  const [showLangSelector, setShowLangSelector] = useState(() => {
+    return !localStorage.getItem('ivision-lang-selected');
+  });
+  const [showGuide, setShowGuide] = useState(false);
   
   const WHATSAPP_NUMBER = "213563839404";
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
+    
+    // Charger la langue sauvegardee
+    const savedLang = localStorage.getItem('ivision-lang-selected') as Language;
+    if (savedLang) {
+      setLanguage(savedLang);
+    }
+    
     return () => clearTimeout(timer);
   }, []);
 
@@ -150,10 +161,12 @@ const App: React.FC = () => {
 
   const handleSelectLanguage = (selectedLanguage: Language) => {
     setLanguage(selectedLanguage);
+    localStorage.setItem('ivision-lang-selected', selectedLanguage);
     setIsExitingLangSelector(true);
     setTimeout(() => {
       setShowLangSelector(false);
-      if (currentView === 'home') {
+      const guideShown = localStorage.getItem('ivision-guide-shown');
+      if (!guideShown && currentView === 'home') {
         setShowGuide(true);
       }
     }, 500);
@@ -228,7 +241,10 @@ const App: React.FC = () => {
       {!isLoading && !showLangSelector && showGuide && currentView === 'home' && (
         <GuideOverlay 
           language={language} 
-          onClose={() => setShowGuide(false)} 
+          onClose={() => {
+            setShowGuide(false);
+            localStorage.setItem('ivision-guide-shown', 'true');
+          }} 
         />
       )}
 
