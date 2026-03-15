@@ -17,12 +17,9 @@ import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
 
-
-// ===== NOUVEAUX IMPORTS =====
 import BlogList from './components/BlogList';
 import BlogPostPage from './components/BlogPostPage';
 import ServicePage from './components/ServicePage';
-// ============================
 
 const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'privacy' | 'terms' }> = ({ isOpen, onClose, type }) => {
   if (!isOpen) return null;
@@ -89,10 +86,8 @@ const StaticBackground: React.FC = () => (
   </div>
 );
 
-// ===== TYPE DE VUE ÉTENDU =====
 type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service';
 
-// ===== PARSER LE HASH =====
 const parseHash = (): { view: ViewType; slug?: string } => {
   const hash = window.location.hash.slice(1) || '/';
   
@@ -112,8 +107,6 @@ const App: React.FC = () => {
   const [showGuide, setShowGuide] = useState(false);
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
   const [policyType, setPolicyType] = useState<'privacy' | 'terms' | null>(null);
-  
-  // ===== NOUVEAU STATE ROUTING =====
   const [currentView, setCurrentView] = useState<ViewType>('home');
   const [currentSlug, setCurrentSlug] = useState<string>('');
   
@@ -124,7 +117,6 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // ===== ROUTING MODIFIÉ =====
   useEffect(() => {
     const handleHashChange = () => {
       const { view, slug } = parseHash();
@@ -177,7 +169,6 @@ const App: React.FC = () => {
   
   const t = translations[language] || translations['fr'];
 
-  // ===== RENDU DES PAGES =====
   const renderContent = () => {
     switch (currentView) {
       case 'blog':
@@ -193,21 +184,23 @@ const App: React.FC = () => {
         return <QuoteForm translations={t.contact} />;
 
       case 'home':
-default:
-  return (
-    <>
-      <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
-      <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-      <PortfolioGallery />
-      <VisualShowcase translations={t.visualShowcase} />
-      <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-      <Testimonials translations={t.testimonials} />
-      <FAQ translations={t.faq} />
-      {t.contactSection && t.footer?.contact && (
-        <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />
-      )}
-    </>
-  );
+      default:
+        return (
+          <>
+            <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
+            <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
+            <PortfolioGallery />
+            <VisualShowcase translations={t.visualShowcase} />
+            <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
+            <Testimonials translations={t.testimonials} />
+            <FAQ translations={t.faq} />
+            {t.contactSection && t.footer?.contact && (
+              <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />
+            )}
+          </>
+        );
+    }
+  };
 
   return (
     <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-brand-blue selection:text-white">
