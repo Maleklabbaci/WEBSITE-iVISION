@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { blogPosts, getBlogCategories, type BlogPost } from '../data/blog-posts';
-import { navigate } from '../lib/router';
 import { updateSEO } from '../lib/seo-utils';
 
 const BlogList = () => {
@@ -11,7 +10,7 @@ const BlogList = () => {
   useEffect(() => {
     updateSEO({
       title: 'Blog - Actualités Marketing Digital & Web',
-      description: 'Articles, guides et conseils sur le marketing digital, le web design, le SEO et le branding en Algérie. Par iVISION Agency.',
+      description: 'Articles, guides et conseils sur le marketing digital, le web design, le SEO et le branding en Algérie.',
       keywords: 'blog marketing digital algérie, conseils web design, guide SEO algérie',
       canonical: 'https://ivision-agency.com/blog',
     });
@@ -27,17 +26,17 @@ const BlogList = () => {
   });
 
   return (
-    <section className="min-h-screen bg-black pt-32 pb-20 px-4">
+    <section className="min-h-screen pt-32 pb-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-purple-400 text-sm font-semibold tracking-widest uppercase">
+          <span className="text-brand-blue text-sm font-semibold tracking-widest uppercase">
             Notre Blog
           </span>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mt-4 mb-6">
-            Insights & <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Stratégies</span>
+          <h1 className="text-4xl md:text-6xl font-black text-navy dark:text-white mt-4 mb-6 tracking-tighter">
+            Insights & <span className="text-brand-blue">Stratégies</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-brand-gray dark:text-brand-gray/80 text-lg max-w-2xl mx-auto">
             Guides pratiques, analyses et conseils pour développer votre business en ligne en Algérie.
           </p>
         </div>
@@ -49,15 +48,15 @@ const BlogList = () => {
             placeholder="Rechercher un article..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition"
+            className="flex-1 bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl px-5 py-3 text-navy dark:text-white placeholder-brand-gray/50 focus:outline-none focus:border-brand-blue transition"
           />
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+              className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition ${
                 selectedCategory === 'all'
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                  ? 'bg-brand-blue text-white'
+                  : 'bg-navy/5 dark:bg-white/5 text-brand-gray hover:bg-navy/10 dark:hover:bg-white/10'
               }`}
             >
               Tous
@@ -66,10 +65,10 @@ const BlogList = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition ${
                   selectedCategory === cat
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                    ? 'bg-brand-blue text-white'
+                    : 'bg-navy/5 dark:bg-white/5 text-brand-gray hover:bg-navy/10 dark:hover:bg-white/10'
                 }`}
               >
                 {cat}
@@ -81,7 +80,7 @@ const BlogList = () => {
         {/* Posts Grid */}
         {filteredPosts.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-500 text-lg">Aucun article trouvé.</p>
+            <p className="text-brand-gray text-lg">Aucun article trouvé.</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -97,50 +96,50 @@ const BlogList = () => {
 
 const BlogCard = ({ post }: { post: BlogPost }) => {
   const categoryColors: Record<string, string> = {
-    'Marketing Digital': 'bg-blue-500/20 text-blue-400',
-    'Design': 'bg-pink-500/20 text-pink-400',
-    'SEO': 'bg-green-500/20 text-green-400',
-    'Social Media': 'bg-yellow-500/20 text-yellow-400',
-    'E-commerce': 'bg-orange-500/20 text-orange-400',
-    'Branding': 'bg-purple-500/20 text-purple-400',
-    'Publicité': 'bg-red-500/20 text-red-400',
-    'Intelligence Artificielle': 'bg-cyan-500/20 text-cyan-400',
-    'Performance': 'bg-emerald-500/20 text-emerald-400',
+    'Marketing Digital': 'bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400',
+    'Design': 'bg-pink-500/10 text-pink-600 dark:bg-pink-500/20 dark:text-pink-400',
+    'SEO': 'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-400',
+    'Social Media': 'bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400',
+    'E-commerce': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
+    'Branding': 'bg-purple-500/10 text-purple-600 dark:bg-purple-500/20 dark:text-purple-400',
+    'Publicité': 'bg-red-500/10 text-red-600 dark:bg-red-500/20 dark:text-red-400',
+    'Intelligence Artificielle': 'bg-cyan-500/10 text-cyan-600 dark:bg-cyan-500/20 dark:text-cyan-400',
+    'Performance': 'bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400',
   };
 
   return (
     <article
-      onClick={() => navigate(`/blog/${post.slug}`)}
-      className="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden cursor-pointer hover:border-purple-500/50 hover:bg-white/[0.07] transition-all duration-300 hover:-translate-y-1"
+      onClick={() => (window.location.hash = `/blog/${post.slug}`)}
+      className="group bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[2rem] overflow-hidden cursor-pointer hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image placeholder */}
-      <div className="h-48 bg-gradient-to-br from-purple-600/30 to-pink-600/30 flex items-center justify-center">
-        <span className="text-5xl opacity-50">📝</span>
+      <div className="h-48 bg-gradient-to-br from-brand-blue/20 to-brand-blue/5 flex items-center justify-center">
+        <span className="text-5xl opacity-40">📝</span>
       </div>
 
       <div className="p-6">
         {/* Category + Read Time */}
         <div className="flex items-center justify-between mb-3">
-          <span className={`px-3 py-1 rounded-full text-xs font-medium ${categoryColors[post.category] || 'bg-white/10 text-gray-400'}`}>
+          <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${categoryColors[post.category] || 'bg-navy/5 dark:bg-white/10 text-brand-gray'}`}>
             {post.category}
           </span>
-          <span className="text-gray-500 text-xs">{post.readTime}</span>
+          <span className="text-brand-gray/60 text-xs">{post.readTime}</span>
         </div>
 
         {/* Title */}
-        <h2 className="text-white font-bold text-lg mb-2 group-hover:text-purple-400 transition line-clamp-2">
+        <h2 className="text-navy dark:text-white font-bold text-lg mb-2 group-hover:text-brand-blue transition line-clamp-2">
           {post.title}
         </h2>
 
         {/* Excerpt */}
-        <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+        <p className="text-brand-gray dark:text-brand-gray/80 text-sm mb-4 line-clamp-3">
           {post.excerpt}
         </p>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-white/10">
-          <span className="text-gray-500 text-xs">{post.author}</span>
-          <span className="text-gray-500 text-xs">
+        <div className="flex items-center justify-between pt-4 border-t border-navy/5 dark:border-white/10">
+          <span className="text-brand-gray/60 text-xs">{post.author}</span>
+          <span className="text-brand-gray/60 text-xs">
             {new Date(post.date).toLocaleDateString('fr-FR', {
               day: 'numeric',
               month: 'short',
