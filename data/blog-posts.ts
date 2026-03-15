@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     author: 'iVISION Team',
     date: '2026-03-10',
     readTime: '8 min',
-    image: '/blog/agence-digitale.jpg',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop',
     content: `
 # Comment choisir votre agence digitale en Algerie en 2026
 
@@ -125,7 +125,7 @@ Mieux vaut une agence specialisee.
     author: 'Design Team',
     date: '2026-03-08',
     readTime: '10 min',
-    image: '/blog/web-design-2026.jpg',
+    image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=400&fit=crop',
     content: `
 # Les 10 tendances du web design qui domineront 2026
 
@@ -213,7 +213,7 @@ Besoin d un redesign moderne ? [Contactez iVISION](#quote)
     author: 'SEO Team',
     date: '2026-03-05',
     readTime: '12 min',
-    image: '/blog/seo-local-algerie.jpg',
+    image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&h=400&fit=crop'',
     content: `
 # Guide complet du SEO local pour entreprises algeriennes
 
@@ -309,7 +309,7 @@ Le SEO local en Algerie est une **opportunite en or**.
     author: 'Social Media Team',
     date: '2026-03-01',
     readTime: '11 min',
-    image: '/blog/social-media-algerie.jpg',
+    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=400&fit=crop',
     content: `
 # Strategie reseaux sociaux en Algerie : le guide ultime
 
@@ -404,7 +404,7 @@ Les reseaux sociaux en Algerie offrent un **ROI exceptionnel**.
     author: 'iVISION Team',
     date: '2026-02-25',
     readTime: '14 min',
-    image: '/blog/ecommerce-algerie.jpg',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop',
     content: `
 # Lancer son e-commerce en Algerie : guide complet 2026
 
@@ -485,7 +485,7 @@ Le e-commerce en Algerie est une **mine d or**.
     author: 'Design Team',
     date: '2026-02-20',
     readTime: '9 min',
-    image: '/blog/branding-guide.jpg',
+    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=400&fit=crop',
     content: `
 # Pourquoi le branding fait la difference
 
@@ -547,7 +547,7 @@ Le branding est une **necessite**, pas un luxe.
     author: 'Ads Team',
     date: '2026-02-15',
     readTime: '10 min',
-    image: '/blog/google-ads-algerie.jpg',
+    image: 'https://images.unsplash.com/photo-1553484771-371a605b060b?w=800&h=400&fit=crop',
     content: `
 # Google Ads en Algerie : maximiser son ROI
 
@@ -622,7 +622,7 @@ Google Ads en Algerie est un **levier sous-exploite**.
     author: 'Tech Team',
     date: '2026-02-10',
     readTime: '9 min',
-    image: '/blog/ia-business-algerie.jpg',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop',
     content: `
 # Comment l IA transforme les entreprises algeriennes en 2026
 
@@ -702,7 +702,7 @@ L IA est un **multiplicateur de productivite**.
     author: 'Dev Team',
     date: '2026-02-05',
     readTime: '11 min',
-    image: '/blog/vitesse-site-web.jpg',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop',
     content: `
 # Vitesse de site web : le guide technique
 
@@ -795,7 +795,7 @@ La vitesse n est pas optionnelle. **2 secondes max**.
     author: 'Content Team',
     date: '2026-01-30',
     readTime: '8 min',
-    image: '/blog/copywriting-algerie.jpg',
+    image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=400&fit=crop',
     content: `
 # Copywriting : l art de vendre avec les mots
 
