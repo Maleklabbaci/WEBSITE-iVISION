@@ -31,18 +31,15 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     document.body.style.overflow = 'unset';
   };
 
-  // ===== NAVIGATION VERS BLOG =====
   const handleBlogClick = (e: React.MouseEvent) => {
     e.preventDefault();
     handleLinkClick();
     window.location.hash = '/blog';
   };
 
-  // ===== NAVIGATION VERS ACCUEIL =====
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
     handleLinkClick();
-    // Si on est sur une sous-page, retour à l'accueil
     if (window.location.hash && window.location.hash !== '#accueil') {
       window.location.hash = '';
       setTimeout(() => window.scrollTo(0, 0), 50);
@@ -51,12 +48,9 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     }
   };
 
-  // ===== GESTION DES LIENS ANCHOR (Services, Projets, etc.) =====
   const handleAnchorClick = (e: React.MouseEvent, sectionId: string) => {
     e.preventDefault();
     handleLinkClick();
-
-    // Si on est sur une sous-page (blog, service), retour à l'accueil d'abord
     const currentHash = window.location.hash;
     if (currentHash.startsWith('#/blog') || currentHash.startsWith('#/services')) {
       window.location.hash = '';
@@ -68,6 +62,17 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
       const el = document.getElementById(sectionId);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleResetLang = () => {
+    localStorage.removeItem('ivision-lang-selected');
+    localStorage.removeItem('ivision-guide-shown');
+    window.location.reload();
+  };
+
+  const handleResetGuide = () => {
+    localStorage.removeItem('ivision-guide-shown');
+    window.location.reload();
   };
 
   const headerBgClass = isScrolled || isMobileMenuOpen 
@@ -103,7 +108,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
               </a>
             ))}
 
-            {/* ===== LIEN BLOG DESKTOP ===== */}
+            {/* ===== LIEN BLOG ===== */}
             <a 
               href="#/blog" 
               onClick={handleBlogClick}
@@ -114,20 +119,44 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
             </a>
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            {/* ===== BOUTON LANGUE ===== */}
+            <button
+              onClick={handleResetLang}
+              className="p-2 rounded-full bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all duration-300"
+              aria-label="Changer la langue"
+              title="Changer la langue"
+            >
+              <svg className="w-4 h-4 text-navy/60 dark:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+              </svg>
+            </button>
+
+            {/* ===== BOUTON GUIDE ===== */}
+            <button
+              onClick={handleResetGuide}
+              className="hidden md:flex p-2 rounded-full bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all duration-300"
+              aria-label="Revoir le guide"
+              title="Revoir le guide"
+            >
+              <svg className="w-4 h-4 text-navy/60 dark:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+
             {/* ===== THEME TOGGLE ===== */}
             <button 
                 id="guide-theme-toggle"
                 onClick={onToggleTheme}
-                className="p-2.5 rounded-full bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all duration-300"
+                className="p-2 rounded-full bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all duration-300"
                 aria-label="Changer de thème"
             >
                 {theme === 'dark' ? (
-                    <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z" />
                     </svg>
                 ) : (
-                    <svg className="w-5 h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                 )}
@@ -172,7 +201,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
             </a>
           ))}
 
-          {/* ===== LIEN BLOG MOBILE ===== */}
+          {/* ===== BLOG MOBILE ===== */}
           <a 
             href="#/blog" 
             onClick={handleBlogClick}
@@ -190,6 +219,31 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
           >
             {translations.cta}
           </button>
+
+          {/* ===== LANGUE + GUIDE MOBILE ===== */}
+          <div 
+            className={`flex gap-4 mt-4 transition-all duration-700 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
+            style={{ transitionDelay: `${isMobileMenuOpen ? (translations.links.length + 2) * 100 + 200 : 0}ms` }}
+          >
+            <button
+              onClick={handleResetLang}
+              className="flex items-center gap-2 text-brand-gray text-sm font-medium hover:text-brand-blue transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+              </svg>
+              Langue
+            </button>
+            <button
+              onClick={handleResetGuide}
+              className="flex items-center gap-2 text-brand-gray text-sm font-medium hover:text-brand-blue transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Guide
+            </button>
+          </div>
         </nav>
       </div>
     </>
