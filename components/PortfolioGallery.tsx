@@ -28,7 +28,7 @@ const projects: Project[] = [
     description: 'Marketing digital complet et creation du site e-commerce pour marque de parfums et oud haut de gamme.',
     tasks: ['Marketing Digital', 'Content Creation', 'Meta Ads', 'Site Web E-commerce'],
     results: ['+120K Interactions', 'Haut Traffic Web', 'E-commerce Live'],
-    logo: 'https://i.ibb.co/Q7Qtkb81/image.png',
+    logo: 'https://i.ibb.co/BVTDnpBZ/image.png',
     website: 'https://www.lecmooud.com',
   },
 ];
@@ -53,21 +53,10 @@ const PortfolioGallery: React.FC = () => {
 
         {/* ===== BANDE DE LOGOS ===== */}
         <div style={{ overflow: 'hidden', position: 'relative' }}>
-          {/* Gradient gauche */}
-          <div style={{
-            position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px',
-            background: 'linear-gradient(to right, var(--bg-color, #050A1F), transparent)',
-            zIndex: 10, pointerEvents: 'none'
-          }} className="from-white dark:from-navy bg-gradient-to-r from-white dark:from-navy to-transparent"></div>
-          
-          {/* Gradient droite */}
-          <div style={{
-            position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px',
-            background: 'linear-gradient(to left, var(--bg-color, #050A1F), transparent)',
-            zIndex: 10, pointerEvents: 'none'
-          }} className="bg-gradient-to-l from-white dark:from-navy to-transparent"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
 
-          <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+          <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center' }}>
             {scrollLogos.map((project, i) => (
               <div
                 key={`logo-${i}`}
@@ -75,7 +64,7 @@ const PortfolioGallery: React.FC = () => {
                 className="cursor-pointer group"
                 style={{
                   flexShrink: 0,
-                  padding: '20px 40px',
+                  padding: '30px 60px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -86,12 +75,12 @@ const PortfolioGallery: React.FC = () => {
                   alt={project.name}
                   style={{
                     filter: 'brightness(0) invert(1)',
-                    height: '60px',
+                    height: '100px',
                     width: 'auto',
                     maxWidth: 'none',
                     display: 'block',
                   }}
-                  className="opacity-40 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
+                  className="opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:scale-125"
                 />
               </div>
             ))}
@@ -106,11 +95,11 @@ const PortfolioGallery: React.FC = () => {
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden"
+            className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header avec logo */}
-            <div className="bg-brand-blue p-8 md:p-12 flex items-center justify-center relative">
+            <div className="bg-brand-blue p-10 md:p-14 flex items-center justify-center relative">
               <button
                 onClick={() => setSelectedProject(null)}
                 className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
@@ -125,9 +114,9 @@ const PortfolioGallery: React.FC = () => {
                 alt={selectedProject.name}
                 style={{
                   filter: 'brightness(0) invert(1)',
-                  height: '80px',
+                  height: '120px',
                   width: 'auto',
-                  maxWidth: '90%',
+                  maxWidth: '80%',
                   display: 'block',
                 }}
               />
@@ -208,3 +197,4 @@ const PortfolioGallery: React.FC = () => {
 };
 
 export default PortfolioGallery;
+
