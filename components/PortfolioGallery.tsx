@@ -31,6 +31,16 @@ const projects: Project[] = [
     logo: 'https://i.ibb.co/BVTDnpBZ/image.png',
     website: 'https://www.lecmooud.com',
   },
+  {
+    id: 3,
+    name: 'White Aura',
+    categories: ['Marketing', 'Branding', 'Video', 'Design', 'Web'],
+    description: 'Creation du site web et strategie de vente complete pour marque de cosmetiques premium.',
+    tasks: ['Site Web', 'Strategie de Vente', 'Branding', 'Marketing Digital'],
+    results: ['+100% ROI', 'E-commerce Live', 'Croissance Ventes'],
+    logo: 'https://i.ibb.co/JRNqdr3q/image.png',
+    website: 'https://white-aura.vercel.app',
+  },
 ];
 
 const PortfolioGallery: React.FC = () => {
