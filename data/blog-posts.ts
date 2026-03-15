@@ -670,3 +670,1045 @@ export const getRelatedPosts = (currentSlug: string, limit: number = 3): BlogPos
     .filter(post => post.slug !== currentSlug && post.category === currentPost.category)
     .slice(0, limit);
 };
+// ========== AJOUTER DANS blogPosts[] après l'article 3 ==========
+
+  {
+    id: '4',
+    slug: 'reseaux-sociaux-algerie-strategie',
+    title: 'Stratégie réseaux sociaux en Algérie : le guide ultime',
+    metaDescription: 'Comment créer une stratégie réseaux sociaux efficace en Algérie. Facebook, Instagram, TikTok : ce qui marche vraiment en 2026.',
+    excerpt: 'Facebook domine, Instagram monte, TikTok explose. Voici LA stratégie adaptée au marché algérien.',
+    category: 'Social Media',
+    tags: ['Réseaux sociaux', 'Facebook', 'Instagram', 'TikTok', 'Algérie'],
+    author: 'Social Media Team',
+    date: '2026-03-01',
+    readTime: '11 min',
+    image: '/blog/social-media-algerie.jpg',
+    content: `
+# Stratégie réseaux sociaux en Algérie : le guide ultime
+
+## L'état des réseaux sociaux en Algérie (2026)
+
+### Les chiffres clés
+- **26 millions** d'utilisateurs Facebook (n°1 incontesté)
+- **12 millions** sur Instagram (croissance +35%/an)
+- **8 millions** sur TikTok (explosion chez les 16-30 ans)
+- **3 millions** sur LinkedIn (B2B en croissance)
+- **2 millions** sur Snapchat (en déclin)
+
+### Heures de pic en Algérie
+- **Facebook** : 20h-23h (après le dîner)
+- **Instagram** : 12h-14h et 19h-22h
+- **TikTok** : 17h-00h (surtout le week-end)
+- **LinkedIn** : 9h-11h (dimanche à jeudi)
+
+## Stratégie par plateforme
+
+### Facebook : le roi indétrônable
+
+Facebook reste **LA plateforme** en Algérie. 
+
+**Types de contenu qui marchent :**
+- Vidéos courtes (30-60s) : **3x plus d'engagement**
+- Carrousels avec texte en arabe/français
+- Posts émotionnels et storytelling
+- Lives (Q&A, behind the scenes)
+
+**Fréquence idéale** : 1-2 posts/jour
+
+**Facebook Ads en Algérie :**
+- CPM moyen : **0.5-2 USD** (très bas vs Europe)
+- CPC moyen : **0.05-0.20 USD**
+- Budget minimum recommandé : **10,000 DZD/jour**
+- Ciblage : par wilaya, âge, intérêts
+
+**Format gagnant** :
+1. Hook visuel (3 premières secondes)
+2. Problème identifié
+3. Solution présentée
+4. Call-to-action clair (WhatsApp ou Messenger)
+
+### Instagram : la montée en puissance
+
+**Ce qui fonctionne :**
+- Reels (15-30s) : algorithme les pousse massivement
+- Stories interactives (sondages, quiz)
+- Carrousels éducatifs (tips, guides)
+- Collaborations avec influenceurs DZ
+
+**Hashtags algériens performants :**
+- #Algerie #DZ #Algeria
+- #AlgerieMarketing #BusinessDZ
+- #[VotreVille] (ex: #Blida #Alger #Oran)
+
+**Erreurs courantes :**
+- ❌ Poster juste des photos produit
+- ❌ Ignorer les Reels
+- ❌ Ne pas répondre aux DMs
+- ❌ Acheter des followers
+
+### TikTok : l'opportunité explosive
+
+**Pourquoi TikTok en DZ :**
+- Audience jeune et engagée
+- Reach organique encore massif
+- Peu de marques algériennes présentes
+- Coût publicitaire très bas
+
+**Formats qui cartonnent :**
+- Tutorials rapides
+- Before/after
+- Day in the life
+- Humour algérien adapté à votre marque
+- Tendances locales adaptées
+
+**Astuce** : Réutilisez vos TikTok en Reels Instagram et Shorts YouTube.
+
+### LinkedIn : le B2B sous-exploité
+
+**Pour qui** : Agences, consultants, SaaS, recruteurs
+
+**Stratégie :**
+- 3-5 posts/semaine
+- Articles longs (1500+ mots)
+- Partage d'expertise
+- Networking avec décideurs DZ
+
+## Calendrier éditorial type (1 mois)
+
+### Semaine 1
+| Jour | Facebook | Instagram | TikTok |
+|------|----------|-----------|--------|
+| Dim | Vidéo tips | Reel | Trend |
+| Lun | Post éducatif | Carrousel | - |
+| Mar | Témoignage | Story Q&A | Tutorial |
+| Mer | Offre/Promo | Reel | - |
+| Jeu | Behind scenes | Carrousel | Trend |
+
+### Types de contenu (règle 80/20)
+- **80% valeur** : Tips, éducation, entertainment
+- **20% promotion** : Offres, services, CTA
+
+## Influenceurs algériens : comment collaborer
+
+### Types d'influenceurs DZ
+- **Nano** (1-10K) : Engagement fort, prix bas (5,000-20,000 DZD)
+- **Micro** (10-50K) : Bon ratio, prix moyen (20,000-100,000 DZD)
+- **Macro** (50-500K) : Reach large (100,000-500,000 DZD)
+- **Mega** (500K+) : Visibilité massive (500,000+ DZD)
+
+### Checklist avant collaboration
+✅ Vérifier le taux d'engagement (min 3%)
+✅ Analyser la qualité des commentaires
+✅ Vérifier l'audience (vraie vs fake)
+✅ Demander un media kit
+✅ Négocier les droits d'utilisation
+
+## Outils recommandés
+
+### Gratuits
+- **Canva** : Design des posts
+- **CapCut** : Montage vidéo
+- **Meta Business Suite** : Planification FB/IG
+- **Google Trends** : Recherche de tendances
+
+### Payants
+- **Hootsuite** : Planification multi-plateformes
+- **Sprout Social** : Analytics avancés
+- **Later** : Planification Instagram
+- **Iconosquare** : Reporting détaillé
+
+## KPIs à suivre
+
+### Engagement
+- Taux d'engagement (min 3% pour < 10K followers)
+- Commentaires / post
+- Partages / post
+- Saves (Instagram)
+
+### Croissance
+- Nouveaux followers / semaine
+- Reach organique
+- Impressions
+
+### Conversion
+- Clics vers site web
+- Messages reçus
+- Leads générés
+- Ventes attribuées
+
+## Erreurs fatales
+
+### ❌ Acheter des followers
+Google et Meta détectent et pénalisent. Votre engagement chute.
+
+### ❌ Copier-coller le contenu
+Chaque plateforme a ses codes. Adaptez.
+
+### ❌ Ignorer les commentaires
+Répondez en < 1h pendant les heures de pic.
+
+### ❌ Pas de stratégie
+Sans calendrier éditorial, vous publiez au hasard.
+
+### ❌ Oublier la vidéo
+En 2026, la vidéo représente **80%** du contenu consommé.
+
+## Conclusion
+
+Les réseaux sociaux en Algérie offrent un **ROI exceptionnel** grâce à :
+- Des coûts publicitaires bas
+- Une population ultra-connectée
+- Peu de concurrence professionnelle
+
+**iVISION gère vos réseaux sociaux de A à Z.**
+
+[Demander un devis social media →](#quote)
+    `
+  },
+
+  {
+    id: '5',
+    slug: 'ecommerce-algerie-guide-2026',
+    title: 'Lancer son e-commerce en Algérie : guide complet 2026',
+    metaDescription: 'Guide complet pour lancer un site e-commerce en Algérie. Paiement, livraison, plateforme, légalité - tout ce qu\'il faut savoir.',
+    excerpt: 'Le e-commerce explose en Algérie. Voici comment lancer votre boutique en ligne et éviter les erreurs qui coûtent cher.',
+    category: 'E-commerce',
+    tags: ['E-commerce', 'Algérie', 'Business', 'Vente en ligne'],
+    author: 'iVISION Team',
+    date: '2026-02-25',
+    readTime: '14 min',
+    image: '/blog/ecommerce-algerie.jpg',
+    content: `
+# Lancer son e-commerce en Algérie : guide complet 2026
+
+## Le marché e-commerce algérien en 2026
+
+### Chiffres clés
+- **Marché estimé** : 500 millions USD
+- **Croissance** : +40%/an
+- **Acheteurs en ligne** : 8 millions d'Algériens
+- **Panier moyen** : 4,500 DZD
+- **Catégories top** : Mode, électronique, beauté
+
+### Défis spécifiques à l'Algérie
+1. **Paiement** : Cash on delivery domine (75%)
+2. **Livraison** : Infrastructure inégale selon les wilayas
+3. **Confiance** : Méfiance envers le paiement en ligne
+4. **Légalité** : Réglementation en évolution
+
+## Étape 1 : Choisir votre plateforme
+
+### Option 1 : Site custom (React + API)
+- **Avantages** : Performance, personnalisation totale, SEO optimal
+- **Inconvénients** : Coût élevé, temps de développement
+- **Budget** : 800,000 - 3,000,000 DZD
+- **Idéal pour** : Marques ambitieuses, +100 produits
+
+### Option 2 : WooCommerce (WordPress)
+- **Avantages** : Écosystème large, plugins nombreux
+- **Inconvénients** : Performance moyenne, sécurité à surveiller
+- **Budget** : 200,000 - 800,000 DZD
+- **Idéal pour** : PME, < 500 produits
+
+### Option 3 : Shopify
+- **Avantages** : Simplicité, hébergement inclus
+- **Inconvénients** : Abonnement mensuel, limites design
+- **Budget** : 15,000 DZD/mois + setup
+- **Idéal pour** : Débutants, test de marché
+
+### Notre recommandation
+Pour le marché algérien : **Site custom** ou **WooCommerce** pour le contrôle total sur les passerelles de paiement locales.
+
+## Étape 2 : Solutions de paiement
+
+### Paiement à la livraison (COD)
+- **Incontournable** en Algérie (75% des transactions)
+- Intégrez un système de confirmation par SMS/WhatsApp
+- Prévoyez un taux de refus de 15-25%
+
+### CIB / Edahabia (Carte bancaire)
+- Via **SATIM** (satim.dz)
+- Intégration technique nécessaire
+- Commission : 1.5-2.5%
+- Confiance en hausse
+
+### Baridimob / CCP
+- 20 millions de comptes CCP
+- Transfert manuel pour le moment
+- Solutions API en développement
+
+### BaridiMob
+- Paiement mobile d'Algérie Poste
+- Adoption croissante
+- Commission faible
+
+## Étape 3 : Livraison
+
+### Sociétés de livraison DZ
+| Entreprise | Wilayas | Délai | Tarif moyen |
+|-----------|---------|-------|-------------|
+| Yalidine | 58 | 24-72h | 400-800 DZD |
+| Zr Express | 58 | 24-48h | 350-700 DZD |
+| Ecotrack | 48 | 48-96h | 300-600 DZD |
+| Maystro | 58 | 24-72h | 400-900 DZD |
+
+### Conseils livraison
+- Proposez la **livraison gratuite** au-dessus d'un seuil (ex: 5000 DZD)
+- **Stop desk** : option moins chère, prisée par les jeunes
+- **Tracking en temps réel** : indispensable
+- **SMS automatiques** : à chaque étape
+
+## Étape 4 : Catalogue produits
+
+### Fiches produits optimisées
+Chaque fiche doit contenir :
+- **5-10 photos HD** (fond blanc + mise en situation)
+- **Titre SEO** : [Produit] + [Caractéristique] + [Marque]
+- **Description** : 300+ mots, structurée avec H2/H3
+- **Prix clair** : En DZD, avec prix barré si promo
+- **Tailles/couleurs** : Avec guide des tailles
+- **Avis clients** : Système de notation intégré
+- **Stock** : Indicateur de disponibilité
+
+### Photos qui vendent
+- Fond blanc pour les marketplaces
+- Photos lifestyle pour les réseaux sociaux
+- Vidéo 360° pour les produits premium
+- Zoom haute qualité
+
+## Étape 5 : Marketing
+
+### Acquisition clients
+1. **Facebook Ads** : Canal n°1 en Algérie
+2. **Instagram Shopping** : Catalogue intégré
+3. **SEO** : Trafic gratuit long terme
+4. **Influenceurs DZ** : ROI élevé
+5. **WhatsApp Business** : SAV et relance
+
+### Stratégie Facebook Ads e-commerce
+- **Budget test** : 5,000 DZD/jour pendant 7 jours
+- **Ciblage** : Intérêts + comportement achat en ligne
+- **Créative** : Vidéo produit < 15s
+- **CTA** : "Acheter maintenant" ou "Envoyer un message"
+
+### Email marketing
+- Welcome series (3 emails)
+- Panier abandonné (2 emails)
+- Post-achat (avis + cross-sell)
+- Newsletter hebdomadaire
+
+## Étape 6 : Légalité
+
+### Obligations légales
+- **Registre de commerce** : Obligatoire
+- **NIF** : Numéro d'identification fiscale
+- **Mentions légales** sur le site
+- **Politique de retour** : 7-14 jours
+- **Protection des données** : Conformité loi algérienne
+
+### Facturation
+- Factures obligatoires
+- TVA 19% (selon votre régime)
+- Déclaration G50 mensuelle
+
+## Métriques à suivre
+
+### KPIs essentiels
+- **Taux de conversion** : Objectif > 2%
+- **Panier moyen** : Optimiser avec cross-sell
+- **Coût d'acquisition** : Facebook Ads CPA
+- **Taux de retour** : < 10%
+- **Taux de livraison** : > 85%
+
+## Conclusion
+
+Le e-commerce en Algérie est une **mine d'or** pour les entrepreneurs bien préparés.
+
+**iVISION crée votre boutique en ligne clé en main.**
+
+[Lancer mon e-commerce →](#quote)
+    `
+  },
+
+  {
+    id: '6',
+    slug: 'branding-identite-visuelle-importance',
+    title: 'Pourquoi le branding fait la différence entre succès et échec',
+    metaDescription: 'L\'importance du branding et de l\'identité visuelle pour votre entreprise. Guide complet : logo, charte graphique, positionnement.',
+    excerpt: 'Votre marque est plus qu\'un logo. Découvrez pourquoi un branding professionnel peut multiplier votre chiffre d\'affaires.',
+    category: 'Branding',
+    tags: ['Branding', 'Logo', 'Identité visuelle', 'Design'],
+    author: 'Design Team',
+    date: '2026-02-20',
+    readTime: '9 min',
+    image: '/blog/branding-guide.jpg',
+    content: `
+# Pourquoi le branding fait la différence entre succès et échec
+
+## Qu'est-ce que le branding (vraiment) ?
+
+Le branding n'est **PAS** juste un logo. C'est l'ensemble des perceptions, émotions et expériences associées à votre marque.
+
+### Les composantes du branding
+1. **Identité visuelle** : Logo, couleurs, typographie
+2. **Voix de marque** : Ton, vocabulaire, personnalité
+3. **Positionnement** : Ce qui vous différencie
+4. **Expérience** : Chaque interaction avec votre marque
+5. **Valeurs** : Ce que vous représentez
+
+## Le branding en chiffres
+
+- **77%** des consommateurs achètent basé sur la marque
+- **60%** évitent les marques au design non professionnel
+- Un branding cohérent augmente le revenu de **23%**
+- Il faut **5-7 impressions** pour mémoriser une marque
+- La couleur augmente la reconnaissance de **80%**
+
+## Les 7 éléments d'un branding réussi
+
+### 1. Logo professionnel
+Votre logo doit être :
+- **Simple** : Reconnaissable en 3 secondes
+- **Mémorable** : Distinct des concurrents
+- **Versatile** : Fonctionnel en petit et grand
+- **Intemporel** : Pas de tendances éphémères
+- **Approprié** : Cohérent avec votre secteur
+
+**Formats à livrer** :
+- SVG (vectoriel)
+- PNG (fond transparent)
+- Versions : couleur, noir, blanc, monochrome
+- Favicon (32x32, 16x16)
+
+### 2. Palette de couleurs
+Maximum **5 couleurs** :
+- 1 couleur primaire (60%)
+- 1 couleur secondaire (30%)
+- 1 couleur d'accent (10%)
+- Noir/Gris pour le texte
+- Blanc/Crème pour les fonds
+
+**Psychologie des couleurs** :
+- 🔵 Bleu : Confiance, professionnalisme
+- 🔴 Rouge : Énergie, urgence
+- 🟢 Vert : Nature, croissance
+- 🟡 Jaune : Optimisme, créativité
+- 🟣 Violet : Luxe, créativité
+- ⚫ Noir : Élégance, premium
+
+### 3. Typographie
+Choisissez 2 fonts maximum :
+- **Titres** : Font avec personnalité (Montserrat, Poppins)
+- **Corps** : Font lisible (Inter, Open Sans, Roboto)
+
+### 4. Charte graphique
+Document PDF de 15-30 pages incluant :
+- Utilisation du logo (do's and don'ts)
+- Palette de couleurs (codes HEX, RGB, CMYK)
+- Typographie (tailles, hiérarchie)
+- Iconographie
+- Style photographique
+- Templates (cartes de visite, signatures email)
+
+### 5. Voix de marque
+Définissez votre ton :
+- **Formel** vs **Décontracté**
+- **Expert** vs **Accessible**
+- **Sérieux** vs **Humoristique**
+- **Corporate** vs **Humain**
+
+### 6. Storytelling
+Votre histoire de marque :
+- Pourquoi avez-vous créé cette entreprise ?
+- Quel problème résolvez-vous ?
+- Quelle est votre vision ?
+- Qu'est-ce qui vous rend unique ?
+
+### 7. Cohérence multi-canal
+Votre branding doit être identique sur :
+- Site web
+- Réseaux sociaux
+- Cartes de visite
+- Emails
+- Packaging
+- Signalétique
+
+## Erreurs de branding en Algérie
+
+### ❌ Logo fait sur Canva en 5 minutes
+Un logo professionnel coûte entre 30,000 et 200,000 DZD. C'est un investissement, pas une dépense.
+
+### ❌ Copier les concurrents
+Vous devez vous DIFFÉRENCIER, pas ressembler.
+
+### ❌ Changer de branding tous les 6 mois
+La cohérence construit la reconnaissance.
+
+### ❌ Négliger le digital
+Votre branding doit être optimisé pour les écrans.
+
+## Combien coûte un branding en Algérie ?
+
+| Niveau | Contenu | Budget |
+|--------|---------|--------|
+| Basic | Logo + carte de visite | 30,000 - 80,000 DZD |
+| Standard | Logo + charte + réseaux sociaux | 100,000 - 300,000 DZD |
+| Premium | Branding complet + stratégie | 300,000 - 800,000 DZD |
+| Entreprise | Rebranding total | 800,000+ DZD |
+
+## Conclusion
+
+Le branding n'est pas un luxe, c'est une **nécessité**. C'est la fondation sur laquelle tout votre marketing est construit.
+
+**iVISION crée des identités de marque mémorables.**
+
+[Créer mon branding →](#quote)
+    `
+  },
+
+  {
+    id: '7',
+    slug: 'google-ads-algerie-guide',
+    title: 'Google Ads en Algérie : maximiser son ROI avec un petit budget',
+    metaDescription: 'Guide Google Ads pour le marché algérien. Stratégies, budgets, mots-clés et optimisation pour maximiser votre retour sur investissement.',
+    excerpt: 'Google Ads fonctionne en Algérie même avec un petit budget. Voici comment tirer le maximum de chaque dinar investi.',
+    category: 'Publicité',
+    tags: ['Google Ads', 'PPC', 'Algérie', 'ROI'],
+    author: 'Ads Team',
+    date: '2026-02-15',
+    readTime: '10 min',
+    image: '/blog/google-ads-algerie.jpg',
+    content: `
+# Google Ads en Algérie : maximiser son ROI avec un petit budget
+
+## Pourquoi Google Ads en Algérie ?
+
+### L'avantage concurrentiel
+- **CPC moyen** : 0.05-0.30 USD (vs 1-5 USD en France)
+- **Concurrence** : Faible sur la plupart des mots-clés
+- **Intent** : Les gens cherchent activement sur Google
+- **Mesurable** : ROI traçable à 100%
+
+## Configurer son compte
+
+### Structure recommandée
+\`\`\`
+Compte Google Ads
+├── Campagne 1 : Recherche - Services principaux
+│   ├── Groupe : Création site web
+│   ├── Groupe : SEO
+│   └── Groupe : Marketing digital
+├── Campagne 2 : Recherche - Marque
+│   └── Groupe : iVISION / votre marque
+└── Campagne 3 : Display - Remarketing
+    └── Groupe : Visiteurs site
+\`\`\`
+
+### Paramètres essentiels
+- **Ciblage géo** : Algérie (ou wilayas spécifiques)
+- **Langue** : Français + Arabe
+- **Enchères** : CPC manuel au début, puis Smart Bidding
+- **Budget** : Minimum 1,000 DZD/jour pour commencer
+
+## Recherche de mots-clés DZ
+
+### Mots-clés performants par secteur
+
+**Agence web** :
+- "création site web algérie" - CPC: 0.10 USD
+- "agence marketing digital alger" - CPC: 0.15 USD
+- "développeur web freelance" - CPC: 0.08 USD
+
+**E-commerce** :
+- "acheter en ligne algérie" - CPC: 0.12 USD
+- "boutique en ligne" - CPC: 0.10 USD
+
+**Services** :
+- "expert comptable alger" - CPC: 0.20 USD
+- "avocat blida" - CPC: 0.15 USD
+
+### Mots-clés négatifs essentiels
+Excluez toujours :
+- "gratuit"
+- "free"
+- "مجاني"
+- "cours"
+- "formation"
+- "PDF"
+- "template"
+
+## Créer des annonces qui convertissent
+
+### Structure d'annonce optimale
+
+**Titre 1** : [Mot-clé principal] + [Bénéfice]
+**Titre 2** : [Différenciateur] + [Lieu]
+**Titre 3** : [Call-to-action]
+**Description 1** : Détails du service + preuve sociale
+**Description 2** : Offre + CTA
+
+### Exemple concret
+\`\`\`
+Création Site Web Pro | Alger & Blida
+Agence Certifiée - Devis Gratuit en 24h
++200 Sites Livrés | Satisfaction 100%
+━━━
+Agence web professionnelle en Algérie. Sites modernes,
+rapides et optimisés SEO. Devis gratuit en 24h.
+Appelez maintenant ou demandez votre devis en ligne.
+Prix transparent à partir de 150,000 DZD.
+\`\`\`
+
+## Optimisation continue
+
+### Semaine 1-2 : Lancement
+- Budget test : 1,000-2,000 DZD/jour
+- Analyser les termes de recherche
+- Ajouter des mots-clés négatifs
+
+### Mois 1 : Optimisation
+- Couper les mots-clés CPA > objectif
+- Augmenter les enchères sur les performants
+- Tester de nouvelles annonces
+
+### Mois 2+ : Scale
+- Augmenter budget sur campagnes rentables
+- Ajouter le remarketing
+- Tester de nouveaux formats
+
+## Landing pages qui convertissent
+
+### Éléments obligatoires
+1. **Titre** qui reprend le mot-clé recherché
+2. **Sous-titre** avec le bénéfice principal
+3. **CTA visible** au-dessus du fold
+4. **Preuves sociales** (avis, logos clients)
+5. **Formulaire court** (nom, tél, besoin)
+6. **Numéro WhatsApp** cliquable
+7. **Temps de chargement** < 3 secondes
+
+## Conclusion
+
+Google Ads en Algérie est un **levier sous-exploité** avec un ROI potentiel énorme.
+
+**iVISION gère vos campagnes Google Ads.**
+
+[Lancer mes Google Ads →](#quote)
+    `
+  },
+
+  {
+    id: '8',
+    slug: 'intelligence-artificielle-business-algerie',
+    title: 'Comment l\'IA transforme les entreprises algériennes en 2026',
+    metaDescription: 'L\'intelligence artificielle au service des entreprises algériennes. Outils, cas d\'usage, et stratégies d\'implémentation IA en 2026.',
+    excerpt: 'L\'IA n\'est plus réservée aux géants tech. Voici comment les PME algériennes l\'utilisent pour gagner en productivité.',
+    category: 'Intelligence Artificielle',
+    tags: ['IA', 'Intelligence Artificielle', 'Automation', 'Business'],
+    author: 'Tech Team',
+    date: '2026-02-10',
+    readTime: '9 min',
+    image: '/blog/ia-business-algerie.jpg',
+    content: `
+# Comment l'IA transforme les entreprises algériennes en 2026
+
+## L'IA accessible à tous
+
+En 2026, l'IA n'est plus un luxe. Des outils gratuits ou peu coûteux permettent à n'importe quelle PME algérienne d'en bénéficier.
+
+## 10 cas d'usage concrets
+
+### 1. Service client automatisé
+- **Chatbots WhatsApp** : Répondent 24/7 en arabe et français
+- **Coût** : 5,000-20,000 DZD/mois
+- **Résultat** : -60% de temps sur le support client
+
+### 2. Création de contenu
+- **ChatGPT / Claude** : Articles, posts, descriptions produits
+- **Midjourney** : Visuels marketing
+- **Résultat** : Contenu 5x plus rapide
+
+### 3. Analyse de données
+- **Google Analytics + IA** : Insights automatiques
+- **Prédiction de ventes** : Anticiper les tendances
+- **Résultat** : Décisions basées sur les données
+
+### 4. Email marketing intelligent
+- **Segmentation automatique** des audiences
+- **Optimisation de l'objet** par A/B testing IA
+- **Envoi au moment optimal** par fuseau horaire
+- **Résultat** : +35% de taux d'ouverture
+
+### 5. Gestion des stocks (e-commerce)
+- **Prédiction de demande**
+- **Réapprovisionnement automatique**
+- **Résultat** : -30% de ruptures de stock
+
+### 6. Publicité optimisée
+- **Meta Advantage+** : Campagnes auto-optimisées
+- **Google Smart Bidding** : Enchères IA
+- **Résultat** : -25% de CPA
+
+### 7. Traduction automatique
+- **DeepL** : Traduction FR/AR/EN de qualité
+- **Résultat** : Communication multilingue facile
+
+### 8. Design automatisé
+- **Canva Magic Design** : Designs auto-générés
+- **Remove.bg** : Suppression de fond automatique
+- **Résultat** : Visuels pro sans designer
+
+### 9. Comptabilité intelligente
+- **OCR** pour scanner les factures
+- **Catégorisation automatique** des dépenses
+- **Résultat** : -70% de temps administratif
+
+### 10. Recrutement
+- **Tri automatique des CV**
+- **Matching candidat/poste par IA**
+- **Résultat** : Recrutement 3x plus rapide
+
+## Outils IA recommandés pour le marché DZ
+
+### Gratuits
+| Outil | Usage | Limite gratuite |
+|-------|-------|-----------------|
+| ChatGPT | Texte/Code | 40 messages/3h |
+| Canva | Design | 50 designs/mois |
+| Google Bard | Recherche | Illimité |
+| Remove.bg | Fond photo | 1 image/mois HD |
+
+### Payants (investissement)
+| Outil | Usage | Prix |
+|-------|-------|------|
+| ChatGPT Plus | Contenu avancé | 20 USD/mois |
+| Jasper | Marketing content | 49 USD/mois |
+| Midjourney | Visuels | 10 USD/mois |
+| Zapier | Automation | 19 USD/mois |
+
+## Comment implémenter l'IA dans votre entreprise
+
+### Phase 1 : Identifier (Semaine 1-2)
+- Lister les tâches répétitives
+- Identifier les bottlenecks
+- Évaluer le temps perdu
+
+### Phase 2 : Tester (Mois 1)
+- Essayer 2-3 outils gratuits
+- Former l'équipe
+- Mesurer les résultats
+
+### Phase 3 : Implémenter (Mois 2-3)
+- Investir dans les outils payants qui marchent
+- Créer des workflows automatisés
+- Documenter les process
+
+### Phase 4 : Optimiser (Ongoing)
+- A/B tester les approches IA
+- Rester à jour sur les nouveaux outils
+- Former continuellement l'équipe
+
+## Attention aux limites
+
+### L'IA ne remplace PAS
+- La créativité humaine
+- La stratégie business
+- Les relations clients
+- Le jugement contextuel algérien
+
+### Bonnes pratiques
+- Toujours vérifier le contenu IA
+- Personnaliser pour le contexte DZ
+- Ne pas dépendre d'un seul outil
+- Respecter la vie privée des données
+
+## Conclusion
+
+L'IA est un **multiplicateur de productivité**. Les entreprises algériennes qui l'adoptent maintenant auront un avantage massif.
+
+**iVISION intègre l'IA dans vos process business.**
+
+[Découvrir nos solutions IA →](#quote)
+    `
+  },
+
+  {
+    id: '9',
+    slug: 'optimiser-vitesse-site-web',
+    title: 'Vitesse de site web : le guide technique pour un site ultra-rapide',
+    metaDescription: 'Optimisez la vitesse de votre site web. Core Web Vitals, compression, cache, CDN - techniques pour un chargement < 2 secondes.',
+    excerpt: 'Un site lent perd 53% de ses visiteurs. Voici comment rendre votre site ultra-rapide avec des techniques éprouvées.',
+    category: 'Performance',
+    tags: ['Performance', 'Vitesse', 'Core Web Vitals', 'Technique'],
+    author: 'Dev Team',
+    date: '2026-02-05',
+    readTime: '11 min',
+    image: '/blog/vitesse-site-web.jpg',
+    content: `
+# Vitesse de site web : le guide technique pour un site ultra-rapide
+
+## Pourquoi la vitesse compte
+
+### Impact sur le business
+- **53%** des visiteurs quittent si chargement > 3s
+- **+1 seconde** de délai = **-7%** de conversions
+- Google pénalise les sites lents dans le ranking
+- Amazon perd **1.6 milliard USD** par seconde de délai supplémentaire
+
+### Core Web Vitals (Google)
+| Métrique | Bon | Moyen | Mauvais |
+|----------|-----|-------|---------|
+| LCP | < 2.5s | < 4s | > 4s |
+| FID/INP | < 100ms | < 300ms | > 300ms |
+| CLS | < 0.1 | < 0.25 | > 0.25 |
+
+## Diagnostic : mesurer avant d'optimiser
+
+### Outils gratuits
+1. **PageSpeed Insights** : pagespeed.web.dev
+2. **GTmetrix** : gtmetrix.com
+3. **WebPageTest** : webpagetest.org
+4. **Lighthouse** : DevTools Chrome
+
+### Métriques à noter
+- Score PageSpeed Mobile (objectif : 90+)
+- Score PageSpeed Desktop (objectif : 95+)
+- Temps de chargement total
+- Nombre de requêtes HTTP
+- Taille totale de la page
+
+## Les 12 optimisations essentielles
+
+### 1. Optimisation des images
+Le facteur n°1 de lenteur.
+
+**Actions :**
+- Convertir en **WebP** ou **AVIF** (-50-80% de taille)
+- Redimensionner aux dimensions affichées
+- Compression : quality 80% (imperceptible)
+- Lazy loading natif
+
+\`\`\`html
+<img 
+  src="photo.webp" 
+  alt="Description" 
+  width="800" 
+  height="600" 
+  loading="lazy"
+  decoding="async"
+/>
+\`\`\`
+
+### 2. Minification CSS/JS
+Réduire la taille des fichiers code.
+
+**Outils :**
+- Vite/Webpack (automatique en production)
+- Terser pour JavaScript
+- cssnano pour CSS
+
+### 3. Compression GZIP/Brotli
+Compression côté serveur.
+
+**Nginx config :**
+\`\`\`nginx
+gzip on;
+gzip_types text/css application/javascript application/json;
+gzip_min_length 1024;
+brotli on;
+\`\`\`
+
+Résultat : **-70%** de taille de transfert.
+
+### 4. Cache navigateur
+Éviter de re-télécharger les fichiers statiques.
+
+\`\`\`nginx
+location ~* \\.(css|js|png|jpg|webp|svg|woff2)$ {
+  expires 1y;
+  add_header Cache-Control "public, immutable";
+}
+\`\`\`
+
+### 5. CDN (Content Delivery Network)
+Servir les fichiers depuis des serveurs proches.
+
+**Recommandés :**
+- **Cloudflare** (gratuit + CDN)
+- **Bunny CDN** (0.01$/GB)
+
+### 6. Préconnexion aux domaines tiers
+\`\`\`html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://analytics.google.com">
+\`\`\`
+
+### 7. Fonts optimisées
+\`\`\`css
+@font-face {
+  font-family: 'Inter';
+  src: url('inter.woff2') format('woff2');
+  font-display: swap;
+  unicode-range: U+0000-00FF;
+}
+\`\`\`
+
+### 8. Code splitting
+Charger seulement le JS nécessaire.
+
+\`\`\`typescript
+// React lazy loading
+const BlogPage = React.lazy(() => import('./BlogPage'));
+\`\`\`
+
+### 9. Réduire les requêtes HTTP
+- Combiner les fichiers CSS
+- Sprites pour les icônes (ou SVG inline)
+- Inline le CSS critique
+
+### 10. Optimiser le rendu
+- CSS critique inline dans le \`<head>\`
+- JS en \`defer\` ou \`async\`
+- Éviter le layout shift (CLS)
+
+### 11. Base de données (si applicable)
+- Indexer les requêtes fréquentes
+- Cache Redis/Memcached
+- Optimiser les requêtes SQL
+
+### 12. Hébergement performant
+- **VPS minimum** (pas de shared hosting)
+- **SSD NVMe** obligatoire
+- **HTTP/2** ou **HTTP/3**
+- Serveur proche de votre audience
+
+**Hébergeurs recommandés pour DZ :**
+- Vercel (gratuit pour sites statiques)
+- Cloudflare Pages
+- DigitalOcean (VPS)
+
+## Checklist performance
+
+### Quick wins (1 heure)
+- [ ] Compresser les images en WebP
+- [ ] Activer lazy loading
+- [ ] Minifier CSS/JS
+- [ ] Activer GZIP
+
+### Medium effort (1 jour)
+- [ ] Configurer CDN
+- [ ] Optimiser les fonts
+- [ ] Ajouter cache headers
+- [ ] Code splitting
+
+### Advanced (1 semaine)
+- [ ] CSS critique inline
+- [ ] Service Worker pour cache offline
+- [ ] Optimiser le serveur
+- [ ] Monitoring continu
+
+## Conclusion
+
+La vitesse n'est pas optionnelle en 2026. **2 secondes max** ou vous perdez des clients.
+
+**iVISION optimise la performance de votre site.**
+
+[Auditer mon site gratuitement →](#quote)
+    `
+  },
+
+  {
+    id: '10',
+    slug: 'copywriting-vendre-avec-les-mots',
+    title: 'Copywriting : l\'art de vendre avec les mots en Algérie',
+    metaDescription: 'Apprenez les techniques de copywriting qui convertissent en Algérie. Formules, exemples, et psychologie de vente adaptés au marché DZ.',
+    excerpt: 'Les mots justes peuvent transformer un visiteur en client. Voici les techniques de copywriting qui marchent en Algérie.',
+    category: 'Marketing Digital',
+    tags: ['Copywriting', 'Vente', 'Marketing', 'Contenu'],
+    author: 'Content Team',
+    date: '2026-01-30',
+    readTime: '8 min',
+    image: '/blog/copywriting-algerie.jpg',
+    content: `
+# Copywriting : l'art de vendre avec les mots en Algérie
+
+## Qu'est-ce que le copywriting ?
+
+Le copywriting est l'art d'écrire des textes qui **persuadent** et **convertissent**. Ce n'est pas de la rédaction classique - c'est de la **vente par écrit**.
+
+## Les 5 formules qui marchent
+
+### 1. AIDA (Attention - Intérêt - Désir - Action)
+
+**Exemple pour une agence web :**
+
+**Attention** : "Votre site web vous fait perdre des clients chaque jour."
+**Intérêt** : "87% des Algériens jugent une entreprise par son site web."
+**Désir** : "Imaginez un site qui convertit 3x plus de visiteurs en clients."
+**Action** : "Demandez votre maquette gratuite maintenant."
+
+### 2. PAS (Problème - Agitation - Solution)
+
+**Problème** : "Vos posts Facebook n'ont aucun engagement."
+**Agitation** : "Pendant ce temps, vos concurrents attirent VOS clients avec du contenu pro."
+**Solution** : "Notre équipe crée du contenu viral adapté au marché algérien."
+
+### 3. BAB (Before - After - Bridge)
+
+**Before** : "Vous passez 4h/jour à gérer vos réseaux sociaux."
+**After** : "Imaginez si ce temps était investi dans votre cœur de métier."
+**Bridge** : "iVISION gère vos réseaux. Vous, concentrez-vous sur votre business."
+
+### 4. 4U (Urgent - Unique - Ultra-spécifique - Utile)
+
+"Offre limitée : 50% sur votre site web (cette semaine uniquement). Design sur-mesure pour entreprises algériennes. Livraison en 21 jours garantie."
+
+### 5. Storytelling
+
+"Quand Karim a lancé sa pâtisserie à Blida, il n'avait aucun client en ligne. Zéro commande via Facebook. Aujourd'hui, après 3 mois avec iVISION, il reçoit 50 commandes/jour via Instagram. Voici comment..."
+
+## Spécificités algériennes
+
+### Langue
+- **Français** : Sites pro, B2B, services premium
+- **Arabe** : Audience large, émotionnel, réseaux sociaux
+- **Darija** : Posts Facebook, publicités, proximité
+- **Bilingue** : La meilleure approche pour le web
+
+### Triggers psychologiques DZ
+1. **Prix** : Les Algériens comparent beaucoup → montrez la valeur
+2. **Confiance** : Témoignages et preuves sociales essentiels
+3. **Urgence** : "Offre limitée" fonctionne très bien
+4. **Famille** : Arguments famille/communauté résonnent
+5. **Fierté nationale** : "Made in DZ", "Expertise algérienne"
+
+## Exemples concrets
+
+### Titre de page web
+❌ "Bienvenue sur notre site"
+✅ "Votre site web professionnel livré en 21 jours | Devis gratuit"
+
+### Call-to-action
+❌ "Soumettre"
+✅ "Recevoir mon devis gratuit en 24h"
+
+### Description de service
+❌ "Nous faisons du marketing digital"
+✅ "On transforme votre présence en ligne en machine à clients. +200 entreprises algériennes nous font confiance."
+
+### Post Facebook
+❌ "Nouveau service disponible !"
+✅ "🚨 Votre concurrent vient de refaire son site web. Et vous ? 
+On vous offre un audit gratuit de votre présence en ligne.
+→ Envoyez 'AUDIT' en message privé"
+
+## Conclusion
+
+Le copywriting est l'investissement le plus rentable en marketing. Les bons mots au bon moment = **ventes**.
+
+**iVISION rédige des textes qui convertissent.**
+
+[Booster mes conversions →](#quote)
+    `
+  },
