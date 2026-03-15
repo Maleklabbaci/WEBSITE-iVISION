@@ -273,38 +273,40 @@
       ::-webkit-scrollbar-track { background: transparent; }
       ::-webkit-scrollbar-thumb { background: #0033FF; border-radius: 10px; }
    /* ===== LOGOS BLANCS ===== */
-.logo-white {
-  filter: brightness(0) invert(1);
-}
+      .logo-white {
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
+      }
 
-html:not(.dark) .logo-white {
-  filter: brightness(0);
-}
+      html:not(.dark) .logo-white {
+        filter: brightness(0);
+        -webkit-filter: brightness(0);
+      }
 
-/* ===== BANDE QUI DÉFILE ===== */
-@keyframes logoScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+      /* ===== BANDE QUI DÉFILE ===== */
+      @keyframes logoScroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
 
-.logo-scroll-band {
-  animation: logoScroll 20s linear infinite;
-  width: max-content;
-}
+      .logo-scroll-band {
+        animation: logoScroll 20s linear infinite;
+        width: max-content;
+      }
 
-.logo-scroll-band:hover {
-  animation-play-state: paused;
-}
+      .logo-scroll-band:hover {
+        animation-play-state: paused;
+      }
 
-/* ===== FADE IN MODAL ===== */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+      /* ===== FADE IN MODAL ===== */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
 
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-out;
-}
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out;
+      }
     </style>
 
     <script type="importmap">
