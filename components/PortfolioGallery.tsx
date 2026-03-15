@@ -38,10 +38,10 @@ const projects: Project[] = [
     description: 'Creation du site web et strategie de vente complete pour marque de cosmetiques premium.',
     tasks: ['Site Web', 'Strategie de Vente', 'Branding', 'Marketing Digital'],
     results: ['+100% ROI', 'E-commerce Live', 'Croissance Ventes'],
-    logo: 'https://i.ibb.co/tTc50H8n/white-aura.png',
+    logo: 'https://i.ibb.co/JRNqdr3q/image.png',
     website: 'https://white-aura.vercel.app',
   },
-   {
+  {
     id: 4,
     name: 'FIDALI',
     categories: ['Marketing', 'Branding', 'Video', 'Design', 'Platform'],
@@ -59,8 +59,8 @@ const PortfolioGallery: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => { 
-      if (entry.isIntersecting) setIsVisible(true); 
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true);
     }, { threshold: 0.1 });
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -71,8 +71,8 @@ const PortfolioGallery: React.FC = () => {
   return (
     <>
       <section id="portfolio" ref={sectionRef} className="py-24 md:py-40 bg-white dark:bg-navy relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
-        
-        {/* ===== HEADER — MÊME STYLE QUE SERVICES ===== */}
+
+        {/* ===== HEADER ===== */}
         <div className="container">
           <div className={`mb-16 md:mb-24 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
@@ -113,15 +113,14 @@ const PortfolioGallery: React.FC = () => {
                   <img
                     src={project.logo}
                     alt={project.name}
+                    className="logo-white opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:scale-125"
                     style={{
-                      filter: 'brightness(0) invert(1)',
                       height: 'auto',
-                     width: 'auto',
-                     maxHeight: '160px',
-                     maxWidth: '300px',
+                      width: 'auto',
+                      maxHeight: '160px',
+                      maxWidth: '300px',
                       display: 'block',
                     }}
-                    className="opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:scale-125"
                   />
                 </div>
               ))}
@@ -137,7 +136,7 @@ const PortfolioGallery: React.FC = () => {
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+            className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto scrollbar-none"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header avec logo */}
@@ -213,7 +212,7 @@ const PortfolioGallery: React.FC = () => {
                   href={selectedProject.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 text-brand-blue font-bold hover:gap-3 transition-all duration-300"
+                  className="mt-6 inline-flex items-center gap-2 text-brand-blue font-bold text-sm hover:gap-3 transition-all duration-300"
                 >
                   Voir le site web
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,7 +228,10 @@ const PortfolioGallery: React.FC = () => {
                 }}
                 className="btn-ivision w-full py-4 mt-8"
               >
-                Je veux le meme resultat →
+                Je veux le meme resultat
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" />
+                </svg>
               </button>
             </div>
           </div>
