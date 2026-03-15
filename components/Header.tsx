@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 interface HeaderProps {
@@ -32,19 +31,57 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     document.body.style.overflow = 'unset';
   };
 
+  // ===== NAVIGATION VERS BLOG =====
+  const handleBlogClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleLinkClick();
+    window.location.hash = '/blog';
+  };
+
+  // ===== NAVIGATION VERS ACCUEIL =====
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleLinkClick();
+    // Si on est sur une sous-page, retour à l'accueil
+    if (window.location.hash && window.location.hash !== '#accueil') {
+      window.location.hash = '';
+      setTimeout(() => window.scrollTo(0, 0), 50);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  // ===== GESTION DES LIENS ANCHOR (Services, Projets, etc.) =====
+  const handleAnchorClick = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
+    handleLinkClick();
+
+    // Si on est sur une sous-page (blog, service), retour à l'accueil d'abord
+    const currentHash = window.location.hash;
+    if (currentHash.startsWith('#/blog') || currentHash.startsWith('#/services')) {
+      window.location.hash = '';
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const headerBgClass = isScrolled || isMobileMenuOpen 
     ? 'py-4 bg-white/80 dark:bg-navy/80 backdrop-blur-2xl border-b border-navy/5 dark:border-white/5 shadow-sm dark:shadow-none' 
     : 'py-6 md:py-8 bg-transparent';
 
-  // ID corresponding to each translation link
-  // Index 0: Services, Index 1: Résultats, Index 2: Méthode, Index 3: Contact (Anchor to footer)
   const sectionIds = ['services', 'projets', 'methodologie', 'contact'];
 
   return (
     <>
       <header className={`fixed top-0 left-0 w-full z-[110] transition-all duration-700 ${headerBgClass}`}>
         <div className="container flex items-center justify-between">
-          <a href="#accueil" className="flex items-center gap-2 group z-[120]" onClick={handleLinkClick}>
+          {/* ===== LOGO ===== */}
+          <a href="#" onClick={handleLogoClick} className="flex items-center gap-2 group z-[120]">
             <img 
               src="https://i.ibb.co/rf42xscR/i-VISIONLOGO.png" 
               alt="iVISION" 
@@ -52,23 +89,33 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
             />
           </a>
 
+          {/* ===== DESKTOP NAV ===== */}
           <nav className="hidden lg:flex items-center gap-12">
-            {translations.links.map((link, i) => {
-              return (
-                <a 
-                  key={i} 
-                  href={`#${sectionIds[i]}`} 
-                  onClick={handleLinkClick}
-                  className="text-[11px] font-bold uppercase tracking-[0.15em] text-navy/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-white transition-all duration-300 relative group/link"
-                >
-                  {link}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-blue transition-all duration-300 group-hover/link:w-full"></span>
-                </a>
-              );
-            })}
+            {translations.links.map((link, i) => (
+              <a 
+                key={i} 
+                href={`#${sectionIds[i]}`} 
+                onClick={(e) => handleAnchorClick(e, sectionIds[i])}
+                className="text-[11px] font-bold uppercase tracking-[0.15em] text-navy/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-white transition-all duration-300 relative group/link"
+              >
+                {link}
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-blue transition-all duration-300 group-hover/link:w-full"></span>
+              </a>
+            ))}
+
+            {/* ===== LIEN BLOG DESKTOP ===== */}
+            <a 
+              href="#/blog" 
+              onClick={handleBlogClick}
+              className="text-[11px] font-bold uppercase tracking-[0.15em] text-navy/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-white transition-all duration-300 relative group/link"
+            >
+              Blog
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-blue transition-all duration-300 group-hover/link:w-full"></span>
+            </a>
           </nav>
 
           <div className="flex items-center gap-4">
+            {/* ===== THEME TOGGLE ===== */}
             <button 
                 id="guide-theme-toggle"
                 onClick={onToggleTheme}
@@ -86,6 +133,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
                 )}
             </button>
 
+            {/* ===== CTA DESKTOP ===== */}
             <button 
               id="guide-contact-btn"
               onClick={() => { handleLinkClick(); onQuoteClick(); }} 
@@ -94,6 +142,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
               {translations.cta}
             </button>
 
+            {/* ===== HAMBURGER MOBILE ===== */}
             <button 
               id="guide-mobile-menu"
               onClick={toggleMobileMenu}
@@ -108,25 +157,36 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
         </div>
       </header>
 
+      {/* ===== MOBILE MENU ===== */}
       <div className={`fixed inset-0 z-[100] bg-white/95 dark:bg-navy/95 backdrop-blur-3xl flex flex-col items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-full'}`}>
         <nav className="flex flex-col items-center gap-10">
-          {translations.links.map((link, i) => {
-            return (
-              <a 
-                key={i} 
-                href={`#${sectionIds[i]}`} 
-                onClick={handleLinkClick}
-                className={`text-3xl font-black uppercase tracking-tighter transition-all duration-700 transform text-navy dark:text-white ${isMobileMenuOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-12 opacity-0 blur-md'}`}
-                style={{ transitionDelay: `${isMobileMenuOpen ? i * 100 + 200 : 0}ms` }}
-              >
-                {link}
-              </a>
-            );
-          })}
+          {translations.links.map((link, i) => (
+            <a 
+              key={i} 
+              href={`#${sectionIds[i]}`} 
+              onClick={(e) => handleAnchorClick(e, sectionIds[i])}
+              className={`text-3xl font-black uppercase tracking-tighter transition-all duration-700 transform text-navy dark:text-white ${isMobileMenuOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-12 opacity-0 blur-md'}`}
+              style={{ transitionDelay: `${isMobileMenuOpen ? i * 100 + 200 : 0}ms` }}
+            >
+              {link}
+            </a>
+          ))}
+
+          {/* ===== LIEN BLOG MOBILE ===== */}
+          <a 
+            href="#/blog" 
+            onClick={handleBlogClick}
+            className={`text-3xl font-black uppercase tracking-tighter transition-all duration-700 transform text-brand-blue ${isMobileMenuOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-12 opacity-0 blur-md'}`}
+            style={{ transitionDelay: `${isMobileMenuOpen ? translations.links.length * 100 + 200 : 0}ms` }}
+          >
+            Blog
+          </a>
+
+          {/* ===== CTA MOBILE ===== */}
           <button 
             onClick={() => { handleLinkClick(); onQuoteClick(); }}
             className={`mt-6 btn-ivision px-12 py-5 transition-all duration-700 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-12 opacity-0 scale-90'}`}
-            style={{ transitionDelay: `${isMobileMenuOpen ? translations.links.length * 100 + 200 : 0}ms` }}
+            style={{ transitionDelay: `${isMobileMenuOpen ? (translations.links.length + 1) * 100 + 200 : 0}ms` }}
           >
             {translations.cta}
           </button>
