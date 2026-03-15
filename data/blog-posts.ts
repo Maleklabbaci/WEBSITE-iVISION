@@ -213,7 +213,7 @@ Besoin d un redesign moderne ? [Contactez iVISION](#quote)
     author: 'SEO Team',
     date: '2026-03-05',
     readTime: '12 min',
-    image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&h=400&fit=crop'',
+    image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&h=400&fit=crop',
     content: `
 # Guide complet du SEO local pour entreprises algeriennes
 
