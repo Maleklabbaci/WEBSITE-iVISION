@@ -36,11 +36,11 @@ const projects: Project[] = [
 const PortfolioGallery: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const scrollLogos = [...projects, ...projects, ...projects, ...projects];
+  const scrollLogos = [...projects, ...projects, ...projects, ...projects, ...projects, ...projects];
 
   return (
     <>
-      <section id="portfolio" className="py-20 md:py-28 border-t border-navy/5 dark:border-white/5 overflow-hidden">
+      <section id="portfolio" className="py-20 md:py-28 border-t border-navy/5 dark:border-white/5">
         <div className="container mb-12 text-center">
           <span className="sketch-badge mb-4">Portfolio</span>
           <h2 className="text-3xl md:text-5xl font-black text-navy dark:text-white tracking-tighter mt-6">
@@ -51,37 +51,48 @@ const PortfolioGallery: React.FC = () => {
           </p>
         </div>
 
-        {/* ===== BANDE DE LOGOS QUI DÉFILE ===== */}
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
+        {/* ===== BANDE DE LOGOS ===== */}
+        <div style={{ overflow: 'hidden', position: 'relative' }}>
+          {/* Gradient gauche */}
+          <div style={{
+            position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px',
+            background: 'linear-gradient(to right, var(--bg-color, #050A1F), transparent)',
+            zIndex: 10, pointerEvents: 'none'
+          }} className="from-white dark:from-navy bg-gradient-to-r from-white dark:from-navy to-transparent"></div>
+          
+          {/* Gradient droite */}
+          <div style={{
+            position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px',
+            background: 'linear-gradient(to left, var(--bg-color, #050A1F), transparent)',
+            zIndex: 10, pointerEvents: 'none'
+          }} className="bg-gradient-to-l from-white dark:from-navy to-transparent"></div>
 
-          <div className="flex items-center logo-scroll-band">
+          <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
             {scrollLogos.map((project, i) => (
               <div
                 key={`logo-${i}`}
                 onClick={() => setSelectedProject(project)}
-                className="flex-shrink-0 mx-10 md:mx-16 cursor-pointer group"
-                style={{ minWidth: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                className="cursor-pointer group"
+                style={{
+                  flexShrink: 0,
+                  padding: '20px 40px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
               >
-                {project.logo ? (
-                  <img
-  src={project.logo}
-  alt={project.name}
-  style={{ 
-    filter: 'brightness(0) invert(1)',
-    width: 'auto',
-    height: 'auto',
-    maxHeight: '80px',
-    maxWidth: '250px',
-  }}
-  className="object-contain opacity-40 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
-/>
-                ) : (
-                  <span className="text-xl md:text-2xl font-black tracking-tighter text-navy/30 dark:text-white/30 group-hover:text-navy dark:group-hover:text-white transition-all duration-500 group-hover:scale-110 whitespace-nowrap">
-                    {project.name}
-                  </span>
-                )}
+                <img
+                  src={project.logo}
+                  alt={project.name}
+                  style={{
+                    filter: 'brightness(0) invert(1)',
+                    height: '60px',
+                    width: 'auto',
+                    maxWidth: 'none',
+                    display: 'block',
+                  }}
+                  className="opacity-40 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
+                />
               </div>
             ))}
           </div>
@@ -109,18 +120,17 @@ const PortfolioGallery: React.FC = () => {
                 </svg>
               </button>
 
-              {selectedProject.logo ? (
-                <img
-                  src={selectedProject.logo}
-                  alt={selectedProject.name}
-                  style={{ filter: 'brightness(0) invert(1)' }}
-                  className="h-20 md:h-28 max-w-[250px] md:max-w-[350px] object-contain"
-                />
-              ) : (
-                <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">
-                  {selectedProject.name}
-                </span>
-              )}
+              <img
+                src={selectedProject.logo}
+                alt={selectedProject.name}
+                style={{
+                  filter: 'brightness(0) invert(1)',
+                  height: '80px',
+                  width: 'auto',
+                  maxWidth: '90%',
+                  display: 'block',
+                }}
+              />
             </div>
 
             {/* Content */}
