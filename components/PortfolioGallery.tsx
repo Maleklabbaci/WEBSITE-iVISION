@@ -41,6 +41,16 @@ const projects: Project[] = [
     logo: 'https://i.ibb.co/tTc50H8n/white-aura.png',
     website: 'https://white-aura.vercel.app',
   },
+   {
+    id: 4,
+    name: 'FIDALI',
+    categories: ['Marketing', 'Branding', 'Video', 'Design', 'Platform'],
+    description: 'Branding complet et construction de plateforme digitale de A a Z. Identite visuelle, UI/UX et developpement.',
+    tasks: ['Branding Complet', 'Construction Plateforme', 'UI/UX Design', 'Developpement'],
+    results: ['Plateforme Live', 'Branding Premium', 'Lancement Imminent'],
+    logo: 'https://i.ibb.co/7xtLynLz/logo-white.png',
+    website: 'https://fidali.vercel.app',
+  },
 ];
 
 const PortfolioGallery: React.FC = () => {
