@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PortfolioGallery from './components/PortfolioGallery';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -15,6 +16,7 @@ import SplashScreen from './components/SplashScreen';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
+
 
 // ===== NOUVEAUX IMPORTS =====
 import BlogList from './components/BlogList';
@@ -191,22 +193,21 @@ const App: React.FC = () => {
         return <QuoteForm translations={t.contact} />;
 
       case 'home':
-      default:
-        return (
-          <>
-            <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
-            <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-            <VisualShowcase translations={t.visualShowcase} />
-            <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-            <Testimonials translations={t.testimonials} />
-            <FAQ translations={t.faq} />
-            {t.contactSection && t.footer?.contact && (
-              <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />
-            )}
-          </>
-        );
-    }
-  };
+default:
+  return (
+    <>
+      <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
+      <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
+      <PortfolioGallery />
+      <VisualShowcase translations={t.visualShowcase} />
+      <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
+      <Testimonials translations={t.testimonials} />
+      <FAQ translations={t.faq} />
+      {t.contactSection && t.footer?.contact && (
+        <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />
+      )}
+    </>
+  );
 
   return (
     <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-brand-blue selection:text-white">
