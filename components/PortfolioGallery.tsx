@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface Project {
   id: number;
@@ -35,55 +35,76 @@ const projects: Project[] = [
 
 const PortfolioGallery: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => { 
+      if (entry.isIntersecting) setIsVisible(true); 
+    }, { threshold: 0.1 });
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const scrollLogos = [...projects, ...projects, ...projects, ...projects, ...projects, ...projects];
 
   return (
     <>
-      <section id="portfolio" className="py-20 md:py-28 border-t border-navy/5 dark:border-white/5">
-        <div className="container mb-12 text-center">
-          <span className="sketch-badge mb-4">Portfolio</span>
-          <h2 className="text-3xl md:text-5xl font-black text-navy dark:text-white tracking-tighter mt-6">
-            Ils nous font <span className="text-brand-blue">confiance</span>
-          </h2>
-          <p className="text-brand-gray mt-4">
-            Cliquez sur un logo pour voir le projet
-          </p>
+      <section id="portfolio" ref={sectionRef} className="py-24 md:py-40 bg-white dark:bg-navy relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
+        
+        {/* ===== HEADER — MÊME STYLE QUE SERVICES ===== */}
+        <div className="container">
+          <div className={`mb-16 md:mb-24 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
+              <div className="max-w-4xl">
+                <div className="sketch-badge mb-6 md:mb-8">Portfolio</div>
+                <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
+                  ILS NOUS FONT <br className="hidden md:block" />
+                  <span className="text-brand-blue">CONFIANCE</span>
+                </h2>
+              </div>
+              <p className="text-base md:text-2xl text-brand-gray dark:text-brand-gray/80 max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
+                Cliquez sur un logo pour decouvrir le projet en detail.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* ===== BANDE DE LOGOS ===== */}
-        <div style={{ overflow: 'hidden', position: 'relative' }}>
-          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
+        <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div style={{ overflow: 'hidden', position: 'relative' }}>
+            <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
 
-          <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center' }}>
-            {scrollLogos.map((project, i) => (
-              <div
-                key={`logo-${i}`}
-                onClick={() => setSelectedProject(project)}
-                className="cursor-pointer group"
-                style={{
-                  flexShrink: 0,
-                  padding: '30px 60px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <img
-                  src={project.logo}
-                  alt={project.name}
+            <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center' }}>
+              {scrollLogos.map((project, i) => (
+                <div
+                  key={`logo-${i}`}
+                  onClick={() => setSelectedProject(project)}
+                  className="cursor-pointer group"
                   style={{
-                    filter: 'brightness(0) invert(1)',
-                    height: '100px',
-                    width: 'auto',
-                    maxWidth: 'none',
-                    display: 'block',
+                    flexShrink: 0,
+                    padding: '30px 60px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
-                  className="opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:scale-125"
-                />
-              </div>
-            ))}
+                >
+                  <img
+                    src={project.logo}
+                    alt={project.name}
+                    style={{
+                      filter: 'brightness(0) invert(1)',
+                      height: '100px',
+                      width: 'auto',
+                      maxWidth: 'none',
+                      display: 'block',
+                    }}
+                    className="opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:scale-125"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -124,7 +145,7 @@ const PortfolioGallery: React.FC = () => {
 
             {/* Content */}
             <div className="p-6 md:p-10">
-              <h3 className="text-2xl md:text-3xl font-black text-navy dark:text-white tracking-tighter">
+              <h3 className="text-2xl md:text-3xl font-black text-navy dark:text-white tracking-tighter uppercase">
                 {selectedProject.name}
               </h3>
               <div className="flex flex-wrap gap-2 mt-3">
@@ -138,7 +159,7 @@ const PortfolioGallery: React.FC = () => {
                 ))}
               </div>
 
-              <p className="text-brand-gray dark:text-brand-gray/80 mt-5 leading-relaxed">
+              <p className="text-brand-gray dark:text-brand-gray/80 mt-5 leading-relaxed font-medium">
                 {selectedProject.description}
               </p>
 
@@ -197,4 +218,3 @@ const PortfolioGallery: React.FC = () => {
 };
 
 export default PortfolioGallery;
-
