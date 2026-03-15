@@ -61,15 +61,22 @@ const PortfolioGallery: React.FC = () => {
               <div
                 key={`logo-${i}`}
                 onClick={() => setSelectedProject(project)}
-                className="flex-shrink-0 mx-8 md:mx-14 cursor-pointer group"
+                className="flex-shrink-0 mx-10 md:mx-16 cursor-pointer group"
+                style={{ minWidth: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 {project.logo ? (
                   <img
-                    src={project.logo}
-                    alt={project.name}
-                    style={{ filter: 'brightness(0) invert(1)' }}
-                    className="h-16 md:h-24 max-w-[200px] md:max-w-[280px] object-contain opacity-40 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
-                  />
+  src={project.logo}
+  alt={project.name}
+  style={{ 
+    filter: 'brightness(0) invert(1)',
+    width: 'auto',
+    height: 'auto',
+    maxHeight: '80px',
+    maxWidth: '250px',
+  }}
+  className="object-contain opacity-40 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
+/>
                 ) : (
                   <span className="text-xl md:text-2xl font-black tracking-tighter text-navy/30 dark:text-white/30 group-hover:text-navy dark:group-hover:text-white transition-all duration-500 group-hover:scale-110 whitespace-nowrap">
                     {project.name}
