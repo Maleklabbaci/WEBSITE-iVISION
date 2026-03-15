@@ -7,10 +7,10 @@ interface ServicesProps {
 
 // ===== MAPPING : index du service → slug de la page détaillée =====
 const serviceSlugMap: Record<number, string> = {
-  0: 'creation-site-web',
-  1: 'marketing-digital',
-  2: 'branding-identite-visuelle',
-  3: 'production-audiovisuelle',
+   0: 'marketing-digital',
+  1: 'production-audiovisuelle',
+  2: 'creation-site-web',
+  3: 'marketing-digital',
 };
 
 const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
