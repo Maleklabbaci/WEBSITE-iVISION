@@ -5,6 +5,14 @@ interface ServicesProps {
   onQuoteClick: () => void;
 }
 
+// ===== MAPPING : index du service → slug de la page détaillée =====
+const serviceSlugMap: Record<number, string> = {
+  0: 'creation-site-web',
+  1: 'marketing-digital',
+  2: 'branding-identite-visuelle',
+  3: 'production-audiovisuelle',
+};
+
 const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -17,6 +25,15 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
 
   const words = translations?.title?.split(' ') || [];
   const splitIndex = Math.ceil(words.length / 2);
+
+  const handleServiceClick = (index: number) => {
+    const slug = serviceSlugMap[index];
+    if (slug) {
+      window.location.hash = `/services/${slug}`;
+    } else {
+      onQuoteClick();
+    }
+  };
 
   return (
     <section id="services" ref={sectionRef} className="py-24 md:py-40 bg-white dark:bg-navy relative border-t border-navy/5 dark:border-white/5 overflow-hidden transition-colors duration-500">
@@ -38,7 +55,11 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {translations.items.map((item, i) => (
-            <div key={i} className="group glass-card p-8 md:p-12 hover:border-brand-blue/30 transition-all duration-500 flex flex-col h-full">
+            <div 
+              key={i} 
+              onClick={() => handleServiceClick(i)}
+              className="group glass-card p-8 md:p-12 hover:border-brand-blue/30 transition-all duration-500 flex flex-col h-full cursor-pointer"
+            >
               <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue mb-8 md:mb-10 group-hover:bg-brand-blue group-hover:text-white transition-all transform group-hover:rotate-6">
                 <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -50,10 +71,13 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
                 {item.details}
               </p>
               <button 
-                onClick={onQuoteClick} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleServiceClick(i);
+                }} 
                 className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-brand-blue hover:gap-5 transition-all"
               >
-                DÉMARRER
+                EN SAVOIR PLUS
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
               </button>
             </div>
