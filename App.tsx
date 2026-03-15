@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -16,6 +15,12 @@ import SplashScreen from './components/SplashScreen';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
+
+// ===== NOUVEAUX IMPORTS =====
+import BlogList from './components/BlogList';
+import BlogPostPage from './components/BlogPostPage';
+import ServicePage from './components/ServicePage';
+// ============================
 
 const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'privacy' | 'terms' }> = ({ isOpen, onClose, type }) => {
   if (!isOpen) return null;
@@ -82,6 +87,21 @@ const StaticBackground: React.FC = () => (
   </div>
 );
 
+// ===== TYPE DE VUE ÉTENDU =====
+type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service';
+
+// ===== PARSER LE HASH =====
+const parseHash = (): { view: ViewType; slug?: string } => {
+  const hash = window.location.hash.slice(1) || '/';
+  
+  if (hash === '/devis') return { view: 'quote' };
+  if (hash === '/blog') return { view: 'blog' };
+  if (hash.startsWith('/blog/')) return { view: 'blog-post', slug: hash.replace('/blog/', '') };
+  if (hash.startsWith('/services/')) return { view: 'service', slug: hash.replace('/services/', '') };
+  
+  return { view: 'home' };
+};
+
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [language, setLanguage] = useState<Language>('fr');
@@ -89,8 +109,11 @@ const App: React.FC = () => {
   const [showLangSelector, setShowLangSelector] = useState(true);
   const [showGuide, setShowGuide] = useState(false);
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quote'>('home');
   const [policyType, setPolicyType] = useState<'privacy' | 'terms' | null>(null);
+  
+  // ===== NOUVEAU STATE ROUTING =====
+  const [currentView, setCurrentView] = useState<ViewType>('home');
+  const [currentSlug, setCurrentSlug] = useState<string>('');
   
   const WHATSAPP_NUMBER = "213563839404";
 
@@ -99,17 +122,20 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // ===== ROUTING MODIFIÉ =====
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash === '#/devis') {
-        setCurrentView('quote');
-        setShowGuide(false); 
-        window.scrollTo(0, 0);
-      } else {
-        setCurrentView('home');
+      const { view, slug } = parseHash();
+      setCurrentView(view);
+      setCurrentSlug(slug || '');
+      
+      if (view !== 'home') {
+        setShowGuide(false);
       }
+      
+      window.scrollTo(0, 0);
     };
+    
     window.addEventListener('hashchange', handleHashChange);
     handleHashChange();
     return () => window.removeEventListener('hashchange', handleHashChange);
@@ -133,7 +159,7 @@ const App: React.FC = () => {
     setIsExitingLangSelector(true);
     setTimeout(() => {
       setShowLangSelector(false);
-      if (window.location.hash !== '#/devis') {
+      if (currentView === 'home') {
         setShowGuide(true);
       }
     }, 500);
@@ -148,6 +174,39 @@ const App: React.FC = () => {
   };
   
   const t = translations[language] || translations['fr'];
+
+  // ===== RENDU DES PAGES =====
+  const renderContent = () => {
+    switch (currentView) {
+      case 'blog':
+        return <BlogList />;
+
+      case 'blog-post':
+        return <BlogPostPage slug={currentSlug} />;
+
+      case 'service':
+        return <ServicePage slug={currentSlug} />;
+
+      case 'quote':
+        return <QuoteForm translations={t.contact} />;
+
+      case 'home':
+      default:
+        return (
+          <>
+            <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
+            <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
+            <VisualShowcase translations={t.visualShowcase} />
+            <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
+            <Testimonials translations={t.testimonials} />
+            <FAQ translations={t.faq} />
+            {t.contactSection && t.footer?.contact && (
+              <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />
+            )}
+          </>
+        );
+    }
+  };
 
   return (
     <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-brand-blue selection:text-white">
@@ -192,22 +251,7 @@ const App: React.FC = () => {
         />
         
         <main className="flex-grow">
-          {currentView === 'home' && (
-            <>
-              <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
-              <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-              <VisualShowcase translations={t.visualShowcase} />
-              <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-              <Testimonials translations={t.testimonials} />
-              <FAQ translations={t.faq} />
-              {t.contactSection && t.footer?.contact && (
-                <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />
-              )}
-            </>
-          )}
-          {currentView === 'quote' && (
-            <QuoteForm translations={t.contact} />
-          )}
+          {renderContent()}
         </main>
 
         <Footer translations={t.footer} onOpenPolicy={(type) => setPolicyType(type)} />
