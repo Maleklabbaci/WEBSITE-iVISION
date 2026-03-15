@@ -68,7 +68,7 @@ const PortfolioGallery: React.FC = () => {
                     src={project.logo}
                     alt={project.name}
                     style={{ filter: 'brightness(0) invert(1)' }}
-                    className="h-10 md:h-14 w-auto object-contain opacity-40 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
+                    className="h-16 md:h-24 max-w-[200px] md:max-w-[280px] object-contain opacity-40 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
                   />
                 ) : (
                   <span className="text-xl md:text-2xl font-black tracking-tighter text-navy/30 dark:text-white/30 group-hover:text-navy dark:group-hover:text-white transition-all duration-500 group-hover:scale-110 whitespace-nowrap">
@@ -107,7 +107,7 @@ const PortfolioGallery: React.FC = () => {
                   src={selectedProject.logo}
                   alt={selectedProject.name}
                   style={{ filter: 'brightness(0) invert(1)' }}
-                  className="h-16 md:h-20 w-auto object-contain"
+                  className="h-20 md:h-28 max-w-[250px] md:max-w-[350px] object-contain"
                 />
               ) : (
                 <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">
