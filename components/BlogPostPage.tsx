@@ -100,9 +100,13 @@ const BlogPostPage = ({ slug }: Props) => {
         </header>
 
         {/* Hero Image Placeholder */}
-        <div className="w-full h-64 md:h-96 bg-gradient-to-br from-brand-blue/10 to-brand-blue/5 rounded-[2rem] mb-12 flex items-center justify-center">
-          <span className="text-6xl opacity-20">📖</span>
-        </div>
+        <div className="w-full h-64 md:h-96 rounded-[2rem] mb-12 overflow-hidden">
+  <img 
+    src={post.image} 
+    alt={post.title}
+    className="w-full h-full object-cover"
+  />
+</div>
 
         {/* Content */}
         <article className="mb-16">
