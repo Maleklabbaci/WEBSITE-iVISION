@@ -113,10 +113,14 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
       className="group bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[2rem] overflow-hidden cursor-pointer hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image placeholder */}
-      <div className="h-48 bg-gradient-to-br from-brand-blue/20 to-brand-blue/5 flex items-center justify-center">
-        <span className="text-5xl opacity-40">📝</span>
-      </div>
-
+     <div className="h-48 overflow-hidden">
+  <img 
+    src={post.image} 
+    alt={post.title}
+    loading="lazy"
+    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+  />
+</div>
       <div className="p-6">
         {/* Category + Read Time */}
         <div className="flex items-center justify-between mb-3">
