@@ -38,7 +38,7 @@ const projects: Project[] = [
     description: 'Creation du site web et strategie de vente complete pour marque de cosmetiques premium.',
     tasks: ['Site Web', 'Strategie de Vente', 'Branding', 'Marketing Digital'],
     results: ['+100% ROI', 'E-commerce Live', 'Croissance Ventes'],
-    logo: 'https://ibb.co/G4kjZdcG',
+    logo: 'https://i.ibb.co/tTc50H8n/white-aura.png',
     website: 'https://white-aura.vercel.app',
   },
 ];
