@@ -105,9 +105,10 @@ const PortfolioGallery: React.FC = () => {
                     alt={project.name}
                     style={{
                       filter: 'brightness(0) invert(1)',
-                      height: '160px',
-                      width: 'auto',
-                      maxWidth: 'none',
+                      height: 'auto',
+                     width: 'auto',
+                     maxHeight: '160px',
+                     maxWidth: '300px',
                       display: 'block',
                     }}
                     className="opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:scale-125"
@@ -145,8 +146,9 @@ const PortfolioGallery: React.FC = () => {
                 alt={selectedProject.name}
                 style={{
                   filter: 'brightness(0) invert(1)',
-                  height: '180px',
+                  height: 'auto',
                   width: 'auto',
+                  maxHeight: '180px',
                   maxWidth: '80%',
                   display: 'block',
                 }}
