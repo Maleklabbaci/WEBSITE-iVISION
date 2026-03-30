@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 
 const FORMSPARK_ID = "3hB9voxjF";
 
 interface QuoteFormProps {
-    translations: { form: any; };
+  translations: { form: any; };
 }
 
 declare global {
@@ -21,11 +20,24 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     business: '', 
     otherBusiness: '',
     problem: '', 
-    budget: '' 
+    budget: '',
+    pack: '' // <-- NOUVEAU : Champ pour stocker le pack
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
 
   const t = translations.form;
+
+  // NOUVEAU : Détecter le pack dans l'URL au chargement
+  useEffect(() => {
+    const hashParts = window.location.hash.split('?');
+    if (hashParts.length > 1) {
+      const urlParams = new URLSearchParams(hashParts);
+      const packName = urlParams.get('pack');
+      if (packName) {
+        setFormData(prev => ({ ...prev, pack: packName.toUpperCase() }));
+      }
+    }
+  }, []);
 
   const handleNext = () => {
     if (step === 1 && (!formData.name.trim() || !formData.phone.trim())) return;
@@ -54,7 +66,8 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     const submissionData = {
       ...formData,
       business: businessLabel,
-      _subject: `AUDIT iVISION : ${formData.name}`,
+      // NOUVEAU : Le sujet de l'email inclura le nom du pack si le client en a choisi un
+      _subject: formData.pack ? `[PACK ${formData.pack}] AUDIT : ${formData.name}` : `AUDIT iVISION : ${formData.name}`,
     };
 
     try {
@@ -67,9 +80,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
       if (response.ok) {
         if (window.fbq) {
           window.fbq('track', 'Lead', {
-            content_name: 'Audit Audit iVISION',
+            content_name: 'Audit iVISION',
             business_type: businessLabel,
             budget: formData.budget,
+            pack_choisi: formData.pack, // Envoyé au Pixel Meta
             currency: 'DZD'
           });
         }
@@ -109,7 +123,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 <span className="text-[10px] font-black tracking-widest uppercase">{t.back}</span>
             </button>
             <div className="flex gap-4 w-32">
-                {[1, 2, 3].map(i => (
+                {.map(i => (
                   <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-blue' : 'bg-navy/10 dark:bg-white/10'}`}></div>
                 ))}
             </div>
@@ -123,6 +137,20 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
         <form onSubmit={e => e.preventDefault()} className="space-y-12">
           {step === 1 && (
             <div className="space-y-10 animate-fade-in-up">
+              
+              {/* NOUVEAU : Affichage du pack sélectionné s'il y en a un */}
+              {formData.pack && (
+                <div className="p-4 bg-brand-blue/10 border border-brand-blue/30 rounded-2xl flex items-center gap-4 animate-scale-in">
+                  <div className="bg-brand-blue text-white p-2 rounded-full">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black tracking-widest uppercase text-brand-blue">Sélection validée</p>
+                    <p className="text-navy dark:text-white font-bold text-lg uppercase">PACK {formData.pack}</p>
+                  </div>
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <label className={labelClass}>{t.nameLabel}</label>
