@@ -120,11 +120,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                 <span className="text-[10px] font-black tracking-widest uppercase">{t.back}</span>
             </button>
-            <div className="flex gap-4 w-32">
-                {.map(i => (
-                  <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-blue' : 'bg-navy/10 dark:bg-white/10'}`}></div>
-                ))}
-            </div>
+           <div className="flex gap-4 w-32">
+    {.map(i => (
+        <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-blue' : 'bg-navy/10 dark:bg-white/10'}`}></div>
+    ))}
+</div>
         </div>
 
         <div className="mb-16">
