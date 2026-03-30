@@ -21,13 +21,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     otherBusiness: '',
     problem: '', 
     budget: '',
-    pack: '' // <-- NOUVEAU : Champ pour stocker le pack
+    pack: '' 
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
 
   const t = translations.form;
 
-  // NOUVEAU : Détecter le pack dans l'URL au chargement
   useEffect(() => {
     const hashParts = window.location.hash.split('?');
     if (hashParts.length > 1) {
@@ -66,7 +65,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     const submissionData = {
       ...formData,
       business: businessLabel,
-      // NOUVEAU : Le sujet de l'email inclura le nom du pack si le client en a choisi un
       _subject: formData.pack ? `[PACK ${formData.pack}] AUDIT : ${formData.name}` : `AUDIT iVISION : ${formData.name}`,
     };
 
@@ -83,7 +81,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
             content_name: 'Audit iVISION',
             business_type: businessLabel,
             budget: formData.budget,
-            pack_choisi: formData.pack, // Envoyé au Pixel Meta
+            pack_choisi: formData.pack,
             currency: 'DZD'
           });
         }
@@ -122,11 +120,13 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                 <span className="text-[10px] font-black tracking-widest uppercase">{t.back}</span>
             </button>
-<div className="flex gap-4 w-32">
-    {.map(i => (
-      <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-blue' : 'bg-navy/10 dark:bg-white/10'}`}></div>
-    ))}
-</div>
+            <div className="flex gap-4 w-32">
+                {.map(i => (
+                  <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-blue' : 'bg-navy/10 dark:bg-white/10'}`}></div>
+                ))}
+            </div>
+        </div>
+
         <div className="mb-16">
           <h1 className="text-4xl md:text-6xl font-black text-navy dark:text-white uppercase tracking-tighter leading-none mb-4">{t.title}</h1>
           <p className="text-brand-gray font-medium opacity-60">Étape {step} sur 3</p>
@@ -135,8 +135,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
         <form onSubmit={e => e.preventDefault()} className="space-y-12">
           {step === 1 && (
             <div className="space-y-10 animate-fade-in-up">
-              
-              {/* NOUVEAU : Affichage du pack sélectionné s'il y en a un */}
               {formData.pack && (
                 <div className="p-4 bg-brand-blue/10 border border-brand-blue/30 rounded-2xl flex items-center gap-4 animate-scale-in">
                   <div className="bg-brand-blue text-white p-2 rounded-full">
@@ -148,27 +146,14 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                 </div>
               )}
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <label className={labelClass}>{t.nameLabel}</label>
-                    <input 
-                      type="text" 
-                      placeholder="Ex: Omar Dahmani"
-                      value={formData.name}
-                      onChange={e => setFormData({...formData, name: e.target.value})}
-                      className={inputClass}
-                    />
+                    <input type="text" placeholder="Ex: Omar Dahmani" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className={inputClass} />
                   </div>
                   <div>
                     <label className={labelClass}>{t.phoneLabel}</label>
-                    <input 
-                      type="tel" 
-                      placeholder="05 00 00 00 00"
-                      value={formData.phone}
-                      onChange={e => setFormData({...formData, phone: e.target.value})}
-                      className={inputClass}
-                    />
+                    <input type="tel" placeholder="05 00 00 00 00" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className={inputClass} />
                   </div>
               </div>
               <button onClick={handleNext} disabled={!formData.name || !formData.phone} className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group">
@@ -189,21 +174,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                 ))}
               </div>
-
               {formData.business === 'Autre' && (
                 <div className="animate-fade-in-up">
                   <label className={labelClass}>Précisez</label>
-                  <input 
-                    type="text" 
-                    placeholder={t.otherSpecify}
-                    value={formData.otherBusiness}
-                    onChange={e => setFormData({...formData, otherBusiness: e.target.value})}
-                    className={inputClass}
-                    autoFocus
-                  />
+                  <input type="text" placeholder={t.otherSpecify} value={formData.otherBusiness} onChange={e => setFormData({...formData, otherBusiness: e.target.value})} className={inputClass} autoFocus />
                 </div>
               )}
-
               <button onClick={handleNext} disabled={!formData.business || (formData.business === 'Autre' && !formData.otherBusiness)} className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group">
                 <span>{t.next}</span>
                 <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
@@ -223,7 +199,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   ))}
                 </div>
               </div>
-
               <div>
                 <label className={labelClass}>{t.budgetLabel}</label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -234,21 +209,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   ))}
                 </div>
               </div>
-
-              <button 
-                onClick={onSubmit} 
-                disabled={status === 'submitting' || !formData.problem || !formData.budget} 
-                className="btn-ivision w-full py-8 text-xl"
-              >
+              <button onClick={onSubmit} disabled={status === 'submitting' || !formData.problem || !formData.budget} className="btn-ivision w-full py-8 text-xl">
                 {status === 'submitting' ? '...' : t.cta}
               </button>
             </div>
           )}
         </form>
-
-        <div className="mt-20 p-8 border-l-4 border-brand-blue bg-navy/5 dark:bg-white/5 rounded-r-2xl">
-            <p className="text-brand-gray font-medium italic opacity-60">"Nous ne prenons que 3 nouveaux clients par mois pour garantir un accompagnement haute performance."</p>
-        </div>
       </div>
     </div>
   );
