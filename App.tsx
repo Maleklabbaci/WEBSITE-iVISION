@@ -12,6 +12,7 @@ import ScrollToTopButton from './components/ScrollToTopButton';
 import VisualShowcase from './components/VisualShowcase';
 import HowWeWork from './components/HowWeWork';
 import QuoteForm from './components/QuoteForm';
+import TrainingCenterLanding from './components/TrainingCenterLanding';
 import SplashScreen from './components/SplashScreen';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
@@ -97,11 +98,12 @@ const StaticBackground: React.FC = () => (
   </div>
 );
 
-type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service';
+type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service' | 'centres';
 
 const parseHash = (): { view: ViewType; slug?: string } => {
   const hash = window.location.hash.slice(1) || '/';
   
+  if (hash === '/centres') return { view: 'centres' };
   if (hash === '/devis') return { view: 'quote' };
   if (hash === '/blog') return { view: 'blog' };
   if (hash.startsWith('/blog/')) return { view: 'blog-post', slug: hash.replace('/blog/', '') };
@@ -208,6 +210,9 @@ const App: React.FC = () => {
             <ServicePage slug={currentSlug} />
           </Suspense>
         );
+
+      case 'centres':
+        return <TrainingCenterLanding />;
 
       case 'quote':
         return <QuoteForm translations={t.contact} />;
