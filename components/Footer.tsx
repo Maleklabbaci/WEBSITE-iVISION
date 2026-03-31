@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface FooterProps {
@@ -49,6 +48,9 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
                 })}
                 <a href="#/devis" className="text-xs font-black uppercase tracking-widest text-brand-blue hover:brightness-110 transition-all">
                   {translations.contactUs}
+                </a>
+                <a href="#/centres" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
+                  Centres &amp; Crèches
                 </a>
             </div>
 
