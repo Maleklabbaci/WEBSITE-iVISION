@@ -30,10 +30,19 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   useEffect(() => {
     const hashParts = window.location.hash.split('?');
     if (hashParts.length > 1) {
-      const urlParams = new URLSearchParams(hashParts);
+      const urlParams = new URLSearchParams(hashParts[1]);
       const packName = urlParams.get('pack');
-      if (packName) {
-        setFormData(prev => ({ ...prev, pack: packName.toUpperCase() }));
+      const businessName = urlParams.get('business');
+      if (packName || businessName) {
+        setFormData(prev => ({
+          ...prev,
+          ...(packName ? { pack: packName.toUpperCase() } : {}),
+          ...(businessName ? { business: decodeURIComponent(businessName) } : {}),
+        }));
+        // Skip step 2 (secteur) if business is pre-filled
+        if (businessName) {
+          setStep(1); // Start at step 1 (nom/tel), then next will go to step 3
+        }
       }
     }
   }, []);
@@ -43,7 +52,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     if (step === 2 && !formData.business) return;
     if (step === 2 && formData.business === 'Autre' && !formData.otherBusiness.trim()) return;
     if (step === 3 && (!formData.problem || !formData.budget)) return;
-    setStep(prev => prev + 1);
+    // Skip step 2 if business already pre-filled from URL
+    if (step === 1 && formData.business && formData.business !== 'Autre') {
+      setStep(3);
+    } else {
+      setStep(prev => prev + 1);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
