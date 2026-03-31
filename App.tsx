@@ -103,7 +103,7 @@ type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service' | 'centres';
 const parseHash = (): { view: ViewType; slug?: string } => {
   const hash = window.location.hash.slice(1) || '/';
   
-  if (hash === '/centres') return { view: 'centres' };
+  if (hash === '/academiq') return { view: 'centres' };
   if (hash === '/devis') return { view: 'quote' };
   if (hash === '/blog') return { view: 'blog' };
   if (hash.startsWith('/blog/')) return { view: 'blog-post', slug: hash.replace('/blog/', '') };
@@ -212,7 +212,7 @@ const App: React.FC = () => {
         );
 
       case 'centres':
-        return <TrainingCenterLanding />;
+        return <TrainingCenterLanding language={language} />;
 
       case 'quote':
         return <QuoteForm translations={t.contact} />;
