@@ -6,7 +6,7 @@ const SplashScreen: React.FC = () => {
     <div className="fixed inset-0 bg-brand-dark flex flex-col items-center justify-center z-[100] animate-splash-fade-out">
       <div className="relative animate-scale-in text-center">
         <img 
-          src="https://i.ibb.co/rf42xscR/i-VISIONLOGO.png" 
+          src="https://i.ibb.co/vCV92NXv/logo2.png" 
           alt="iVISION" 
           className="h-16 md:h-20 w-auto object-contain mb-8"
         />

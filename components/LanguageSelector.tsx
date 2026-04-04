@@ -61,7 +61,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelectLanguage })
       <div className="relative float-3d bg-brand-dark/80 border border-white/10 backdrop-blur-3xl rounded-[3.5rem] p-8 md:p-14 shadow-[0_60px_120px_rgba(0,0,0,0.9)] max-w-md w-full layer-3d">
         <div className="text-center mb-12">
           <img 
-            src="https://i.ibb.co/rf42xscR/i-VISIONLOGO.png" 
+            src="https://i.ibb.co/vCV92NXv/logo2.png" 
             alt="iVISION" 
             className="h-16 w-auto object-contain mx-auto mb-3"
           />

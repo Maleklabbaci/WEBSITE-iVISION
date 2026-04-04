@@ -88,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
           {/* ===== LOGO ===== */}
           <a href="#" onClick={handleLogoClick} className="flex items-center gap-2 group z-[120]">
             <img 
-              src="https://i.ibb.co/rf42xscR/i-VISIONLOGO.png" 
+              src="https://i.ibb.co/vCV92NXv/logo2.png" 
               alt="iVISION" 
               className="h-8 md:h-10 w-auto object-contain transition-transform duration-500 group-hover:scale-110 logo-img"
             />
