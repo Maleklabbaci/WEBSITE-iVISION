@@ -330,9 +330,9 @@
         animation: fadeIn 0.3s ease-out;
       }
 
-      /* ===== DARK MODE FIXES UNIQUEMENT ===== */
+      /* ===== DARK MODE FIXES ===== */
 
-      /* sketch-badge en dark mode → blanc */
+      /* sketch-badge dark mode → blanc */
       html.dark .sketch-badge {
         border-color: rgba(255,255,255,0.5) !important;
         color: #FFFFFF !important;
@@ -340,12 +340,12 @@
         background: rgba(255,255,255,0.1) !important;
       }
 
-      /* sketch-badge en light mode → bleu original */
+      /* sketch-badge light mode → noir */
       html:not(.dark) .sketch-badge {
-        border-color: #0033FF;
-        color: #0033FF;
-        -webkit-text-fill-color: #0033FF;
-        background: rgba(0,51,255,0.05);
+        border-color: #050A1F !important;
+        color: #050A1F !important;
+        -webkit-text-fill-color: #050A1F !important;
+        background: rgba(5,10,31,0.05) !important;
       }
 
       /* uni-badge dark mode → blanc */
@@ -355,7 +355,14 @@
         background: rgba(255,255,255,0.1);
       }
 
-      /* text-brand-blue en dark mode → blanc */
+      /* uni-badge light mode → noir */
+      html:not(.dark) .uni-badge {
+        border-color: #050A1F;
+        color: #050A1F;
+        background: rgba(5,10,31,0.05);
+      }
+
+      /* text-brand-blue dark mode → blanc */
       html.dark .text-brand-blue {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
@@ -364,24 +371,22 @@
         -webkit-background-clip: unset !important;
       }
 
-      /* light mode text-brand-blue → gradient original */
+      /* text-brand-blue light mode → noir */
       html:not(.dark) .text-brand-blue {
-        background: linear-gradient(135deg, #8A8640 0%, #6B7A8A 50%, #2A3570 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #050A1F !important;
+        -webkit-text-fill-color: #050A1F !important;
+        background: none !important;
+        background-clip: unset !important;
+        -webkit-background-clip: unset !important;
       }
 
-      /* Exceptions boutons → toujours bleu/blanc */
+      /* Boutons → toujours bleu/blanc */
       .btn-ivision,
       .btn-ivision .text-brand-blue {
         background: #0033FF !important;
         -webkit-text-fill-color: white !important;
         color: white !important;
       }
-
-      /* text-navy en dark mode → blanc (les composants TSX ont été changés) */
-      /* text-white reste blanc dans les deux modes */
 
       /* Hover links */
       a.hover\:text-brand-blue:hover,
