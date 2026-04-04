@@ -329,6 +329,45 @@
       .animate-fade-in {
         animation: fadeIn 0.3s ease-out;
       }
+
+      /* ===== GRADIENT TEXT (light mode) & NOIR (dark mode) ===== */
+      /* En light mode: texte brand-blue → gradient doré/bleu */
+      html:not(.dark) .text-brand-blue {
+        background: linear-gradient(135deg, #8A8640 0%, #6B7A8A 50%, #2A3570 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      /* En dark mode: texte brand-blue → noir profond */
+      html.dark .text-brand-blue {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000;
+        background: none;
+      }
+      
+      /* Exceptions: boutons, badges, icônes → garder leur couleur */
+      html:not(.dark) .btn-ivision,
+      html:not(.dark) .btn-ivision .text-brand-blue,
+      html.dark .btn-ivision {
+        background: #0033FF !important;
+        -webkit-text-fill-color: white !important;
+        color: white !important;
+      }
+      
+      /* sketch-badge garde son bleu */
+      html:not(.dark) .sketch-badge {
+        background: rgba(0,51,255,0.05) !important;
+        -webkit-text-fill-color: #0033FF !important;
+        color: #0033FF !important;
+      }
+      
+      /* Liens hover gardent le bleu */
+      html:not(.dark) a.hover\:text-brand-blue:hover,
+      html:not(.dark) .hover\:text-brand-blue:hover {
+        -webkit-text-fill-color: #0033FF !important;
+        background: none !important;
+      }
     </style>
 
     <script type="importmap">

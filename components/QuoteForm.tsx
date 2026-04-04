@@ -111,7 +111,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
   if (status === 'done') {
     return (
-      <div className="min-h-screen bg-white dark:bg-navy flex items-center justify-center p-8 transition-colors duration-500">
+      <div className="min-h-screen bg-white dark:bg-transparent flex items-center justify-center p-8 transition-colors duration-500">
         <div className="text-center animate-scale-in max-w-lg">
           <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center mb-8 mx-auto text-white shadow-2xl shadow-brand-blue/30">
             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
@@ -129,7 +129,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   const cardClass = (selected: boolean) => `relative p-6 rounded-2xl border-2 transition-all cursor-pointer flex flex-col items-start justify-between h-full group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-navy transition-colors duration-500 py-24 md:py-32">
+    <div className="min-h-screen bg-white dark:bg-transparent transition-colors duration-500 py-24 md:py-32">
       <div className="container max-w-4xl">
         <div className="mb-12 flex items-center justify-between">
             <button onClick={handleBack} className="text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">

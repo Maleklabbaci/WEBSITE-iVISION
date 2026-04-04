@@ -378,7 +378,7 @@ const WilayaSelector: React.FC<{ value: string; onChange: (v: string) => void; p
       </button>
 
       {open && (
-        <div className="absolute z-50 top-full mt-2 w-full bg-white dark:bg-navy border border-navy/10 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="absolute z-50 top-full mt-2 w-full bg-white dark:bg-transparent border border-navy/10 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden">
           <div className="p-3 border-b border-navy/5 dark:border-white/5">
             <input
               type="text"
@@ -506,7 +506,7 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
 
   if (status === 'done') {
     return (
-      <div className="min-h-screen bg-white dark:bg-navy flex items-center justify-center p-8 transition-colors duration-500">
+      <div className="min-h-screen bg-white dark:bg-transparent flex items-center justify-center p-8 transition-colors duration-500">
         <div className={`text-center animate-scale-in max-w-lg ${isRtl ? 'rtl' : ''}`}>
           <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center mb-8 mx-auto text-white shadow-2xl shadow-brand-blue/30">
             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
@@ -521,7 +521,7 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
   }
 
   return (
-    <div className={`min-h-screen bg-white dark:bg-navy transition-colors duration-500 py-24 md:py-32 ${isRtl ? 'rtl' : ''}`}>
+    <div className={`min-h-screen bg-white dark:bg-transparent transition-colors duration-500 py-24 md:py-32 ${isRtl ? 'rtl' : ''}`}>
       <div className="container max-w-2xl">
         {/* Back */}
         <button onClick={onBack} className="mb-12 text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
@@ -615,7 +615,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
   if (selectedPack) return <AcademiqQuoteForm selectedPack={selectedPack} onBack={() => setSelectedPack(null)} lang={lang} />;
 
   return (
-    <div className={`min-h-screen bg-white dark:bg-navy transition-colors duration-500 overflow-x-hidden ${isRtl ? 'rtl' : ''}`}>
+    <div className={`min-h-screen bg-white dark:bg-transparent transition-colors duration-500 overflow-x-hidden ${isRtl ? 'rtl' : ''}`}>
 
       {/* HERO */}
       <section className="relative min-h-screen pt-36 pb-24 px-6 flex items-center">

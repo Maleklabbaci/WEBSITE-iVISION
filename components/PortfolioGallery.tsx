@@ -92,9 +92,9 @@ const PortfolioGallery: React.FC = () => {
 
         {/* ===== BANDE DE LOGOS ===== */}
         <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div style={{ overflow: 'hidden', position: 'relative' }}>
-            <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white dark:from-navy to-transparent z-10 pointer-events-none"></div>
+          <div style={{ overflow: 'hidden', position: 'relative', background: 'transparent' }}>
+            <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white dark:from-transparent to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white dark:from-transparent to-transparent z-10 pointer-events-none"></div>
 
             <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center' }}>
               {scrollLogos.map((project, i) => (

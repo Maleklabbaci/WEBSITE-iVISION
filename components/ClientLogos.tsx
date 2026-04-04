@@ -47,7 +47,7 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-brand-dark scroll-mt-24">
+    <section ref={sectionRef} className="py-24 bg-transparent scroll-mt-24">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-20 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="uni-badge mb-6">Expertise Agency</div>
