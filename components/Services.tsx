@@ -66,7 +66,7 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
                 </svg>
               </div>
               <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-white uppercase tracking-tighter leading-none group-hover:text-brand-blue transition-colors">{item.title}</h4>
-              <p className="text-brand-blue text-[10px] md:text-[11px] font-black uppercase mb-4 md:mb-6 tracking-tight">{item.description}</p>
+              <p className="text-white/60 text-[10px] md:text-[11px] font-black uppercase mb-4 md:mb-6 tracking-tight">{item.description}</p>
               <p className="text-brand-gray dark:text-brand-gray/80 text-xs md:text-sm leading-relaxed mb-8 md:mb-12 font-medium opacity-60 group-hover:opacity-100">
                 {item.details}
               </p>
@@ -75,7 +75,7 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
                   e.stopPropagation();
                   handleServiceClick(i);
                 }} 
-                className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-brand-blue hover:gap-5 transition-all"
+                className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-white/60 hover:gap-5 transition-all"
               >
                 EN SAVOIR PLUS
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>

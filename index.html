@@ -330,9 +330,8 @@
         animation: fadeIn 0.3s ease-out;
       }
 
-      /* ===== GRADIENT TEXT → BLANC partout ===== */
-      /* En light mode: texte brand-blue → blanc */
-      html:not(.dark) .text-brand-blue {
+      /* ===== text-brand-blue → BLANC partout (light ET dark) ===== */
+      .text-brand-blue {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         background: none !important;
@@ -340,24 +339,16 @@
         -webkit-background-clip: unset !important;
       }
       
-      /* En dark mode: texte brand-blue → bleu normal */
-      html.dark .text-brand-blue {
-        color: #0033FF !important;
-        -webkit-text-fill-color: #0033FF !important;
-        background: none;
-      }
-      
-      /* Exceptions: boutons, badges, icônes → garder leur couleur */
-      html:not(.dark) .btn-ivision,
-      html:not(.dark) .btn-ivision .text-brand-blue,
-      html.dark .btn-ivision {
+      /* Exceptions: boutons → garder couleur blanche sur fond bleu */
+      .btn-ivision,
+      .btn-ivision .text-brand-blue {
         background: #0033FF !important;
         -webkit-text-fill-color: white !important;
         color: white !important;
       }
       
       /* sketch-badge → blanc sur fond coloré */
-      html:not(.dark) .sketch-badge {
+      .sketch-badge {
         background: rgba(255,255,255,0.1) !important;
         -webkit-text-fill-color: #FFFFFF !important;
         color: #FFFFFF !important;
@@ -377,10 +368,11 @@
         background: rgba(255,255,255,0.1);
       }
       
-      /* Liens hover gardent le bleu */
-      html:not(.dark) a.hover\:text-brand-blue:hover,
-      html:not(.dark) .hover\:text-brand-blue:hover {
+      /* Hover links → bleu au survol */
+      a.hover\:text-brand-blue:hover,
+      .hover\:text-brand-blue:hover {
         -webkit-text-fill-color: #0033FF !important;
+        color: #0033FF !important;
         background: none !important;
       }
     </style>
