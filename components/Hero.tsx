@@ -39,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="accueil" className="relative min-h-[90vh] md:min-h-screen pt-32 pb-16 md:pt-40 md:pb-20 bg-white dark:bg-navy transition-colors duration-500 flex items-center perspective-stage">
+    <section id="accueil" className="relative min-h-[90vh] md:min-h-screen pt-32 pb-16 md:pt-40 md:pb-20 bg-white/0 dark:bg-transparent transition-colors duration-500 flex items-center perspective-stage">
       <BackgroundFlow />
       
       <div className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-brand-blue/10 blur-[100px] md:blur-[180px] rounded-full -z-10"></div>

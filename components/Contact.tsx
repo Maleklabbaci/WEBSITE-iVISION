@@ -37,7 +37,7 @@ const Contact: React.FC<ContactProps> = ({ translations }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 md:py-40 bg-white dark:bg-navy relative border-t border-navy/5 dark:border-white/5 overflow-hidden transition-colors duration-500">
+    <section id="contact" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent relative border-t border-navy/5 dark:border-white/5 overflow-hidden transition-colors duration-500">
       <div className="container">
         <div className={`mb-16 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">

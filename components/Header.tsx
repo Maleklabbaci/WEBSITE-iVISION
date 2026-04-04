@@ -54,15 +54,29 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     e.preventDefault();
     handleLinkClick();
     const currentHash = window.location.hash;
-    if (currentHash.startsWith('#/blog') || currentHash.startsWith('#/services')) {
+    // Si on est sur une sous-page (blog, services, devis, academiq...)
+    const isSubPage = currentHash.startsWith('#/') && currentHash.length > 2;
+    if (isSubPage) {
+      // Retourner à la home d'abord, puis scroller vers la section
       window.location.hash = '';
       setTimeout(() => {
         const el = document.getElementById(sectionId);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 350);
     } else {
+      // Déjà sur la home, scroller directement
       const el = document.getElementById(sectionId);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Section pas encore visible (lazy), retenter après render
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          const el2 = document.getElementById(sectionId);
+          if (el2) el2.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      }
     }
   };
 
@@ -79,13 +93,8 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     }
   };
 
-  const handleResetGuide = () => {
-    localStorage.removeItem('ivision-guide-shown');
-    window.location.reload();
-  };
-
   const headerBgClass = isScrolled || isMobileMenuOpen 
-    ? 'py-4 bg-white/80 dark:bg-navy/80 backdrop-blur-2xl border-b border-navy/5 dark:border-white/5 shadow-sm dark:shadow-none' 
+    ? 'py-4 bg-white/80 dark:bg-black/20 backdrop-blur-2xl border-b border-navy/5 dark:border-white/10 shadow-sm' 
     : 'py-6 md:py-8 bg-transparent';
 
   const sectionIds = ['services', 'projets', 'methodologie', 'contact'];
@@ -141,17 +150,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
               </svg>
             </button>
 
-            {/* ===== BOUTON GUIDE ===== */}
-            <button
-              onClick={handleResetGuide}
-              className="hidden md:flex p-2 rounded-full bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all duration-300"
-              aria-label="Revoir le guide"
-              title="Revoir le guide"
-            >
-              <svg className="w-4 h-4 text-navy/60 dark:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </button>
+
 
             {/* ===== THEME TOGGLE ===== */}
             <button 
@@ -243,15 +242,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
               </svg>
               Langue
             </button>
-            <button
-              onClick={handleResetGuide}
-              className="flex items-center gap-2 text-brand-gray text-sm font-medium hover:text-brand-blue transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Guide
-            </button>
+
           </div>
         </nav>
       </div>

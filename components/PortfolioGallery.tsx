@@ -70,7 +70,7 @@ const PortfolioGallery: React.FC = () => {
 
   return (
     <>
-      <section id="portfolio" ref={sectionRef} className="py-24 md:py-40 bg-white dark:bg-navy relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
+      <section id="portfolio" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
 
         {/* ===== HEADER ===== */}
         <div className="container">
@@ -136,7 +136,7 @@ const PortfolioGallery: React.FC = () => {
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto scrollbar-none"
+            className="relative bg-white/0 dark:bg-transparent border border-navy/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto scrollbar-none"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header avec logo */}

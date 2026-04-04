@@ -92,9 +92,10 @@ const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'priva
 };
 
 const StaticBackground: React.FC = () => (
-  <div className="fixed top-0 left-0 w-full h-full z-[-1] transition-colors duration-500 bg-white dark:bg-navy">
-    <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[60%] h-[50%] bg-brand-blue/10 dark:bg-brand-blue/10 blur-[150px] rounded-full"></div>
-    <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand-blue/5 dark:bg-brand-blue/5 blur-[120px] rounded-full"></div>
+  <div className="fixed top-0 left-0 w-full h-full z-[-1] transition-colors duration-500 bg-white dark:bg-transparent">
+    {/* Light mode: subtle blue glows. Dark mode: gradient vient du body */}
+    <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[60%] h-[50%] bg-brand-blue/10 dark:bg-white/5 blur-[150px] rounded-full"></div>
+    <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand-blue/5 dark:bg-white/3 blur-[120px] rounded-full"></div>
   </div>
 );
 

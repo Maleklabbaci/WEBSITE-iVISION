@@ -59,7 +59,7 @@ const FAQ: React.FC<FAQProps> = ({ translations }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="faq" ref={sectionRef} className="py-40 bg-white dark:bg-navy relative border-t border-navy/5 dark:border-white/5 overflow-hidden transition-colors duration-500">
+    <section id="faq" ref={sectionRef} className="py-40 bg-white/0 dark:bg-transparent relative border-t border-navy/5 dark:border-white/5 overflow-hidden transition-colors duration-500">
       <div className="container">
         {/* Harmonized Header */}
         <div className={`mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

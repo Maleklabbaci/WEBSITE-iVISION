@@ -82,7 +82,7 @@ const VisualShowcase: React.FC<VisualShowcaseProps> = ({ translations }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section ref={sectionRef} id="projets" className="py-24 md:py-40 bg-white dark:bg-navy overflow-hidden relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
+    <section ref={sectionRef} id="projets" className="py-24 md:py-40 bg-white/0 dark:bg-transparent overflow-hidden relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
       <div className="absolute left-0 bottom-0 w-[500px] h-[500px] bg-brand-blue/5 blur-[150px] rounded-full pointer-events-none"></div>
       
       <div className="container relative z-10">

@@ -45,7 +45,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ translations }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="temoignages" ref={sectionRef} className="py-24 md:py-40 bg-white dark:bg-navy transition-colors duration-500 relative border-t border-navy/5 dark:border-white/5 overflow-hidden">
+    <section id="temoignages" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent transition-colors duration-500 relative border-t border-navy/5 dark:border-white/5 overflow-hidden">
       <div className="container">
         {/* Harmonized Header */}
         <div className={`mb-16 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

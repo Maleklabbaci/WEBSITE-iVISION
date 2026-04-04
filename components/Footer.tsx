@@ -20,7 +20,7 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
   }
 
   return (
-    <footer className="bg-white dark:bg-navy border-t border-navy/5 dark:border-white/5 pt-32 pb-16 transition-colors duration-500">
+    <footer className="bg-white/80 dark:bg-transparent border-t backdrop-blur-sm border-navy/5 dark:border-white/5 pt-32 pb-16 transition-colors duration-500">
       <div className="container px-6">
         <div className="flex flex-col md:flex-row justify-between items-start gap-20 mb-32">
           <div className="max-w-sm">
