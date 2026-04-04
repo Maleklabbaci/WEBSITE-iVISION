@@ -45,14 +45,14 @@ const Testimonials: React.FC<TestimonialsProps> = ({ translations }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="temoignages" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent transition-colors duration-500 relative border-t border-white/5 dark:border-white/5 overflow-hidden">
+    <section id="temoignages" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent transition-colors duration-500 relative border-t border-navy/5 dark:border-white/5 overflow-hidden">
       <div className="container">
         {/* Harmonized Header */}
         <div className={`mb-16 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="flex flex-col md:flex-row justify-between items-end gap-12">
             <div className="max-w-4xl">
               <div className="sketch-badge mb-8">Confiance</div>
-              <h2 className="text-4xl md:text-[8rem] font-black text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
+              <h2 className="text-4xl md:text-[8rem] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
                 {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
                 <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
               </h2>
@@ -84,7 +84,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ translations }) => {
                 </div>
                 
                 <div className="flex-grow text-center md:text-left">
-                  <blockquote className="text-xl md:text-4xl italic text-white mb-8 md:mb-10 font-medium leading-tight tracking-tight transition-colors duration-500">
+                  <blockquote className="text-xl md:text-4xl italic text-navy dark:text-white mb-8 md:mb-10 font-medium leading-tight tracking-tight transition-colors duration-500">
                     "{testimonial.quote}"
                   </blockquote>
                   <cite className="block not-italic">
@@ -101,7 +101,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ translations }) => {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`h-1.5 md:h-2 rounded-full transition-all duration-500 ${currentIndex === index ? 'w-12 md:w-20 bg-brand-blue' : 'w-3 md:w-4 bg-white/10 dark:bg-white/10 hover:bg-white/20 dark:hover:bg-white/20'}`}
+                className={`h-1.5 md:h-2 rounded-full transition-all duration-500 ${currentIndex === index ? 'w-12 md:w-20 bg-brand-blue' : 'w-3 md:w-4 bg-navy/10 dark:bg-white/10 hover:bg-navy/20 dark:hover:bg-white/20'}`}
               />
             ))}
           </div>

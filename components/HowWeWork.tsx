@@ -35,13 +35,13 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="methodologie" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent transition-colors duration-500 scroll-mt-24 border-t border-white/5 dark:border-white/5 overflow-hidden">
+    <section id="methodologie" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent transition-colors duration-500 scroll-mt-24 border-t border-navy/5 dark:border-white/5 overflow-hidden">
       <div className="container">
         <div className={`mb-16 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
             <div className="max-w-4xl">
               <div className="sketch-badge mb-6 md:mb-8">Processus</div>
-              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
+              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
                 {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
                 <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
               </h2>
@@ -63,11 +63,11 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
                 {icons[index]}
               </div>
 
-              <div className="text-[10px] md:text-[11px] font-black text-white/40 mb-4 uppercase tracking-tight">Protocole 0{index + 1}</div>
+              <div className="text-[10px] md:text-[11px] font-black text-brand-blue/40 mb-4 uppercase tracking-tight">Protocole 0{index + 1}</div>
               
-              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-white uppercase tracking-tighter leading-none group-hover:text-brand-blue transition-colors duration-500">{step.title}</h4>
+              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-navy dark:text-white uppercase tracking-tighter leading-none group-hover:text-brand-blue transition-colors duration-500">{step.title}</h4>
               
-              <p className="text-white/60 text-[10px] md:text-[11px] font-black uppercase mb-4 md:mb-6 tracking-tight">{step.description}</p>
+              <p className="text-brand-blue text-[10px] md:text-[11px] font-black uppercase mb-4 md:mb-6 tracking-tight">{step.description}</p>
               
               <p className="text-brand-gray dark:text-brand-gray/80 text-xs md:text-sm leading-relaxed mb-8 md:mb-12 font-medium opacity-60 group-hover:opacity-100 transition-opacity">
                 {step.details}
@@ -75,7 +75,7 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
               
               <button 
                 onClick={() => setSelectedStep(index)}
-                className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-white/60 hover:gap-5 transition-all whitespace-nowrap"
+                className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-brand-blue hover:gap-5 transition-all whitespace-nowrap"
               >
                 DÉMARRER
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>

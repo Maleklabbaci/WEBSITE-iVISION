@@ -116,7 +116,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
           <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center mb-8 mx-auto text-white shadow-2xl shadow-brand-blue/30">
             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
           </div>
-          <h2 className="text-4xl font-black mb-4 text-white uppercase tracking-tighter">{t.successTitle}</h2>
+          <h2 className="text-4xl font-black mb-4 text-navy dark:text-white uppercase tracking-tighter">{t.successTitle}</h2>
           <p className="text-brand-gray text-lg font-medium mb-10 opacity-80 leading-relaxed">{t.successMessage}</p>
           <button onClick={() => window.location.hash = ''} className="btn-ivision w-full py-5">{t.backToHome}</button>
         </div>
@@ -124,27 +124,27 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     );
   }
 
-  const inputClass = "w-full p-6 bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-white font-bold text-lg placeholder:opacity-30";
+  const inputClass = "w-full p-6 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-navy dark:text-white font-bold text-lg placeholder:opacity-30";
   const labelClass = "block text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-4 ml-2";
-  const cardClass = (selected: boolean) => `relative p-6 rounded-2xl border-2 transition-all cursor-pointer flex flex-col items-start justify-between h-full group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-white/5 dark:bg-white/5 border-white/5 dark:border-white/5 hover:border-brand-blue/30'}`;
+  const cardClass = (selected: boolean) => `relative p-6 rounded-2xl border-2 transition-all cursor-pointer flex flex-col items-start justify-between h-full group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`;
 
   return (
     <div className="min-h-screen bg-white dark:bg-transparent transition-colors duration-500 py-24 md:py-32">
       <div className="container max-w-4xl">
         <div className="mb-12 flex items-center justify-between">
-            <button onClick={handleBack} className="text-white/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
+            <button onClick={handleBack} className="text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
                 <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                 <span className="text-[10px] font-black tracking-widest uppercase">{t.back}</span>
             </button>
 <div className="flex gap-4 w-32">
     {[1, 2, 3].map(i => (
-        <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-blue' : 'bg-white/10 dark:bg-white/10'}`}></div>
+        <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-blue' : 'bg-navy/10 dark:bg-white/10'}`}></div>
     ))}
 </div>
         </div>
 
         <div className="mb-16">
-          <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none mb-4">{t.title}</h1>
+          <h1 className="text-4xl md:text-6xl font-black text-navy dark:text-white uppercase tracking-tighter leading-none mb-4">{t.title}</h1>
           <p className="text-brand-gray font-medium opacity-60">
             {(translations.form as any).stepLabel
               ? (translations.form as any).stepLabel.replace('{step}', step).replace('{total}', 3)
@@ -162,7 +162,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                   <div>
                     <p className="text-[10px] font-black tracking-widest uppercase text-brand-blue">Sélection validée</p>
-                    <p className="text-white font-bold text-lg uppercase">PACK {formData.pack}</p>
+                    <p className="text-navy dark:text-white font-bold text-lg uppercase">PACK {formData.pack}</p>
                   </div>
                 </div>
               )}
@@ -189,7 +189,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {t.businessOptions.map((opt: string) => (
                   <div key={opt} onClick={() => setFormData({...formData, business: opt})} className={cardClass(formData.business === opt)}>
-                    <span className="text-xs font-black uppercase tracking-tight text-white">{opt}</span>
+                    <span className="text-xs font-black uppercase tracking-tight text-navy dark:text-white">{opt}</span>
                     {formData.business === opt && <div className="absolute top-4 right-4 text-brand-blue"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" /></svg></div>}
                   </div>
                 ))}
@@ -214,7 +214,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {t.problemOptions.map((opt: string) => (
                     <div key={opt} onClick={() => setFormData({...formData, problem: opt})} className={cardClass(formData.problem === opt)}>
-                      <span className="text-xs font-bold uppercase text-white">{opt}</span>
+                      <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                     </div>
                   ))}
                 </div>
@@ -224,7 +224,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {t.budgetOptions.map((opt: string) => (
                     <div key={opt} onClick={() => setFormData({...formData, budget: opt})} className={cardClass(formData.budget === opt)}>
-                      <span className="text-xs font-bold uppercase text-white">{opt}</span>
+                      <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                     </div>
                   ))}
                 </div>

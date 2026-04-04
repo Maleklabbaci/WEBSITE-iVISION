@@ -20,7 +20,7 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
   }
 
   return (
-    <footer className="bg-white/80 dark:bg-transparent border-t backdrop-blur-sm border-white/5 dark:border-white/5 pt-32 pb-16 transition-colors duration-500">
+    <footer className="bg-white/80 dark:bg-transparent border-t backdrop-blur-sm border-navy/5 dark:border-white/5 pt-32 pb-16 transition-colors duration-500">
       <div className="container px-6">
         <div className="flex flex-col md:flex-row justify-between items-start gap-20 mb-32">
           <div className="max-w-sm">
@@ -37,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-20">
             {/* Navigation */}
             <div className="flex flex-col gap-6">
-                <span className="text-[10px] font-black uppercase tracking-widest text-white/20 dark:text-white/20">Navigation</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-navy/20 dark:text-white/20">Navigation</span>
                 {translations.links.map((link, index) => {
                   // BUG 10 FIX: utiliser staticLinks pour tous les index, fallback sécurisé
                   const sectionId = staticLinks[index] || 'contact';
@@ -58,7 +58,7 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
 
             {/* Contact Direct */}
             <div className="flex flex-col gap-6">
-                <span className="text-[10px] font-black uppercase tracking-widest text-white/20 dark:text-white/20">Contact</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-navy/20 dark:text-white/20">Contact</span>
                 <div className="flex flex-col gap-4">
                   <div>
                     <span className="block text-[8px] font-black uppercase tracking-widest text-brand-gray/40 mb-1">Général</span>
@@ -83,14 +83,14 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
 
             {/* Social */}
             <div className="flex flex-col gap-6">
-                <span className="text-[10px] font-black uppercase tracking-widest text-white/20 dark:text-white/20">Social</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-navy/20 dark:text-white/20">Social</span>
                 <a href="https://www.instagram.com/ivision_agency/" target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">Instagram</a>
                 <a href="https://web.facebook.com/agencyivision" target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">Facebook</a>
             </div>
           </div>
         </div>
         
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t border-white/5 dark:border-white/5">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t border-navy/5 dark:border-white/5">
           <p className="text-[10px] font-black uppercase tracking-widest text-brand-gray/30">
             &copy; {year} {translations.copyright}
           </p>

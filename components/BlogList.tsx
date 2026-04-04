@@ -33,7 +33,7 @@ const BlogList = () => {
           <span className="text-brand-blue text-sm font-semibold tracking-widest uppercase">
             Notre Blog
           </span>
-          <h1 className="text-4xl md:text-6xl font-black text-white mt-4 mb-6 tracking-tighter">
+          <h1 className="text-4xl md:text-6xl font-black text-navy dark:text-white mt-4 mb-6 tracking-tighter">
             Insights & <span className="text-brand-blue">Stratégies</span>
           </h1>
           <p className="text-brand-gray dark:text-brand-gray/80 text-lg max-w-2xl mx-auto">
@@ -48,7 +48,7 @@ const BlogList = () => {
             placeholder="Rechercher un article..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-white/5 border border-white/10 dark:border-white/10 rounded-2xl px-5 py-3 text-white placeholder-brand-gray/50 focus:outline-none focus:border-brand-blue transition"
+            className="flex-1 bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl px-5 py-3 text-navy dark:text-white placeholder-brand-gray/50 focus:outline-none focus:border-brand-blue transition"
           />
           <div className="flex flex-wrap gap-2">
             <button
@@ -56,7 +56,7 @@ const BlogList = () => {
               className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition ${
                 selectedCategory === 'all'
                   ? 'bg-brand-blue text-white'
-                  : 'bg-white/5 dark:bg-white/5 text-brand-gray hover:bg-white/10 dark:hover:bg-white/10'
+                  : 'bg-navy/5 dark:bg-white/5 text-brand-gray hover:bg-navy/10 dark:hover:bg-white/10'
               }`}
             >
               Tous
@@ -68,7 +68,7 @@ const BlogList = () => {
                 className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition ${
                   selectedCategory === cat
                     ? 'bg-brand-blue text-white'
-                    : 'bg-white/5 dark:bg-white/5 text-brand-gray hover:bg-white/10 dark:hover:bg-white/10'
+                    : 'bg-navy/5 dark:bg-white/5 text-brand-gray hover:bg-navy/10 dark:hover:bg-white/10'
                 }`}
               >
                 {cat}
@@ -96,21 +96,21 @@ const BlogList = () => {
 
 const BlogCard = ({ post }: { post: BlogPost }) => {
   const categoryColors: Record<string, string> = {
-    'Marketing Digital': 'bg-blue-500/20 text-blue-200',
-    'Design': 'bg-pink-500/20 text-pink-200',
-    'SEO': 'bg-green-500/20 text-green-200',
-    'Social Media': 'bg-yellow-500/20 text-yellow-200',
-    'E-commerce': 'bg-orange-500/20 text-orange-200',
-    'Branding': 'bg-purple-500/20 text-purple-200',
-    'Publicité': 'bg-red-500/20 text-red-200',
-    'Intelligence Artificielle': 'bg-cyan-500/20 text-cyan-200',
-    'Performance': 'bg-emerald-500/20 text-emerald-200',
+    'Marketing Digital': 'bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400',
+    'Design': 'bg-pink-500/10 text-pink-600 dark:bg-pink-500/20 dark:text-pink-400',
+    'SEO': 'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-400',
+    'Social Media': 'bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400',
+    'E-commerce': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
+    'Branding': 'bg-purple-500/10 text-purple-600 dark:bg-purple-500/20 dark:text-purple-400',
+    'Publicité': 'bg-red-500/10 text-red-600 dark:bg-red-500/20 dark:text-red-400',
+    'Intelligence Artificielle': 'bg-cyan-500/10 text-cyan-600 dark:bg-cyan-500/20 dark:text-cyan-400',
+    'Performance': 'bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400',
   };
 
   return (
     <article
       onClick={() => (window.location.hash = `/blog/${post.slug}`)}
-      className="group bg-white/5 border border-white/10 dark:border-white/10 rounded-[2rem] overflow-hidden cursor-pointer hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="group bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[2rem] overflow-hidden cursor-pointer hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image placeholder */}
      <div className="h-48 overflow-hidden">
@@ -124,14 +124,14 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
       <div className="p-6">
         {/* Category + Read Time */}
         <div className="flex items-center justify-between mb-3">
-          <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${categoryColors[post.category] || 'bg-white/5 dark:bg-white/10 text-brand-gray'}`}>
+          <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${categoryColors[post.category] || 'bg-navy/5 dark:bg-white/10 text-brand-gray'}`}>
             {post.category}
           </span>
           <span className="text-brand-gray/60 text-xs">{post.readTime}</span>
         </div>
 
         {/* Title */}
-        <h2 className="text-white font-bold text-lg mb-2 group-hover:text-brand-blue transition line-clamp-2">
+        <h2 className="text-navy dark:text-white font-bold text-lg mb-2 group-hover:text-brand-blue transition line-clamp-2">
           {post.title}
         </h2>
 
@@ -141,7 +141,7 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
         </p>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-white/5 dark:border-white/10">
+        <div className="flex items-center justify-between pt-4 border-t border-navy/5 dark:border-white/10">
           <span className="text-brand-gray/60 text-xs">{post.author}</span>
           <span className="text-brand-gray/60 text-xs">
             {new Date(post.date).toLocaleDateString('fr-FR', {

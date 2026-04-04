@@ -186,7 +186,7 @@
       
       html:not(.dark) body {
         background-color: #FFFFFF;
-        color: #FFFFFF;
+        color: #050A1F;
       }
 
       body {
@@ -201,7 +201,7 @@
       .layer-3d { transform-style: preserve-3d; }
 
       .sketch-badge {
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 2px solid #0033FF;
         padding: 4px 12px;
         transform: rotate(-2deg);
         display: inline-block;
@@ -209,8 +209,8 @@
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 0.12em;
-        color: #FFFFFF;
-        background: rgba(255,255,255,0.1);
+        color: #0033FF;
+        background: rgba(0, 51, 255, 0.05);
       }
 
       .btn-ivision {
@@ -244,7 +244,7 @@
       }
 
       html:not(.dark) .logo-img {
-        filter: brightness(0) invert(1);
+        filter: invert(1) brightness(0.1) contrast(2);
       }
 
       .glass-card {
@@ -260,11 +260,11 @@
       }
 
       html:not(.dark) .glass-card {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(0, 51, 255, 0.02);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 51, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       }
 
       @media (min-width: 768px) {
@@ -293,8 +293,8 @@
       }
 
       html:not(.dark) .logo-white {
-        filter: brightness(0) invert(1);
-        -webkit-filter: brightness(0) invert(1);
+        filter: brightness(0);
+        -webkit-filter: brightness(0);
       }
 
       /* ===== BANDE QUI DÉFILE ===== */
@@ -330,45 +330,60 @@
         animation: fadeIn 0.3s ease-out;
       }
 
-      /* ===== text-brand-blue → BLANC partout (light ET dark) ===== */
-      .text-brand-blue {
+      /* ===== DARK MODE FIXES UNIQUEMENT ===== */
+
+      /* sketch-badge en dark mode → blanc */
+      html.dark .sketch-badge {
+        border-color: rgba(255,255,255,0.5) !important;
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        background: rgba(255,255,255,0.1) !important;
+      }
+
+      /* sketch-badge en light mode → bleu original */
+      html:not(.dark) .sketch-badge {
+        border-color: #0033FF;
+        color: #0033FF;
+        -webkit-text-fill-color: #0033FF;
+        background: rgba(0,51,255,0.05);
+      }
+
+      /* uni-badge dark mode → blanc */
+      html.dark .uni-badge {
+        border-color: rgba(255,255,255,0.5);
+        color: #FFFFFF;
+        background: rgba(255,255,255,0.1);
+      }
+
+      /* text-brand-blue en dark mode → blanc */
+      html.dark .text-brand-blue {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         background: none !important;
         background-clip: unset !important;
         -webkit-background-clip: unset !important;
       }
-      
-      /* Exceptions: boutons → garder couleur blanche sur fond bleu */
+
+      /* light mode text-brand-blue → gradient original */
+      html:not(.dark) .text-brand-blue {
+        background: linear-gradient(135deg, #8A8640 0%, #6B7A8A 50%, #2A3570 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Exceptions boutons → toujours bleu/blanc */
       .btn-ivision,
       .btn-ivision .text-brand-blue {
         background: #0033FF !important;
         -webkit-text-fill-color: white !important;
         color: white !important;
       }
-      
-      /* sketch-badge → blanc sur fond coloré */
-      .sketch-badge {
-        background: rgba(255,255,255,0.1) !important;
-        -webkit-text-fill-color: #FFFFFF !important;
-        color: #FFFFFF !important;
-        border-color: rgba(255,255,255,0.5) !important;
-      }
 
-      /* uni-badge → même style que sketch-badge */
-      .uni-badge {
-        border: 2px solid rgba(255,255,255,0.5);
-        padding: 4px 12px;
-        display: inline-block;
-        font-size: 0.65rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: #FFFFFF;
-        background: rgba(255,255,255,0.1);
-      }
-      
-      /* Hover links → bleu au survol */
+      /* text-navy en dark mode → blanc (les composants TSX ont été changés) */
+      /* text-white reste blanc dans les deux modes */
+
+      /* Hover links */
       a.hover\:text-brand-blue:hover,
       .hover\:text-brand-blue:hover {
         -webkit-text-fill-color: #0033FF !important;
