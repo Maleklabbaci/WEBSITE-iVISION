@@ -54,7 +54,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               </div>
             </div>
 
-            <h1 className="text-[clamp(2.5rem,8vw,8rem)] font-black mb-6 md:mb-8 leading-[0.9] tracking-tighter text-navy dark:text-white uppercase transition-colors duration-500">
+            <h1 className="text-[clamp(2.5rem,8vw,8rem)] font-black mb-6 md:mb-8 leading-[0.9] tracking-tighter text-white uppercase transition-colors duration-500">
               {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
               <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
             </h1>
@@ -77,11 +77,11 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               <div className="flex items-center gap-4" id="guide-scroll">
                 <div className="flex -space-x-2 md:-space-x-3">
                   {[1, 2, 3].map(i => (
-                    <img key={i} src={`https://i.pravatar.cc/100?u=${i+20}`} className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white dark:border-navy object-cover" alt="User" />
+                    <img key={i} src={`https://i.pravatar.cc/100?u=${i+20}`} className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white dark:border-white object-cover" alt="User" />
                   ))}
                 </div>
                 <div>
-                  <div className="text-navy dark:text-white font-black text-xl md:text-2xl leading-none">200+</div>
+                  <div className="text-white font-black text-xl md:text-2xl leading-none">200+</div>
                   <div className="text-[9px] md:text-[10px] text-brand-gray uppercase font-black tracking-widest mt-1">Clients Certifiés</div>
                 </div>
               </div>
@@ -93,7 +93,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               <div className="space-y-4 float-3d" style={{ animationDelay: '-1s' }}>
                 <img 
                   src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=600" 
-                  className="w-full h-64 object-cover rounded-[40px] rounded-tr-[10px] shadow-2xl border border-navy/5 dark:border-white/5" 
+                  className="w-full h-64 object-cover rounded-[40px] rounded-tr-[10px] shadow-2xl border border-white/5 dark:border-white/5" 
                   alt="Team" 
                 />
                 <div className="glass-card p-8 flex flex-col items-center justify-center text-center">

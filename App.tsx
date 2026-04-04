@@ -39,12 +39,12 @@ const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'priva
   return (
     <div className="fixed inset-0 z-[150] flex items-center justify-center p-6 bg-black/60 backdrop-blur-md animate-fade-in">
       <div className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 p-8 md:p-14 max-w-3xl w-full rounded-[2.5rem] shadow-2xl max-h-[80vh] overflow-y-auto scrollbar-none">
-        <button onClick={onClose} className="absolute top-8 right-8 text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors">
+        <button onClick={onClose} className="absolute top-8 right-8 text-white/40 dark:text-white/40 hover:text-brand-blue transition-colors">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         
         <div className="space-y-8">
-            <h2 className="text-3xl font-black text-navy dark:text-white uppercase tracking-tighter">
+            <h2 className="text-3xl font-black text-white uppercase tracking-tighter">
                 {type === 'privacy' ? 'Politique de Confidentialité' : 'Conditions Générales'}
             </h2>
             
@@ -53,15 +53,15 @@ const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'priva
                     <>
                         <p>Chez iVISION Agency, nous accordons une importance primordiale à la protection de vos données personnelles. Cette politique détaille comment nous collectons et utilisons vos informations.</p>
                         <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">1. Collecte des données</h4>
+                            <h4 className="font-bold text-white mb-2 uppercase text-xs tracking-widest">1. Collecte des données</h4>
                             <p>Nous collectons les informations que vous nous fournissez via nos formulaires (Nom, Prénom, Téléphone, Type de business) uniquement pour traiter vos demandes de devis.</p>
                         </div>
                         <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">2. Utilisation</h4>
+                            <h4 className="font-bold text-white mb-2 uppercase text-xs tracking-widest">2. Utilisation</h4>
                             <p>Vos données sont utilisées exclusivement pour l'audit stratégique et la prise de contact commerciale via WhatsApp ou Email.</p>
                         </div>
                         <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">3. Sécurité</h4>
+                            <h4 className="font-bold text-white mb-2 uppercase text-xs tracking-widest">3. Sécurité</h4>
                             <p>Nous mettons en œuvre des mesures de sécurité rigoureuses pour protéger vos données contre tout accès non autorisé.</p>
                         </div>
                     </>
@@ -69,15 +69,15 @@ const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'priva
                     <>
                         <p>En utilisant les services d'iVISION Agency, vous acceptez les conditions suivantes :</p>
                         <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">1. Services</h4>
+                            <h4 className="font-bold text-white mb-2 uppercase text-xs tracking-widest">1. Services</h4>
                             <p>iVISION Agency fournit des services de marketing digital, de création de contenu et de développement web haute performance.</p>
                         </div>
                         <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">2. Engagement</h4>
+                            <h4 className="font-bold text-white mb-2 uppercase text-xs tracking-widest">2. Engagement</h4>
                             <p>Toute collaboration fait l'objet d'un contrat spécifique détaillant les objectifs, les délais et les modalités de paiement.</p>
                         </div>
                         <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">3. Propriété</h4>
+                            <h4 className="font-bold text-white mb-2 uppercase text-xs tracking-widest">3. Propriété</h4>
                             <p>Sauf mention contraire, tous les éléments créés restent la propriété intellectuelle de l'agence jusqu'au paiement intégral de la prestation.</p>
                         </div>
                     </>

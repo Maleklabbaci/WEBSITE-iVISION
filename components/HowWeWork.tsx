@@ -35,13 +35,13 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="methodologie" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent transition-colors duration-500 scroll-mt-24 border-t border-navy/5 dark:border-white/5 overflow-hidden">
+    <section id="methodologie" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent transition-colors duration-500 scroll-mt-24 border-t border-white/5 dark:border-white/5 overflow-hidden">
       <div className="container">
         <div className={`mb-16 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
             <div className="max-w-4xl">
               <div className="sketch-badge mb-6 md:mb-8">Processus</div>
-              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
+              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
                 {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
                 <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
               </h2>
@@ -65,7 +65,7 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
 
               <div className="text-[10px] md:text-[11px] font-black text-brand-blue/40 mb-4 uppercase tracking-tight">Protocole 0{index + 1}</div>
               
-              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-navy dark:text-white uppercase tracking-tighter leading-none group-hover:text-brand-blue transition-colors duration-500">{step.title}</h4>
+              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-white uppercase tracking-tighter leading-none group-hover:text-brand-blue transition-colors duration-500">{step.title}</h4>
               
               <p className="text-brand-blue text-[10px] md:text-[11px] font-black uppercase mb-4 md:mb-6 tracking-tight">{step.description}</p>
               

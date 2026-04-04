@@ -186,7 +186,7 @@
       
       html:not(.dark) body {
         background-color: #FFFFFF;
-        color: #050A1F;
+        color: #FFFFFF;
       }
 
       body {
@@ -201,7 +201,7 @@
       .layer-3d { transform-style: preserve-3d; }
 
       .sketch-badge {
-        border: 2px solid #0033FF;
+        border: 2px solid rgba(255,255,255,0.5);
         padding: 4px 12px;
         transform: rotate(-2deg);
         display: inline-block;
@@ -209,8 +209,8 @@
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 0.12em;
-        color: #0033FF;
-        background: rgba(0, 51, 255, 0.05);
+        color: #FFFFFF;
+        background: rgba(255,255,255,0.1);
       }
 
       .btn-ivision {
@@ -244,7 +244,7 @@
       }
 
       html:not(.dark) .logo-img {
-        filter: invert(1) brightness(0.1) contrast(2);
+        filter: brightness(0) invert(1);
       }
 
       .glass-card {
@@ -260,11 +260,11 @@
       }
 
       html:not(.dark) .glass-card {
-        background: rgba(0, 51, 255, 0.02);
+        background: rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(0, 51, 255, 0.1);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       }
 
       @media (min-width: 768px) {
@@ -293,8 +293,8 @@
       }
 
       html:not(.dark) .logo-white {
-        filter: brightness(0);
-        -webkit-filter: brightness(0);
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
       }
 
       /* ===== BANDE QUI DÉFILE ===== */
@@ -330,19 +330,20 @@
         animation: fadeIn 0.3s ease-out;
       }
 
-      /* ===== GRADIENT TEXT (light mode) & NOIR (dark mode) ===== */
-      /* En light mode: texte brand-blue → gradient doré/bleu */
+      /* ===== GRADIENT TEXT → BLANC partout ===== */
+      /* En light mode: texte brand-blue → blanc */
       html:not(.dark) .text-brand-blue {
-        background: linear-gradient(135deg, #8A8640 0%, #6B7A8A 50%, #2A3570 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        background: none !important;
+        background-clip: unset !important;
+        -webkit-background-clip: unset !important;
       }
       
-      /* En dark mode: texte brand-blue → noir profond */
+      /* En dark mode: texte brand-blue → bleu normal */
       html.dark .text-brand-blue {
-        color: #000000 !important;
-        -webkit-text-fill-color: #000000;
+        color: #0033FF !important;
+        -webkit-text-fill-color: #0033FF !important;
         background: none;
       }
       
@@ -355,11 +356,25 @@
         color: white !important;
       }
       
-      /* sketch-badge garde son bleu */
+      /* sketch-badge → blanc sur fond coloré */
       html:not(.dark) .sketch-badge {
-        background: rgba(0,51,255,0.05) !important;
-        -webkit-text-fill-color: #0033FF !important;
-        color: #0033FF !important;
+        background: rgba(255,255,255,0.1) !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        color: #FFFFFF !important;
+        border-color: rgba(255,255,255,0.5) !important;
+      }
+
+      /* uni-badge → même style que sketch-badge */
+      .uni-badge {
+        border: 2px solid rgba(255,255,255,0.5);
+        padding: 4px 12px;
+        display: inline-block;
+        font-size: 0.65rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #FFFFFF;
+        background: rgba(255,255,255,0.1);
       }
       
       /* Liens hover gardent le bleu */

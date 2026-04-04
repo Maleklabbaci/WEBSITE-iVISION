@@ -37,13 +37,13 @@ const Contact: React.FC<ContactProps> = ({ translations }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent relative border-t border-navy/5 dark:border-white/5 overflow-hidden transition-colors duration-500">
+    <section id="contact" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent relative border-t border-white/5 dark:border-white/5 overflow-hidden transition-colors duration-500">
       <div className="container">
         <div className={`mb-16 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
             <div className="max-w-4xl">
               <div className="sketch-badge mb-6 md:mb-8">Contact</div>
-              <h2 className="text-[clamp(2.5rem,7vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
+              <h2 className="text-[clamp(2.5rem,7vw,8rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
                 {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
                 <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
               </h2>
@@ -62,7 +62,7 @@ const Contact: React.FC<ContactProps> = ({ translations }) => {
             <div className="space-y-10">
               <div>
                 <span className="block text-[8px] font-black uppercase tracking-widest text-brand-gray/40 mb-2">Email</span>
-                <a href={`mailto:${translations.footerContact?.email}`} className="text-xl md:text-3xl font-black text-navy dark:text-white hover:text-brand-blue transition-colors break-all tracking-tighter">
+                <a href={`mailto:${translations.footerContact?.email}`} className="text-xl md:text-3xl font-black text-white hover:text-brand-blue transition-colors break-all tracking-tighter">
                   {translations.footerContact?.email}
                 </a>
               </div>
@@ -80,25 +80,25 @@ const Contact: React.FC<ContactProps> = ({ translations }) => {
             <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-10">{translations.labels.follow}</h4>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-              <a href="https://www.instagram.com/ivision_agency/" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all">
+              <a href="https://www.instagram.com/ivision_agency/" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 hover:border-brand-blue transition-all">
                 <div className="p-4 bg-brand-blue text-white rounded-xl group-hover:rotate-6 transition-transform">
                   <IconInstagram />
                 </div>
-                <span className="text-[10px] font-black text-navy dark:text-white uppercase tracking-tighter">Instagram</span>
+                <span className="text-[10px] font-black text-white uppercase tracking-tighter">Instagram</span>
               </a>
 
-              <a href="https://web.facebook.com/agencyivision" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all">
+              <a href="https://web.facebook.com/agencyivision" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 hover:border-brand-blue transition-all">
                 <div className="p-4 bg-brand-blue text-white rounded-xl group-hover:rotate-6 transition-transform">
                   <IconFacebook />
                 </div>
-                <span className="text-[10px] font-black text-navy dark:text-white uppercase tracking-tighter">Facebook</span>
+                <span className="text-[10px] font-black text-white uppercase tracking-tighter">Facebook</span>
               </a>
 
-              <a href="https://www.tiktok.com/@ivisionagency1" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all">
+              <a href="https://www.tiktok.com/@ivisionagency1" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 hover:border-brand-blue transition-all">
                 <div className="p-4 bg-brand-blue text-white rounded-xl group-hover:rotate-6 transition-transform">
                   <IconTikTok />
                 </div>
-                <span className="text-[10px] font-black text-navy dark:text-white uppercase tracking-tighter">TikTok</span>
+                <span className="text-[10px] font-black text-white uppercase tracking-tighter">TikTok</span>
               </a>
             </div>
           </div>

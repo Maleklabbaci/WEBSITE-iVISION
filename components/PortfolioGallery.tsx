@@ -70,7 +70,7 @@ const PortfolioGallery: React.FC = () => {
 
   return (
     <>
-      <section id="portfolio" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
+      <section id="portfolio" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent relative border-t border-white/5 dark:border-white/5 transition-colors duration-500">
 
         {/* ===== HEADER ===== */}
         <div className="container">
@@ -78,7 +78,7 @@ const PortfolioGallery: React.FC = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
               <div className="max-w-4xl">
                 <div className="sketch-badge mb-6 md:mb-8">Portfolio</div>
-                <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
+                <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
                   ILS NOUS FONT <br className="hidden md:block" />
                   <span className="text-brand-blue">CONFIANCE</span>
                 </h2>
@@ -136,7 +136,7 @@ const PortfolioGallery: React.FC = () => {
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="relative bg-white/0 dark:bg-transparent border border-navy/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto scrollbar-none"
+            className="relative bg-white/0 dark:bg-transparent border border-white/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto scrollbar-none"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header avec logo */}
@@ -166,7 +166,7 @@ const PortfolioGallery: React.FC = () => {
 
             {/* Content */}
             <div className="p-6 md:p-10">
-              <h3 className="text-2xl md:text-3xl font-black text-navy dark:text-white tracking-tighter uppercase">
+              <h3 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase">
                 {selectedProject.name}
               </h3>
               <div className="flex flex-wrap gap-2 mt-3">
@@ -190,13 +190,13 @@ const PortfolioGallery: React.FC = () => {
                   {selectedProject.tasks.map((task) => (
                     <div key={task} className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-brand-blue rounded-full flex-shrink-0"></span>
-                      <span className="text-navy dark:text-white text-sm font-medium">{task}</span>
+                      <span className="text-white text-sm font-medium">{task}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-navy/5 dark:border-white/5">
+              <div className="mt-6 pt-6 border-t border-white/5 dark:border-white/5">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray mb-3">Resultats</p>
                 <div className="flex flex-wrap gap-3">
                   {selectedProject.results.map((result) => (

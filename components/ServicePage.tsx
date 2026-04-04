@@ -76,7 +76,7 @@ const ServicePage = ({ slug }: Props) => {
     return (
       <section className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-black text-navy dark:text-white tracking-tighter uppercase">Service non trouvé</h1>
+          <h1 className="text-4xl font-black text-white tracking-tighter uppercase">Service non trouvé</h1>
           <p className="text-brand-gray mt-4">Ce service n'existe pas.</p>
           <button
             onClick={() => (window.location.hash = '')}
@@ -107,7 +107,7 @@ const ServicePage = ({ slug }: Props) => {
 
           <div className="max-w-4xl">
             <div className="sketch-badge mb-6 md:mb-8">{service.title.split(' ')[0]}</div>
-            <h1 className="text-[clamp(2rem,5vw,6rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase transition-colors duration-500">
+            <h1 className="text-[clamp(2rem,5vw,6rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase transition-colors duration-500">
               {service.heroTitle.split(' ').slice(0, Math.ceil(service.heroTitle.split(' ').length / 2)).join(' ')} <br className="hidden md:block" />
               <span className="text-brand-blue">{service.heroTitle.split(' ').slice(Math.ceil(service.heroTitle.split(' ').length / 2)).join(' ')}</span>
             </h1>
@@ -130,7 +130,7 @@ const ServicePage = ({ slug }: Props) => {
                   e.preventDefault();
                   pricingRef.current?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest text-navy/60 dark:text-white/60 hover:text-brand-blue transition-colors px-8 py-4 border border-navy/10 dark:border-white/10 rounded-xl hover:border-brand-blue"
+                className="flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 dark:text-white/60 hover:text-brand-blue transition-colors px-8 py-4 border border-white/10 dark:border-white/10 rounded-xl hover:border-brand-blue"
               >
                 Voir les tarifs
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,12 +146,12 @@ const ServicePage = ({ slug }: Props) => {
       <section
         id="features"
         ref={featuresRef}
-        className="py-24 md:py-40 border-t border-navy/5 dark:border-white/5 transition-colors duration-500"
+        className="py-24 md:py-40 border-t border-white/5 dark:border-white/5 transition-colors duration-500"
       >
         <div className="container">
           <div className={`mb-16 md:mb-24 transition-all duration-1000 ${visibleSections.has('features') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="sketch-badge mb-6 md:mb-8">Inclus</div>
-            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
+            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
               Ce que vous <br className="hidden md:block" />
               <span className="text-brand-blue">obtenez</span>
             </h2>
@@ -174,7 +174,7 @@ const ServicePage = ({ slug }: Props) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-lg md:text-xl font-black text-navy dark:text-white uppercase tracking-tighter leading-tight mb-3 group-hover:text-brand-blue transition-colors">
+                <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-tighter leading-tight mb-3 group-hover:text-brand-blue transition-colors">
                   {feature.title}
                 </h3>
                 <p className="text-brand-gray dark:text-brand-gray/80 text-sm leading-relaxed font-medium opacity-70 group-hover:opacity-100 transition-opacity">
@@ -190,12 +190,12 @@ const ServicePage = ({ slug }: Props) => {
       <section
         id="process"
         ref={processRef}
-        className="py-24 md:py-40 border-t border-navy/5 dark:border-white/5 transition-colors duration-500"
+        className="py-24 md:py-40 border-t border-white/5 dark:border-white/5 transition-colors duration-500"
       >
         <div className="container">
           <div className={`mb-16 md:mb-24 transition-all duration-1000 ${visibleSections.has('process') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="sketch-badge mb-6 md:mb-8">Process</div>
-            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
+            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
               Comment on <br className="hidden md:block" />
               <span className="text-brand-blue">travaille</span>
             </h2>
@@ -222,7 +222,7 @@ const ServicePage = ({ slug }: Props) => {
 
                 {/* Content */}
                 <div className="pb-10 md:pb-14">
-                  <h3 className="text-xl md:text-2xl font-black text-navy dark:text-white uppercase tracking-tighter leading-tight">
+                  <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter leading-tight">
                     {step.title}
                   </h3>
                   <p className="text-brand-gray dark:text-brand-gray/80 text-sm md:text-base leading-relaxed font-medium mt-2 opacity-70">
@@ -239,12 +239,12 @@ const ServicePage = ({ slug }: Props) => {
       <section
         id="pricing"
         ref={pricingRef}
-        className="py-24 md:py-40 border-t border-navy/5 dark:border-white/5 transition-colors duration-500"
+        className="py-24 md:py-40 border-t border-white/5 dark:border-white/5 transition-colors duration-500"
       >
         <div className="container">
           <div className={`mb-16 md:mb-24 text-center transition-all duration-1000 ${visibleSections.has('pricing') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="sketch-badge mb-6 md:mb-8 mx-auto">Tarifs</div>
-            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
+            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
               Tarifs <span className="text-brand-blue">transparents</span>
             </h2>
             <p className="text-brand-gray dark:text-brand-gray/80 mt-6 font-medium text-base md:text-lg max-w-xl mx-auto">
@@ -267,10 +267,10 @@ const ServicePage = ({ slug }: Props) => {
                   </div>
                 )}
 
-                <h3 className="text-xl font-black text-navy dark:text-white uppercase tracking-tighter">{plan.name}</h3>
+                <h3 className="text-xl font-black text-white uppercase tracking-tighter">{plan.name}</h3>
 
                 <div className="flex items-baseline gap-1 mt-4 mb-8">
-                  <span className="text-3xl md:text-4xl font-black text-navy dark:text-white tracking-tighter">{plan.price}</span>
+                  <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">{plan.price}</span>
                   {plan.period && <span className="text-brand-gray text-sm font-medium">{plan.period}</span>}
                 </div>
 
@@ -290,7 +290,7 @@ const ServicePage = ({ slug }: Props) => {
                   className={`w-full py-4 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all duration-500 ${
                     plan.popular
                       ? 'btn-ivision'
-                      : 'bg-navy/5 dark:bg-white/5 text-navy dark:text-white border border-navy/10 dark:border-white/10 hover:bg-brand-blue hover:border-brand-blue hover:text-white'
+                      : 'bg-white/5 dark:bg-white/5 text-white border border-white/10 dark:border-white/10 hover:bg-brand-blue hover:border-brand-blue hover:text-white'
                   }`}
                 >
                   Choisir ce plan
@@ -305,12 +305,12 @@ const ServicePage = ({ slug }: Props) => {
       <section
         id="faq"
         ref={faqRef}
-        className="py-24 md:py-40 border-t border-navy/5 dark:border-white/5 transition-colors duration-500"
+        className="py-24 md:py-40 border-t border-white/5 dark:border-white/5 transition-colors duration-500"
       >
         <div className="container">
           <div className={`mb-16 md:mb-24 transition-all duration-1000 ${visibleSections.has('faq') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="sketch-badge mb-6 md:mb-8">FAQ</div>
-            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
+            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
               Questions <span className="text-brand-blue">fréquentes</span>
             </h2>
           </div>
@@ -328,7 +328,7 @@ const ServicePage = ({ slug }: Props) => {
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between p-6 md:p-8 text-left"
                 >
-                  <span className="text-navy dark:text-white font-bold text-sm md:text-base pr-4 uppercase tracking-tight">{item.question}</span>
+                  <span className="text-white font-bold text-sm md:text-base pr-4 uppercase tracking-tight">{item.question}</span>
                   <div className={`w-8 h-8 bg-brand-blue/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 ${openFaq === i ? 'bg-brand-blue rotate-45' : ''}`}>
                     <svg className={`w-4 h-4 transition-colors ${openFaq === i ? 'text-white' : 'text-brand-blue'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -336,7 +336,7 @@ const ServicePage = ({ slug }: Props) => {
                   </div>
                 </button>
                 <div className={`overflow-hidden transition-all duration-500 ${openFaq === i ? 'max-h-96' : 'max-h-0'}`}>
-                  <div className="px-6 md:px-8 pb-6 md:pb-8 text-brand-gray dark:text-brand-gray/80 text-sm leading-relaxed font-medium border-t border-navy/5 dark:border-white/5 pt-4">
+                  <div className="px-6 md:px-8 pb-6 md:pb-8 text-brand-gray dark:text-brand-gray/80 text-sm leading-relaxed font-medium border-t border-white/5 dark:border-white/5 pt-4">
                     {item.answer}
                   </div>
                 </div>
@@ -347,11 +347,11 @@ const ServicePage = ({ slug }: Props) => {
       </section>
 
       {/* ===== CTA FINAL ===== */}
-      <section className="py-24 md:py-40 border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
+      <section className="py-24 md:py-40 border-t border-white/5 dark:border-white/5 transition-colors duration-500">
         <div className="container text-center">
           <div className="max-w-2xl mx-auto">
             <div className="sketch-badge mb-6 md:mb-8 mx-auto">Commencer</div>
-            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
+            <h2 className="text-[clamp(1.5rem,4vw,5rem)] font-black text-white tracking-tighter leading-[1] md:leading-[0.85] uppercase">
               Prêt à <span className="text-brand-blue">démarrer</span> ?
             </h2>
             <p className="text-brand-gray dark:text-brand-gray/80 mt-6 font-medium text-base md:text-lg">
@@ -371,7 +371,7 @@ const ServicePage = ({ slug }: Props) => {
                 href="https://wa.me/213563839404"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest text-navy/60 dark:text-white/60 hover:text-brand-blue transition-colors px-8 py-4 border border-navy/10 dark:border-white/10 rounded-xl hover:border-brand-blue"
+                className="flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 dark:text-white/60 hover:text-brand-blue transition-colors px-8 py-4 border border-white/10 dark:border-white/10 rounded-xl hover:border-brand-blue"
               >
                 WhatsApp direct
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

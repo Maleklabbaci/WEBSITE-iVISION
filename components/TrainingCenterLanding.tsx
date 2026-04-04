@@ -367,9 +367,9 @@ const WilayaSelector: React.FC<{ value: string; onChange: (v: string) => void; p
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full p-5 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl transition-all outline-none text-navy dark:text-white font-bold text-base flex items-center justify-between hover:border-brand-blue focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5"
+        className="w-full p-5 bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-2xl transition-all outline-none text-white font-bold text-base flex items-center justify-between hover:border-brand-blue focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5"
       >
-        <span className={value ? 'text-navy dark:text-white font-bold' : 'text-navy/30 dark:text-white/30 font-normal'}>
+        <span className={value ? 'text-white font-bold' : 'text-white/30 dark:text-white/30 font-normal'}>
           {value || placeholder}
         </span>
         <svg className={`w-4 h-4 text-brand-blue transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -378,14 +378,14 @@ const WilayaSelector: React.FC<{ value: string; onChange: (v: string) => void; p
       </button>
 
       {open && (
-        <div className="absolute z-50 top-full mt-2 w-full bg-white dark:bg-transparent border border-navy/10 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden">
-          <div className="p-3 border-b border-navy/5 dark:border-white/5">
+        <div className="absolute z-50 top-full mt-2 w-full bg-white dark:bg-transparent border border-white/10 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+          <div className="p-3 border-b border-white/5 dark:border-white/5">
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Rechercher..."
-              className="w-full px-4 py-2.5 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-xl outline-none text-navy dark:text-white text-sm font-medium placeholder:text-navy/30 dark:placeholder:text-white/30 focus:border-brand-blue"
+              className="w-full px-4 py-2.5 bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-xl outline-none text-white text-sm font-medium placeholder:text-white/30 dark:placeholder:text-white/30 focus:border-brand-blue"
               autoFocus
             />
           </div>
@@ -395,7 +395,7 @@ const WilayaSelector: React.FC<{ value: string; onChange: (v: string) => void; p
                 key={w}
                 type="button"
                 onClick={() => { onChange(w); setOpen(false); setSearch(''); }}
-                className={`w-full text-left px-5 py-3 text-sm font-medium transition-colors hover:bg-brand-blue/10 hover:text-brand-blue ${value === w ? 'bg-brand-blue/10 text-brand-blue font-black' : 'text-navy dark:text-white'}`}
+                className={`w-full text-left px-5 py-3 text-sm font-medium transition-colors hover:bg-brand-blue/10 hover:text-brand-blue ${value === w ? 'bg-brand-blue/10 text-brand-blue font-black' : 'text-white'}`}
               >
                 {w}
               </button>
@@ -415,25 +415,25 @@ const PackDetailsSection: React.FC<{ packName: string; lang: Language }> = ({ pa
   return (
     <div className="space-y-6 mb-10">
       {/* Header */}
-      <div className="p-6 rounded-3xl border border-navy/10 dark:border-white/10 bg-navy/2 dark:bg-white/2">
+      <div className="p-6 rounded-3xl border border-white/10 dark:border-white/10 bg-transparent/2 dark:bg-white/2">
         <p className="text-[10px] font-black uppercase tracking-[0.25em] text-brand-blue mb-3">{T.whyThisPack[lang]}</p>
 
         {/* Reels block */}
         <div className="mb-5">
           <div className="flex items-center gap-3 mb-2">
             <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-brand-blue text-white font-black text-lg">{details.reels}</div>
-            <span className="text-sm font-black text-navy dark:text-white uppercase tracking-wide">{T.reelsSection[lang]}</span>
+            <span className="text-sm font-black text-white uppercase tracking-wide">{T.reelsSection[lang]}</span>
           </div>
           <p className="text-sm text-brand-gray dark:text-brand-gray/80 font-medium leading-relaxed opacity-80">{details.whyReels[lang]}</p>
         </div>
 
-        <div className="h-px bg-navy/5 dark:bg-white/10 my-4" />
+        <div className="h-px bg-white/5 dark:bg-white/10 my-4" />
 
         {/* Designs block */}
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-navy/10 dark:bg-white/10 text-navy dark:text-white font-black text-lg">{details.designs}</div>
-            <span className="text-sm font-black text-navy dark:text-white uppercase tracking-wide">{T.designsSection[lang]}</span>
+            <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-white/10 dark:bg-white/10 text-white font-black text-lg">{details.designs}</div>
+            <span className="text-sm font-black text-white uppercase tracking-wide">{T.designsSection[lang]}</span>
           </div>
           <p className="text-sm text-brand-gray dark:text-brand-gray/80 font-medium leading-relaxed opacity-80">{details.whyDesigns[lang]}</p>
         </div>
@@ -446,14 +446,14 @@ const PackDetailsSection: React.FC<{ packName: string; lang: Language }> = ({ pa
           {details.howItWorks[lang].map((step, i) => (
             <div key={i} className="flex items-start gap-3">
               <div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-blue text-white flex items-center justify-center text-[10px] font-black mt-0.5">{i + 1}</div>
-              <p className="text-sm text-navy dark:text-white font-medium leading-relaxed">{step}</p>
+              <p className="text-sm text-white font-medium leading-relaxed">{step}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Best for */}
-      <div className="p-5 rounded-2xl bg-navy/5 dark:bg-white/5 border border-navy/5 dark:border-white/5 flex items-start gap-3">
+      <div className="p-5 rounded-2xl bg-white/5 dark:bg-white/5 border border-white/5 dark:border-white/5 flex items-start gap-3">
         <span className="text-xl">✓</span>
         <div>
           <p className="text-[10px] font-black uppercase tracking-widest text-brand-blue mb-1">{T.bestFor[lang]}</p>
@@ -482,7 +482,7 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
   const isRtl = lang === 'ar';
 
-  const inputClass = "w-full p-5 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-navy dark:text-white font-bold text-base placeholder:text-navy/30 dark:placeholder:text-white/30 placeholder:font-normal";
+  const inputClass = "w-full p-5 bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-white font-bold text-base placeholder:text-white/30 dark:placeholder:text-white/30 placeholder:font-normal";
   const labelClass = "block text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-3";
   // BUG 6 FIX: Validation téléphone format algérien (05/06/07 + 8 chiffres)
   const phoneRegex = /^(0[5-7][0-9]{8}|\+213[5-7][0-9]{8})$/;
@@ -511,7 +511,7 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
           <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center mb-8 mx-auto text-white shadow-2xl shadow-brand-blue/30">
             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
           </div>
-          <h2 className="text-4xl font-black mb-4 text-navy dark:text-white uppercase tracking-tighter">{T.successTitle[lang]}</h2>
+          <h2 className="text-4xl font-black mb-4 text-white uppercase tracking-tighter">{T.successTitle[lang]}</h2>
           <p className="text-brand-gray text-lg font-medium mb-4 opacity-80 leading-relaxed">{T.successMsg[lang]}</p>
           <p className="text-brand-gray/50 text-sm mb-10">{T.packSelected[lang]} : <span className="font-black text-brand-blue">{formData.pack}</span></p>
           <button onClick={() => window.location.hash = ''} className="btn-ivision w-full py-5">{T.backHome[lang]}</button>
@@ -524,7 +524,7 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
     <div className={`min-h-screen bg-white dark:bg-transparent transition-colors duration-500 py-24 md:py-32 ${isRtl ? 'rtl' : ''}`}>
       <div className="container max-w-2xl">
         {/* Back */}
-        <button onClick={onBack} className="mb-12 text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
+        <button onClick={onBack} className="mb-12 text-white/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
           <svg className={`w-5 h-5 transition-transform ${isRtl ? 'group-hover:translate-x-1 rotate-180' : 'group-hover:-translate-x-1'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
@@ -538,7 +538,7 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
             <div className="w-2 h-2 bg-brand-blue rounded-full animate-pulse" />
             <span className="text-brand-blue font-black text-sm uppercase tracking-wider">{selectedPack} — {packDetails[selectedPack]?.price}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-navy dark:text-white uppercase tracking-tighter leading-none mb-3">
+          <h1 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none mb-3">
             {T.formTitle[lang]}
           </h1>
           <p className="text-brand-gray font-medium opacity-60">{T.formSub[lang]}</p>
@@ -579,7 +579,7 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
           <div className="p-5 bg-brand-blue/5 border border-brand-blue/20 rounded-2xl">
             <p className="text-[10px] font-black uppercase tracking-widest text-brand-blue mb-2">{T.recap[lang]}</p>
             <div className="flex items-center justify-between mb-1">
-              <span className="text-navy dark:text-white font-black text-lg uppercase">{selectedPack}</span>
+              <span className="text-white font-black text-lg uppercase">{selectedPack}</span>
               <span className="text-brand-blue font-black">{packDetails[selectedPack]?.price}</span>
             </div>
             <p className="text-[10px] text-brand-gray/50 font-medium">{T.recapNote[lang]}</p>
@@ -628,7 +628,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div className="sketch-badge mb-8">{T.badge[lang]}</div>
-              <h1 className="text-[clamp(2.8rem,7vw,6rem)] font-black text-navy dark:text-white uppercase tracking-tighter leading-[0.9] mb-8">
+              <h1 className="text-[clamp(2.8rem,7vw,6rem)] font-black text-white uppercase tracking-tighter leading-[0.9] mb-8">
                 {T.heroTitle1[lang]}<br /><span className="text-brand-blue">{T.heroTitle2[lang]}</span>
               </h1>
               <p className="text-lg text-brand-gray dark:text-brand-gray/80 font-medium leading-relaxed opacity-70 max-w-xl mb-10">{T.heroSub[lang]}</p>
@@ -639,7 +639,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
                   { v: '30j', l: { fr: 'premiers résultats', en: 'first results', ar: 'أول نتائج' } },
                 ].map(s => (
                   <div key={s.v} className="flex flex-col">
-                    <span className="text-3xl font-black text-navy dark:text-white tracking-tighter">{s.v}</span>
+                    <span className="text-3xl font-black text-white tracking-tighter">{s.v}</span>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-brand-gray/50">{s.l[lang]}</span>
                   </div>
                 ))}
@@ -671,13 +671,13 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
       </section>
 
       {/* STATS */}
-      <section className="py-20 px-6 border-t border-navy/5 dark:border-white/5">
+      <section className="py-20 px-6 border-t border-white/5 dark:border-white/5">
         <div className="container max-w-6xl">
           <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-brand-blue mb-12">{T.statsTitle[lang]}</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((s, i) => (
               <div key={i} className={`glass-card rounded-3xl p-6 text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: `${i * 100}ms` }}>
-                <span className="block text-4xl font-black text-navy dark:text-white tracking-tighter mb-2">{s.value}</span>
+                <span className="block text-4xl font-black text-white tracking-tighter mb-2">{s.value}</span>
                 <span className="block text-[11px] font-black uppercase tracking-widest text-brand-blue mb-1">{s.label[lang]}</span>
                 <span className="block text-[10px] text-brand-gray/50 font-medium">{s.sub[lang]}</span>
               </div>
@@ -690,7 +690,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
       <section id="packs" className="py-24 px-6">
         <div className="container max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-navy dark:text-white uppercase tracking-tighter mb-3">{T.packsTitle[lang]}</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-3">{T.packsTitle[lang]}</h2>
             <p className="text-brand-gray text-sm font-medium opacity-60">{T.packsSub[lang]}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -703,16 +703,16 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
                     </span>
                   </div>
                 )}
-                <div className={`px-6 pt-8 pb-6 ${pack.highlight ? 'bg-brand-blue' : 'bg-navy/5 dark:bg-white/5'}`}>
-                  <h3 className={`text-lg font-black uppercase tracking-tighter mb-1 ${pack.highlight ? 'text-white' : 'text-navy dark:text-white'}`}>{pack.name}</h3>
+                <div className={`px-6 pt-8 pb-6 ${pack.highlight ? 'bg-brand-blue' : 'bg-white/5 dark:bg-white/5'}`}>
+                  <h3 className={`text-lg font-black uppercase tracking-tighter mb-1 ${pack.highlight ? 'text-white' : 'text-white'}`}>{pack.name}</h3>
                   <p className={`text-[11px] font-medium ${pack.highlight ? 'text-white/70' : 'text-brand-gray opacity-70'}`}>{pack.subtitle[lang]}</p>
                 </div>
-                <div className="flex flex-col flex-grow px-6 py-6 bg-white dark:bg-navy/40">
+                <div className="flex flex-col flex-grow px-6 py-6 bg-white dark:bg-transparent/40">
                   <div className="mb-6">
-                    <span className="block text-3xl font-black text-navy dark:text-white tracking-tighter">{packDetails[pack.name]?.price}</span>
+                    <span className="block text-3xl font-black text-white tracking-tighter">{packDetails[pack.name]?.price}</span>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-brand-gray/50">{T.perMonth[lang]}</span>
                   </div>
-                  <div className="h-px bg-navy/5 dark:bg-white/10 mb-6" />
+                  <div className="h-px bg-white/5 dark:bg-white/10 mb-6" />
                   <ul className="flex flex-col gap-3 flex-grow mb-8">
                     {pack.features[lang].map((feat: string) => (
                       <li key={feat} className="flex items-start gap-3">
@@ -723,7 +723,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => setSelectedPack(pack.name)} className={`w-full py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 ${pack.highlight ? 'bg-brand-blue text-white hover:brightness-110 shadow-lg shadow-brand-blue/30' : 'bg-navy/5 dark:bg-white/5 text-navy dark:text-white hover:bg-brand-blue hover:text-white border border-navy/10 dark:border-white/10 hover:border-brand-blue'}`}>
+                  <button onClick={() => setSelectedPack(pack.name)} className={`w-full py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 ${pack.highlight ? 'bg-brand-blue text-white hover:brightness-110 shadow-lg shadow-brand-blue/30' : 'bg-white/5 dark:bg-white/5 text-white hover:bg-brand-blue hover:text-white border border-white/10 dark:border-white/10 hover:border-brand-blue'}`}>
                     {T.choosePack[lang]}
                   </button>
                 </div>
@@ -735,7 +735,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-20 px-6 border-t border-navy/5 dark:border-white/5">
+      <section className="py-20 px-6 border-t border-white/5 dark:border-white/5">
         <div className="container max-w-5xl">
           <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-brand-blue mb-12">{T.testimonialsTitle[lang]}</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -745,7 +745,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
                 <div className="flex items-center gap-4">
                   <img src={tm.avatar} alt={tm.name} className="w-10 h-10 rounded-full object-cover" />
                   <div>
-                    <span className="block text-xs font-black text-navy dark:text-white">{tm.name}</span>
+                    <span className="block text-xs font-black text-white">{tm.name}</span>
                     <span className="block text-[10px] text-brand-gray/50 font-medium">{tm.role[lang]}</span>
                   </div>
                 </div>
