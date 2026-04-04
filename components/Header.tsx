@@ -5,9 +5,11 @@ interface HeaderProps {
     onQuoteClick: () => void;
     theme: 'dark' | 'light';
     onToggleTheme: () => void;
+    language?: string;
+    onChangeLanguage?: (lang: 'fr' | 'en' | 'ar') => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onToggleTheme }) => {
+const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onToggleTheme, language, onChangeLanguage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -64,10 +66,17 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     }
   };
 
+  // BUG 8 FIX: Cycle de langue sans reload
   const handleResetLang = () => {
-    localStorage.removeItem('ivision-lang-selected');
-    localStorage.removeItem('ivision-guide-shown');
-    window.location.reload();
+    if (onChangeLanguage) {
+      const langs: ('fr' | 'en' | 'ar')[] = ['fr', 'en', 'ar'];
+      const currentIndex = langs.indexOf((language || 'fr') as 'fr' | 'en' | 'ar');
+      const nextLang = langs[(currentIndex + 1) % langs.length];
+      onChangeLanguage(nextLang);
+    } else {
+      localStorage.removeItem('ivision-lang-selected');
+      window.location.reload();
+    }
   };
 
   const handleResetGuide = () => {

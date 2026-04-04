@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const FORMSPARK_ID = "3hB9voxjF";
+import { FORMSPARK_ID } from '../lib/config';
 
 interface QuoteFormProps {
   translations: { form: any; };
@@ -23,7 +23,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     budget: '',
     pack: '' 
   });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
 
   const t = translations.form;
 
@@ -62,12 +62,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   };
 
   const handleBack = () => {
-    if (step > 1) {
+    if (step === 3 && formData.business && formData.business !== 'Autre') {
+      // Si business pré-rempli on a sauté step 2 → retourner à step 1
+      setStep(1);
+    } else if (step > 1) {
       setStep(prev => prev - 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       window.location.hash = '';
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -101,9 +104,8 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
         }
         setStatus('done');
       } else { throw new Error('Error'); }
-    } catch (error) { 
-      setStatus('idle');
-      alert("Une erreur est survenue.");
+    } catch (error) {
+      setStatus('error');
     }
   };
 
@@ -143,7 +145,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
         <div className="mb-16">
           <h1 className="text-4xl md:text-6xl font-black text-navy dark:text-white uppercase tracking-tighter leading-none mb-4">{t.title}</h1>
-          <p className="text-brand-gray font-medium opacity-60">Étape {step} sur 3</p>
+          <p className="text-brand-gray font-medium opacity-60">
+            {(translations.form as any).stepLabel
+              ? (translations.form as any).stepLabel.replace('{step}', step).replace('{total}', 3)
+              : `Étape ${step} sur 3`}
+          </p>
         </div>
 
         <form onSubmit={e => e.preventDefault()} className="space-y-12">
@@ -223,6 +229,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   ))}
                 </div>
               </div>
+              {status === 'error' && (
+                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
+                  Une erreur est survenue. Vérifiez votre connexion et réessayez.
+                </div>
+              )}
               <button onClick={onSubmit} disabled={status === 'submitting' || !formData.problem || !formData.budget} className="btn-ivision w-full py-8 text-xl">
                 {status === 'submitting' ? '...' : t.cta}
               </button>

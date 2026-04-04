@@ -50,11 +50,9 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
   }, [currentStep, language]);
 
   useEffect(() => {
-    if (targetRect) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    // BUG 7 FIX: Toujours libérer overflow si targetRect est null (évite page bloquée)
+    document.body.style.overflow = targetRect ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
   }, [targetRect]);
 
   const nextStep = () => {
@@ -64,6 +62,17 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
       onClose();
     }
   };
+
+  // BUG 7 FIX: Si l'élément cible est introuvable, passer au step suivant après 800ms
+  React.useEffect(() => {
+    if (!targetRect) {
+      const timer = setTimeout(() => {
+        if (currentStep < stepsCount) setCurrentStep(prev => prev + 1);
+        else onClose();
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [targetRect]);
 
   if (!targetRect) return null;
 
@@ -127,7 +136,7 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
           width: cardWidth
         }}
       >
-        <div className="bg-white p-6 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-b-4 border-brand-blue animate-fade-in-up">
+        <div className="bg-white dark:bg-navy p-6 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-navy/10 dark:border-white/10 border-b-4 border-b-brand-blue animate-fade-in-up">
           <div className="flex items-center gap-3 mb-3">
              <div className="w-8 h-8 bg-brand-blue/10 rounded-full flex items-center justify-center text-brand-blue">
                 <span className="text-xs font-black">{currentStep}</span>
@@ -136,13 +145,13 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
                {stepData.title}
              </h4>
           </div>
-          <p className="text-navy text-sm font-bold leading-relaxed mb-6">
+          <p className="text-navy dark:text-white text-sm font-bold leading-relaxed mb-6">
             {stepData.desc}
           </p>
           <div className={`flex items-center justify-between ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
              <button 
                onClick={onClose}
-               className="text-[10px] font-black text-navy/30 hover:text-brand-blue uppercase tracking-widest transition-colors px-2 py-1"
+               className="text-[10px] font-black text-navy/40 dark:text-white/40 hover:text-brand-blue uppercase tracking-widest transition-colors px-2 py-1"
              >
                {t.skip}
              </button>

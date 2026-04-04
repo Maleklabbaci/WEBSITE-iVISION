@@ -23,7 +23,11 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
   const [isThinking, setIsThinking] = useState(false);
   const [needsKey, setNeedsKey] = useState(false);
   
-  const [position, setPosition] = useState({ x: window.innerWidth - 100, y: window.innerHeight - 120 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  // BUG 2 FIX (LiveChat): Set position après mount (window disponible)
+  React.useEffect(() => {
+    setPosition({ x: window.innerWidth - 100, y: window.innerHeight - 120 });
+  }, []);
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
   const initialPos = useRef({ x: 0, y: 0 });

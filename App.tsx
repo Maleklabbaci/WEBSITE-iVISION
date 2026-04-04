@@ -279,6 +279,11 @@ const App: React.FC = () => {
           onQuoteClick={handleOpenQuotePage} 
           theme={theme}
           onToggleTheme={toggleTheme}
+          language={language}
+          onChangeLanguage={(lang) => {
+            setLanguage(lang);
+            localStorage.setItem('ivision-lang-selected', lang);
+          }}
         />
         
         <main className="flex-grow">

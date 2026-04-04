@@ -6,12 +6,15 @@ interface LanguageSelectorProps {
   onSelectLanguage: (language: Language) => void;
 }
 
+// BUG 14 FIX: IDs uniques pour éviter conflits si composant monté plusieurs fois
+const uid = `flag-${Math.random().toString(36).slice(2, 7)}`;
+
 const FlagFR = () => (
   <svg viewBox="0 0 100 100" className="w-12 h-12 md:w-16 md:h-16">
-    <clipPath id="circleFR">
+    <clipPath id={`circleFR-${uid}`}>
       <circle cx="50" cy="50" r="50" />
     </clipPath>
-    <g clipPath="url(#circleFR)">
+    <g clipPath={`url(#circleFR-${uid})`}>
       <rect x="0" y="0" width="33.3" height="100" fill="#002395" />
       <rect x="33.3" y="0" width="33.4" height="100" fill="#FFFFFF" />
       <rect x="66.7" y="0" width="33.3" height="100" fill="#ED2939" />
@@ -21,10 +24,10 @@ const FlagFR = () => (
 
 const FlagEN = () => (
   <svg viewBox="0 0 100 100" className="w-12 h-12 md:w-16 md:h-16">
-    <clipPath id="circleEN">
+    <clipPath id={`circleEN-${uid}`}>
       <circle cx="50" cy="50" r="50" />
     </clipPath>
-    <g clipPath="url(#circleEN)">
+    <g clipPath={`url(#circleEN-${uid})`}>
       <rect width="100" height="100" fill="#012169" />
       <path d="M0 0 L100 100 M100 0 L0 100" stroke="#FFFFFF" strokeWidth="10" />
       <path d="M0 0 L100 100 M100 0 L0 100" stroke="#C8102E" strokeWidth="6" />
@@ -36,10 +39,10 @@ const FlagEN = () => (
 
 const FlagAR = () => (
   <svg viewBox="0 0 100 100" className="w-12 h-12 md:w-16 md:h-16">
-    <clipPath id="circleAR">
+    <clipPath id={`circleAR-${uid}`}>
       <circle cx="50" cy="50" r="50" />
     </clipPath>
-    <g clipPath="url(#circleAR)">
+    <g clipPath={`url(#circleAR-${uid})`}>
       <rect width="100" height="100" fill="#007A3D" />
       <text x="50" y="68" fontSize="48" textAnchor="middle" fill="white" fontFamily="sans-serif" fontWeight="bold">ع</text>
     </g>

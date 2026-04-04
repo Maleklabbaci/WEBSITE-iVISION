@@ -211,6 +211,7 @@ const textContent = {
         ar: ['30-60 ألف دج', '60-120 ألف دج', '120-250 ألف دج', '+250 ألف دج']
       },
       cta: { fr: 'LANCER MON AUDIT', en: 'START MY AUDIT', ar: 'ابدأ تدقيقي' },
+      stepLabel: { fr: 'Étape {step} sur {total}', en: 'Step {step} of {total}', ar: 'خطوة {step} من {total}' },
       next: { fr: 'SUIVANT', en: 'NEXT', ar: 'التالي' },
       successTitle: { fr: 'DEMANDE VALIDÉE !', en: 'REQUEST VALIDATED!', ar: 'تم تأكيد الطلب!' },
       successMessage: { fr: 'Un expert vous contactera sur WhatsApp sous 2h.', en: 'An expert will contact you on WhatsApp within 2h.', ar: 'سيتصل بك خبير عبر الواتساب خلال ساعتين.' },
@@ -287,6 +288,7 @@ const processTranslations = (lang: Language) => {
         budgetLabel: b.contact.form.budgetLabel[lang],
         budgetOptions: b.contact.form.budgetOptions[lang],
         cta: b.contact.form.cta[lang],
+        stepLabel: b.contact.form.stepLabel[lang],
         next: b.contact.form.next[lang],
         successTitle: b.contact.form.successTitle[lang],
         successMessage: b.contact.form.successMessage[lang],

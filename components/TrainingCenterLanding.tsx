@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const FORMSPARK_ID = "3hB9voxjF";
+import { FORMSPARK_ID } from '../lib/config';
 type Language = 'fr' | 'en' | 'ar';
 interface Props { language: Language; }
 
@@ -348,9 +348,22 @@ const WilayaSelector: React.FC<{ value: string; onChange: (v: string) => void; p
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const filtered = WILAYAS.filter(w => w.toLowerCase().includes(search.toLowerCase()));
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  // BUG 5 FIX: Fermer le dropdown si clic en dehors
+  React.useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+        setSearch('');
+      }
+    };
+    if (open) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [open]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -466,12 +479,15 @@ const PackDetailsSection: React.FC<{ packName: string; lang: Language }> = ({ pa
 // ─── QUOTE FORM ───────────────────────────────────────────────────────────────
 const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lang: Language }> = ({ selectedPack, onBack, lang }) => {
   const [formData, setFormData] = useState({ name: '', centerName: '', phone: '', wilaya: '', baladia: '', pack: selectedPack });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
   const isRtl = lang === 'ar';
 
   const inputClass = "w-full p-5 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-navy dark:text-white font-bold text-base placeholder:text-navy/30 dark:placeholder:text-white/30 placeholder:font-normal";
   const labelClass = "block text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-3";
-  const isValid = formData.name.trim() && formData.centerName.trim() && formData.phone.trim() && formData.wilaya && formData.baladia.trim();
+  // BUG 6 FIX: Validation téléphone format algérien (05/06/07 + 8 chiffres)
+  const phoneRegex = /^(0[5-7][0-9]{8}|\+213[5-7][0-9]{8})$/;
+  const phoneValid = phoneRegex.test(formData.phone.replace(/\s/g, ''));
+  const isValid = formData.name.trim() && formData.centerName.trim() && phoneValid && formData.wilaya && formData.baladia.trim();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -485,7 +501,7 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
       });
       if (res.ok) { setStatus('done'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
       else throw new Error();
-    } catch { setStatus('idle'); alert('Erreur. Réessayez.'); }
+    } catch { setStatus('error'); }
   };
 
   if (status === 'done') {
@@ -544,6 +560,9 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
           <div>
             <label className={labelClass}>{T.phone[lang]}</label>
             <input type="tel" placeholder={T.phonePh[lang]} value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} className={inputClass} />
+            {formData.phone.trim() && !phoneValid && (
+              <p className="mt-2 text-xs text-red-500 font-bold">Format invalide (ex: 0561234567)</p>
+            )}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
@@ -566,6 +585,11 @@ const AcademiqQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; la
             <p className="text-[10px] text-brand-gray/50 font-medium">{T.recapNote[lang]}</p>
           </div>
 
+          {status === 'error' && (
+              <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
+                Erreur réseau. Vérifiez votre connexion et réessayez.
+              </div>
+            )}
           <button type="submit" disabled={!isValid || status === 'submitting'} className="btn-ivision w-full py-6 text-base disabled:opacity-30 disabled:pointer-events-none group">
             <span>{status === 'submitting' ? T.submitting[lang] : T.submit[lang]}</span>
             {status === 'idle' && (

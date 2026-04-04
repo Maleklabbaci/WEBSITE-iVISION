@@ -13,7 +13,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
   const year = new Date().getFullYear();
-  const staticLinks = ['accueil', 'services', 'projets', 'methodologie'];
+  const staticLinks = ['accueil', 'services', 'projets', 'methodologie', 'contact'];
 
   if (!translations || !translations.contact) {
     return null;
@@ -39,7 +39,9 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
             <div className="flex flex-col gap-6">
                 <span className="text-[10px] font-black uppercase tracking-widest text-navy/20 dark:text-white/20">Navigation</span>
                 {translations.links.map((link, index) => {
-                  const href = index === 3 ? '#contact' : `#${staticLinks[index]}`;
+                  // BUG 10 FIX: utiliser staticLinks pour tous les index, fallback sécurisé
+                  const sectionId = staticLinks[index] || 'contact';
+                  const href = `#${sectionId}`;
                   return (
                     <a key={link} href={href} className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
                       {link}

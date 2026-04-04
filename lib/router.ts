@@ -1,20 +1,22 @@
 // Simple client-side router pour React + Vite
-export type Route = 
+export type Route =
   | { type: 'home' }
   | { type: 'blog' }
   | { type: 'blog-post'; slug: string }
   | { type: 'service'; slug: string }
-  | { type: 'quote' };
+  | { type: 'quote' }
+  | { type: 'centres' };
 
 export const parseRoute = (): Route => {
   const hash = window.location.hash.slice(1) || '/';
-  
+
   if (hash === '/' || hash === '') return { type: 'home' };
   if (hash === '/blog') return { type: 'blog' };
   if (hash.startsWith('/blog/')) return { type: 'blog-post', slug: hash.replace('/blog/', '') };
   if (hash.startsWith('/services/')) return { type: 'service', slug: hash.replace('/services/', '') };
-  if (hash === '/quote') return { type: 'quote' };
-  
+  if (hash === '/devis') return { type: 'quote' };       // était /quote → now /devis
+  if (hash === '/academiq') return { type: 'centres' };  // manquait
+
   return { type: 'home' };
 };
 
@@ -23,14 +25,15 @@ export const navigate = (route: string) => {
 };
 
 export const getCanonicalUrl = (route: Route): string => {
-  const base = 'https://ivision-agency.com';
-  
+  const base = 'https://maleklabbaci.github.io/WEBSITE-iVISION';
+
   switch (route.type) {
     case 'home': return base;
-    case 'blog': return `${base}/blog`;
-    case 'blog-post': return `${base}/blog/${route.slug}`;
-    case 'service': return `${base}/services/${route.slug}`;
-    case 'quote': return `${base}/quote`;
+    case 'blog': return `${base}/#/blog`;
+    case 'blog-post': return `${base}/#/blog/${route.slug}`;
+    case 'service': return `${base}/#/services/${route.slug}`;
+    case 'quote': return `${base}/#/devis`;
+    case 'centres': return `${base}/#/academiq`;
     default: return base;
   }
 };

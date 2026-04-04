@@ -5,23 +5,14 @@ const ScrollToTopButton: React.FC = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.pageYOffset > 300);
     };
-
     window.addEventListener('scroll', toggleVisibility);
-
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -29,7 +20,7 @@ const ScrollToTopButton: React.FC = () => {
       type="button"
       onClick={scrollToTop}
       aria-label="Go to top"
-      className={`fixed bottom-24 right-6 bg-brand-accent text-brand-dark w-12 h-12 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-all duration-300 z-40 ${
+      className={`fixed bottom-24 right-6 bg-brand-blue text-white w-12 h-12 rounded-full shadow-lg shadow-brand-blue/30 flex items-center justify-center hover:scale-110 transition-all duration-300 z-40 ${
         isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
       }`}
     >
