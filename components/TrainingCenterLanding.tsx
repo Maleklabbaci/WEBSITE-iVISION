@@ -733,3 +733,5 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
     </div>
   );
 };
+
+export default TrainingCenterLanding;
