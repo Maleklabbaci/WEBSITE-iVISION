@@ -4,7 +4,7 @@ import { FORMSPARK_ID } from '../lib/config';
 type Language = 'fr' | 'en' | 'ar';
 interface Props { language: Language; }
 
-const WHATSAPP_NUMBER = '213563839404'; // ← remplace par ton vrai numéro
+const WHATSAPP_NUMBER = '213563839404';
 
 const WILAYAS = [
   "Adrar","Chlef","Laghouat","Oum El Bouaghi","Batna","Béjaïa","Biskra","Béchar",
@@ -24,7 +24,6 @@ const SECTORS = {
   ar: ['مطعم / مقهى', 'متجر / أزياء', 'عيادة / صحة', 'عقارات', 'تجارة إلكترونية', 'رياضة / لياقة', 'جمال / تجميل', 'تعليم / تكوين', 'فندق / سياحة', 'أخرى'],
 };
 
-// ─── PACK DETAILS ─────────────────────────────────────────────────────────────
 const packDetails: Record<string, {
   price: string; color: string; reels: number; designs: number;
   whyReels: { fr: string; en: string; ar: string };
@@ -34,21 +33,21 @@ const packDetails: Record<string, {
   extras: { fr: string[]; en: string[]; ar: string[] };
 }> = {
   ESSENTIEL: {
-    price: '40 000 DA', color: '#1A1A5E', reels: 4, designs: 8,
+    price: '40 000 DA', color: '#1A1A5E', reels: 4, designs: 4,
     whyReels: {
       fr: '4 Reels par mois c\'est 1 vidéo par semaine — le rythme idéal pour lancer votre présence digitale sans surcharger votre audience. Chaque reel cible un angle différent : présentation de votre business, témoignage client, offre du mois, behind-the-scenes.',
       en: '4 Reels per month means 1 video per week — the ideal rhythm to launch your digital presence. Each reel targets a different angle: business presentation, client testimonial, monthly offer, behind-the-scenes.',
       ar: '4 ريلز شهرياً تعني فيديو واحد أسبوعياً — الإيقاع المثالي لإطلاق حضورك الرقمي. كل ريل يستهدف زاوية مختلفة: تقديم نشاطك، شهادة عميل، عرض الشهر، كواليس.',
     },
     whyDesigns: {
-      fr: '8 designs couvrent : 4 posts informatifs (conseils, présentation de vos services) + 4 posts promotionnels (offres, actualités). Un contenu visuel cohérent construit la confiance et la reconnaissance de votre marque.',
-      en: '8 designs cover: 4 informative posts (tips, service presentation) + 4 promotional posts (offers, news). Consistent visual content builds trust and brand recognition.',
-      ar: '8 تصاميم تغطي: 4 منشورات إعلامية (نصائح، تقديم خدماتك) + 4 منشورات ترويجية (عروض، أخبار). المحتوى المرئي المتسق يبني الثقة والتعرف على علامتك التجارية.',
+      fr: '4 designs par mois couvrent l\'essentiel : 2 posts informatifs (conseils, présentation de vos services) + 2 posts promotionnels (offres, actualités). Un contenu visuel cohérent construit la confiance et la reconnaissance de votre marque.',
+      en: '4 designs per month cover the essentials: 2 informative posts (tips, service presentation) + 2 promotional posts (offers, news). Consistent visual content builds trust and brand recognition.',
+      ar: '4 تصاميم شهرياً تغطي الأساسيات: منشورات إعلامية وترويجية. المحتوى المرئي المتسق يبني الثقة والتعرف على علامتك التجارية.',
     },
     howItWorks: {
-      fr: ['Semaine 1 : Tournage d\'une journée avec notre filmmaker', 'Semaine 1-2 : Montage, voix off IA, sous-titres et visuels', 'Semaine 2 : Lancement des campagnes Meta Ads ciblées', 'Semaine 3-4 : Optimisation quotidienne + rapport de résultats'],
-      en: ['Week 1: Full day filming with our filmmaker', 'Week 1-2: Editing, AI voiceover, subtitles and visuals', 'Week 2: Launch of targeted Meta Ads campaigns', 'Week 3-4: Daily optimization + results report'],
-      ar: ['الأسبوع 1: يوم تصوير مع مصورنا', 'الأسبوع 1-2: المونتاج، التعليق الصوتي، الترجمة والمرئيات', 'الأسبوع 2: إطلاق حملات ميتا الإعلانية', 'الأسبوع 3-4: تحسين يومي + تقرير النتائج'],
+      fr: ['Semaine 1 : Tournage d\'une journée avec notre filmmaker', 'Semaine 1-2 : Montage, voix off IA, sous-titres et visuels', 'Semaine 2-3 : Publication des contenus sur vos réseaux', 'Semaine 4 : Rapport mensuel + plan du mois suivant'],
+      en: ['Week 1: Full day filming with our filmmaker', 'Week 1-2: Editing, AI voiceover, subtitles and visuals', 'Week 2-3: Content publication on your social media', 'Week 4: Monthly report + next month plan'],
+      ar: ['الأسبوع 1: يوم تصوير مع مصورنا', 'الأسبوع 1-2: المونتاج، التعليق الصوتي، الترجمة والمرئيات', 'الأسبوع 2-3: نشر المحتوى على منصاتك', 'الأسبوع 4: تقرير شهري + خطة الشهر القادم'],
     },
     bestFor: {
       fr: 'Idéal pour les businesses qui démarrent leur présence digitale ou qui ont un budget de lancement.',
@@ -56,9 +55,9 @@ const packDetails: Record<string, {
       ar: 'مثالي للأعمال التي تبدأ حضورها الرقمي أو لديها ميزانية إطلاق.',
     },
     extras: {
-      fr: ['Gestion complète des publicités Meta', 'Rapport mensuel détaillé', 'Support WhatsApp direct'],
-      en: ['Full Meta Ads management', 'Detailed monthly report', 'Direct WhatsApp support'],
-      ar: ['إدارة كاملة لإعلانات ميتا', 'تقرير شهري مفصل', 'دعم واتساب مباشر'],
+      fr: ['Production vidéo professionnelle', 'Rapport mensuel détaillé', 'Support WhatsApp direct'],
+      en: ['Professional video production', 'Detailed monthly report', 'Direct WhatsApp support'],
+      ar: ['إنتاج فيديو احترافي', 'تقرير شهري مفصل', 'دعم واتساب مباشر'],
     },
   },
   'AVANCÉ': {
@@ -147,7 +146,6 @@ const packDetails: Record<string, {
   },
 };
 
-// ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
   badge: { fr: 'Agence Marketing Digital — Algérie', en: 'Digital Marketing Agency — Algeria', ar: 'وكالة تسويق رقمي — الجزائر' },
   heroTitle1: { fr: 'Attirez plus de clients.', en: 'Attract more clients.', ar: 'اجذب المزيد من العملاء.' },
@@ -167,7 +165,7 @@ const T = {
   choosePack: { fr: 'Choisir ce pack', en: 'Choose this pack', ar: 'اختر هذه الباقة' },
   customPack: { fr: 'Sur mesure', en: 'Custom', ar: 'مخصص' },
   customPackSub: { fr: 'Votre stratégie unique', en: 'Your unique strategy', ar: 'استراتيجيتك الفريدة' },
-  customPackCta: { fr: 'Discutons ensemble', en: 'Let\'s talk', ar: 'لنتحدث معاً' },
+  customPackCta: { fr: 'Discutons ensemble', en: "Let's talk", ar: 'لنتحدث معاً' },
   customPackFeatures: {
     fr: ['Stratégie 100% personnalisée', 'Formats & plateformes sur mesure', 'Budget adapté à vos objectifs', 'Accompagnement dédié', 'Reporting personnalisé'],
     en: ['100% custom strategy', 'Custom formats & platforms', 'Budget adapted to your goals', 'Dedicated support', 'Custom reporting'],
@@ -200,7 +198,7 @@ const T = {
   objectiveLabel: { fr: 'Votre objectif principal', en: 'Your main objective', ar: 'هدفك الرئيسي' },
   agencyLabel: { fr: 'Avez-vous déjà travaillé avec une agence ?', en: 'Have you worked with an agency before?', ar: 'هل سبق لك العمل مع وكالة؟' },
   recap: { fr: 'Récapitulatif', en: 'Summary', ar: 'ملخص' },
-  recapNote: { fr: 'Budget publicitaire inclus — frais de déplacement hors wilaya définis à l\'appel', en: 'Ad budget included — travel fees outside wilaya defined at call', ar: 'ميزانية الإعلانات مشمولة — رسوم التنقل خارج الولاية عند الاتصال' },
+  recapNote: { fr: 'Frais de déplacement hors wilaya définis à l\'appel', en: 'Travel fees outside wilaya defined at call', ar: 'رسوم التنقل خارج الولاية عند الاتصال' },
   submit: { fr: 'Envoyer ma demande', en: 'Send my request', ar: 'إرسال طلبي' },
   submitting: { fr: 'Envoi en cours...', en: 'Sending...', ar: 'جارٍ الإرسال...' },
   successTitle: { fr: 'Demande envoyée !', en: 'Request sent!', ar: 'تم إرسال الطلب!' },
@@ -227,7 +225,7 @@ const AGENCY_OPTIONS = {
 };
 
 const packs = [
-  { name: 'ESSENTIEL', subtitle: { fr: 'Pour bien démarrer', en: 'To get started', ar: 'للبداية الصحيحة' }, features: { fr: ['4 Reels professionnels', '8 Designs graphiques', 'Gestion publicités Meta', 'Rapport mensuel', 'Support WhatsApp'], en: ['4 Professional Reels', '8 Graphic Designs', 'Meta Ads Management', 'Monthly report', 'WhatsApp support'], ar: ['4 ريلز احترافية', '8 تصاميم جرافيك', 'إدارة إعلانات ميتا', 'تقرير شهري', 'دعم واتساب'] }, highlight: false, tag: null },
+  { name: 'ESSENTIEL', subtitle: { fr: 'Pour bien démarrer', en: 'To get started', ar: 'للبداية الصحيحة' }, features: { fr: ['4 Reels professionnels', '4 Designs graphiques', 'Sans publicités Meta', 'Rapport mensuel', 'Support WhatsApp'], en: ['4 Professional Reels', '4 Graphic Designs', 'Without Meta Ads', 'Monthly report', 'WhatsApp support'], ar: ['4 ريلز احترافية', '4 تصاميم جرافيك', 'بدون إعلانات ميتا', 'تقرير شهري', 'دعم واتساب'] }, highlight: false, tag: null },
   { name: 'AVANCÉ', subtitle: { fr: 'Croissance accélérée', en: 'Accelerated growth', ar: 'نمو متسارع' }, features: { fr: ['6 Reels professionnels', '12 Designs graphiques', 'Gestion publicités Meta', 'Stratégie de contenu', 'Rapport bi-mensuel', 'Support prioritaire'], en: ['6 Professional Reels', '12 Graphic Designs', 'Meta Ads Management', 'Content strategy', 'Bi-monthly report', 'Priority support'], ar: ['6 ريلز احترافية', '12 تصاميم جرافيك', 'إدارة إعلانات ميتا', 'استراتيجية محتوى', 'تقرير نصف شهري', 'دعم أولوي'] }, highlight: false, tag: null },
   { name: 'PRO', subtitle: { fr: 'Le plus choisi', en: 'Most popular', ar: 'الأكثر اختياراً' }, features: { fr: ['8 Reels professionnels', '20 Designs graphiques', 'Meta + Instagram Ads', 'Stratégie avancée', 'Rapports hebdomadaires', 'Account manager dédié'], en: ['8 Professional Reels', '20 Graphic Designs', 'Meta + Instagram Ads', 'Advanced strategy', 'Weekly reports', 'Dedicated account manager'], ar: ['8 ريلز احترافية', '20 تصاميم جرافيك', 'ميتا + انستغرام', 'استراتيجية متقدمة', 'تقارير أسبوعية', 'مدير حساب مخصص'] }, highlight: true, tag: 'recommended' },
   { name: 'SCALE', subtitle: { fr: 'Dominez votre marché', en: 'Dominate your market', ar: 'سيطر على سوقك' }, features: { fr: ['12 Reels professionnels', '30 Designs graphiques', 'Meta + TikTok + Instagram', 'Stratégie full funnel', 'Rapports en temps réel', 'Account manager VIP'], en: ['12 Professional Reels', '30 Graphic Designs', 'Meta + TikTok + Instagram', 'Full funnel strategy', 'Real-time reports', 'VIP account manager'], ar: ['12 ريلز احترافية', '30 تصاميم جرافيك', 'ميتا + تيك توك + انستغرام', 'استراتيجية كاملة', 'تقارير فورية', 'مدير حساب VIP'] }, highlight: false, tag: 'maxResults' },
@@ -252,7 +250,6 @@ const images = [
   { url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&q=80', badge: '240% ROI' },
 ];
 
-// ─── WILAYA SELECTOR ──────────────────────────────────────────────────────────
 const WilayaSelector: React.FC<{ value: string; onChange: (v: string) => void; placeholder: string }> = ({ value, onChange, placeholder }) => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -294,7 +291,6 @@ const WilayaSelector: React.FC<{ value: string; onChange: (v: string) => void; p
   );
 };
 
-// ─── OPTION CARD ──────────────────────────────────────────────────────────────
 const OptionCard: React.FC<{ label: string; selected: boolean; onClick: () => void }> = ({ label, selected, onClick }) => (
   <div onClick={onClick} className={`relative p-4 rounded-2xl border-2 transition-all cursor-pointer text-center group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`}>
     <span className="text-xs font-bold uppercase text-navy dark:text-white">{label}</span>
@@ -302,7 +298,6 @@ const OptionCard: React.FC<{ label: string; selected: boolean; onClick: () => vo
   </div>
 );
 
-// ─── PACK DETAILS SECTION ─────────────────────────────────────────────────────
 const PackDetailsSection: React.FC<{ packName: string; lang: Language }> = ({ packName, lang }) => {
   const details = packDetails[packName];
   if (!details) return null;
@@ -356,7 +351,6 @@ const PackDetailsSection: React.FC<{ packName: string; lang: Language }> = ({ pa
   );
 };
 
-// ─── QUOTE FORM ───────────────────────────────────────────────────────────────
 const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lang: Language }> = ({ selectedPack, onBack, lang }) => {
   const [formData, setFormData] = useState({
     name: '', businessName: '', phone: '', wilaya: '', baladia: '',
@@ -426,7 +420,6 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
           <svg className={`w-5 h-5 transition-transform ${isRtl ? 'group-hover:translate-x-1 rotate-180' : 'group-hover:-translate-x-1'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           <span className="text-[10px] font-black tracking-widest uppercase">{T.back[lang]}</span>
         </button>
-
         <div className="mb-10">
           <div className="sketch-badge mb-6">{T.packSelected[lang]}</div>
           <div className="inline-flex items-center gap-3 bg-brand-blue/10 border border-brand-blue/30 rounded-2xl px-5 py-3 mb-6">
@@ -436,23 +429,16 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
           <h1 className="text-4xl md:text-5xl font-black text-navy dark:text-white uppercase tracking-tighter leading-none mb-3">{T.formTitle[lang]}</h1>
           <p className="text-brand-gray font-medium opacity-60">{T.formSub[lang]}</p>
         </div>
-
         <PackDetailsSection packName={selectedPack} lang={lang} />
-
         <form onSubmit={onSubmit} className="space-y-8">
-          {/* Nom complet */}
           <div>
             <label className={labelClass}>{T.fullName[lang]}</label>
             <input type="text" placeholder={T.fullNamePh[lang]} value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className={inputClass} />
           </div>
-
-          {/* Nom du business */}
           <div>
             <label className={labelClass}>{T.businessName[lang]}</label>
             <input type="text" placeholder={T.businessNamePh[lang]} value={formData.businessName} onChange={e => setFormData({ ...formData, businessName: e.target.value })} className={inputClass} />
           </div>
-
-          {/* Téléphone */}
           <div>
             <label className={labelClass}>{T.phone[lang]}</label>
             <input type="tel" inputMode="numeric" placeholder={T.phonePh[lang]} value={formData.phone} onChange={handlePhoneChange} maxLength={10}
@@ -460,8 +446,6 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
             {phoneError && <p className="mt-2 ml-1 text-[11px] font-bold text-red-500 uppercase tracking-wide">{phoneError}</p>}
             {formData.phone.length === 10 && !phoneError && <p className="mt-2 ml-1 text-[11px] font-bold text-green-500 uppercase tracking-wide">✓ Numéro valide</p>}
           </div>
-
-          {/* Wilaya / Commune */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label className={labelClass}>{T.wilaya[lang]}</label>
@@ -472,8 +456,6 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
               <input type="text" placeholder={T.baladiaPh[lang]} value={formData.baladia} onChange={e => setFormData({ ...formData, baladia: e.target.value })} className={inputClass} />
             </div>
           </div>
-
-          {/* Secteur d'activité */}
           <div>
             <label className={labelClass}>{T.sectorLabel[lang]}</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -482,8 +464,6 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
               ))}
             </div>
           </div>
-
-          {/* Présence en ligne */}
           <div>
             <label className={labelClass}>{T.onlineLabel[lang]}</label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -492,8 +472,6 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
               ))}
             </div>
           </div>
-
-          {/* Objectif principal */}
           <div>
             <label className={labelClass}>{T.objectiveLabel[lang]}</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -502,8 +480,6 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
               ))}
             </div>
           </div>
-
-          {/* Agence précédente */}
           <div>
             <label className={labelClass}>{T.agencyLabel[lang]}</label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -512,8 +488,6 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
               ))}
             </div>
           </div>
-
-          {/* Recap */}
           <div className="p-5 bg-brand-blue/5 border border-brand-blue/20 rounded-2xl">
             <p className="text-[10px] font-black uppercase tracking-widest text-brand-blue mb-2">{T.recap[lang]}</p>
             <div className="flex items-center justify-between mb-1">
@@ -522,13 +496,11 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
             </div>
             <p className="text-[10px] text-brand-gray/50 font-medium">{T.recapNote[lang]}</p>
           </div>
-
           {status === 'error' && (
             <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
               Erreur réseau. Vérifiez votre connexion et réessayez.
             </div>
           )}
-
           <button type="submit" disabled={!isValid || status === 'submitting'}
             className="btn-ivision w-full py-6 text-base disabled:opacity-30 disabled:pointer-events-none group">
             <span>{status === 'submitting' ? T.submitting[lang] : T.submit[lang]}</span>
@@ -544,7 +516,6 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
   );
 };
 
-// ─── MAIN LANDING ─────────────────────────────────────────────────────────────
 const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
   const [selectedPack, setSelectedPack] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -553,7 +524,6 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
   useEffect(() => { const t = setTimeout(() => setIsVisible(true), 100); return () => clearTimeout(t); }, []);
 
   const handleCustomPack = () => {
-    const packName = lang === 'ar' ? 'PERSONNALISÉ' : lang === 'en' ? 'CUSTOM PACK' : 'PACK PERSONNALISÉ';
     const businessLine = lang === 'ar' ? 'أريد حزمة مخصصة' : lang === 'en' ? 'I want a custom pack' : 'Je souhaite un pack personnalisé';
     const detailLine = lang === 'ar' ? 'هل يمكنكم مساعدتي في بناء استراتيجية مخصصة لنشاطي؟' : lang === 'en' ? 'Can you help me build a custom digital strategy for my business?' : 'Pouvez-vous m\'aider à construire une stratégie digitale sur mesure pour mon business ?';
     const msg = encodeURIComponent(`Bonjour iVISION 👋\n\n${businessLine}\n\n${detailLine}\n\nMon secteur : [À préciser]\nMes objectifs : [À préciser]\n\nMerci !`);
@@ -564,8 +534,6 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
 
   return (
     <div className={`min-h-screen bg-white dark:bg-transparent transition-colors duration-500 overflow-x-hidden ${isRtl ? 'rtl' : ''}`}>
-
-      {/* HERO */}
       <section className="relative min-h-screen pt-36 pb-24 px-6 flex items-center">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-blue/10 blur-[150px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-brand-blue/5 blur-[120px] rounded-full pointer-events-none" />
@@ -614,7 +582,6 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
         </div>
       </section>
 
-      {/* STATS */}
       <section className="py-20 px-6 border-t border-navy/5 dark:border-white/5">
         <div className="container max-w-6xl">
           <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-brand-blue mb-12">{T.statsTitle[lang]}</p>
@@ -630,7 +597,6 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
         </div>
       </section>
 
-      {/* PACKS */}
       <section id="packs" className="py-24 px-6">
         <div className="container max-w-7xl">
           <div className="text-center mb-16">
@@ -710,7 +676,6 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
       <section className="py-20 px-6 border-t border-navy/5 dark:border-white/5">
         <div className="container max-w-5xl">
           <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-brand-blue mb-12">{T.testimonialsTitle[lang]}</p>
