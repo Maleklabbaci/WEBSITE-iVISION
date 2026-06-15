@@ -224,7 +224,7 @@ const App: React.FC = () => {
           <>
             <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
             <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-            <PortfolioGallery />
+            <PortfolioGallery language={language} />
             <VisualShowcase translations={t.visualShowcase} />
             <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
             <Testimonials translations={t.testimonials} />
