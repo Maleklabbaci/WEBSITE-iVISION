@@ -42,6 +42,16 @@ const projects: Project[] = [
     website: 'https://white-aura.vercel.app',
   },
   {
+    id: 5,
+    name: 'MOVESMART',
+    categories: ['Branding', 'Platform', 'UI/UX', 'Web'],
+    description: 'Branding complet et construction de plateforme digitale de A a Z pour une marque immobiliere et business setup a Dubai.',
+    tasks: ['Branding Complet', 'Construction Plateforme', 'UI/UX Design', 'Developpement'],
+    results: ['Plateforme Live', 'Branding Premium', 'Marche Dubai'],
+    logo: 'https://i.ibb.co/60PJ8PVw/aass.png',
+    website: 'https://movesmart-ecru.vercel.app/',
+  },
+  {
     id: 4,
     name: 'FIDALI',
     categories: ['Marketing', 'Branding', 'Video', 'Design', 'Platform'],
@@ -56,6 +66,7 @@ const projects: Project[] = [
 const PortfolioGallery: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [showRealisations, setShowRealisations] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -124,6 +135,51 @@ const PortfolioGallery: React.FC = () => {
                   />
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ===== BOUTON RÉALISATIONS ===== */}
+        <div className={`container mt-16 md:mt-24 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex flex-col items-center gap-6">
+            <button
+              onClick={() => setShowRealisations(prev => !prev)}
+              className="btn-ivision px-10 py-4"
+            >
+              <span>NOS RÉALISATIONS</span>
+              <svg className={`w-4 h-4 transition-transform duration-300 ${showRealisations ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </button>
+            <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-500 ${showRealisations ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-3 pointer-events-none'}`}>
+              <a
+                href="https://drive.google.com/drive/folders/1Jw6feJMIECj1sXn6qFQ16GZatV6-zpgI?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 border border-navy/10 dark:border-white/10 hover:border-brand-blue/50 px-6 py-4 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <span className="text-xl">🎨</span>
+                <span className="text-sm font-bold text-navy dark:text-white uppercase tracking-wider">Designs</span>
+                <svg className="w-4 h-4 text-brand-gray group-hover:text-brand-blue transition-colors ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              </a>
+              <a
+                href="https://drive.google.com/drive/folders/1ohDO3lGcqElZ4WL08tF5zd_YbBrhW6bv?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 border border-navy/10 dark:border-white/10 hover:border-brand-blue/50 px-6 py-4 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <span className="text-xl">🎬</span>
+                <span className="text-sm font-bold text-navy dark:text-white uppercase tracking-wider">Videos & Creatives</span>
+                <svg className="w-4 h-4 text-brand-gray group-hover:text-brand-blue transition-colors ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              </a>
+              <a
+                href="https://drive.google.com/drive/folders/16tiNLtOd6wnNFEqWkvNf-MxSHNpnlq8_?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 border border-navy/10 dark:border-white/10 hover:border-brand-blue/50 px-6 py-4 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <span className="text-xl">📊</span>
+                <span className="text-sm font-bold text-navy dark:text-white uppercase tracking-wider">Ad Results</span>
+                <svg className="w-4 h-4 text-brand-gray group-hover:text-brand-blue transition-colors ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              </a>
             </div>
           </div>
         </div>
