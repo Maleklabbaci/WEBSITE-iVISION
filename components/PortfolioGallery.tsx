@@ -63,7 +63,10 @@ const projects: Project[] = [
   },
 ];
 
-const PortfolioGallery: React.FC = () => {
+interface PortfolioGalleryProps { language: string; }
+
+const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
+  const isRTL = language === 'ar';
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [showRealisations, setShowRealisations] = useState(false);
@@ -95,7 +98,7 @@ const PortfolioGallery: React.FC = () => {
                 </h2>
               </div>
               <p className="text-base md:text-2xl text-brand-gray dark:text-brand-gray/80 max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
-                Cliquez sur un logo pour decouvrir le projet en detail.
+                {language === 'ar' ? 'انقر على شعار لاكتشاف المشروع بالتفصيل.' : language === 'en' ? 'Click on a logo to discover the project in detail.' : 'Cliquez sur un logo pour decouvrir le projet en detail.'}
               </p>
             </div>
           </div>
@@ -103,11 +106,11 @@ const PortfolioGallery: React.FC = () => {
 
         {/* ===== BANDE DE LOGOS ===== */}
         <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div style={{ overflow: 'hidden', position: 'relative', background: 'transparent' }}>
+          <div style={{ overflow: 'hidden', position: 'relative', background: 'transparent', direction: 'ltr' }}>
             <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white dark:from-transparent to-transparent z-10 pointer-events-none"></div>
             <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white dark:from-transparent to-transparent z-10 pointer-events-none"></div>
 
-            <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center', animationDirection: isRTL ? 'reverse' : 'normal' }}>
               {scrollLogos.map((project, i) => (
                 <div
                   key={`logo-${i}`}
@@ -146,7 +149,7 @@ const PortfolioGallery: React.FC = () => {
               onClick={() => setShowRealisations(prev => !prev)}
               className="btn-ivision px-10 py-4"
             >
-              <span>NOS RÉALISATIONS</span>
+              <span>{language === 'ar' ? 'إنجازاتنا' : language === 'en' ? 'OUR WORK' : 'NOS RÉALISATIONS'}</span>
               <svg className={`w-4 h-4 transition-transform duration-300 ${showRealisations ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </button>
             <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-500 ${showRealisations ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-3 pointer-events-none'}`}>
@@ -241,7 +244,7 @@ const PortfolioGallery: React.FC = () => {
               </p>
 
               <div className="mt-6">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray mb-3">Ce qu on a fait</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray mb-3">{language === 'ar' ? 'ما قمنا به' : language === 'en' ? 'What we did' : 'Ce qu on a fait'}</p>
                 <div className="grid grid-cols-2 gap-2">
                   {selectedProject.tasks.map((task) => (
                     <div key={task} className="flex items-center gap-2">
@@ -253,7 +256,7 @@ const PortfolioGallery: React.FC = () => {
               </div>
 
               <div className="mt-6 pt-6 border-t border-navy/5 dark:border-white/5">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray mb-3">Resultats</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray mb-3">{language === 'ar' ? 'النتائج' : language === 'en' ? 'Results' : 'Resultats'}</p>
                 <div className="flex flex-wrap gap-3">
                   {selectedProject.results.map((result) => (
                     <div key={result} className="bg-green-500/10 text-green-600 dark:text-green-400 font-bold text-sm px-4 py-2 rounded-xl">
@@ -270,7 +273,7 @@ const PortfolioGallery: React.FC = () => {
                   rel="noopener noreferrer"
                   className="mt-6 inline-flex items-center gap-2 text-brand-blue font-bold text-sm hover:gap-3 transition-all duration-300"
                 >
-                  Voir le site web
+                  {language === 'ar' ? 'زيارة الموقع' : language === 'en' ? 'Visit website' : 'Voir le site web'}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -284,7 +287,7 @@ const PortfolioGallery: React.FC = () => {
                 }}
                 className="btn-ivision w-full py-4 mt-8"
               >
-                Je veux le meme resultat
+                {language === 'ar' ? 'أريد نفس النتيجة' : language === 'en' ? 'I want the same result' : 'Je veux le meme resultat'}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" />
                 </svg>
