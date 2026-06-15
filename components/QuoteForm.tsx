@@ -56,7 +56,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     const digits = e.target.value.replace(/\D/g, '');
     setFormData({ ...formData, phone: digits });
     if (digits.length > 0 && digits.length !== 10) {
-      setPhoneError('Le numéro doit contenir exactement 10 chiffres');
+      setPhoneError(t.phoneError || 'Le numéro doit contenir exactement 10 chiffres');
     } else {
       setPhoneError('');
     }
@@ -66,7 +66,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     if (step === 1) {
       if (!formData.name.trim() || !formData.phone.trim()) return;
       if (formData.phone.length !== 10) {
-        setPhoneError('Le numéro doit contenir exactement 10 chiffres');
+        setPhoneError(t.phoneError || 'Le numéro doit contenir exactement 10 chiffres');
         return;
       }
     }
@@ -211,7 +211,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                   </div>
                   <div>
-                    <p className="text-[10px] font-black tracking-widest uppercase text-brand-blue">Sélection validée</p>
+                    <p className="text-[10px] font-black tracking-widest uppercase text-brand-blue">{t.packSelected || 'Sélection validée'}</p>
                     <p className="text-navy dark:text-white font-bold text-lg uppercase">PACK {formData.pack}</p>
                   </div>
                 </div>
@@ -242,7 +242,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                     <p className="mt-2 ml-2 text-[11px] font-bold text-red-500 uppercase tracking-wide">{phoneError}</p>
                   )}
                   {formData.phone.length === 10 && !phoneError && (
-                    <p className="mt-2 ml-2 text-[11px] font-bold text-green-500 uppercase tracking-wide">✓ Numéro valide</p>
+                    <p className="mt-2 ml-2 text-[11px] font-bold text-green-500 uppercase tracking-wide">{t.phoneValid || '✓ Numéro valide'}</p>
                   )}
                 </div>
               </div>
@@ -276,7 +276,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
               {formData.business === 'Autre' && (
                 <div className="animate-fade-in-up">
-                  <label className={labelClass}>Précisez votre activité <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{t.otherActivityLabel || 'Précisez votre activité'} <span className="text-red-400">*</span></label>
                   <input
                     type="text"
                     placeholder={t.otherSpecify || "Ex: Agence de voyage, Pharmacie..."}
@@ -286,7 +286,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                     autoFocus
                   />
                   {formData.business === 'Autre' && !formData.otherBusiness.trim() && (
-                    <p className="mt-2 ml-2 text-[11px] font-bold text-red-500 uppercase tracking-wide">⚠ Ce champ est obligatoire pour continuer</p>
+                    <p className="mt-2 ml-2 text-[11px] font-bold text-red-500 uppercase tracking-wide">{t.requiredField || '⚠ Ce champ est obligatoire pour continuer'}</p>
                   )}
                 </div>
               )}
@@ -310,7 +310,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               <div>
                 <label className={labelClass}>
                   {t.problemLabel}
-                  <span className="ml-2 text-white/30 font-medium normal-case tracking-normal">(plusieurs choix possibles)</span>
+                  <span className="ml-2 text-white/30 font-medium normal-case tracking-normal">({t.multipleChoice || 'plusieurs choix possibles'})</span>
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[...(t.problemOptions || []), 'Autre'].map((opt: string) => (
@@ -326,7 +326,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </div>
                 {formData.problems.includes('Autre') && (
                   <div className="mt-6 animate-fade-in-up">
-                    <label className={labelClass}>Précisez votre blocage <span className="text-red-400">*</span></label>
+                    <label className={labelClass}>{t.otherProblemLabel || 'Précisez votre blocage'} <span className="text-red-400">*</span></label>
                     <input
                       type="text"
                       placeholder="Ex: Mauvaises avis clients, fidélisation..."
@@ -341,9 +341,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
               {/* Présence en ligne */}
               <div>
-                <label className={labelClass}>Votre présence en ligne actuelle ?</label>
+                <label className={labelClass}>{t.onlinePresenceLabel}</label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {['Pas de page', 'Page inactive', 'Page active mais sans résultats'].map((opt) => (
+                  {t.onlinePresenceOptions.map((opt: string) => (
                     <div key={opt} onClick={() => setFormData({ ...formData, onlinePresence: opt })} className={cardClass(formData.onlinePresence === opt)}>
                       <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                       {formData.onlinePresence === opt && (
@@ -358,9 +358,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
               {/* Ancienneté business */}
               <div>
-                <label className={labelClass}>Depuis combien de temps votre business est actif ?</label>
+                <label className={labelClass}>{t.businessAgeLabel}</label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {['Moins de 6 mois', '6 mois – 2 ans', '+2 ans'].map((opt) => (
+                  {t.businessAgeOptions.map((opt: string) => (
                     <div key={opt} onClick={() => setFormData({ ...formData, businessAge: opt })} className={cardClass(formData.businessAge === opt)}>
                       <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                       {formData.businessAge === opt && (
@@ -375,9 +375,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
               {/* Pub payante */}
               <div>
-                <label className={labelClass}>Avez-vous déjà fait de la pub payante ?</label>
+                <label className={labelClass}>{t.paidAdsLabel}</label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {['Jamais', 'Oui, sans résultats', 'Oui, avec résultats'].map((opt) => (
+                  {t.paidAdsOptions.map((opt: string) => (
                     <div key={opt} onClick={() => setFormData({ ...formData, hasPaidAds: opt })} className={cardClass(formData.hasPaidAds === opt)}>
                       <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                       {formData.hasPaidAds === opt && (
@@ -410,13 +410,13 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   ))}
                 </div>
                 <p className="mt-4 ml-2 text-[11px] text-white/40 font-medium uppercase tracking-wide">
-                  * Budget minimum de départ : 30 000 DA / mois
+                  {t.budgetNote || '* Budget minimum de départ : 30 000 DA / mois'}
                 </p>
               </div>
 
               {status === 'error' && (
                 <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
-                  Une erreur est survenue. Vérifiez votre connexion et réessayez.
+                  {t.networkError || 'Une erreur est survenue. Vérifiez votre connexion et réessayez.'}
                 </div>
               )}
 
