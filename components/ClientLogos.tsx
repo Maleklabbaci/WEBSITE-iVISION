@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import InfoModal from './InfoModal';
 
@@ -48,6 +47,7 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
 
   return (
     <section ref={sectionRef} className="py-24 bg-transparent scroll-mt-24">
+      {/* SECTION 1 : POURQUOI iVISION */}
       <div className="container mx-auto px-6">
         <div className={`text-center mb-20 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="uni-badge mb-6">Expertise Agency</div>
@@ -75,6 +75,53 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
               <div className="mt-8 text-brand-accent text-[8px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all">Détails</div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* SECTION 2 : ILS NOUS FONT CONFIANCE & PORTFOLIO */}
+      <div className="container mx-auto px-6 mt-32">
+        <div className={`text-center mb-16 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '300ms' }}>
+          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4 text-white">
+            Ils nous font <span className="text-brand-accent">confiance</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          <div className={`uni-card h-32 flex items-center justify-center p-6 group hover:border-brand-accent/50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '400ms' }}>
+             <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="Lecmo" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
+          </div>
+          <div className={`uni-card h-32 flex items-center justify-center p-6 group hover:border-brand-accent/50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '500ms' }}>
+             <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="White Aura" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
+          </div>
+          <div className={`uni-card h-32 flex items-center justify-center p-6 group hover:border-brand-accent/50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '600ms' }}>
+             <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="Bissan Academy" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
+          </div>
+
+          {/* Logo 4: MOVESMART */}
+          <div className={`uni-card h-32 relative overflow-hidden flex items-center justify-center p-6 group hover:border-brand-accent/50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '700ms' }}>
+             <img src="https://i.ibb.co/60PJ8PVw/aass.png" alt="MOVESMART" className="max-h-full opacity-50 group-hover:opacity-5 grayscale group-hover:grayscale-0 transition-all duration-500" />
+             
+             <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 text-center px-2">
+                <span className="font-black text-white text-base md:text-lg tracking-wider mb-1">MOVESMART</span>
+                <span className="text-[8px] md:text-[9px] text-brand-accent font-bold uppercase tracking-widest leading-tight">
+                  Branding • UI/UX<br/>Plateforme • Dev
+                </span>
+             </div>
+          </div>
+        </div>
+
+        <div className={`flex justify-center transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '800ms' }}>
+          <a 
+            href="https://drive.google.com/drive/u/0/folders/18Va6uCP-dukdpxWcPG9AYn_DKfTCgzLp" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group flex items-center justify-center gap-4 bg-brand-accent text-white font-black px-12 py-5 rounded-xl hover:shadow-[0_0_30px_rgba(0,51,255,0.4)] transition-all hover:-translate-y-1 uppercase tracking-wider text-sm"
+          >
+            Consulter notre Portfolio
+            <svg className="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
         </div>
       </div>
 
