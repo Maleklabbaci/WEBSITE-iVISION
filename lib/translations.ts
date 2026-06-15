@@ -1,4 +1,3 @@
-
 export type Language = 'fr' | 'en' | 'ar';
 
 const textContent = {
@@ -216,6 +215,33 @@ const textContent = {
       successTitle: { fr: 'DEMANDE VALIDÉE !', en: 'REQUEST VALIDATED!', ar: 'تم تأكيد الطلب!' },
       successMessage: { fr: 'Un expert vous contactera sur WhatsApp sous 2h.', en: 'An expert will contact you on WhatsApp within 2h.', ar: 'سيتصل بك خبير عبر الواتساب خلال ساعتين.' },
       backToHome: { fr: 'Retour à l\'accueil', en: 'Back to Home', ar: 'العودة للرئيسية' },
+      packSelected: { fr: 'Sélection validée', en: 'Selection confirmed', ar: 'تم التأكيد' },
+      phoneError: { fr: 'Le numéro doit contenir exactement 10 chiffres', en: 'Number must be exactly 10 digits', ar: 'يجب أن يحتوي الرقم على 10 أرقام بالضبط' },
+      phoneValid: { fr: '✓ Numéro valide', en: '✓ Valid number', ar: '✓ رقم صحيح' },
+      multipleChoice: { fr: 'plusieurs choix possibles', en: 'multiple choices allowed', ar: 'اختيارات متعددة ممكنة' },
+      otherActivityLabel: { fr: 'Précisez votre activité', en: 'Specify your activity', ar: 'حدد نشاطك' },
+      otherProblemLabel: { fr: 'Précisez votre blocage', en: 'Specify your obstacle', ar: 'حدد عائقك' },
+      requiredField: { fr: '⚠ Ce champ est obligatoire pour continuer', en: '⚠ This field is required to continue', ar: '⚠ هذا الحقل مطلوب للمتابعة' },
+      networkError: { fr: 'Une erreur est survenue. Vérifiez votre connexion et réessayez.', en: 'An error occurred. Check your connection and try again.', ar: 'حدث خطأ. تحقق من اتصالك وحاول مجدداً.' },
+      budgetNote: { fr: '* Budget minimum de départ : 30 000 DA / mois', en: '* Minimum starting budget: 30,000 DA / month', ar: '* الحد الأدنى للميزانية: 30,000 دج / شهر' },
+      onlinePresenceLabel: { fr: 'Votre présence en ligne actuelle ?', en: 'Your current online presence?', ar: 'حضورك على الإنترنت حالياً؟' },
+      onlinePresenceOptions: {
+        fr: ['Pas de page', 'Page inactive', 'Page active mais sans résultats'],
+        en: ['No page', 'Inactive page', 'Active page but no results'],
+        ar: ['لا توجد صفحة', 'صفحة غير نشطة', 'صفحة نشطة بدون نتائج']
+      },
+      businessAgeLabel: { fr: 'Depuis combien de temps votre business est actif ?', en: 'How long has your business been active?', ar: 'منذ متى وعملك نشط؟' },
+      businessAgeOptions: {
+        fr: ['Moins de 6 mois', '6 mois – 2 ans', '+2 ans'],
+        en: ['Less than 6 months', '6 months – 2 years', '+2 years'],
+        ar: ['أقل من 6 أشهر', '6 أشهر – سنتان', '+سنتان']
+      },
+      paidAdsLabel: { fr: 'Avez-vous déjà fait de la pub payante ?', en: 'Have you ever run paid ads?', ar: 'هل سبق وأجريت إعلانات مدفوعة؟' },
+      paidAdsOptions: {
+        fr: ['Jamais', 'Oui, sans résultats', 'Oui, avec résultats'],
+        en: ['Never', 'Yes, no results', 'Yes, with results'],
+        ar: ['أبداً', 'نعم، بدون نتائج', 'نعم، مع نتائج']
+      },
     },
     modal: {
         cta: { fr: 'Discuter sur WhatsApp', en: 'Chat on WhatsApp', ar: 'تحدث عبر واتساب' },
@@ -293,6 +319,21 @@ const processTranslations = (lang: Language) => {
         successTitle: b.contact.form.successTitle[lang],
         successMessage: b.contact.form.successMessage[lang],
         backToHome: b.contact.form.backToHome[lang],
+        packSelected: b.contact.form.packSelected[lang],
+        phoneError: b.contact.form.phoneError[lang],
+        phoneValid: b.contact.form.phoneValid[lang],
+        multipleChoice: b.contact.form.multipleChoice[lang],
+        otherActivityLabel: b.contact.form.otherActivityLabel[lang],
+        otherProblemLabel: b.contact.form.otherProblemLabel[lang],
+        requiredField: b.contact.form.requiredField[lang],
+        networkError: b.contact.form.networkError[lang],
+        budgetNote: b.contact.form.budgetNote[lang],
+        onlinePresenceLabel: b.contact.form.onlinePresenceLabel[lang],
+        onlinePresenceOptions: b.contact.form.onlinePresenceOptions[lang],
+        businessAgeLabel: b.contact.form.businessAgeLabel[lang],
+        businessAgeOptions: b.contact.form.businessAgeOptions[lang],
+        paidAdsLabel: b.contact.form.paidAdsLabel[lang],
+        paidAdsOptions: b.contact.form.paidAdsOptions[lang],
       },
       modal: {
           cta: b.contact.modal.cta[lang],
