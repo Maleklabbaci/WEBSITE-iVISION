@@ -481,7 +481,7 @@
       }
 
       // Envoi du message
-  async function sendMessage() {
+async function sendMessage() {
   const text = chatInput.value.trim();
   if (!text) return;
 
@@ -499,61 +499,44 @@
       body: JSON.stringify({ message: text })
     });
 
-    // Supprimer le loader
     const loader = document.getElementById(loadingId);
     if (loader) loader.remove();
 
-    // Récupérer le texte brut d'abord
     const rawText = await response.text();
     console.log("Réponse brute :", rawText);
 
-    let reply = null;
-
-    // Tenter de parser en JSON
+    let data;
     try {
-      const data = JSON.parse(rawText);
-      console.log("Données parsées :", data);
-
-      // Tester plusieurs structures possibles
-      if (typeof data === 'string') {
-        reply = data;
-      } else if (data.reply) {
-        reply = data.reply;
-      } else if (data.message) {
-        reply = data.message;
-      } else if (data.response) {
-        reply = data.response;
-      } else if (data.data && data.data.reply) {
-        reply = data.data.reply;
-      } else if (data.output) {
-        reply = data.output;
-      } else {
-        // Cherche la première string dans l'objet
-        const firstString = Object.values(data).find(v => typeof v === 'string');
-        reply = firstString || JSON.stringify(data);
-      }
-    } catch (parseError) {
-      // Si ce n'est pas du JSON, c'est du texte brut
-      reply = rawText;
+      data = JSON.parse(rawText);
+    } catch (e) {
+      appendMessage(rawText, false);
+      return;
     }
 
-    // Convertir les \n en sauts de ligne HTML
+    // ⚠️ Détection du mode ASYNC (Flow Queued)
+    if (data.message === "Flow Queued") {
+      appendMessage("⚠️ Le webhook est en mode asynchrone. Activez 'Wait for Response' dans viaSocket.", false);
+      console.warn("Le flow viaSocket est en mode asynchrone. Configurez-le en mode synchrone.");
+      return;
+    }
+
+    // Mode synchrone : récupérer la vraie réponse
+    let reply = data.reply || data.message || data.response || data.output;
+
     if (reply) {
       reply = reply.replace(/\n/g, '<br>');
       appendMessage(reply, false);
     } else {
-      appendMessage("Réponse vide du serveur.", false);
+      appendMessage("Réponse inattendue : " + JSON.stringify(data), false);
     }
 
   } catch (error) {
-    console.error("Erreur fetch :", error);
+    console.error("Erreur :", error);
     const loader = document.getElementById(loadingId);
     if (loader) loader.remove();
-    appendMessage("Erreur de connexion au serveur.", false);
+    appendMessage("Erreur de connexion.", false);
   }
-}
-
-      
+}            
       chatSend.addEventListener('click', sendMessage);
       chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
