@@ -481,40 +481,77 @@
       }
 
       // Envoi du message
-      async function sendMessage() {
-        const text = chatInput.value.trim();
-        if (!text) return;
+  async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
 
-        appendMessage(text, true); // Affiche le message de l'utilisateur
-        chatInput.value = '';
+  appendMessage(text, true);
+  chatInput.value = '';
 
-        // Ajout d'un indicateur de chargement visuel
-        const loadingId = "loading-" + Date.now();
-        chatMessages.innerHTML += `<div id="${loadingId}" style="align-self: flex-start; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 4px;">iVISION écrit...</div>`;
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+  const loadingId = "loading-" + Date.now();
+  chatMessages.innerHTML += `<div id="${loadingId}" style="align-self: flex-start; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 4px;">iVISION écrit...</div>`;
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 
-        try {
-          const response = await fetch(VIASOCKET_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: text }) 
-          });
-          
-          const data = await response.json();
-console.log("Réponse reçue :", data); // Ouvre ta console F12 pour voir ce qui arrive
-          
-          // Vérifie si l'objet contient 'reply'
-          if (data && data.reply) {
-            appendMessage(data.reply, false);
-          } else {
-            // Si la structure est différente, on affiche le JSON brut pour debug
-            appendMessage("Réponse serveur : " + JSON.stringify(data), false);
-          }
-        } catch (error) {
-          console.error(error);
-          appendMessage("Erreur de connexion.", false);
-        }
+  try {
+    const response = await fetch(VIASOCKET_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+
+    // Supprimer le loader
+    const loader = document.getElementById(loadingId);
+    if (loader) loader.remove();
+
+    // Récupérer le texte brut d'abord
+    const rawText = await response.text();
+    console.log("Réponse brute :", rawText);
+
+    let reply = null;
+
+    // Tenter de parser en JSON
+    try {
+      const data = JSON.parse(rawText);
+      console.log("Données parsées :", data);
+
+      // Tester plusieurs structures possibles
+      if (typeof data === 'string') {
+        reply = data;
+      } else if (data.reply) {
+        reply = data.reply;
+      } else if (data.message) {
+        reply = data.message;
+      } else if (data.response) {
+        reply = data.response;
+      } else if (data.data && data.data.reply) {
+        reply = data.data.reply;
+      } else if (data.output) {
+        reply = data.output;
+      } else {
+        // Cherche la première string dans l'objet
+        const firstString = Object.values(data).find(v => typeof v === 'string');
+        reply = firstString || JSON.stringify(data);
       }
+    } catch (parseError) {
+      // Si ce n'est pas du JSON, c'est du texte brut
+      reply = rawText;
+    }
+
+    // Convertir les \n en sauts de ligne HTML
+    if (reply) {
+      reply = reply.replace(/\n/g, '<br>');
+      appendMessage(reply, false);
+    } else {
+      appendMessage("Réponse vide du serveur.", false);
+    }
+
+  } catch (error) {
+    console.error("Erreur fetch :", error);
+    const loader = document.getElementById(loadingId);
+    if (loader) loader.remove();
+    appendMessage("Erreur de connexion au serveur.", false);
+  }
+}
 
       
       chatSend.addEventListener('click', sendMessage);
