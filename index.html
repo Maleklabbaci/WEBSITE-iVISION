@@ -501,14 +501,16 @@
           });
           
           const data = await response.json();
-          document.getElementById(loadingId).remove(); // Retire le statut "écrit..."
-          appendMessage(data.reply || "Message bien reçu.", false);
+   if (data.reply) {
+            appendMessage(data.reply, false);
+          } else {
+            appendMessage("Je n'ai pas reçu de réponse valide du serveur.", false);
+          }
         } catch (error) {
-          document.getElementById(loadingId).remove();
-          appendMessage("Erreur de connexion. Veuillez réessayer.", false);
+          appendMessage("Erreur de connexion.", false);
         }
       }
-
+      
       chatSend.addEventListener('click', sendMessage);
       chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
