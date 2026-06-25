@@ -501,15 +501,21 @@
           });
           
           const data = await response.json();
-   if (data.reply) {
+console.log("Réponse reçue :", data); // Ouvre ta console F12 pour voir ce qui arrive
+          
+          // Vérifie si l'objet contient 'reply'
+          if (data && data.reply) {
             appendMessage(data.reply, false);
           } else {
-            appendMessage("Je n'ai pas reçu de réponse valide du serveur.", false);
+            // Si la structure est différente, on affiche le JSON brut pour debug
+            appendMessage("Réponse serveur : " + JSON.stringify(data), false);
           }
         } catch (error) {
+          console.error(error);
           appendMessage("Erreur de connexion.", false);
         }
       }
+
       
       chatSend.addEventListener('click', sendMessage);
       chatInput.addEventListener('keypress', (e) => {
