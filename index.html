@@ -502,32 +502,14 @@ async function sendMessage() {
     const loader = document.getElementById(loadingId);
     if (loader) loader.remove();
 
-    const rawText = await response.text();
-    console.log("Réponse brute :", rawText);
+    const data = await response.json();
+    console.log("Réponse reçue :", data);
 
-    let data;
-    try {
-      data = JSON.parse(rawText);
-    } catch (e) {
-      appendMessage(rawText, false);
-      return;
-    }
-
-    // ⚠️ Détection du mode ASYNC (Flow Queued)
-    if (data.message === "Flow Queued") {
-      appendMessage("⚠️ Le webhook est en mode asynchrone. Activez 'Wait for Response' dans viaSocket.", false);
-      console.warn("Le flow viaSocket est en mode asynchrone. Configurez-le en mode synchrone.");
-      return;
-    }
-
-    // Mode synchrone : récupérer la vraie réponse
-    let reply = data.reply || data.message || data.response || data.output;
-
-    if (reply) {
-      reply = reply.replace(/\n/g, '<br>');
-      appendMessage(reply, false);
+    if (data && data.reply) {
+      const formattedReply = data.reply.replace(/\n/g, '<br>');
+      appendMessage(formattedReply, false);
     } else {
-      appendMessage("Réponse inattendue : " + JSON.stringify(data), false);
+      appendMessage("Réponse vide du serveur.", false);
     }
 
   } catch (error) {
@@ -536,7 +518,8 @@ async function sendMessage() {
     if (loader) loader.remove();
     appendMessage("Erreur de connexion.", false);
   }
-}            
+}
+      
       chatSend.addEventListener('click', sendMessage);
       chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
