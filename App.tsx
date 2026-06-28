@@ -216,8 +216,8 @@ const App: React.FC = () => {
         return <TrainingCenterLanding language={language} />;
 
       case 'quote':
-        return <QuoteForm translations={t.contact} />;
-
+return <QuoteForm translations={{ form: t.contact.form }} />;
+        
       case 'home':
       default:
         return (
