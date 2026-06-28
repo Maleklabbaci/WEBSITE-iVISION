@@ -3,6 +3,7 @@ import { FORMSPARK_ID } from '../lib/config';
 
 interface QuoteFormProps {
   translations: { form?: any; };
+  language?: 'fr' | 'en' | 'ar';
 }
 
 declare global {
@@ -11,7 +12,7 @@ declare global {
   }
 }
 
-const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
+const QuoteForm: React.FC<QuoteFormProps> = ({ translations, language = 'fr' }) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({ 
     name: '', 
@@ -33,6 +34,27 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
 
   const t = translations?.form || {};
+
+  // Multilingual hardcoded text
+  const hardcodedText = {
+    fr: {
+      notProvided: 'Non fourni',
+      subjectPrefix: 'DEVIS PACK MENSUEL : ',
+      contentName: 'Devis Pack Mensuel',
+    },
+    en: {
+      notProvided: 'Not provided',
+      subjectPrefix: 'MONTHLY PACKAGE QUOTE : ',
+      contentName: 'Monthly Package Quote',
+    },
+    ar: {
+      notProvided: 'غير مزود',
+      subjectPrefix: 'عرض الحزمة الشهرية : ',
+      contentName: 'عرض الحزمة الشهرية',
+    }
+  };
+
+  const hardText = hardcodedText[language as keyof typeof hardcodedText] || hardcodedText['fr'];
   
   // Fallback translations
   const labels = {
@@ -149,7 +171,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     const submissionData = {
       name: formData.name,
       phone: formData.phone,
-      email: formData.email || 'Non fourni',
+      email: formData.email || hardText.notProvided,
       company: formData.company,
       businessType: businessTypeLabel,
       problems: problemsLabel,
@@ -159,7 +181,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
       hasPaidAds: formData.hasPaidAds,
       timeline: formData.timeline,
       budget: formData.budget,
-      _subject: `DEVIS PACK MENSUEL : ${formData.name}`,
+      _subject: `${hardText.subjectPrefix}${formData.name}`,
     };
 
     try {
@@ -172,7 +194,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
       if (response.ok) {
         if (window.fbq) {
           window.fbq('track', 'Lead', {
-            content_name: 'Devis Pack Mensuel',
+            content_name: hardText.contentName,
             business_type: businessTypeLabel,
             budget: formData.budget,
             timeline: formData.timeline,
@@ -201,195 +223,180 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     );
   }
 
-  const inputClass = "w-full p-6 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-navy dark:text-white font-bold text-lg placeholder:opacity-30";
-  const labelClass = "block text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-4 ml-2";
-  const cardClass = (selected: boolean) => `relative p-6 rounded-2xl border-2 transition-all cursor-pointer flex flex-col items-start justify-between h-full group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`;
+  const cardClass = (isSelected: boolean) => `relative cursor-pointer p-4 md:p-6 border-2 transition-all rounded-2xl ${isSelected ? 'border-brand-blue bg-brand-blue/5 dark:bg-white/5' : 'border-navy/10 dark:border-white/10 hover:border-brand-blue/50'}`;
+  const labelClass = "block text-lg font-black uppercase tracking-tighter text-navy dark:text-white mb-6";
 
   return (
-    <div className="min-h-screen bg-white dark:bg-transparent transition-colors duration-500 py-24 md:py-32">
-      <div className="container max-w-4xl">
-        <div className="mb-12 flex items-center justify-between">
-          <button onClick={handleBack} className="text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
-            <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-            <span className="text-[10px] font-black tracking-widest uppercase">{labels.back}</span>
-          </button>
-          <div className="flex gap-2 w-40">
-            {[1, 2, 3, 4, 5].map(i => (
-              <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-blue' : 'bg-navy/10 dark:bg-white/10'}`}></div>
-            ))}
-          </div>
-        </div>
+    <div className="min-h-screen bg-white dark:bg-transparent py-20 px-4 md:px-6 transition-colors duration-500">
+      <div className="max-w-2xl mx-auto">
+        <button
+          onClick={handleBack}
+          className="flex items-center gap-2 text-brand-gray hover:text-brand-blue mb-12 transition-colors group font-bold text-sm uppercase tracking-widest"
+        >
+          <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" strokeWidth="2" /></svg>
+          {labels.back}
+        </button>
 
-        <form onSubmit={step === 5 ? onSubmit : (e) => { e.preventDefault(); handleNext(); }} className="space-y-8">
-          <div>
-            {/* ─── STEP 1 ─── */}
-            {step === 1 && (
-              <div className="space-y-12 animate-fade-in-up">
+        <form onSubmit={onSubmit} className="space-y-16">
+          {/* ─── STEP 1 : NAME + PHONE + EMAIL ─── */}
+          {step === 1 && (
+            <div className="space-y-12 animate-fade-in-up">
+              <div>
+                <label className={labelClass}>{labels.nameLabel} <span className="text-red-400">*</span></label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="Ex: Ahmed Toubali"
+                  className="w-full px-6 py-4 bg-navy/5 dark:bg-white/5 border-2 border-navy/10 dark:border-white/10 rounded-2xl text-navy dark:text-white placeholder-brand-gray/50 focus:border-brand-blue focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className={labelClass}>{labels.phoneLabel} <span className="text-red-400">*</span></label>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handlePhoneChange}
+                  placeholder="0XXXXXXXXX"
+                  maxLength={10}
+                  className="w-full px-6 py-4 bg-navy/5 dark:bg-white/5 border-2 border-navy/10 dark:border-white/10 rounded-2xl text-navy dark:text-white placeholder-brand-gray/50 focus:border-brand-blue focus:outline-none transition-colors"
+                />
+                {phoneError && <p className="text-red-500 text-sm font-bold mt-2">{phoneError}</p>}
+              </div>
+
+              <div>
+                <label className={labelClass}>{labels.emailLabel} <span className="text-brand-gray text-xs font-medium">{labels.emailOptional}</span></label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="votre@email.com"
+                  className="w-full px-6 py-4 bg-navy/5 dark:bg-white/5 border-2 border-navy/10 dark:border-white/10 rounded-2xl text-navy dark:text-white placeholder-brand-gray/50 focus:border-brand-blue focus:outline-none transition-colors"
+                />
+              </div>
+
+              <button
+                onClick={handleNext}
+                disabled={!formData.name.trim() || !formData.phone.trim() || formData.phone.length !== 10}
+                className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
+              >
+                <span>{labels.next}</span>
+                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
+              </button>
+            </div>
+          )}
+
+          {/* ─── STEP 2 : COMPANY + BUSINESS TYPE ─── */}
+          {step === 2 && (
+            <div className="space-y-12 animate-fade-in-up">
+              <div>
+                <label className={labelClass}>{labels.companyLabel} <span className="text-red-400">*</span></label>
+                <input
+                  type="text"
+                  value={formData.company}
+                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                  placeholder="Ex: Mon Entreprise"
+                  className="w-full px-6 py-4 bg-navy/5 dark:bg-white/5 border-2 border-navy/10 dark:border-white/10 rounded-2xl text-navy dark:text-white placeholder-brand-gray/50 focus:border-brand-blue focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className={labelClass}>{labels.businessTypeLabel} <span className="text-red-400">*</span></label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {labels.businessTypeOptions.map((opt: string) => (
+                    <div key={opt} onClick={() => setFormData({ ...formData, businessType: opt, otherBusinessType: '' })} className={cardClass(formData.businessType === opt)}>
+                      <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
+                      {formData.businessType === opt && (
+                        <div className="absolute top-4 right-4 text-brand-blue">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" /></svg>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] && (
                 <div>
-                  <label className={labelClass}>{labels.nameLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.otherActivityLabel} <span className="text-red-400">*</span></label>
                   <input
                     type="text"
-                    placeholder={labels.nameLabel}
-                    value={formData.name}
-                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    className={inputClass}
-                    autoFocus
+                    value={formData.otherBusinessType}
+                    onChange={(e) => setFormData({ ...formData, otherBusinessType: e.target.value })}
+                    placeholder={labels.otherSpecify}
+                    className="w-full px-6 py-4 bg-navy/5 dark:bg-white/5 border-2 border-navy/10 dark:border-white/10 rounded-2xl text-navy dark:text-white placeholder-brand-gray/50 focus:border-brand-blue focus:outline-none transition-colors"
                   />
                 </div>
+              )}
 
-                <div>
-                  <label className={labelClass}>{labels.phoneLabel} <span className="text-red-400">*</span></label>
-                  <input
-                    type="tel"
-                    placeholder="0561234567"
-                    value={formData.phone}
-                    onChange={handlePhoneChange}
-                    maxLength={10}
-                    className={`${inputClass} ${phoneError ? 'border-red-500/50' : ''}`}
-                  />
-                  {phoneError && <p className="mt-2 ml-2 text-[11px] font-bold text-red-500 uppercase tracking-wide">⚠ {phoneError}</p>}
+              <button
+                onClick={handleNext}
+                disabled={!formData.company.trim() || !formData.businessType || (formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] && !formData.otherBusinessType.trim())}
+                className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
+              >
+                <span>{labels.next}</span>
+                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
+              </button>
+            </div>
+          )}
+
+          {/* ─── STEP 3 : PROBLEMS + PROJECT DESCRIPTION ─── */}
+          {step === 3 && (
+            <div className="space-y-12 animate-fade-in-up">
+              <div>
+                <label className={labelClass}>{labels.blocagesLabel} <span className="text-brand-gray text-xs font-medium">{labels.multipleChoice}</span> <span className="text-red-400">*</span></label>
+                <div className="grid grid-cols-1 gap-4">
+                  {labels.blocagesOptions.map((opt: string) => (
+                    <div key={opt} onClick={() => toggleProblem(opt)} className={cardClass(formData.problems.includes(opt))}>
+                      <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
+                      {formData.problems.includes(opt) && (
+                        <div className="absolute top-4 right-4 text-brand-blue">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" /></svg>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-
-                <div>
-                  <label className={labelClass}>{labels.emailLabel} <span className="text-white/30 font-medium text-[8px]">{labels.emailOptional}</span></label>
-                  <input
-                    type="email"
-                    placeholder="contact@example.com"
-                    value={formData.email}
-                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                    className={inputClass}
-                  />
-                </div>
-
-                <button
-                  onClick={handleNext}
-                  disabled={!formData.name.trim() || !formData.phone.trim() || phoneError}
-                  className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
-                >
-                  <span>{labels.next}</span>
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
-                </button>
               </div>
-            )}
 
-            {/* ─── STEP 2 ─── */}
-            {step === 2 && (
-              <div className="space-y-12 animate-fade-in-up">
+              {formData.problems.includes(labels.blocagesOptions[labels.blocagesOptions.length - 1]) && (
                 <div>
-                  <label className={labelClass}>{labels.companyLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.otherProblemLabel} <span className="text-red-400">*</span></label>
                   <input
                     type="text"
-                    placeholder={labels.companyLabel}
-                    value={formData.company}
-                    onChange={e => setFormData({ ...formData, company: e.target.value })}
-                    className={inputClass}
-                    autoFocus
+                    value={formData.otherProblem}
+                    onChange={(e) => setFormData({ ...formData, otherProblem: e.target.value })}
+                    className="w-full px-6 py-4 bg-navy/5 dark:bg-white/5 border-2 border-navy/10 dark:border-white/10 rounded-2xl text-navy dark:text-white focus:border-brand-blue focus:outline-none transition-colors"
                   />
                 </div>
+              )}
 
-                <div>
-                  <label className={labelClass}>{labels.businessTypeLabel} <span className="text-red-400">*</span></label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {labels.businessTypeOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => setFormData({ ...formData, businessType: opt, otherBusinessType: '' })} className={cardClass(formData.businessType === opt)}>
-                        <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
-                        {formData.businessType === opt && (
-                          <div className="absolute top-4 right-4 text-brand-blue">
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" /></svg>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] && (
-                  <div className="animate-fade-in-up">
-                    <label className={labelClass}>{labels.otherActivityLabel} <span className="text-red-400">*</span></label>
-                    <input
-                      type="text"
-                      placeholder={labels.otherSpecify}
-                      value={formData.otherBusinessType}
-                      onChange={e => setFormData({ ...formData, otherBusinessType: e.target.value })}
-                      className={inputClass}
-                      autoFocus
-                    />
-                  </div>
-                )}
-
-                <button
-                  onClick={handleNext}
-                  disabled={!formData.company.trim() || !formData.businessType || (formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] && !formData.otherBusinessType.trim())}
-                  className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
-                >
-                  <span>{labels.next}</span>
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
-                </button>
+              <div>
+                <label className={labelClass}>{labels.projectDescriptionLabel} <span className="text-red-400">*</span></label>
+                <textarea
+                  value={formData.projectDescription}
+                  onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })}
+                  placeholder={labels.projectDescriptionPlaceholder}
+                  rows={5}
+                  className="w-full px-6 py-4 bg-navy/5 dark:bg-white/5 border-2 border-navy/10 dark:border-white/10 rounded-2xl text-navy dark:text-white placeholder-brand-gray/50 focus:border-brand-blue focus:outline-none transition-colors resize-none"
+                />
               </div>
-            )}
 
-            {/* ─── STEP 3 ─── */}
-            {step === 3 && (
-              <div className="space-y-12 animate-fade-in-up">
-                <div>
-                  <label className={labelClass}>
-                    {labels.blocagesLabel} <span className="ml-2 text-white/30 font-medium normal-case tracking-normal text-[9px]">{labels.multipleChoice}</span>
-                    <span className="text-red-400 ml-2">*</span>
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {labels.blocagesOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => toggleProblem(opt)} className={cardClass(formData.problems.includes(opt))}>
-                        <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
-                        {formData.problems.includes(opt) && (
-                          <div className="absolute top-4 right-4 text-brand-blue">
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" /></svg>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <button
+                onClick={handleNext}
+                disabled={formData.problems.length === 0 || !formData.projectDescription.trim() || (formData.problems.includes(labels.blocagesOptions[labels.blocagesOptions.length - 1]) && !formData.otherProblem.trim())}
+                className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
+              >
+                <span>{labels.next}</span>
+                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
+              </button>
+            </div>
+          )}
 
-                {formData.problems.includes(labels.blocagesOptions[labels.blocagesOptions.length - 1]) && (
-                  <div className="animate-fade-in-up">
-                    <label className={labelClass}>{labels.otherProblemLabel} <span className="text-red-400">*</span></label>
-                    <input
-                      type="text"
-                      placeholder={labels.otherProblemLabel}
-                      value={formData.otherProblem}
-                      onChange={e => setFormData({ ...formData, otherProblem: e.target.value })}
-                      className={inputClass}
-                      autoFocus
-                    />
-                  </div>
-                )}
-
-                <div>
-                  <label className={labelClass}>{labels.projectDescriptionLabel} <span className="text-red-400">*</span></label>
-                  <textarea
-                    placeholder={labels.projectDescriptionPlaceholder}
-                    value={formData.projectDescription}
-                    onChange={e => setFormData({ ...formData, projectDescription: e.target.value })}
-                    className={`${inputClass} min-h-32 resize-none`}
-                    maxLength={500}
-                  />
-                  <p className="mt-2 ml-2 text-[10px] text-brand-gray/60">{formData.projectDescription.length}/500</p>
-                </div>
-
-                <button
-                  onClick={handleNext}
-                  disabled={formData.problems.length === 0 || !formData.projectDescription.trim() || (formData.problems.includes(labels.blocagesOptions[labels.blocagesOptions.length - 1]) && !formData.otherProblem.trim())}
-                  className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
-                >
-                  <span>{labels.next}</span>
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
-                </button>
-              </div>
-            )}
-
-            {/* ─── STEP 4 ─── */}
-            {step === 4 && (
-              <div className="space-y-12 animate-fade-in-up">
+          {/* ─── STEP 4 : ONLINE PRESENCE + AGE + PAID ADS + TIMELINE ─── */}
+          {step === 4 && (
+            <div className="space-y-12 animate-fade-in-up">
                 <div>
                   <label className={labelClass}>{labels.onlinePresenceNewLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
