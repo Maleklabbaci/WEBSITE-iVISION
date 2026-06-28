@@ -242,6 +242,65 @@ const textContent = {
         en: ['Never', 'Yes, no results', 'Yes, with results'],
         ar: ['أبداً', 'نعم، بدون نتائج', 'نعم، مع نتائج']
       },
+      // NEW TRANSLATIONS FOR 5-STEP FORM
+      emailLabel: { fr: 'Email', en: 'Email', ar: 'البريد الإلكتروني' },
+      emailOptional: { fr: '(Optionnel)', en: '(Optional)', ar: '(اختياري)' },
+      companyLabel: { fr: 'Nom de l\'entreprise', en: 'Company Name', ar: 'اسم الشركة' },
+      businessTypeLabel: { fr: 'Type d\'activité', en: 'Business Type', ar: 'نوع النشاط' },
+      businessTypeOptions: {
+        fr: ['PME', 'E-commerce', 'Crèche', 'Centre de formation', 'Autre'],
+        en: ['SME', 'E-commerce', 'Daycare', 'Training Center', 'Other'],
+        ar: ['مشروع صغير/متوسط', 'تجارة إلكترونية', 'روضة أطفال', 'مركز تدريب', 'أخرى']
+      },
+      blocagesLabel: { fr: 'Vos blocages', en: 'Your obstacles', ar: 'عوائقك' },
+      blocagesOptions: {
+        fr: ['Pas de visibilité en ligne', 'Génération de leads faible', 'Mauvaise conversion', 'Besoin de croissance', 'Concurrence forte', 'Autre'],
+        en: ['No online visibility', 'Low lead generation', 'Poor conversion', 'Need growth', 'Strong competition', 'Other'],
+        ar: ['عدم وجود ظهور على الإنترنت', 'ضعف جيل العملاء المحتملين', 'تحويل ضعيف', 'الحاجة إلى النمو', 'منافسة قوية', 'أخرى']
+      },
+      projectDescriptionLabel: { fr: 'Description du projet', en: 'Project Description', ar: 'وصف المشروع' },
+      projectDescriptionPlaceholder: { 
+        fr: 'Décrivez brièvement votre besoin et ce que vous recherchez...', 
+        en: 'Briefly describe your needs and what you\'re looking for...', 
+        ar: 'صف احتياجاتك بإيجاز وما تبحث عنه...' 
+      },
+      onlinePresenceNewLabel: { fr: 'Présence en ligne actuelle', en: 'Current online presence', ar: 'الحضور الحالي على الإنترنت' },
+      onlinePresenceNewOptions: {
+        fr: ['Pas de présence', 'Site vitrine', 'Présence active'],
+        en: ['No presence', 'Brochure website', 'Active presence'],
+        ar: ['بدون حضور', 'موقع إلكتروني بسيط', 'حضور نشط']
+      },
+      businessAgeNewLabel: { fr: 'Ancienneté de l\'entreprise', en: 'Company age', ar: 'عمر الشركة' },
+      businessAgeNewOptions: {
+        fr: ['0-1 an', '1-3 ans', '3+ ans'],
+        en: ['0-1 year', '1-3 years', '3+ years'],
+        ar: ['0-سنة واحدة', 'سنة-3 سنوات', '3+ سنوات']
+      },
+      paidAdsNewLabel: { fr: 'Publicités payantes', en: 'Paid advertising', ar: 'الإعلانات المدفوعة' },
+      paidAdsNewOptions: {
+        fr: ['Jamais', 'Peu d\'expérience', 'Expérience confirmée'],
+        en: ['Never', 'Little experience', 'Confirmed experience'],
+        ar: ['أبداً', 'خبرة قليلة', 'خبرة مؤكدة']
+      },
+      timelineLabel: { fr: 'Timeline d\'engagement', en: 'Engagement timeline', ar: 'المدة الزمنية للالتزام' },
+      timelineOptions: {
+        fr: ['Immédiat (< 1 mois)', '1-3 mois', '3-6 mois', 'Sans urgence'],
+        en: ['Immediate (< 1 month)', '1-3 months', '3-6 months', 'No urgency'],
+        ar: ['فوري (< شهر)', 'شهر-3 أشهر', '3-6 أشهر', 'بدون استعجالية']
+      },
+      budgetMonthlyLabel: { fr: 'Budget mensuel', en: 'Monthly budget', ar: 'الميزانية الشهرية' },
+      budgetMonthlyOptions: {
+        fr: ['30-50k DA', '50-100k DA', '100-200k DA', '200k+ DA'],
+        en: ['30-50k DA', '50-100k DA', '100-200k DA', '200k+ DA'],
+        ar: ['30-50 ألف دج', '50-100 ألف دج', '100-200 ألف دج', '+200 ألف دج']
+      },
+      summaryLabel: { fr: 'Résumé de votre demande', en: 'Summary of your request', ar: 'ملخص طلبك' },
+      contactInfoLabel: { fr: 'Contact', en: 'Contact', ar: 'الاتصال' },
+      profileLabel: { fr: 'Profil', en: 'Profile', ar: 'الملف الشخصي' },
+      needLabel: { fr: 'Besoin', en: 'Need', ar: 'الاحتياج' },
+      engagementLabel: { fr: 'Engagement', en: 'Engagement', ar: 'الالتزام' },
+      projectDetailsLabel: { fr: 'Détails du projet', en: 'Project details', ar: 'تفاصيل المشروع' },
+      submitButtonText: { fr: 'Envoyer mon devis', en: 'Send my quote', ar: 'أرسل عرضي' },
     },
     modal: {
         cta: { fr: 'Discuter sur WhatsApp', en: 'Chat on WhatsApp', ar: 'تحدث عبر واتساب' },
