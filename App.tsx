@@ -12,7 +12,6 @@ import ScrollToTopButton from './components/ScrollToTopButton';
 import VisualShowcase from './components/VisualShowcase';
 import HowWeWork from './components/HowWeWork';
 import QuoteForm from './components/QuoteForm';
-import QuotePage from './components/QuotePage';
 import TrainingCenterLanding from './components/TrainingCenterLanding';
 import SplashScreen from './components/SplashScreen';
 import LanguageSelector from './components/LanguageSelector';
@@ -217,7 +216,7 @@ const App: React.FC = () => {
         return <TrainingCenterLanding language={language} />;
 
       case 'quote':
-        return <QuotePage language={language} />;
+return <QuoteForm translations={{ form: t.contact.form }} />;
         
       case 'home':
       default:
