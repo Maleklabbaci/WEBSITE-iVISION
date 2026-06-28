@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FORMSPARK_ID } from '../lib/config';
 
 interface QuoteFormProps {
-  translations: { form: any; };
+  translations: { form?: any; };
 }
 
 declare global {
@@ -28,12 +28,54 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     hasPaidAds: '',
     timeline: '',
     budget: '',
-    pack: '' 
   });
   const [phoneError, setPhoneError] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
 
-  const t = translations.form;
+  const t = translations?.form || {};
+  
+  // Fallback translations
+  const labels = {
+    nameLabel: t.nameLabel || 'Votre nom complet',
+    phoneLabel: t.phoneLabel || 'Numéro WhatsApp',
+    emailLabel: t.emailLabel || 'Email',
+    emailOptional: t.emailOptional || '(Optionnel)',
+    companyLabel: t.companyLabel || 'Nom de l\'entreprise',
+    businessTypeLabel: t.businessTypeLabel || 'Type d\'activité',
+    businessTypeOptions: t.businessTypeOptions || ['PME', 'E-commerce', 'Crèche', 'Centre de formation', 'Autre'],
+    blocagesLabel: t.blocagesLabel || 'Vos blocages',
+    blocagesOptions: t.blocagesOptions || ['Pas de visibilité en ligne', 'Génération de leads faible', 'Mauvaise conversion', 'Besoin de croissance', 'Concurrence forte', 'Autre'],
+    projectDescriptionLabel: t.projectDescriptionLabel || 'Description du projet',
+    projectDescriptionPlaceholder: t.projectDescriptionPlaceholder || 'Décrivez brièvement votre besoin...',
+    onlinePresenceNewLabel: t.onlinePresenceNewLabel || 'Présence en ligne actuelle',
+    onlinePresenceNewOptions: t.onlinePresenceNewOptions || ['Pas de présence', 'Site vitrine', 'Présence active'],
+    businessAgeNewLabel: t.businessAgeNewLabel || 'Ancienneté de l\'entreprise',
+    businessAgeNewOptions: t.businessAgeNewOptions || ['0-1 an', '1-3 ans', '3+ ans'],
+    paidAdsNewLabel: t.paidAdsNewLabel || 'Publicités payantes',
+    paidAdsNewOptions: t.paidAdsNewOptions || ['Jamais', 'Peu d\'expérience', 'Expérience confirmée'],
+    timelineLabel: t.timelineLabel || 'Timeline d\'engagement',
+    timelineOptions: t.timelineOptions || ['Immédiat (< 1 mois)', '1-3 mois', '3-6 mois', 'Sans urgence'],
+    budgetMonthlyLabel: t.budgetMonthlyLabel || 'Budget mensuel',
+    budgetMonthlyOptions: t.budgetMonthlyOptions || ['30-50k DA', '50-100k DA', '100-200k DA', '200k+ DA'],
+    summaryLabel: t.summaryLabel || 'Résumé de votre demande',
+    contactInfoLabel: t.contactInfoLabel || 'Contact',
+    profileLabel: t.profileLabel || 'Profil',
+    needLabel: t.needLabel || 'Besoin',
+    engagementLabel: t.engagementLabel || 'Engagement',
+    projectDetailsLabel: t.projectDetailsLabel || 'Détails du projet',
+    submitButtonText: t.submitButtonText || 'Envoyer mon devis',
+    back: t.back || 'RETOUR',
+    next: t.next || 'SUIVANT',
+    successTitle: t.successTitle || 'DEMANDE VALIDÉE !',
+    successMessage: t.successMessage || 'Un expert vous contactera sur WhatsApp sous 2h.',
+    backToHome: t.backToHome || 'Retour à l\'accueil',
+    phoneError: t.phoneError || 'Le numéro doit contenir exactement 10 chiffres',
+    networkError: t.networkError || 'Une erreur est survenue. Vérifiez votre connexion et réessayez.',
+    multipleChoice: t.multipleChoice || 'plusieurs choix possibles',
+    otherActivityLabel: t.otherActivityLabel || 'Précisez votre activité',
+    otherSpecify: t.otherSpecify || 'Précisez votre activité...',
+    otherProblemLabel: t.otherProblemLabel || 'Précisez votre blocage',
+  };
 
   useEffect(() => {
     const hashParts = window.location.hash.split('?');
@@ -50,7 +92,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     const digits = e.target.value.replace(/\D/g, '');
     setFormData({ ...formData, phone: digits });
     if (digits.length > 0 && digits.length !== 10) {
-      setPhoneError(t.phoneError || 'Le numéro doit contenir exactement 10 chiffres');
+      setPhoneError(labels.phoneError);
     } else {
       setPhoneError('');
     }
@@ -60,14 +102,14 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     if (step === 1) {
       if (!formData.name.trim() || !formData.phone.trim()) return;
       if (formData.phone.length !== 10) {
-        setPhoneError(t.phoneError || 'Le numéro doit contenir exactement 10 chiffres');
+        setPhoneError(labels.phoneError);
         return;
       }
     }
     if (step === 2 && (!formData.company.trim() || !formData.businessType)) return;
-    if (step === 2 && formData.businessType === t.businessTypeOptions[t.businessTypeOptions.length - 1] && !formData.otherBusinessType.trim()) return;
+    if (step === 2 && formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] && !formData.otherBusinessType.trim()) return;
     if (step === 3 && (formData.problems.length === 0 || !formData.projectDescription.trim())) return;
-    if (step === 3 && formData.problems.includes(t.blocagesOptions[t.blocagesOptions.length - 1]) && !formData.otherProblem.trim()) return;
+    if (step === 3 && formData.problems.includes(labels.blocagesOptions[labels.blocagesOptions.length - 1]) && !formData.otherProblem.trim()) return;
     if (step === 4 && (!formData.onlinePresence || !formData.businessAge || !formData.hasPaidAds || !formData.timeline)) return;
     if (step === 5 && !formData.budget) return;
 
@@ -92,7 +134,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
       return {
         ...prev,
         problems: exists ? prev.problems.filter(p => p !== opt) : [...prev.problems, opt],
-        otherProblem: opt === t.blocagesOptions[t.blocagesOptions.length - 1] && exists ? '' : prev.otherProblem,
+        otherProblem: opt === labels.blocagesOptions[labels.blocagesOptions.length - 1] && exists ? '' : prev.otherProblem,
       };
     });
   };
@@ -101,8 +143,8 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     e.preventDefault();
     setStatus('submitting');
 
-    const businessTypeLabel = formData.businessType === t.businessTypeOptions[t.businessTypeOptions.length - 1] ? `${t.businessTypeOptions[t.businessTypeOptions.length - 1]}: ${formData.otherBusinessType}` : formData.businessType;
-    const problemsLabel = formData.problems.map(p => p === t.blocagesOptions[t.blocagesOptions.length - 1] ? `${t.blocagesOptions[t.blocagesOptions.length - 1]}: ${formData.otherProblem}` : p).join(', ');
+    const businessTypeLabel = formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] ? `Autre: ${formData.otherBusinessType}` : formData.businessType;
+    const problemsLabel = formData.problems.map(p => p === labels.blocagesOptions[labels.blocagesOptions.length - 1] ? `Autre: ${formData.otherProblem}` : p).join(', ');
 
     const submissionData = {
       name: formData.name,
@@ -117,8 +159,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
       hasPaidAds: formData.hasPaidAds,
       timeline: formData.timeline,
       budget: formData.budget,
-      pack: formData.pack,
-      _subject: formData.pack ? `[PACK ${formData.pack}] DEVIS PACK MENSUEL : ${formData.name}` : `DEVIS PACK MENSUEL : ${formData.name}`,
+      _subject: `DEVIS PACK MENSUEL : ${formData.name}`,
     };
 
     try {
@@ -135,7 +176,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
             business_type: businessTypeLabel,
             budget: formData.budget,
             timeline: formData.timeline,
-            pack_choisi: formData.pack,
             currency: 'DZD'
           });
         }
@@ -153,9 +193,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
           <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center mb-8 mx-auto text-white shadow-2xl shadow-brand-blue/30">
             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
           </div>
-          <h2 className="text-4xl font-black mb-4 text-navy dark:text-white uppercase tracking-tighter">{t.successTitle}</h2>
-          <p className="text-brand-gray text-lg font-medium mb-10 opacity-80 leading-relaxed">{t.successMessage}</p>
-          <button onClick={() => window.location.hash = ''} className="btn-ivision w-full py-5">{t.backToHome}</button>
+          <h2 className="text-4xl font-black mb-4 text-navy dark:text-white uppercase tracking-tighter">{labels.successTitle}</h2>
+          <p className="text-brand-gray text-lg font-medium mb-10 opacity-80 leading-relaxed">{labels.successMessage}</p>
+          <button onClick={() => window.location.hash = ''} className="btn-ivision w-full py-5">{labels.backToHome}</button>
         </div>
       </div>
     );
@@ -171,7 +211,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
         <div className="mb-12 flex items-center justify-between">
           <button onClick={handleBack} className="text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
             <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-            <span className="text-[10px] font-black tracking-widest uppercase">{t.back}</span>
+            <span className="text-[10px] font-black tracking-widest uppercase">{labels.back}</span>
           </button>
           <div className="flex gap-2 w-40">
             {[1, 2, 3, 4, 5].map(i => (
@@ -186,10 +226,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
             {step === 1 && (
               <div className="space-y-12 animate-fade-in-up">
                 <div>
-                  <label className={labelClass}>{t.nameLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.nameLabel} <span className="text-red-400">*</span></label>
                   <input
                     type="text"
-                    placeholder={t.nameLabel}
+                    placeholder={labels.nameLabel}
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                     className={inputClass}
@@ -198,7 +238,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </div>
 
                 <div>
-                  <label className={labelClass}>{t.phoneLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.phoneLabel} <span className="text-red-400">*</span></label>
                   <input
                     type="tel"
                     placeholder="0561234567"
@@ -211,7 +251,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </div>
 
                 <div>
-                  <label className={labelClass}>{t.emailLabel} <span className="text-white/30 font-medium text-[8px]">{t.emailOptional}</span></label>
+                  <label className={labelClass}>{labels.emailLabel} <span className="text-white/30 font-medium text-[8px]">{labels.emailOptional}</span></label>
                   <input
                     type="email"
                     placeholder="contact@example.com"
@@ -226,7 +266,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   disabled={!formData.name.trim() || !formData.phone.trim() || phoneError}
                   className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
                 >
-                  <span>{t.next}</span>
+                  <span>{labels.next}</span>
                   <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
                 </button>
               </div>
@@ -236,10 +276,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
             {step === 2 && (
               <div className="space-y-12 animate-fade-in-up">
                 <div>
-                  <label className={labelClass}>{t.companyLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.companyLabel} <span className="text-red-400">*</span></label>
                   <input
                     type="text"
-                    placeholder={t.companyLabel}
+                    placeholder={labels.companyLabel}
                     value={formData.company}
                     onChange={e => setFormData({ ...formData, company: e.target.value })}
                     className={inputClass}
@@ -248,9 +288,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </div>
 
                 <div>
-                  <label className={labelClass}>{t.businessTypeLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.businessTypeLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {t.businessTypeOptions.map((opt: string) => (
+                    {labels.businessTypeOptions.map((opt: string) => (
                       <div key={opt} onClick={() => setFormData({ ...formData, businessType: opt, otherBusinessType: '' })} className={cardClass(formData.businessType === opt)}>
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.businessType === opt && (
@@ -263,12 +303,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                 </div>
 
-                {formData.businessType === t.businessTypeOptions[t.businessTypeOptions.length - 1] && (
+                {formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] && (
                   <div className="animate-fade-in-up">
-                    <label className={labelClass}>{t.otherActivityLabel} <span className="text-red-400">*</span></label>
+                    <label className={labelClass}>{labels.otherActivityLabel} <span className="text-red-400">*</span></label>
                     <input
                       type="text"
-                      placeholder={t.otherSpecify}
+                      placeholder={labels.otherSpecify}
                       value={formData.otherBusinessType}
                       onChange={e => setFormData({ ...formData, otherBusinessType: e.target.value })}
                       className={inputClass}
@@ -279,10 +319,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
                 <button
                   onClick={handleNext}
-                  disabled={!formData.company.trim() || !formData.businessType || (formData.businessType === t.businessTypeOptions[t.businessTypeOptions.length - 1] && !formData.otherBusinessType.trim())}
+                  disabled={!formData.company.trim() || !formData.businessType || (formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] && !formData.otherBusinessType.trim())}
                   className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
                 >
-                  <span>{t.next}</span>
+                  <span>{labels.next}</span>
                   <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
                 </button>
               </div>
@@ -293,11 +333,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
               <div className="space-y-12 animate-fade-in-up">
                 <div>
                   <label className={labelClass}>
-                    {t.blocagesLabel} <span className="ml-2 text-white/30 font-medium normal-case tracking-normal text-[9px]">{t.multipleChoice}</span>
+                    {labels.blocagesLabel} <span className="ml-2 text-white/30 font-medium normal-case tracking-normal text-[9px]">{labels.multipleChoice}</span>
                     <span className="text-red-400 ml-2">*</span>
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {t.blocagesOptions.map((opt: string) => (
+                    {labels.blocagesOptions.map((opt: string) => (
                       <div key={opt} onClick={() => toggleProblem(opt)} className={cardClass(formData.problems.includes(opt))}>
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.problems.includes(opt) && (
@@ -310,12 +350,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                 </div>
 
-                {formData.problems.includes(t.blocagesOptions[t.blocagesOptions.length - 1]) && (
+                {formData.problems.includes(labels.blocagesOptions[labels.blocagesOptions.length - 1]) && (
                   <div className="animate-fade-in-up">
-                    <label className={labelClass}>{t.otherProblemLabel} <span className="text-red-400">*</span></label>
+                    <label className={labelClass}>{labels.otherProblemLabel} <span className="text-red-400">*</span></label>
                     <input
                       type="text"
-                      placeholder={t.otherProblemLabel}
+                      placeholder={labels.otherProblemLabel}
                       value={formData.otherProblem}
                       onChange={e => setFormData({ ...formData, otherProblem: e.target.value })}
                       className={inputClass}
@@ -325,9 +365,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 )}
 
                 <div>
-                  <label className={labelClass}>{t.projectDescriptionLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.projectDescriptionLabel} <span className="text-red-400">*</span></label>
                   <textarea
-                    placeholder={t.projectDescriptionPlaceholder}
+                    placeholder={labels.projectDescriptionPlaceholder}
                     value={formData.projectDescription}
                     onChange={e => setFormData({ ...formData, projectDescription: e.target.value })}
                     className={`${inputClass} min-h-32 resize-none`}
@@ -338,10 +378,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
                 <button
                   onClick={handleNext}
-                  disabled={formData.problems.length === 0 || !formData.projectDescription.trim() || (formData.problems.includes(t.blocagesOptions[t.blocagesOptions.length - 1]) && !formData.otherProblem.trim())}
+                  disabled={formData.problems.length === 0 || !formData.projectDescription.trim() || (formData.problems.includes(labels.blocagesOptions[labels.blocagesOptions.length - 1]) && !formData.otherProblem.trim())}
                   className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
                 >
-                  <span>{t.next}</span>
+                  <span>{labels.next}</span>
                   <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
                 </button>
               </div>
@@ -351,9 +391,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
             {step === 4 && (
               <div className="space-y-12 animate-fade-in-up">
                 <div>
-                  <label className={labelClass}>{t.onlinePresenceNewLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.onlinePresenceNewLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {t.onlinePresenceNewOptions.map((opt: string) => (
+                    {labels.onlinePresenceNewOptions.map((opt: string) => (
                       <div key={opt} onClick={() => setFormData({ ...formData, onlinePresence: opt })} className={cardClass(formData.onlinePresence === opt)}>
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.onlinePresence === opt && (
@@ -367,9 +407,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </div>
 
                 <div>
-                  <label className={labelClass}>{t.businessAgeNewLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.businessAgeNewLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {t.businessAgeNewOptions.map((opt: string) => (
+                    {labels.businessAgeNewOptions.map((opt: string) => (
                       <div key={opt} onClick={() => setFormData({ ...formData, businessAge: opt })} className={cardClass(formData.businessAge === opt)}>
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.businessAge === opt && (
@@ -383,9 +423,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </div>
 
                 <div>
-                  <label className={labelClass}>{t.paidAdsNewLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.paidAdsNewLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {t.paidAdsNewOptions.map((opt: string) => (
+                    {labels.paidAdsNewOptions.map((opt: string) => (
                       <div key={opt} onClick={() => setFormData({ ...formData, hasPaidAds: opt })} className={cardClass(formData.hasPaidAds === opt)}>
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.hasPaidAds === opt && (
@@ -399,9 +439,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </div>
 
                 <div>
-                  <label className={labelClass}>{t.timelineLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.timelineLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {t.timelineOptions.map((opt: string) => (
+                    {labels.timelineOptions.map((opt: string) => (
                       <div key={opt} onClick={() => setFormData({ ...formData, timeline: opt })} className={cardClass(formData.timeline === opt)}>
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.timeline === opt && (
@@ -419,7 +459,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   disabled={!formData.onlinePresence || !formData.businessAge || !formData.hasPaidAds || !formData.timeline}
                   className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
                 >
-                  <span>{t.next}</span>
+                  <span>{labels.next}</span>
                   <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
                 </button>
               </div>
@@ -429,9 +469,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
             {step === 5 && (
               <div className="space-y-12 animate-fade-in-up">
                 <div>
-                  <label className={labelClass}>{t.budgetMonthlyLabel} <span className="text-red-400">*</span></label>
+                  <label className={labelClass}>{labels.budgetMonthlyLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {t.budgetMonthlyOptions.map((opt: string) => (
+                    {labels.budgetMonthlyOptions.map((opt: string) => (
                       <div key={opt} onClick={() => setFormData({ ...formData, budget: opt })} className={cardClass(formData.budget === opt)}>
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.budget === opt && (
@@ -444,43 +484,42 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                 </div>
 
-                {/* RÉSUMÉ */}
                 <div className="bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl p-8 space-y-6">
                   <div className="text-center mb-8">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-2">{t.summaryLabel}</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-2">{labels.summaryLabel}</p>
                     <h3 className="text-2xl font-black text-navy dark:text-white">{formData.company}</h3>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
                     <div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{t.contactInfoLabel}</p>
+                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{labels.contactInfoLabel}</p>
                       <p className="text-navy dark:text-white font-bold">{formData.name}</p>
                       <p className="text-navy/60 dark:text-white/60">{formData.phone}{formData.email ? ` • ${formData.email}` : ''}</p>
                     </div>
                     <div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{t.profileLabel}</p>
-                      <p className="text-navy dark:text-white font-bold">{formData.businessType === t.businessTypeOptions[t.businessTypeOptions.length - 1] ? formData.otherBusinessType : formData.businessType}</p>
+                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{labels.profileLabel}</p>
+                      <p className="text-navy dark:text-white font-bold">{formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] ? formData.otherBusinessType : formData.businessType}</p>
                       <p className="text-navy/60 dark:text-white/60">{formData.businessAge} • {formData.hasPaidAds}</p>
                     </div>
                     <div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{t.needLabel}</p>
+                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{labels.needLabel}</p>
                       <p className="text-navy dark:text-white font-bold truncate">{formData.problems.join(', ')}</p>
                     </div>
                     <div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{t.engagementLabel}</p>
+                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{labels.engagementLabel}</p>
                       <p className="text-navy dark:text-white font-bold">{formData.timeline} • {formData.budget}</p>
                     </div>
                   </div>
 
                   <div className="pt-6 border-t border-navy/10 dark:border-white/10">
-                    <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-2">{t.projectDetailsLabel}</p>
+                    <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-2">{labels.projectDetailsLabel}</p>
                     <p className="text-navy dark:text-white text-sm leading-relaxed opacity-80">{formData.projectDescription}</p>
                   </div>
                 </div>
 
                 {status === 'error' && (
                   <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
-                    {t.networkError}
+                    {labels.networkError}
                   </div>
                 )}
 
@@ -489,7 +528,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   disabled={status === 'submitting' || !formData.budget}
                   className="btn-ivision w-full py-8 text-xl disabled:opacity-30 disabled:pointer-events-none"
                 >
-                  {status === 'submitting' ? '...' : t.submitButtonText}
+                  {status === 'submitting' ? '...' : labels.submitButtonText}
                 </button>
               </div>
             )}
