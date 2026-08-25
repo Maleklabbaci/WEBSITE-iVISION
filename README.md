@@ -1,73 +1,74 @@
-# iVISION Agency
+# iVISION Agency — Site vitrine
 
-Site officiel de **iVISION Agency**, agence de marketing digital, web, branding et publicité en Algérie.
+Site vitrine officiel de **iVISION Agency**, agence de marketing digital en Algérie. Le projet présente les services, les réalisations, les résultats, les études de cas, le blog et les parcours de contact.
 
-Site en production : [https://ivision.agency/](https://ivision.agency/)
+Le site est une application frontend React + TypeScript + Vite déployée sur GitHub Pages avec un domaine personnalisé. Les formulaires de devis et de formation transmettent les demandes à Formspark ; aucune clé serveur ou API backend n’est nécessaire pour le fonctionnement du site vitrine.
 
-## Stack technique
+## Stack
 
-Le site est une application front-end construite avec React, TypeScript et Vite. Le routage interne est géré par un routeur léger basé sur le hash afin de rester compatible avec un hébergement statique comme GitHub Pages. Le déploiement GitHub Pages est automatisé par GitHub Actions.
-
-Le chat IA utilise une route serveur `/api/chat` compatible avec Vercel. La clé Gemini est consommée exclusivement côté serveur et n’est jamais injectée dans le bundle public du navigateur.
+- React 19
+- TypeScript 5
+- Vite 6
+- Tailwind CSS compilé localement avec PostCSS
+- GitHub Pages et GitHub Actions
+- Formspark pour la réception des formulaires
 
 ## Installation locale
 
-Prérequis : Node.js 20 ou supérieur et npm.
+Pré-requis : Node.js 22 ou version plus récente et npm.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Le serveur de développement est disponible par défaut à l’adresse [http://localhost:3000](http://localhost:3000).
+Le serveur de développement est disponible par défaut sur `http://localhost:5173`.
 
-## Vérifications avant publication
-
-```bash
-npm run typecheck
-npm run build
-```
-
-`npm run typecheck` vérifie le code TypeScript sans générer de fichiers. `npm run build` génère la version de production dans `dist/`.
-
-## Configuration du chat IA
-
-Copiez `.env.example` vers `.env.local` pour le développement local :
+## Commandes disponibles
 
 ```bash
-cp .env.example .env.local
+npm run dev        # lancer le serveur local
+npm run typecheck  # vérifier TypeScript
+npm run build      # produire la version de production
+npm run validate   # typecheck puis build
+npm run preview    # prévisualiser le build
+npm audit --omit=dev
 ```
 
-Renseignez ensuite une clé Gemini dans `GEMINI_API_KEY`. Cette variable est utilisée uniquement par `api/chat.ts`. **Ne placez jamais cette clé dans du code client, dans `vite.config.ts` ou dans un fichier versionné.**
+## Formulaires et données
 
-Pour le déploiement Vercel, ajoutez `GEMINI_API_KEY` dans les variables d’environnement du projet. Vous pouvez également définir `GEMINI_MODEL` ; à défaut, le modèle `gemini-2.5-flash` est utilisé.
+Les formulaires principaux utilisent l’identifiant Formspark configuré dans `lib/config.ts`. Les données collectées servent uniquement à répondre aux demandes commerciales et sont envoyées au prestataire Formspark. Le site contient un consentement explicite et un champ honeypot anti-spam. Ne saisissez jamais de mot de passe ou de donnée bancaire dans les formulaires.
 
-Sur un hébergement strictement statique, le site reste fonctionnel, mais le chat IA affiche un message d’indisponibilité tant qu’aucune route `/api/chat` n’est disponible.
+Avant une utilisation commerciale à grande échelle, vérifiez les conditions de Formspark, la durée de conservation des données, les notifications reçues par l’équipe et la politique de confidentialité affichée sur le site.
 
-## Formulaires et contacts
+## Déploiement
 
-Les demandes de devis sont envoyées par WhatsApp. Le numéro de contact centralisé se trouve dans `lib/config.ts`. Les liens de contact doivent être testés avant chaque mise en production, notamment sur mobile.
+Chaque push sur `main` déclenche `.github/workflows/deploy.yml`. Le workflow installe les dépendances avec `npm ci`, exécute `npm run validate`, construit l’application et publie `dist/` sur GitHub Pages.
 
-## Déploiement GitHub Pages
+Le domaine officiel est : [https://ivision.agency/](https://ivision.agency/).
 
-Chaque push sur `main` déclenche `.github/workflows/deploy.yml`. Le workflow installe les dépendances avec `npm ci`, exécute le contrôle TypeScript, construit l’application et publie le contenu de `dist/` sur GitHub Pages.
-
-Le domaine canonique et les métadonnées SEO utilisent le domaine officiel `ivision.agency`. Si le domaine change, mettez à jour `index.html`, `lib/router.ts` et les pages qui définissent un canonical dynamique.
+Les enregistrements DNS du domaine doivent rester configurés pour GitHub Pages. Le fichier `public/robots.txt` et le sitemap `public/sitemap.xml` déclarent le domaine canonique.
 
 ## Structure principale
 
 ```text
-App.tsx                    Shell de l’application et routage
-components/                Sections et pages React réutilisables
-data/                      Données des services et articles
-lib/config.ts              Paramètres de contact centralisés
-lib/router.ts              Routage hash et URLs canoniques
-lib/seo-utils.ts           Métadonnées SEO et données structurées
-api/chat.ts                Route serveur Gemini compatible Vercel
-public/                    Fichiers statiques légers
-.github/workflows/         Automatisation de déploiement
+App.tsx                         Shell, routage hash et pages
+components/                     Sections, pages, formulaires et interactions
+data/                           Données des services et articles
+lib/config.ts                   Identifiants publics et coordonnées partagées
+lib/router.ts                   Helpers de routage et URLs canoniques
+public/                         Favicon, robots.txt et sitemap.xml
+styles.css                      Tailwind compilé et règles d’accessibilité
+index.html                      SEO, données structurées et styles globaux
+.github/workflows/deploy.yml    Validation et déploiement GitHub Pages
 ```
 
-## Sécurité
+## SEO
 
-Les secrets doivent rester dans les variables d’environnement du fournisseur d’hébergement. Les données envoyées au chat sont limitées côté serveur en nombre de messages et en longueur. Pour une utilisation à fort trafic, ajoutez une limitation de débit par IP ou utilisez un fournisseur de protection applicative.
+Le site utilise `https://ivision.agency/` comme domaine canonique, fournit un `robots.txt` et un sitemap. Les pages internes utilisent actuellement un routage hash (`#/blog`, `#/services/...`) afin de rester compatibles avec l’hébergement statique GitHub Pages.
+
+Après une modification importante du site, vérifiez la propriété `ivision.agency` dans Google Search Console et envoyez le sitemap `https://ivision.agency/sitemap.xml`.
+
+## Licence et contenu
+
+Le contenu, la marque, les visuels propriétaires et les données clients appartiennent à iVISION Agency ou à leurs détenteurs respectifs. Vérifiez les droits des images externes utilisées dans le portfolio, le blog et les témoignages avant toute redistribution.
