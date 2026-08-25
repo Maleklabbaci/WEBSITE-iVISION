@@ -4,7 +4,6 @@ interface LiveChatProps {
         title: string;
         greeting: string;
         placeholder: string;
-        systemInstruction: string;
     }
 }
 
@@ -41,9 +40,30 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
 
   useEffect(() => {
     if (messagesEndRef.current) {
-        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isThinking]);
+
+  useEffect(() => {
+    if (!isOpen || isUnavailable) return;
+
+    let cancelled = false;
+    const checkAvailability = async () => {
+      try {
+        const response = await fetch('/api/chat', { method: 'GET', cache: 'no-store' });
+        if (!cancelled && response.status === 404) {
+          setIsUnavailable(true);
+        }
+      } catch {
+        // L’état indisponible est affiché uniquement après un échec d’envoi.
+      }
+    };
+
+    void checkAvailability();
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, isUnavailable]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,7 +85,6 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
             role: sender === 'user' ? 'user' : 'model',
             text,
           })),
-          systemInstruction: translations.systemInstruction,
         }),
       });
 
@@ -129,6 +148,8 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
           transition: isDragging ? 'none' : 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
           touchAction: 'none'
         }}
+        type="button"
+        aria-label="Ouvrir le chat iVISION AI"
         className="fixed w-[72px] h-[72px] rounded-3xl bg-brand-accent text-white shadow-[0_20px_50px_rgba(0,98,255,0.4)] flex items-center justify-center transform hover:scale-110 active:scale-95 z-[45] group overflow-hidden border border-white/20"
       >
         <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -159,7 +180,7 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
                 </div>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-white/20 hover:text-white transition-all">
+            <button type="button" aria-label="Fermer le chat" onClick={() => setIsOpen(false)} className="text-white/20 hover:text-white transition-all">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -167,8 +188,10 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
           </div>
 
           {/* Messages */}
-          <div className="flex-grow p-8 overflow-y-auto space-y-6 scrollbar-none">
-            {isUnavailable && messages.length === 0 ? (
+          <div
+            className="flex-grow p-8 overflow-y-auto space-y-6 scrollbar-none">
+            {isUnavailable ? (
+
               <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-4">
                 <h4 className="text-white font-black uppercase text-xl tracking-tighter">Chat indisponible</h4>
                 <p className="text-brand-gray text-sm font-medium leading-relaxed">Le service IA n'est pas configuré sur cet environnement. Contactez-nous directement pour obtenir une réponse.</p>
@@ -200,10 +223,11 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
 
           {/* Input */}
           {!isUnavailable && (
-            <form onSubmit={handleSendMessage} className="p-8 bg-white/5 border-t border-white/5 shrink-0">
+            <form onSubmit={handleSendMessage} aria-label="Envoyer un message au chat iVISION AI" className="p-8 bg-white/5 border-t border-white/5 shrink-0">
               <div className="relative">
                 <input
                   type="text"
+                  aria-label={translations.placeholder}
                   placeholder={translations.placeholder}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}

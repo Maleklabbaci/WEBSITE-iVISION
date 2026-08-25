@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { FORMSPARK_ID } from '../lib/config';
+import { FORMSPARK_ID, WHATSAPP_NUMBER } from '../lib/config';
 
 type Language = 'fr' | 'en' | 'ar';
 interface Props { language: Language; }
 
-const WHATSAPP_NUMBER = '213563839404';
 
 const WILAYAS = [
   "Adrar","Chlef","Laghouat","Oum El Bouaghi","Batna","Béjaïa","Biskra","Béchar",
@@ -292,10 +291,16 @@ const WilayaSelector: React.FC<{ value: string; onChange: (v: string) => void; p
 };
 
 const OptionCard: React.FC<{ label: string; selected: boolean; onClick: () => void }> = ({ label, selected, onClick }) => (
-  <div onClick={onClick} className={`relative p-4 rounded-2xl border-2 transition-all cursor-pointer text-center group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`}>
+  <button
+    type="button"
+    role="radio"
+    aria-checked={selected}
+    onClick={onClick}
+    className={`relative p-4 rounded-2xl border-2 transition-all cursor-pointer text-center group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`}
+  >
     <span className="text-xs font-bold uppercase text-navy dark:text-white">{label}</span>
-    {selected && <div className="absolute top-2 right-2 text-brand-blue"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" /></svg></div>}
-  </div>
+    {selected && <div aria-hidden="true" className="absolute top-2 right-2 text-brand-blue"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" /></svg></div>}
+  </button>
 );
 
 const PackDetailsSection: React.FC<{ packName: string; lang: Language }> = ({ packName, lang }) => {
@@ -356,6 +361,8 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
     name: '', businessName: '', phone: '', wilaya: '', baladia: '',
     sector: '', onlinePresence: '', objective: '', hadAgency: '',
     pack: selectedPack,
+    privacyConsent: false,
+    website: '',
   });
   const [phoneError, setPhoneError] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
@@ -375,11 +382,11 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
     && formData.phone.length === 10 && !phoneError
     && formData.wilaya && formData.baladia.trim()
     && formData.sector && formData.onlinePresence
-    && formData.objective && formData.hadAgency;
+    && formData.objective && formData.hadAgency && formData.privacyConsent;
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isValid) return;
+    if (!isValid || formData.website.trim()) return;
     setStatus('submitting');
     try {
       const res = await fetch(`https://submit-form.com/${FORMSPARK_ID}`, {
@@ -431,6 +438,18 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
         </div>
         <PackDetailsSection packName={selectedPack} lang={lang} />
         <form onSubmit={onSubmit} className="space-y-8">
+          <div className="hidden" aria-hidden="true">
+            <label htmlFor="training-website">Website</label>
+            <input
+              id="training-website"
+              name="website"
+              type="text"
+              value={formData.website}
+              onChange={e => setFormData({ ...formData, website: e.target.value })}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
           <div>
             <label className={labelClass}>{T.fullName[lang]}</label>
             <input type="text" placeholder={T.fullNamePh[lang]} value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className={inputClass} />
@@ -496,9 +515,18 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
             </div>
             <p className="text-[10px] text-brand-gray/50 font-medium">{T.recapNote[lang]}</p>
           </div>
+          <label className="flex items-start gap-3 text-sm text-brand-gray/80">
+            <input
+              type="checkbox"
+              checked={formData.privacyConsent}
+              onChange={e => setFormData({ ...formData, privacyConsent: e.target.checked })}
+              className="mt-1 h-4 w-4 accent-brand-blue"
+            />
+            <span>{lang === 'ar' ? 'أوافق على استخدام معلوماتي للرد على طلبي والتواصل معي.' : lang === 'en' ? 'I agree that my information may be used to answer my request and contact me.' : 'J’accepte que mes informations soient utilisées pour répondre à ma demande et être contacté.'}</span>
+          </label>
           {status === 'error' && (
-            <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
-              Erreur réseau. Vérifiez votre connexion et réessayez.
+            <div role="alert" aria-live="polite" className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
+              {formData.privacyConsent ? 'Erreur réseau. Vérifiez votre connexion et réessayez.' : lang === 'ar' ? 'يرجى قبول استخدام معلوماتك للمتابعة.' : lang === 'en' ? 'Please accept the use of your information to continue.' : 'Veuillez accepter l’utilisation de vos informations pour continuer.'}
             </div>
           )}
           <button type="submit" disabled={!isValid || status === 'submitting'}
@@ -527,7 +555,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
     const businessLine = lang === 'ar' ? 'أريد حزمة مخصصة' : lang === 'en' ? 'I want a custom pack' : 'Je souhaite un pack personnalisé';
     const detailLine = lang === 'ar' ? 'هل يمكنكم مساعدتي في بناء استراتيجية مخصصة لنشاطي؟' : lang === 'en' ? 'Can you help me build a custom digital strategy for my business?' : 'Pouvez-vous m\'aider à construire une stratégie digitale sur mesure pour mon business ?';
     const msg = encodeURIComponent(`Bonjour iVISION 👋\n\n${businessLine}\n\n${detailLine}\n\nMon secteur : [À préciser]\nMes objectifs : [À préciser]\n\nMerci !`);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank', 'noopener,noreferrer');
   };
 
   if (selectedPack) return <PricingQuoteForm selectedPack={selectedPack} onBack={() => setSelectedPack(null)} lang={lang} />;

@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#050A1F" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- ===== FAVICON (Logo Google) ===== -->
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
 
     <!-- ===== PRELOAD CRITICAL ===== -->
@@ -66,7 +66,7 @@
       "image": "https://i.ibb.co/vCV92NXv/logo2.png",
       "description": "Agence marketing digital en Algérie. Web, Branding, Réseaux sociaux, Publicité.",
       "telephone": "+213563839404",
-      "email": "contact@ivision-agency.com",
+      "email": "contact@ivision.agency",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Blida",
@@ -78,9 +78,9 @@
         "name": "Algeria"
       },
       "sameAs": [
-        "https://www.instagram.com/ivision.agency",
-        "https://www.facebook.com/ivision.agency",
-        "https://www.tiktok.com/@ivision.agency"
+        "https://www.instagram.com/ivision_agency/",
+        "https://web.facebook.com/agencyivision",
+        "https://www.tiktok.com/@ivisionagency1"
       ],
       "foundingDate": "2024",
       "knowsLanguage": ["fr", "ar", "en"]
@@ -125,52 +125,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- ===== TAILWIND ===== -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          container: {
-            center: true,
-            padding: { DEFAULT: '1.25rem', md: '2rem', lg: '8rem' },
-          },
-          extend: {
-            colors: {
-              'navy': '#050A1F',
-              'brand-blue': '#0033FF',
-              'brand-white': '#FFFFFF',
-              'brand-gray': '#94A3B8',
-              'brand-dark': '#050A1F',
-              'brand-accent': '#0033FF',
-              'brand-border': 'rgba(255,255,255,0.08)',
-            },
-            fontFamily: {
-              sans: ['"Inter"', 'system-ui', 'sans-serif'],
-            },
-            animation: {
-              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-              'scale-in': 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-              'slide-in-right': 'slideInRight 0.5s ease-out forwards',
-            },
-            keyframes: {
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              },
-              scaleIn: {
-                '0%': { opacity: '0', transform: 'scale(0.9)' },
-                '100%': { opacity: '1', transform: 'scale(1)' },
-              },
-              slideInRight: {
-                '0%': { transform: 'translateX(100%)' },
-                '100%': { transform: 'translateX(0)' },
-              }
-            }
-          }
-        }
-      }
-    </script>
 
     <!-- ===== STYLES ===== -->
     <style>

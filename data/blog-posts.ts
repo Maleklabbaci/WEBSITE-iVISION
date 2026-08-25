@@ -110,7 +110,7 @@ Mieux vaut une agence specialisee.
 
 **Chez iVISION**, nous proposons un **audit strategique gratuit** de 60 minutes pour evaluer vos besoins reels avant tout engagement.
 
-[Reserver mon audit gratuit](#quote)
+[Reserver mon audit gratuit](#/devis)
     `
   },
 
@@ -198,7 +198,7 @@ Le glassmorphism atteint sa maturite :
 
 2026 sera l annee du **design performant et intelligent**.
 
-Besoin d un redesign moderne ? [Contactez iVISION](#quote)
+Besoin d un redesign moderne ? [Contactez iVISION](#/devis)
     `
   },
 
@@ -294,7 +294,7 @@ Le SEO local en Algerie est une **opportunite en or**.
 
 **iVISION propose un audit SEO local gratuit.**
 
-[Reserver mon audit SEO](#quote)
+[Reserver mon audit SEO](#/devis)
     `
   },
 
@@ -389,7 +389,7 @@ Les reseaux sociaux en Algerie offrent un **ROI exceptionnel**.
 
 **iVISION gere vos reseaux sociaux de A a Z.**
 
-[Demander un devis social media](#quote)
+[Demander un devis social media](#/devis)
     `
   },
 
@@ -470,7 +470,7 @@ Le e-commerce en Algerie est une **mine d or**.
 
 **iVISION cree votre boutique en ligne cle en main.**
 
-[Lancer mon e-commerce](#quote)
+[Lancer mon e-commerce](#/devis)
     `
   },
 
@@ -532,7 +532,7 @@ Le branding est une **necessite**, pas un luxe.
 
 **iVISION cree des identites de marque memorables.**
 
-[Creer mon branding](#quote)
+[Creer mon branding](#/devis)
     `
   },
 
@@ -607,7 +607,7 @@ Google Ads en Algerie est un **levier sous-exploite**.
 
 **iVISION gere vos campagnes Google Ads.**
 
-[Lancer mes Google Ads](#quote)
+[Lancer mes Google Ads](#/devis)
     `
   },
 
@@ -687,7 +687,7 @@ L IA est un **multiplicateur de productivite**.
 
 **iVISION integre l IA dans vos process business.**
 
-[Decouvrir nos solutions IA](#quote)
+[Decouvrir nos solutions IA](#/devis)
     `
   },
 
@@ -780,7 +780,7 @@ La vitesse n est pas optionnelle. **2 secondes max**.
 
 **iVISION optimise la performance de votre site.**
 
-[Auditer mon site gratuitement](#quote)
+[Auditer mon site gratuitement](#/devis)
     `
   },
 
@@ -852,7 +852,7 @@ Le copywriting est l investissement le plus rentable en marketing.
 
 **iVISION redige des textes qui convertissent.**
 
-[Booster mes conversions](#quote)
+[Booster mes conversions](#/devis)
     `
   }
 ];

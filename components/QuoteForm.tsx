@@ -28,6 +28,8 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     hasPaidAds: '',
     timeline: '',
     budget: '',
+    privacyConsent: false,
+    website: '',
   });
   const [phoneError, setPhoneError] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
@@ -141,6 +143,16 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.website.trim()) return;
+    if (!formData.privacyConsent) {
+      setStatus('error');
+      return;
+    }
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setStatus('error');
+      return;
+    }
+
     setStatus('submitting');
 
     const businessTypeLabel = formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] ? `Autre: ${formData.otherBusinessType}` : formData.businessType;
@@ -204,6 +216,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   const inputClass = "w-full p-6 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-navy dark:text-white font-bold text-lg placeholder:opacity-30";
   const labelClass = "block text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-4 ml-2";
   const cardClass = (selected: boolean) => `relative p-6 rounded-2xl border-2 transition-all cursor-pointer flex flex-col items-start justify-between h-full group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`;
+  const handleCardKeyDown = (event: React.KeyboardEvent, action: () => void) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      action();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-transparent transition-colors duration-500 py-24 md:py-32">
@@ -221,6 +239,18 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
         </div>
 
         <form onSubmit={step === 5 ? onSubmit : (e) => { e.preventDefault(); handleNext(); }} className="space-y-8">
+          <div className="hidden" aria-hidden="true">
+            <label htmlFor="website">Website</label>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              value={formData.website}
+              onChange={e => setFormData({ ...formData, website: e.target.value })}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
           <div>
             {/* ─── STEP 1 ─── */}
             {step === 1 && (
@@ -291,7 +321,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   <label className={labelClass}>{labels.businessTypeLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {labels.businessTypeOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => setFormData({ ...formData, businessType: opt, otherBusinessType: '' })} className={cardClass(formData.businessType === opt)}>
+                      <div
+                        key={opt}
+                        role="radio"
+                        aria-checked={formData.businessType === opt}
+                        tabIndex={0}
+                        onClick={() => setFormData({ ...formData, businessType: opt, otherBusinessType: '' })}
+                        onKeyDown={event => handleCardKeyDown(event, () => setFormData({ ...formData, businessType: opt, otherBusinessType: '' }))}
+                        className={cardClass(formData.businessType === opt)}
+                      >
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.businessType === opt && (
                           <div className="absolute top-4 right-4 text-brand-blue">
@@ -338,7 +376,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {labels.blocagesOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => toggleProblem(opt)} className={cardClass(formData.problems.includes(opt))}>
+                      <div
+                        key={opt}
+                        role="checkbox"
+                        aria-checked={formData.problems.includes(opt)}
+                        tabIndex={0}
+                        onClick={() => toggleProblem(opt)}
+                        onKeyDown={event => handleCardKeyDown(event, () => toggleProblem(opt))}
+                        className={cardClass(formData.problems.includes(opt))}
+                      >
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.problems.includes(opt) && (
                           <div className="absolute top-4 right-4 text-brand-blue">
@@ -394,7 +440,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   <label className={labelClass}>{labels.onlinePresenceNewLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {labels.onlinePresenceNewOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => setFormData({ ...formData, onlinePresence: opt })} className={cardClass(formData.onlinePresence === opt)}>
+                      <div
+                        key={opt}
+                        role="radio"
+                        aria-checked={formData.onlinePresence === opt}
+                        tabIndex={0}
+                        onClick={() => setFormData({ ...formData, onlinePresence: opt })}
+                        onKeyDown={event => handleCardKeyDown(event, () => setFormData({ ...formData, onlinePresence: opt }))}
+                        className={cardClass(formData.onlinePresence === opt)}
+                      >
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.onlinePresence === opt && (
                           <div className="absolute top-4 right-4 text-brand-blue">
@@ -410,7 +464,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   <label className={labelClass}>{labels.businessAgeNewLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {labels.businessAgeNewOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => setFormData({ ...formData, businessAge: opt })} className={cardClass(formData.businessAge === opt)}>
+                      <div
+                        key={opt}
+                        role="radio"
+                        aria-checked={formData.businessAge === opt}
+                        tabIndex={0}
+                        onClick={() => setFormData({ ...formData, businessAge: opt })}
+                        onKeyDown={event => handleCardKeyDown(event, () => setFormData({ ...formData, businessAge: opt }))}
+                        className={cardClass(formData.businessAge === opt)}
+                      >
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.businessAge === opt && (
                           <div className="absolute top-4 right-4 text-brand-blue">
@@ -426,7 +488,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   <label className={labelClass}>{labels.paidAdsNewLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {labels.paidAdsNewOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => setFormData({ ...formData, hasPaidAds: opt })} className={cardClass(formData.hasPaidAds === opt)}>
+                      <div
+                        key={opt}
+                        role="radio"
+                        aria-checked={formData.hasPaidAds === opt}
+                        tabIndex={0}
+                        onClick={() => setFormData({ ...formData, hasPaidAds: opt })}
+                        onKeyDown={event => handleCardKeyDown(event, () => setFormData({ ...formData, hasPaidAds: opt }))}
+                        className={cardClass(formData.hasPaidAds === opt)}
+                      >
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.hasPaidAds === opt && (
                           <div className="absolute top-4 right-4 text-brand-blue">
@@ -442,7 +512,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   <label className={labelClass}>{labels.timelineLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {labels.timelineOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => setFormData({ ...formData, timeline: opt })} className={cardClass(formData.timeline === opt)}>
+                      <div
+                        key={opt}
+                        role="radio"
+                        aria-checked={formData.timeline === opt}
+                        tabIndex={0}
+                        onClick={() => setFormData({ ...formData, timeline: opt })}
+                        onKeyDown={event => handleCardKeyDown(event, () => setFormData({ ...formData, timeline: opt }))}
+                        className={cardClass(formData.timeline === opt)}
+                      >
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.timeline === opt && (
                           <div className="absolute top-4 right-4 text-brand-blue">
@@ -472,7 +550,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   <label className={labelClass}>{labels.budgetMonthlyLabel} <span className="text-red-400">*</span></label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {labels.budgetMonthlyOptions.map((opt: string) => (
-                      <div key={opt} onClick={() => setFormData({ ...formData, budget: opt })} className={cardClass(formData.budget === opt)}>
+                      <div
+                        key={opt}
+                        role="radio"
+                        aria-checked={formData.budget === opt}
+                        tabIndex={0}
+                        onClick={() => setFormData({ ...formData, budget: opt })}
+                        onKeyDown={event => handleCardKeyDown(event, () => setFormData({ ...formData, budget: opt }))}
+                        className={cardClass(formData.budget === opt)}
+                      >
                         <span className="text-xs font-bold uppercase text-navy dark:text-white">{opt}</span>
                         {formData.budget === opt && (
                           <div className="absolute top-4 right-4 text-brand-blue">
@@ -517,15 +603,25 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                 </div>
 
+                <label className="flex items-start gap-3 text-sm text-brand-gray/80">
+                  <input
+                    type="checkbox"
+                    checked={formData.privacyConsent}
+                    onChange={e => setFormData({ ...formData, privacyConsent: e.target.checked })}
+                    className="mt-1 h-4 w-4 accent-brand-blue"
+                  />
+                  <span>J’accepte que mes informations soient utilisées pour répondre à ma demande et être contacté par iVISION.</span>
+                </label>
+
                 {status === 'error' && (
-                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
-                    {labels.networkError}
+                  <div role="alert" aria-live="polite" className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
+                    {formData.privacyConsent ? labels.networkError : 'Veuillez accepter l’utilisation de vos informations pour continuer.'}
                   </div>
                 )}
 
                 <button
                   type="submit"
-                  disabled={status === 'submitting' || !formData.budget}
+                  disabled={status === 'submitting' || !formData.budget || !formData.privacyConsent}
                   className="btn-ivision w-full py-8 text-xl disabled:opacity-30 disabled:pointer-events-none"
                 >
                   {status === 'submitting' ? '...' : labels.submitButtonText}

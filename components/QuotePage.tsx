@@ -236,15 +236,15 @@ const QuotePage = () => {
             <span className="text-white font-medium block">Téléphone</span>
             <span className="text-gray-400 text-sm">+213 563 839 404</span>
           </a>
-          <a href="https://wa.me/213563839404" target="_blank" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-green-500/30 transition">
+          <a href="https://wa.me/213563839404" target="_blank" rel="noopener noreferrer" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-green-500/30 transition">
             <span className="text-2xl block mb-2">💬</span>
             <span className="text-white font-medium block">WhatsApp</span>
             <span className="text-gray-400 text-sm">Chat direct</span>
           </a>
-          <a href="mailto:contact@ivision-agency.com" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-blue-500/30 transition">
+          <a href="mailto:contact@ivision.agency" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-blue-500/30 transition">
             <span className="text-2xl block mb-2">📧</span>
             <span className="text-white font-medium block">Email</span>
-            <span className="text-gray-400 text-sm">contact@ivision-agency.com</span>
+            <span className="text-gray-400 text-sm">contact@ivision.agency</span>
           </a>
         </div>
       </div>

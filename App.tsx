@@ -54,15 +54,15 @@ const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'priva
                         <p>Chez iVISION Agency, nous accordons une importance primordiale à la protection de vos données personnelles. Cette politique détaille comment nous collectons et utilisons vos informations.</p>
                         <div>
                             <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">1. Collecte des données</h4>
-                            <p>Nous collectons les informations que vous nous fournissez via nos formulaires (Nom, Prénom, Téléphone, Type de business) uniquement pour traiter vos demandes de devis.</p>
+                            <p>Nous collectons les informations que vous nous fournissez via nos formulaires (nom, téléphone, e-mail, entreprise et informations de projet) uniquement pour traiter vos demandes de devis.</p>
                         </div>
                         <div>
                             <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">2. Utilisation</h4>
-                            <p>Vos données sont utilisées exclusivement pour l'audit stratégique et la prise de contact commerciale via WhatsApp ou Email.</p>
+                            <p>Vos données servent à répondre à votre demande et à vous contacter par WhatsApp ou e-mail. Les formulaires utilisent le service Formspark pour transmettre les demandes à iVISION ; ne saisissez jamais de données bancaires ou de mots de passe.</p>
                         </div>
                         <div>
                             <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">3. Sécurité</h4>
-                            <p>Nous mettons en œuvre des mesures de sécurité rigoureuses pour protéger vos données contre tout accès non autorisé.</p>
+                            <p>Nous limitons l’accès aux demandes reçues et appliquons des mesures raisonnables de sécurité. Les données peuvent être traitées par Formspark selon ses propres conditions et sa politique de confidentialité.</p>
                         </div>
                     </>
                 ) : (
