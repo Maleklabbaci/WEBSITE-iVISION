@@ -80,7 +80,8 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
     return () => observer.disconnect();
   }, []);
 
-  const scrollLogos = [...projects, ...projects, ...projects, ...projects, ...projects, ...projects];
+  // Trois répétitions suffisent pour garder la boucle visuelle sans charger 30 images identiques.
+  const scrollLogos = [...projects, ...projects, ...projects];
 
   return (
     <>
@@ -125,6 +126,8 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
                   }}
                 >
                   <img
+                    loading="lazy"
+                    decoding="async"
                     src={project.logo}
                     alt={project.name}
                     className="logo-white opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:scale-125"
