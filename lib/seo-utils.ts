@@ -83,7 +83,7 @@ export const generateBlogSchema = (post: any) => {
       "name": "iVISION Agency",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://ivision-agency.com/logo.png"
+        "url": "https://ivision.agency/favicon.png"
       }
     }
   };

@@ -24,7 +24,7 @@ const ServicePage = ({ slug }: Props) => {
       updateSEO({
         title: found.title,
         description: found.metaDescription,
-        canonical: `https://maleklabbaci.github.io/WEBSITE-iVISION/#/services/${found.slug}`,
+        canonical: `https://ivision.agency/#/services/${found.slug}`,
       });
 
       const schema = generateServiceSchema(found);

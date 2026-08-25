@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import { navigate } from '../lib/router';
 import { updateSEO } from '../lib/seo-utils';
 
@@ -18,12 +19,12 @@ const QuotePage = () => {
     updateSEO({
       title: 'Demander un Devis Gratuit',
       description: 'Demandez votre devis gratuit pour votre projet web, marketing digital ou branding. Réponse en 24h garantie.',
-      canonical: 'https://ivision-agency.com/quote',
+      canonical: 'https://ivision.agency/devis',
     });
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     // Build WhatsApp message
@@ -42,7 +43,7 @@ const QuotePage = () => {
     setSubmitted(true);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -243,7 +244,7 @@ const QuotePage = () => {
           <a href="mailto:contact@ivision-agency.com" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-blue-500/30 transition">
             <span className="text-2xl block mb-2">📧</span>
             <span className="text-white font-medium block">Email</span>
-            <span className="text-gray-400 text-sm">contact@ivision.dz</span>
+            <span className="text-gray-400 text-sm">contact@ivision-agency.com</span>
           </a>
         </div>
       </div>

@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
-
 interface LiveChatProps {
     translations: {
         title: string;
@@ -21,7 +19,7 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false);
-  const [needsKey, setNeedsKey] = useState(false);
+  const [isUnavailable, setIsUnavailable] = useState(false);
   
   const [position, setPosition] = useState({ x: 0, y: 0 });
   // BUG 2 FIX (LiveChat): Set position après mount (window disponible)
@@ -35,44 +33,11 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
   const bubbleRef = useRef<HTMLButtonElement>(null);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const chatInstance = useRef<Chat | null>(null);
-
   useEffect(() => {
-    const checkKey = async () => {
-      if (isOpen) {
-        // @ts-ignore
-        const hasKey = await window.aistudio.hasSelectedApiKey();
-        if (!hasKey) {
-          setNeedsKey(true);
-        } else {
-          setNeedsKey(false);
-          initChat();
-        }
-      }
-    };
-    checkKey();
-  }, [isOpen]);
-
-  const initChat = () => {
-    if (messages.length === 0) {
+    if (isOpen && messages.length === 0) {
       setMessages([{ text: translations.greeting, sender: 'agent' }]);
     }
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    chatInstance.current = ai.chats.create({
-      model: 'gemini-3-pro-preview',
-      config: {
-        systemInstruction: translations.systemInstruction,
-        thinkingConfig: { thinkingBudget: 8000 }
-      },
-    });
-  };
-
-  const handleSelectKey = async () => {
-    // @ts-ignore
-    await window.aistudio.openSelectKey();
-    setNeedsKey(false);
-    initChat();
-  };
+  }, [isOpen, messages.length, translations.greeting]);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -84,50 +49,38 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
     e.preventDefault();
     if (inputValue.trim() === '' || isThinking) return;
     
-    if (!chatInstance.current) {
-        initChat();
-        if (!chatInstance.current) return;
-    }
-
     const userText = inputValue.trim();
-    setMessages(prev => [...prev, { text: userText, sender: 'user' }]);
+    const nextMessages = [...messages, { text: userText, sender: 'user' as const }];
+    setMessages(nextMessages);
     setInputValue('');
     setIsThinking(true);
+    setIsUnavailable(false);
 
     try {
-      const responseStream = await chatInstance.current.sendMessageStream({ message: userText });
-      setMessages(prev => [...prev, { text: '', sender: 'agent', isStreaming: true }]);
-      let fullResponseText = "";
-      for await (const chunk of responseStream) {
-        const chunkText = chunk.text;
-        if (chunkText) {
-          fullResponseText += chunkText;
-          setMessages(prev => {
-            const newMessages = [...prev];
-            const lastIndex = newMessages.length - 1;
-            if (newMessages[lastIndex] && newMessages[lastIndex].sender === 'agent' && newMessages[lastIndex].isStreaming) {
-              newMessages[lastIndex] = { ...newMessages[lastIndex], text: fullResponseText };
-            }
-            return [...newMessages];
-          });
-        }
-      }
-      setMessages(prev => {
-        const newMessages = [...prev];
-        const lastIndex = newMessages.length - 1;
-        if (newMessages[lastIndex]) {
-            newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false };
-        }
-        return [...newMessages];
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: nextMessages.map(({ text, sender }) => ({
+            role: sender === 'user' ? 'user' : 'model',
+            text,
+          })),
+          systemInstruction: translations.systemInstruction,
+        }),
       });
-    } catch (error: any) {
-      console.error("Gemini PRO Error:", error);
-      if (error.message?.includes("Requested entity was not found") || error.message?.includes("API key")) {
-        setNeedsKey(true);
+
+      const payload = await response.json() as { text?: string; error?: string };
+      if (!response.ok || !payload.text) {
+        throw new Error(payload.error || 'Le service de chat est indisponible.');
       }
-      setMessages(prev => [...prev, { 
-        text: "Une erreur est survenue. Veuillez cliquer sur 'Initialiser l'IA' pour continuer.", 
-        sender: 'agent' 
+
+      setMessages(prev => [...prev, { text: payload.text as string, sender: 'agent' }]);
+    } catch (error) {
+      console.error('Chat API error:', error);
+      setIsUnavailable(true);
+      setMessages(prev => [...prev, {
+        text: "Le chat IA est temporairement indisponible. Vous pouvez nous contacter directement par WhatsApp ou via le formulaire de devis.",
+        sender: 'agent',
       }]);
     } finally {
       setIsThinking(false);
@@ -215,22 +168,10 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
 
           {/* Messages */}
           <div className="flex-grow p-8 overflow-y-auto space-y-6 scrollbar-none">
-            {needsKey ? (
-              <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-8">
-                <div className="w-24 h-24 bg-brand-accent/10 rounded-full flex items-center justify-center border border-brand-accent/20">
-                   <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                </div>
-                <div className="space-y-4">
-                  <h4 className="text-white font-black uppercase text-xl tracking-tighter">Initialisation Pro</h4>
-                  <p className="text-brand-gray text-sm font-medium leading-relaxed">Connectez votre instance Gemini 3 Pro pour débloquer l'analyse marketing avancée.</p>
-                  <button 
-                    onClick={handleSelectKey}
-                    className="tech-button w-full py-5"
-                  >
-                    Initialiser maintenant
-                  </button>
-                  <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" className="block text-[9px] text-white/20 uppercase tracking-[0.4em] font-black hover:text-brand-accent transition-colors">Documentation Billing</a>
-                </div>
+            {isUnavailable && messages.length === 0 ? (
+              <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-4">
+                <h4 className="text-white font-black uppercase text-xl tracking-tighter">Chat indisponible</h4>
+                <p className="text-brand-gray text-sm font-medium leading-relaxed">Le service IA n'est pas configuré sur cet environnement. Contactez-nous directement pour obtenir une réponse.</p>
               </div>
             ) : (
               <>
@@ -258,7 +199,7 @@ const LiveChat: React.FC<LiveChatProps> = ({ translations }) => {
           </div>
 
           {/* Input */}
-          {!needsKey && (
+          {!isUnavailable && (
             <form onSubmit={handleSendMessage} className="p-8 bg-white/5 border-t border-white/5 shrink-0">
               <div className="relative">
                 <input

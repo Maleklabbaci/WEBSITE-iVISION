@@ -21,7 +21,7 @@ const BlogPostPage = ({ slug }: Props) => {
         keywords: foundPost.tags.join(', '),
         ogType: 'article',
         ogImage: foundPost.image,
-        canonical: `https://ivision-agency.com/blog/${foundPost.slug}`,
+        canonical: `https://ivision.agency/blog/${foundPost.slug}`,
       });
 
       const schema = generateBlogSchema(foundPost);

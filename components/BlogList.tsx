@@ -12,7 +12,7 @@ const BlogList = () => {
       title: 'Blog - Actualités Marketing Digital & Web',
       description: 'Articles, guides et conseils sur le marketing digital, le web design, le SEO et le branding en Algérie.',
       keywords: 'blog marketing digital algérie, conseils web design, guide SEO algérie',
-      canonical: 'https://ivision-agency.com/blog',
+      canonical: 'https://ivision.agency/blog',
     });
   }, []);
 
@@ -85,7 +85,9 @@ const BlogList = () => {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
-              <BlogCard key={post.id} post={post} />
+              <div key={post.id}>
+                <BlogCard post={post} />
+              </div>
             ))}
           </div>
         )}

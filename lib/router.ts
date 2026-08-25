@@ -25,7 +25,7 @@ export const navigate = (route: string) => {
 };
 
 export const getCanonicalUrl = (route: Route): string => {
-  const base = 'https://maleklabbaci.github.io/WEBSITE-iVISION';
+  const base = 'https://ivision.agency';
 
   switch (route.type) {
     case 'home': return base;
