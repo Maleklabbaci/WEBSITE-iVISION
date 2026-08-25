@@ -46,7 +46,7 @@ const CASE_STUDIES: CaseStudy[] = [
 ];
 
 const copy = {
-  fr: { eyebrow: 'Preuves concrètes', title: 'DES PROJETS QUI', accent: 'FONT GRANDIR.', intro: 'Découvrez comment iVISION transforme une problématique business en dispositif digital mesurable.', details: 'Voir le cas', challenge: 'Le défi', solution: 'Notre intervention', close: 'Fermer', cta: 'Obtenir un devis similaire' },
+  fr: { eyebrow: 'Preuves concrètes', title: 'DES RÉSULTATS', accent: 'QUI PARLENT.', intro: 'Découvrez comment iVISION transforme une problématique business en dispositif digital mesurable.', details: 'Voir le cas', challenge: 'Le défi', solution: 'Notre intervention', close: 'Fermer', cta: 'Obtenir un devis similaire' },
   en: { eyebrow: 'Real proof', title: 'PROJECTS THAT', accent: 'DRIVE GROWTH.', intro: 'See how iVISION turns a business challenge into a measurable digital system.', details: 'View case', challenge: 'The challenge', solution: 'Our work', close: 'Close', cta: 'Request a similar quote' },
   ar: { eyebrow: 'نتائج حقيقية', title: 'مشاريع', accent: 'تصنع النمو.', intro: 'اكتشف كيف تحول iVISION تحديات الأعمال إلى حلول رقمية قابلة للقياس.', details: 'اكتشف الحالة', challenge: 'التحدي', solution: 'تدخلنا', close: 'إغلاق', cta: 'احصل على عرض مماثل' },
 };

@@ -94,8 +94,8 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
               <div className="max-w-4xl">
                 <div className="sketch-badge mb-6 md:mb-8">Portfolio</div>
                 <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
-                  ILS NOUS FONT <br className="hidden md:block" />
-                  <span className="text-brand-blue">CONFIANCE</span>
+                  DES MARQUES QUI NOUS <br className="hidden md:block" />
+                  <span className="text-brand-blue">FONT CONFIANCE</span>
                 </h2>
               </div>
               <p className="text-base md:text-2xl text-brand-gray dark:text-brand-gray/80 max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
