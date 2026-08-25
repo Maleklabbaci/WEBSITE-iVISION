@@ -19,3 +19,14 @@
     }
   }
 }
+
+.below-fold-content > * {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
+@supports (height: 100svh) {
+  .min-h-screen {
+    min-height: 100svh;
+  }
+}

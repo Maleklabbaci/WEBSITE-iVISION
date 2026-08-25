@@ -77,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               <div className="flex items-center gap-4" id="guide-scroll">
                 <div className="flex -space-x-2 md:-space-x-3">
                   {[1, 2, 3].map(i => (
-                    <img key={i} src={`https://i.pravatar.cc/100?u=${i+20}`} className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white dark:border-navy object-cover" alt="User" />
+                    <img key={i} src={`https://i.pravatar.cc/100?u=${i+20}`} width="48" height="48" className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white dark:border-navy object-cover" alt="Client" loading="eager" decoding="async" />
                   ))}
                 </div>
                 <div>
@@ -93,6 +93,10 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               <div className="space-y-4 float-3d" style={{ animationDelay: '-1s' }}>
                 <img 
                   src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=600" 
+                  width="600"
+                  height="256"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-64 object-cover rounded-[40px] rounded-tr-[10px] shadow-2xl border border-navy/5 dark:border-white/5" 
                   alt="Team" 
                 />
@@ -104,6 +108,10 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               <div className="pt-12 float-3d" style={{ animationDelay: '-3s' }}>
                 <img 
                   src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600" 
+                  width="600"
+                  height="320"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-80 object-cover rounded-[10px] rounded-br-[40px] shadow-2xl border-2 border-brand-blue/20" 
                   alt="Results" 
                 />

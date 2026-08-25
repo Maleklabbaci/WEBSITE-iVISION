@@ -116,10 +116,9 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
     >
       {/* Image placeholder */}
      <div className="h-48 overflow-hidden">
-  <img 
+  <img loading="lazy" decoding="async"
     src={post.image} 
     alt={post.title}
-    loading="lazy"
     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
   />
 </div>

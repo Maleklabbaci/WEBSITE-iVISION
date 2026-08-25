@@ -591,17 +591,17 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
             </div>
             <div className={`hidden lg:grid grid-cols-2 gap-4 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div className="col-span-2 relative rounded-3xl overflow-hidden h-52 group">
-                <img src={images[0].url} alt="business" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img loading="lazy" decoding="async" src={images[0].url} alt="business" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
                 <div className="absolute top-4 right-4 bg-brand-blue text-white text-[10px] font-black uppercase tracking-wider px-3 py-2 rounded-xl shadow-lg shadow-brand-blue/30">{images[0].badge}</div>
               </div>
               <div className="relative rounded-3xl overflow-hidden h-40 group">
-                <img src={images[1].url} alt="marketing" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img loading="lazy" decoding="async" src={images[1].url} alt="marketing" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
                 <div className="absolute bottom-3 left-3 bg-white/10 backdrop-blur-sm text-white text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-lg">{images[1].badge}</div>
               </div>
               <div className="relative rounded-3xl overflow-hidden h-40 group">
-                <img src={images[2].url} alt="résultats" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img loading="lazy" decoding="async" src={images[2].url} alt="résultats" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
                 <div className="absolute bottom-3 left-3 bg-brand-blue/80 backdrop-blur-sm text-white text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-lg">{images[2].badge}</div>
               </div>
@@ -712,7 +712,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
               <div key={i} className="glass-card rounded-3xl p-7 flex flex-col gap-5">
                 <p className="text-brand-gray dark:text-brand-gray/80 text-sm font-medium leading-relaxed flex-grow">"{tm.text[lang]}"</p>
                 <div className="flex items-center gap-4">
-                  <img src={tm.avatar} alt={tm.name} className="w-10 h-10 rounded-full object-cover" />
+                  <img loading="lazy" decoding="async" src={tm.avatar} alt={tm.name} className="w-10 h-10 rounded-full object-cover" />
                   <div>
                     <span className="block text-xs font-black text-navy dark:text-white">{tm.name}</span>
                     <span className="block text-[10px] text-brand-gray/50 font-medium">{tm.role[lang]}</span>

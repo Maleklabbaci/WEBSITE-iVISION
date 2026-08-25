@@ -1,16 +1,10 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import PortfolioGallery from './components/PortfolioGallery';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import ScrollToTopButton from './components/ScrollToTopButton';
-import VisualShowcase from './components/VisualShowcase';
-import HowWeWork from './components/HowWeWork';
 import QuoteForm from './components/QuoteForm';
 import TrainingCenterLanding from './components/TrainingCenterLanding';
 import SplashScreen from './components/SplashScreen';
@@ -22,6 +16,7 @@ import { translations, Language } from './lib/translations';
 const BlogList = lazy(() => import('./components/BlogList'));
 const BlogPostPage = lazy(() => import('./components/BlogPostPage'));
 const ServicePage = lazy(() => import('./components/ServicePage'));
+const HomeBelowFold = lazy(() => import('./components/HomeBelowFold'));
 
 // ===== PAGE LOADER =====
 const PageLoader: React.FC = () => (
@@ -224,14 +219,13 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
           <>
             <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
             <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-            <PortfolioGallery language={language} />
-            <VisualShowcase translations={t.visualShowcase} />
-            <HowWeWork translations={{...t.howWeWork, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
-            <Testimonials translations={t.testimonials} />
-            <FAQ translations={t.faq} />
-            {t.contactSection && t.footer?.contact && (
-              <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />
-            )}
+            <Suspense fallback={null}>
+              <HomeBelowFold
+                language={language}
+                translations={t}
+                onQuoteClick={handleOpenQuotePage}
+              />
+            </Suspense>
           </>
         );
     }

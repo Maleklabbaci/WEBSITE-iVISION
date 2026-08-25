@@ -38,7 +38,7 @@ const VisualCard: React.FC<{ item: ShowcaseItem; index: number; isVisible: boole
       className={`${item.gridClass} group relative overflow-hidden rounded-[30px] md:rounded-[40px] border border-navy/5 dark:border-white/5 transition-all duration-[1s] ease-out shadow-2xl min-h-[300px] md:min-h-0 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
-      <img 
+      <img loading="lazy" decoding="async"
         src={`${item.url}?q=80&w=1200&auto=format&fit=crop`}
         alt={item.label}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[4000ms] group-hover:scale-110 opacity-30 md:opacity-30 group-hover:opacity-50"

@@ -88,18 +88,18 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           <div className={`uni-card h-32 flex items-center justify-center p-6 group hover:border-brand-accent/50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '400ms' }}>
-             <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="Lecmo" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
+             <img loading="lazy" decoding="async" src="https://i.ibb.co/vCV92NXv/logo2.png" alt="Lecmo" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
           </div>
           <div className={`uni-card h-32 flex items-center justify-center p-6 group hover:border-brand-accent/50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '500ms' }}>
-             <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="White Aura" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
+             <img loading="lazy" decoding="async" src="https://i.ibb.co/vCV92NXv/logo2.png" alt="White Aura" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
           </div>
           <div className={`uni-card h-32 flex items-center justify-center p-6 group hover:border-brand-accent/50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '600ms' }}>
-             <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="Bissan Academy" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
+             <img loading="lazy" decoding="async" src="https://i.ibb.co/vCV92NXv/logo2.png" alt="Bissan Academy" className="max-h-full opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all" />
           </div>
 
           {/* Logo 4: MOVESMART */}
           <div className={`uni-card h-32 relative overflow-hidden flex items-center justify-center p-6 group hover:border-brand-accent/50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '700ms' }}>
-             <img src="https://i.ibb.co/60PJ8PVw/aass.png" alt="MOVESMART" className="max-h-full opacity-50 group-hover:opacity-5 grayscale group-hover:grayscale-0 transition-all duration-500" />
+             <img loading="lazy" decoding="async" src="https://i.ibb.co/60PJ8PVw/aass.png" alt="MOVESMART" className="max-h-full opacity-50 group-hover:opacity-5 grayscale group-hover:grayscale-0 transition-all duration-500" />
              
              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 text-center px-2">
                 <span className="font-black text-white text-base md:text-lg tracking-wider mb-1">MOVESMART</span>

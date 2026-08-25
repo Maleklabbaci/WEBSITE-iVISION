@@ -24,7 +24,7 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
       <div className="container px-6">
         <div className="flex flex-col md:flex-row justify-between items-start gap-20 mb-32">
           <div className="max-w-sm">
-            <img 
+            <img loading="lazy" decoding="async"
               src="https://i.ibb.co/vCV92NXv/logo2.png" 
               alt="iVISION" 
               className="h-12 w-auto object-contain mb-8 block logo-img"

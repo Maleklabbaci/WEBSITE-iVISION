@@ -76,7 +76,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ translations }) => {
               >
                 <div className="shrink-0 relative">
                   <div className="absolute inset-0 bg-brand-blue/10 dark:bg-brand-blue/20 blur-3xl rounded-full"></div>
-                  <img 
+                  <img loading="lazy" decoding="async"
                     src={testimonial.avatar} 
                     alt={testimonial.author} 
                     className="relative w-32 h-32 md:w-56 md:h-56 rounded-[30px] md:rounded-[40px] border-2 border-brand-blue/20 p-2 shadow-2xl object-cover" 
