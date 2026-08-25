@@ -30,3 +30,9 @@
     min-height: 100svh;
   }
 }
+
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: 4.75rem;
+  }
+}

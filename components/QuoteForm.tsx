@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FORMSPARK_ID } from '../lib/config';
+import { trackEvent } from '../lib/analytics';
 
 interface QuoteFormProps {
   translations: { form?: any; };
@@ -191,6 +192,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
             currency: 'DZD'
           });
         }
+        trackEvent('lead_submit', { source: 'full_quote_form', budget: formData.budget });
         setStatus('done');
       } else { throw new Error('Error'); }
     } catch (error) {

@@ -51,6 +51,15 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
                 <a href="#/devis" className="text-xs font-black uppercase tracking-widest text-brand-blue hover:brightness-110 transition-all">
                   {translations.contactUs}
                 </a>
+                <a href="#devis-rapide" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
+                  Devis rapide
+                </a>
+                <a href="#etudes-de-cas" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
+                  Études de cas
+                </a>
+                <a href="#comparateur" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
+                  Comparer les services
+                </a>
                 <a href="#/academiq" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
                   Centres &amp; Crèches
                 </a>
@@ -77,6 +86,10 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
                     <a href={`tel:${translations.contact.phone?.replace(/\s/g, '') || ''}`} className="text-xs font-black text-brand-blue hover:brightness-110 transition-all">
                       {translations.contact.phone}
                     </a>
+                  </div>
+                  <div>
+                    <span className="block text-[8px] font-black uppercase tracking-widest text-brand-gray/40 mb-1">Disponibilité</span>
+                    <span className="text-xs font-bold text-brand-gray dark:text-brand-gray/80">Dimanche — Jeudi, 09:00 — 18:00</span>
                   </div>
                 </div>
             </div>

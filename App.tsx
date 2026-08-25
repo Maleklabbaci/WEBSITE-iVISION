@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import MobileConversionBar from './components/MobileConversionBar';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import QuoteForm from './components/QuoteForm';
 import TrainingCenterLanding from './components/TrainingCenterLanding';
@@ -287,6 +288,10 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
 
         <Footer translations={t.footer} onOpenPolicy={(type) => setPolicyType(type)} />
       </div>
+
+      {!isLoading && !showLangSelector && !policyType && currentView === 'home' && (
+        <MobileConversionBar language={language} onQuoteClick={handleOpenQuotePage} />
+      )}
     </div>
   );
 };
