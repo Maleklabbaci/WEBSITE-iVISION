@@ -19,13 +19,13 @@ module.exports = {
     },
     extend: {
       colors: {
-        navy: '#050A1F',
-        'brand-blue': '#0033FF',
+        navy: '#0B1B3A',
+        'brand-blue': '#2457FF',
         'brand-white': '#FFFFFF',
-        'brand-gray': '#94A3B8',
-        'brand-dark': '#050A1F',
-        'brand-accent': '#0033FF',
-        'brand-border': 'rgba(255,255,255,0.08)',
+        'brand-gray': '#667085',
+        'brand-dark': '#0B1B3A',
+        'brand-accent': '#2457FF',
+        'brand-border': 'rgba(11,27,58,0.10)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

@@ -112,7 +112,7 @@ const parseHash = (): { view: ViewType; slug?: string } => {
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [language, setLanguage] = useState<Language>('fr');
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
   const [policyType, setPolicyType] = useState<'privacy' | 'terms' | null>(null);
   const [currentView, setCurrentView] = useState<ViewType>('home');

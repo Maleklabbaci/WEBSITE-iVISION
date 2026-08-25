@@ -128,17 +128,18 @@
 
     <!-- ===== STYLES ===== -->
     <style>
-      :root { color-scheme: dark light; }
+      :root { color-scheme: light dark; }
       
       html.dark body {
-        background: radial-gradient(ellipse at top right, #7A7A3A 0%, #4A5A7A 35%, #1E2A6A 70%, #2A1A5A 100%);
+        background: radial-gradient(ellipse at top right, #284B9B 0%, #10285A 42%, #050A1F 100%);
         background-attachment: fixed;
         color: #FFFFFF;
       }
       
       html:not(.dark) body {
-        background-color: #FFFFFF;
-        color: #050A1F;
+        background: radial-gradient(ellipse at top right, rgba(36, 87, 255, 0.08) 0%, #F6F8FC 42%, #FFFFFF 100%);
+        background-attachment: fixed;
+        color: #0B1B3A;
       }
 
       body {
@@ -153,7 +154,7 @@
       .layer-3d { transform-style: preserve-3d; }
 
       .sketch-badge {
-        border: 2px solid #0033FF;
+        border: 2px solid #2457FF;
         padding: 4px 12px;
         transform: rotate(-2deg);
         display: inline-block;
@@ -161,12 +162,12 @@
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 0.12em;
-        color: #0033FF;
-        background: rgba(0, 51, 255, 0.05);
+        color: #2457FF;
+        background: rgba(36, 87, 255, 0.06);
       }
 
       .btn-ivision {
-        background-color: #0033FF;
+        background-color: #2457FF;
         color: #FFFFFF;
         font-weight: 800;
         padding: 0.75rem 1.75rem;
@@ -192,7 +193,7 @@
       
       .btn-ivision:hover {
         transform: translateY(-4px) translateZ(10px);
-        box-shadow: 0 20px 40px rgba(0, 51, 255, 0.3);
+        box-shadow: 0 20px 40px rgba(36, 87, 255, 0.3);
       }
 
       html:not(.dark) .logo-img {
@@ -212,11 +213,11 @@
       }
 
       html:not(.dark) .glass-card {
-        background: rgba(0, 51, 255, 0.02);
+        background: rgba(36, 87, 255, 0.03);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(0, 51, 255, 0.1);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(36, 87, 255, 0.12);
+        box-shadow: 0 18px 45px rgba(11, 27, 58, 0.08);
       }
 
       @media (min-width: 768px) {
@@ -225,19 +226,19 @@
           transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
         }
         html.dark .glass-card:hover {
-            border-color: rgba(0, 51, 255, 0.4);
-            background: rgba(0, 51, 255, 0.05);
+            border-color: rgba(36, 87, 255, 0.45);
+            background: rgba(36, 87, 255, 0.06);
         }
         html:not(.dark) .glass-card:hover {
-            border-color: rgba(0, 51, 255, 0.3);
-            background: rgba(0, 51, 255, 0.05);
-            box-shadow: 0 30px 60px rgba(0, 51, 255, 0.1);
+            border-color: rgba(36, 87, 255, 0.35);
+            background: rgba(36, 87, 255, 0.06);
+            box-shadow: 0 30px 60px rgba(36, 87, 255, 0.12);
         }
       }
 
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #0033FF; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb { background: #2457FF; border-radius: 10px; }
       
       /* ===== LOGOS BLANCS ===== */
       .logo-white {
@@ -285,40 +286,38 @@
 
       /* ===== DARK MODE FIXES ===== */
 
-      /* sketch-badge dark mode → blanc */
+      /* Badges et accents : contraste premium dans les deux modes */
       html.dark .sketch-badge {
-        border-color: rgba(255,255,255,0.5) !important;
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
+        border-color: rgba(180, 198, 255, 0.7) !important;
+        color: #F3F6FF !important;
+        -webkit-text-fill-color: #F3F6FF !important;
         background: rgba(255,255,255,0.1) !important;
       }
 
-      /* sketch-badge light mode → noir */
       html:not(.dark) .sketch-badge {
-        border-color: #050A1F !important;
-        color: #050A1F !important;
-        -webkit-text-fill-color: #050A1F !important;
-        background: rgba(5,10,31,0.05) !important;
+        border-color: rgba(36, 87, 255, 0.45) !important;
+        color: #2457FF !important;
+        -webkit-text-fill-color: #2457FF !important;
+        background: rgba(36, 87, 255, 0.06) !important;
       }
 
       /* uni-badge dark mode → blanc */
       html.dark .uni-badge {
-        border-color: rgba(255,255,255,0.5);
-        color: #FFFFFF;
+        border-color: rgba(180, 198, 255, 0.7);
+        color: #F3F6FF;
         background: rgba(255,255,255,0.1);
       }
 
-      /* uni-badge light mode → noir */
       html:not(.dark) .uni-badge {
-        border-color: #050A1F;
-        color: #050A1F;
-        background: rgba(5,10,31,0.05);
+        border-color: rgba(36, 87, 255, 0.45);
+        color: #2457FF;
+        background: rgba(36, 87, 255, 0.06);
       }
 
       /* text-brand-blue dark mode → blanc */
       html.dark .text-brand-blue {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
+        color: #AFC0FF !important;
+        -webkit-text-fill-color: #AFC0FF !important;
         background: none !important;
         background-clip: unset !important;
         -webkit-background-clip: unset !important;
@@ -326,8 +325,8 @@
 
       /* text-brand-blue light mode → noir */
       html:not(.dark) .text-brand-blue {
-        color: #050A1F !important;
-        -webkit-text-fill-color: #050A1F !important;
+        color: #2457FF !important;
+        -webkit-text-fill-color: #2457FF !important;
         background: none !important;
         background-clip: unset !important;
         -webkit-background-clip: unset !important;
@@ -336,7 +335,7 @@
       /* Boutons → toujours bleu/blanc */
       .btn-ivision,
       .btn-ivision .text-brand-blue {
-        background: #0033FF !important;
+        background: #2457FF !important;
         -webkit-text-fill-color: white !important;
         color: white !important;
       }
@@ -344,8 +343,8 @@
       /* Hover links */
       a.hover\:text-brand-blue:hover,
       .hover\:text-brand-blue:hover {
-        -webkit-text-fill-color: #0033FF !important;
-        color: #0033FF !important;
+        -webkit-text-fill-color: #2457FF !important;
+        color: #2457FF !important;
         background: none !important;
       }
     </style>
