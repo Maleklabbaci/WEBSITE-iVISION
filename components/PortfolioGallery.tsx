@@ -25,6 +25,9 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
   const selected = projects[activeIndex];
 
   useEffect(() => {
+    projects.forEach((project) => { const image = new Image(); image.src = project.media; });
+  }, []);
+  useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: .08 });
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
