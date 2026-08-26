@@ -1,23 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-interface ServiceItem { title: string; description: string }
-interface ServicesProps { translations: { title: string; subtitle: string; items: ServiceItem[]; modal?: any }; onQuoteClick: () => void }
+interface ServiceItem { title: string; description: string; details: string }
+interface ServicesProps { translations: { title: string; subtitle: string; items: ServiceItem[] }; onQuoteClick: () => void }
 
 const serviceSlugMap: Record<number, string> = { 0: 'marketing-digital', 1: 'production-audiovisuelle', 2: 'creation-site-web', 3: 'marketing-digital' };
-const serviceMedia = ['/images/ivision-hero-editorial.webp', '/images/ivision-project-fashion.webp', '/images/ivision-orbit.webp', '/images/ivision-project-mobility.webp'];
 
 const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
-  const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLElement>(null);
+
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: .12 });
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: 0.1 });
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
+
   const items = translations.items || [];
-  const words = (translations.title || '').replace('.', '').split(' ');
-  const activate = (index: number) => setActive(index);
   const openService = (index: number) => {
     const slug = serviceSlugMap[index];
     if (slug) window.location.hash = `/services/${slug}`;
@@ -25,14 +23,25 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
   };
 
   return (
-    <section ref={ref} id="services" className={`pipam-services ${visible ? 'is-visible' : ''}`}>
-      <div className="pipam-section-meta"><span className="pipam-pulse" />Services<span className="pipam-section-number">04 / 07</span></div>
-      <div className="pipam-services-header"><h2><span>FULL-</span><span className="is-gradient">SERVICE</span><span>DIGITAL POWERHOUSE</span></h2></div>
-      <div className="pipam-services-feature">
-        <div className="pipam-service-feature-image"><img key={serviceMedia[active]} src={serviceMedia[active]} alt="" loading="lazy" decoding="async" /></div>
-        <div className="pipam-service-feature-copy"><span className="pipam-service-feature-number">0{active + 1}</span><h3>{items[active]?.title || words.join(' ')}</h3><p>{items[active]?.description || translations.subtitle}</p><button type="button" className="pipam-text-link" onClick={() => openService(active)}><span>Découvrir le service</span><span aria-hidden="true">↗</span></button></div>
+    <section ref={ref} id="services" className={`iv-services ${visible ? 'is-visible' : ''}`}>
+      <div className="iv-section-topline"><span>SERVICES / 04</span><span>04 / 07</span></div>
+      <div className="iv-services-header">
+        <h2>{translations.title}</h2>
+        <p>{translations.subtitle}</p>
       </div>
-      <div className="pipam-services-slider" role="list" aria-label="Services iVISION">{items.map((item, index) => <button key={`${item.title}-${index}`} type="button" role="listitem" className={`pipam-service-slide ${active === index ? 'is-active' : ''}`} onMouseEnter={() => activate(index)} onFocus={() => activate(index)} onClick={() => openService(index)}><span className="pipam-service-number">0{index + 1}</span><span className="pipam-service-name">{item.title}</span><span className="pipam-service-arrow" aria-hidden="true">↗</span></button>)}</div>
+      <div className="iv-services-grid">
+        {items.map((item, index) => (
+          <button key={item.title} type="button" className="iv-service-card" onClick={() => openService(index)}>
+            <div className="iv-service-card-head">
+              <span className="iv-service-number">0{index + 1}</span>
+              <b aria-hidden="true">↗</b>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <div className="iv-service-card-footer"><span>Découvrir</span></div>
+          </button>
+        ))}
+      </div>
     </section>
   );
 };

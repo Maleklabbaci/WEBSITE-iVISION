@@ -25,7 +25,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
   const selected = projects[activeIndex];
 
   useEffect(() => {
-    projects.forEach((project) => { const image = new Image(); image.src = project.media; });
+    projects.forEach(({ media }) => { const image = new Image(); image.decoding = 'async'; image.src = media; });
   }, []);
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: .08 });
@@ -52,17 +52,16 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
   useEffect(() => { trackEvent('view_case_study', { case_name: selected.name }); }, [selected.name]);
 
   return (
-    <section ref={ref} id="etudes-de-cas" className={`pipam-work-scroll ${visible ? 'is-visible' : ''}`}>
-      <div className="pipam-work-sticky">
-        <div className="pipam-section-meta"><span className="pipam-pulse" />{t.label}<span className="pipam-section-number">02 / 07</span></div>
-        <div className="pipam-work-scroll-head"><h2><span>{t.building}</span><span className="pipam-changing-word" key={selected.id}>{t.words[activeIndex]}</span></h2><p>{t.ending}</p></div>
-        <div className="pipam-work-scroll-stage">
-          <div className="pipam-work-scroll-copy"><span>{selected.sector}</span><h3 key={selected.id}>{selected.name}</h3><p>{selected.summary}</p><div className="pipam-work-results">{selected.results.map((result) => <strong key={result}>{result}</strong>)}</div><div className="pipam-project-actions"><button type="button" className="pipam-text-link" onClick={onQuoteClick}><span>{t.quote}</span><span aria-hidden="true">↗</span></button><a className="pipam-text-link" href={selected.website} target="_blank" rel="noopener noreferrer"><span>{t.view}</span><span aria-hidden="true">↗</span></a></div></div>
-          <a className="pipam-website-frame" key={selected.id} href={selected.website} target="_blank" rel="noopener noreferrer" aria-label={`${selected.name} — ouvrir le site`}><div className="pipam-website-frame-bar"><span /><span /><span /><small>WEBSITE</small></div><img src={selected.media} alt={`${selected.name} — aperçu du site`} loading="lazy" decoding="async" /></a>
+    <section ref={ref} id="etudes-de-cas" className={`iv-work-scroll ${visible ? 'is-visible' : ''}`}>
+      <div className="iv-work-sticky">
+        <div className="iv-section-topline"><span>{t.label}</span><span>02 / 07</span></div>
+        <div className="iv-work-heading"><h2><span>{t.building}</span><span className="iv-work-changing-word" key={selected.id}>{t.words[activeIndex]}</span></h2><p>{t.ending}</p></div>
+        <div className="iv-work-stage">
+          <div className="iv-work-copy"><div className="iv-work-project-index"><span>0{selected.id}</span><b /><span>0{projects.length}</span></div><span className="iv-work-sector">{selected.sector}</span><h3 key={selected.id}>{selected.name}</h3><p>{selected.summary}</p><div className="iv-work-results">{selected.results.map((result) => <span key={result}>{result}</span>)}</div><div className="iv-work-actions"><button type="button" className="iv-work-link" onClick={onQuoteClick}><span>{t.quote}</span><b aria-hidden="true">↗</b></button><a className="iv-work-link" href={selected.website} target="_blank" rel="noopener noreferrer"><span>{t.view}</span><b aria-hidden="true">↗</b></a></div></div>
+          <a className="iv-work-frame" key={selected.id} href={selected.website} target="_blank" rel="noopener noreferrer" aria-label={`${selected.name} — ouvrir le site`}><div className="iv-work-frame-bar"><span /><span /><span /><small>WEBSITE</small></div><div className="iv-work-frame-image"><img src={selected.media} alt={`${selected.name} — aperçu du site`} loading="eager" decoding="async" /><span className="iv-work-frame-caption">{selected.name}</span></div></a>
         </div>
-        <div className="pipam-work-scroll-footer"><span>{t.scrollHint}</span><div className="pipam-scroll-progress"><i style={{ transform: `scaleX(${Math.max(.08, progress)})` }} /></div><span>0{activeIndex + 1} / 0{projects.length}</span></div>
+        <div className="iv-work-bottomline"><span>{t.scrollHint}</span><div className="iv-work-progress"><i style={{ transform: `scaleX(${Math.max(.08, progress)})` }} /></div><div className="iv-work-dots">{projects.map((project) => <i key={project.id} className={project.id === selected.id ? 'is-active' : ''} />)}</div></div>
       </div>
-      <div className="pipam-work-scroll-steps" aria-label="Projets iVISION">{projects.map((project) => <div key={project.id} className={`pipam-work-step ${selected.id === project.id ? 'is-active' : ''}`} aria-label={project.name} />)}</div>
     </section>
   );
 };

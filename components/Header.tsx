@@ -9,103 +9,55 @@ interface HeaderProps {
   onChangeLanguage?: (lang: 'fr' | 'en' | 'ar') => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onToggleTheme, language = 'fr', onChangeLanguage }) => {
+const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, language = 'fr' }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  const labels = language === 'ar' ? { home: 'الرئيسية', about: 'من نحن', work: 'أعمالنا', services: 'خدماتنا', blog: 'المدونة' } : language === 'en' ? { home: 'Home', about: 'About', work: 'Work', services: 'Services', blog: 'Blog' } : { home: 'Accueil', about: 'À propos', work: 'Projets', services: 'Services', blog: 'Blog' };
   const navItems = [
-    { label: language === 'ar' ? 'الرئيسية' : language === 'en' ? 'Home' : 'Accueil', id: 'accueil' },
-    { label: language === 'ar' ? 'من نحن' : language === 'en' ? 'About' : 'À propos', id: 'about' },
-    { label: translations.links[0], id: 'services' },
-    { label: translations.links[1], id: 'etudes-de-cas' },
+    { label: labels.about, id: 'about' },
+    { label: labels.work, id: 'etudes-de-cas' },
+    { label: labels.services, id: 'services' },
+    { label: labels.blog, hash: '/blog' },
   ];
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 24);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [isMobileMenuOpen]);
+  }, [open]);
 
-  const closeMenu = () => setIsMobileMenuOpen(false);
-
-  const handleAnchorClick = (event: React.MouseEvent, sectionId: string) => {
-    event.preventDefault();
-    closeMenu();
-    const isSubPage = window.location.hash.startsWith('#/') && window.location.hash.length > 2;
-    const scroll = () => document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (isSubPage) {
-      window.location.hash = '';
-      window.setTimeout(scroll, 280);
-    } else {
-      scroll();
-    }
-  };
-
-  const handleBlogClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    closeMenu();
-    window.location.hash = '/blog';
-  };
-
-  const handleLogoClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    closeMenu();
-    if (window.location.hash.startsWith('#/')) window.location.hash = '';
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const cycleLanguage = () => {
-    const langs: ('fr' | 'en' | 'ar')[] = ['fr', 'en', 'ar'];
-    const next = langs[(langs.indexOf(language as 'fr' | 'en' | 'ar') + 1) % langs.length];
-    onChangeLanguage?.(next);
+  const scrollTo = (id: string) => {
+    setOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
     <>
-      <header className={`site-header pipam-header ${isScrolled || isMobileMenuOpen ? 'is-scrolled' : ''}`}>
-        <div className="pipam-header-inner">
-          <a href="#accueil" onClick={handleLogoClick} className="pipam-brand" aria-label="iVISION — accueil">
-            <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="iVISION" className="logo-img" />
+      <header className={`iv-header ${isScrolled || open ? 'is-scrolled' : ''}`}>
+        <div className="iv-header-inner">
+          <a href="#accueil" className="iv-logo" onClick={(event) => { event.preventDefault(); setOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }} aria-label="iVISION — accueil">
+            <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="iVISION" />
           </a>
-
-          <nav className="pipam-nav" aria-label="Navigation principale">
-            {navItems.map((item) => (
-              <a key={item.id} href={`#${item.id}`} onClick={(event) => handleAnchorClick(event, item.id)}>{item.label}</a>
-            ))}
-            <a href="#/blog" onClick={handleBlogClick}>Blog</a>
+          <nav className="iv-nav" aria-label="Navigation principale">
+            <a href="#accueil" onClick={(event) => { event.preventDefault(); scrollTo('accueil'); }}>{labels.home}</a>
+            {navItems.map((item) => item.hash ? <a key={item.hash} href={`#${item.hash}`} onClick={(event) => { event.preventDefault(); setOpen(false); window.location.hash = item.hash; }}>{item.label}</a> : <a key={item.id} href={`#${item.id}`} onClick={(event) => { event.preventDefault(); scrollTo(item.id!); }}>{item.label}</a>)}
           </nav>
-
-          <div className="pipam-header-right">
-            <button id="guide-contact-btn" type="button" onClick={onQuoteClick} className="pipam-header-cta">
-              <span>{translations.cta}</span><span aria-hidden="true">↗</span>
-            </button>
-            <button type="button" className={`pipam-menu-toggle ${isMobileMenuOpen ? 'is-open' : ''}`} onClick={() => setIsMobileMenuOpen((open) => !open)} aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'} aria-expanded={isMobileMenuOpen}>
-              <span /><span />
-            </button>
-          </div>
+          <button type="button" className="iv-header-cta" onClick={onQuoteClick}><span>{translations.cta}</span><b aria-hidden="true">↗</b></button>
+          <button type="button" className={`iv-menu-button ${open ? 'is-open' : ''}`} onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}><span /><span /></button>
         </div>
       </header>
-
-      <div className={`pipam-mobile-menu ${isMobileMenuOpen ? 'is-open' : ''}`} aria-hidden={!isMobileMenuOpen}>
-        <div className="pipam-mobile-menu-inner">
-          <nav aria-label="Navigation mobile">
-            {navItems.map((item, index) => (
-              <a key={item.id} href={`#${item.id}`} onClick={(event) => handleAnchorClick(event, item.id)} style={{ transitionDelay: `${index * 60}ms` }}>{item.label}</a>
-            ))}
-            <a href="#/blog" onClick={handleBlogClick} style={{ transitionDelay: `${navItems.length * 60}ms` }}>Blog</a>
-          </nav>
-          <button type="button" onClick={() => { closeMenu(); onQuoteClick(); }} className="pipam-mobile-cta">{translations.cta}<span aria-hidden="true">↗</span></button>
-          <div className="pipam-utility-row">
-            <button type="button" onClick={cycleLanguage} aria-label="Changer la langue">{language.toUpperCase()}</button>
-            <button id="guide-theme-toggle" type="button" onClick={onToggleTheme} aria-label="Changer de thème">{theme === 'dark' ? 'Light' : 'Dark'}</button>
-          </div>
-        </div>
+      <div className={`iv-mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+        <nav aria-label="Navigation mobile">
+          <a href="#accueil" onClick={(event) => { event.preventDefault(); scrollTo('accueil'); }}>{labels.home}</a>
+          {navItems.map((item) => item.hash ? <a key={item.hash} href={`#${item.hash}`} onClick={(event) => { event.preventDefault(); setOpen(false); window.location.hash = item.hash; }}>{item.label}</a> : <a key={item.id} href={`#${item.id}`} onClick={(event) => { event.preventDefault(); scrollTo(item.id!); }}>{item.label}</a>)}
+          <button type="button" onClick={() => { setOpen(false); onQuoteClick(); }}>{translations.cta}<span aria-hidden="true">↗</span></button>
+        </nav>
       </div>
     </>
   );
