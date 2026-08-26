@@ -733,6 +733,43 @@
       .site-footer a, .site-footer p, .site-footer button { color: rgba(247,247,245,.62) !important; }
       .site-footer a:hover, .site-footer button:hover { color: var(--iv-cyan) !important; }
       .whatsapp-float, .whatsapp-button { z-index: 120 !important; }
+      .pipam-changing-word { animation: iv-word-in .55s cubic-bezier(.23,1,.32,1) both; }
+      @keyframes iv-word-in { from { opacity: 0; transform: translateY(.32em); filter: blur(8px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+      .pipam-client-ticker { position: relative; z-index: 3; display: flex; align-items: center; gap: 2rem; margin-top: 6rem; padding: 1rem 0; border-top: 1px solid var(--iv-line); border-bottom: 1px solid var(--iv-line); overflow: hidden; }
+      .pipam-client-ticker > span { flex: 0 0 auto; color: rgba(247,247,245,.5); font-size: .63rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .pipam-client-track { display: flex; align-items: center; gap: 2.5rem; min-width: max-content; animation: iv-ticker 26s linear infinite; }
+      .pipam-client-track strong { color: var(--iv-white); font-size: .75rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+      @keyframes iv-ticker { to { transform: translateX(-50%); } }
+      .pipam-service-row { position: relative; overflow: hidden; }
+      .pipam-service-row:before { content: ''; position: absolute; right: 4rem; width: 10rem; height: 5rem; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--iv-cyan), transparent 65%); opacity: 0; transform: translateX(1rem) scale(.8); transition: opacity .3s ease, transform .35s ease; pointer-events: none; }
+      .pipam-service-row:hover:before { opacity: .5; transform: translateX(0) scale(1); }
+      .pipam-impact { position: relative; min-height: 100svh; padding: 7rem 5vw 5rem; overflow: hidden; background: #d91072 !important; color: var(--iv-white); isolation: isolate; }
+      .pipam-impact-image { position: absolute; inset: 0; z-index: -1; mix-blend-mode: luminosity; opacity: .38; }
+      .pipam-impact-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(1) contrast(1.25); }
+      .pipam-impact-image div { position: absolute; inset: 0; background: linear-gradient(120deg, rgba(217,16,114,.98), rgba(217,16,114,.55) 52%, rgba(0,0,0,.45)); }
+      .pipam-impact-copy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, .38fr); align-items: end; gap: 3rem; margin: 13vh 0 12vh; }
+      .pipam-impact-copy h2 { font-size: clamp(4rem, 11vw, 11rem); }
+      .pipam-impact-copy h2 .is-gradient { background: linear-gradient(100deg, #fff, #ffb2dc); background-clip: text; -webkit-background-clip: text; }
+      .pipam-impact-copy p { max-width: 22rem; margin: 0 0 .55rem; color: rgba(255,255,255,.75); line-height: 1.6; }
+      .pipam-impact-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(255,255,255,.48); }
+      .pipam-impact-stats div { padding-top: 1rem; }
+      .pipam-impact-stats strong { display: block; margin-bottom: .35rem; font-size: clamp(3rem, 7vw, 7rem); font-weight: 900; letter-spacing: -.08em; line-height: .8; }
+      .pipam-impact-stats span { color: rgba(255,255,255,.75); font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+      .pipam-faq { min-height: 100svh; padding: 7rem 5vw 6rem; background: var(--iv-black) !important; color: var(--iv-white); }
+      .pipam-faq-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, .5fr); align-items: end; gap: 3rem; margin: 11vh 0 9vh; }
+      .pipam-faq-heading h2 { font-size: clamp(4rem, 11vw, 11rem); }
+      .pipam-faq-heading h2 span { display: block; }
+      .pipam-faq-heading p { max-width: 23rem; margin: 0 0 .5rem; color: var(--iv-muted); font-size: .95rem; line-height: 1.6; }
+      .pipam-faq-list { max-width: 64rem; margin-left: auto; }
+      .pipam-faq-item { border-top: 1px solid var(--iv-line); }
+      .pipam-faq-item:last-child { border-bottom: 1px solid var(--iv-line); }
+      .pipam-faq-item button { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.4rem 0; border: 0; background: transparent; color: var(--iv-white); text-align: left; font-size: clamp(1rem, 1.8vw, 1.45rem); font-weight: 700; letter-spacing: -.03em; }
+      .pipam-faq-item button i { flex: 0 0 auto; color: var(--iv-coral); font-size: 1.6rem; font-style: normal; font-weight: 300; transition: transform .3s ease; }
+      .pipam-faq-item.is-open button i { transform: rotate(45deg); }
+      .pipam-faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.23,1,.32,1); }
+      .pipam-faq-answer p { min-height: 0; overflow: hidden; max-width: 48rem; margin: 0; color: var(--iv-muted); font-size: .9rem; line-height: 1.6; }
+      .pipam-faq-item.is-open .pipam-faq-answer { grid-template-rows: 1fr; }
+      .pipam-faq-item.is-open .pipam-faq-answer p { padding: 0 2rem 1.5rem 0; }
       .pipam-header { position: fixed; inset: 0 0 auto; z-index: 110; padding: 1.25rem 5vw; color: var(--iv-white); background: transparent; transition: padding .35s ease, background .35s ease, border-color .35s ease; }
       .pipam-header.is-scrolled { padding-top: .85rem; padding-bottom: .85rem; background: rgba(5,5,5,.78); border-bottom: 1px solid rgba(247,247,245,.15); backdrop-filter: blur(18px); }
       .pipam-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
@@ -767,7 +804,7 @@
         .pipam-header { padding: 1rem 1.15rem; }
         .pipam-nav, .pipam-header-cta { display: none; }
         .pipam-menu-toggle, .pipam-mobile-menu { display: block; }
-        .pipam-hero, .pipam-about, .pipam-services, .pipam-work, .pipam-method { min-height: auto; padding: 6.5rem 1.15rem 4rem; }
+        .pipam-hero, .pipam-about, .pipam-services, .pipam-work, .pipam-method, .pipam-impact, .pipam-faq { min-height: auto; padding: 6.5rem 1.15rem 4rem; }
         .pipam-hero { min-height: 100svh; padding-top: 6.5rem; }
         .pipam-hero-media img { object-position: 68% center; }
         .pipam-hero-shade { background: linear-gradient(0deg, rgba(5,5,5,.98) 0%, rgba(5,5,5,.55) 58%, rgba(5,5,5,.22) 100%); }
@@ -790,6 +827,16 @@
         .pipam-service-desc, .pipam-method-row p { grid-column: 2 / -1; font-size: .75rem; }
         .pipam-service-arrow, .pipam-method-arrow { grid-column: 3; grid-row: 1; }
         .pipam-work { min-height: auto; }
+        .pipam-client-ticker { display: block; margin-top: 4rem; }
+        .pipam-client-ticker > span { display: block; margin-bottom: 1rem; }
+        .pipam-client-track { gap: 1.5rem; }
+        .pipam-impact-copy, .pipam-faq-heading { display: block; margin: 7vh 0; }
+        .pipam-impact-copy h2, .pipam-faq-heading h2 { font-size: clamp(3.6rem, 16vw, 6rem); margin-bottom: 2rem; }
+        .pipam-impact-copy p, .pipam-faq-heading p { max-width: 20rem; font-size: .84rem; }
+        .pipam-impact-stats { grid-template-columns: 1fr; gap: 1.5rem; }
+        .pipam-impact-stats strong { font-size: 4.4rem; }
+        .pipam-faq-item button { font-size: 1rem; }
+        .pipam-faq-item.is-open .pipam-faq-answer p { padding-right: 0; }
         .pipam-work-title { margin: 7vh 0 2vh; text-align: left; }
         .pipam-work-title h2 { font-size: clamp(3.5rem, 15vw, 5.8rem); }
         .pipam-work-stage { display: flex; min-height: 0; flex-direction: column; align-items: stretch; gap: 2rem; padding-top: 2rem; }
