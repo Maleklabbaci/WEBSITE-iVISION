@@ -144,7 +144,7 @@
       .iv-work-simple-heading { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 6vw; margin: 5rem 0 4rem; }
       .iv-work-simple-heading h2 { margin: 1rem 0 0; font-size: clamp(4rem, 9vw, 10rem); line-height: .75; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
       .iv-work-simple-heading h2 span { display: block; }
-      .iv-work-simple-heading h2 span:last-child { color: var(--iv-orange); }
+      .iv-work-simple-heading h2 span:last-child { color: var(--iv-orange); white-space: nowrap; }
       .iv-work-simple-intro { max-width: 24rem; padding-bottom: .5rem; }
       .iv-work-simple-intro p { margin: 0 0 2rem; color: var(--iv-muted); font-size: 1rem; line-height: 1.6; }
       .iv-work-simple-cta { display: inline-flex; align-items: center; gap: .7rem; border: 0; border-bottom: 1px solid var(--iv-orange); padding: 0 0 .7rem; background: transparent; color: var(--iv-white); font: inherit; font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
@@ -292,7 +292,8 @@
         .iv-about-grid, .iv-smm-grid, .iv-proof-grid, .iv-faq-grid { grid-template-columns: 1fr; gap: 4rem; }
         .iv-work-simple { padding: 6rem 1.15rem; }
         .iv-work-simple-heading { grid-template-columns: 1fr; gap: 2.5rem; margin: 3.5rem 0; }
-        .iv-work-simple-heading h2 { font-size: clamp(3.7rem, 16vw, 7rem); }
+        .iv-work-simple-heading h2 { font-size: clamp(3.4rem, 15vw, 7rem); }
+        .iv-work-simple-heading h2 span:last-child { white-space: normal; }
         .iv-work-simple-grid { grid-template-columns: 1fr; gap: 0; }
         .iv-work-card.is-featured .iv-work-card-media { aspect-ratio: 1 / 1.08; }
         .iv-hero-top { padding: 6rem 1.15rem 0; }
