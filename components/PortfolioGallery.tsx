@@ -74,7 +74,6 @@ const projects: Project[] = [
 interface PortfolioGalleryProps {
   language: Language;
   onQuoteClick: () => void;
-  initialProjectId?: string;
 }
 
 const labels = {
@@ -128,10 +127,10 @@ const labels = {
   },
 };
 
-const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteClick, initialProjectId }) => {
+const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteClick }) => {
   const isRTL = language === 'ar';
   const t = labels[language];
-  const [selectedId, setSelectedId] = useState(() => Number(initialProjectId) || projects[0].id);
+  const [selectedId, setSelectedId] = useState(projects[0].id);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const selectedProject = projects.find(project => project.id === selectedId) ?? projects[0];
@@ -144,16 +143,9 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const nextId = Number(initialProjectId);
-    if (nextId && projects.some(project => project.id === nextId)) setSelectedId(nextId);
-  }, [initialProjectId]);
-
   const selectProject = (project: Project) => {
     setSelectedId(project.id);
     trackEvent('view_case_study', { case_name: project.name });
-    const nextRoute = `#/resultats/${project.id}`;
-    if (window.location.hash !== nextRoute) window.location.hash = `/resultats/${project.id}`;
   };
 
   return (

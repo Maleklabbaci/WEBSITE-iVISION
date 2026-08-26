@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Services from './components/Services';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import MobileConversionBar from './components/MobileConversionBar';
@@ -10,14 +11,6 @@ import TrainingCenterLanding from './components/TrainingCenterLanding';
 import SplashScreen from './components/SplashScreen';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
-import Services from './components/Services';
-import PortfolioGallery from './components/PortfolioGallery';
-import HowWeWork from './components/HowWeWork';
-import Contact from './components/Contact';
-import QuickQuote from './components/QuickQuote';
-import ServiceComparator from './components/ServiceComparator';
-import LegalPage from './components/LegalPage';
-import ProcessPage from './components/ProcessPage';
 import { translations, Language } from './lib/translations';
 
 // ===== LAZY LOADING (Performance) =====
@@ -102,23 +95,13 @@ const StaticBackground: React.FC = () => (
   </div>
 );
 
-type ViewType = 'home' | 'quote' | 'quick-quote' | 'blog' | 'blog-post' | 'service' | 'services' | 'results' | 'method' | 'process' | 'contact' | 'comparator' | 'privacy' | 'terms' | 'centres';
+type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service' | 'centres';
 
 const parseHash = (): { view: ViewType; slug?: string } => {
   const hash = window.location.hash.slice(1) || '/';
   
   if (hash === '/academiq') return { view: 'centres' };
   if (hash === '/devis') return { view: 'quote' };
-  if (hash === '/devis-rapide') return { view: 'quick-quote' };
-  if (hash === '/comparateur') return { view: 'comparator' };
-  if (hash === '/confidentialite') return { view: 'privacy' };
-  if (hash === '/conditions') return { view: 'terms' };
-  if (hash === '/services') return { view: 'services' };
-  if (hash === '/resultats') return { view: 'results' };
-  if (hash.startsWith('/resultats/')) return { view: 'results', slug: hash.replace('/resultats/', '') };
-  if (hash === '/methode') return { view: 'method' };
-  if (hash.startsWith('/methode/')) return { view: 'process', slug: hash.replace('/methode/', '') };
-  if (hash === '/contact') return { view: 'contact' };
   if (hash === '/blog') return { view: 'blog' };
   if (hash.startsWith('/blog/')) return { view: 'blog-post', slug: hash.replace('/blog/', '') };
   if (hash.startsWith('/services/')) return { view: 'service', slug: hash.replace('/services/', '') };
@@ -229,34 +212,7 @@ const App: React.FC = () => {
         return <TrainingCenterLanding language={language} />;
 
       case 'quote':
-        return <QuoteForm translations={{ form: t.contact.form }} />;
-
-      case 'quick-quote':
-        return <QuickQuote language={language} onFullQuoteClick={handleOpenQuotePage} />;
-
-      case 'comparator':
-        return <ServiceComparator language={language} onQuoteClick={handleOpenQuotePage} />;
-
-      case 'services':
-        return <Services translations={{ ...t.services, modal: t.contact?.modal }} onQuoteClick={handleOpenQuotePage} />;
-
-      case 'results':
-        return <PortfolioGallery language={language} onQuoteClick={handleOpenQuotePage} initialProjectId={currentSlug} />;
-
-      case 'method':
-        return <HowWeWork translations={{ ...t.howWeWork, modal: t.contact?.modal }} onQuoteClick={handleOpenQuotePage} />;
-
-      case 'process':
-        return <ProcessPage language={language} translations={t.howWeWork} stepSlug={currentSlug} onQuoteClick={handleOpenQuotePage} />;
-
-      case 'contact':
-        return <Contact translations={{ ...t.contactSection, footerContact: t.footer.contact }} />;
-
-      case 'privacy':
-        return <LegalPage language={language} type="privacy" />;
-
-      case 'terms':
-        return <LegalPage language={language} type="terms" />;
+return <QuoteForm translations={{ form: t.contact.form }} />;
         
       case 'home':
       default:
