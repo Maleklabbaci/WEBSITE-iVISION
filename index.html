@@ -35,28 +35,49 @@
       .iv-arrow-link:hover b { transform: translate(4px, -4px); }
 
       /* ===== HERO ===== */
-      .iv-hero { position: relative; height: 100svh; display: flex; flex-direction: column; overflow: hidden; }
-      .iv-hero-bg { position: absolute; inset: 0; z-index: -1; }
-      .iv-hero-texture { position: absolute; inset: -10%; background: radial-gradient(circle at 50% 50%, rgba(232,35,147,0.04) 0%, transparent 70%); opacity: 0.8; }
-      .iv-hero-glow { position: absolute; top: 20%; right: 10%; width: 40vw; aspect-ratio: 1; background: radial-gradient(circle, rgba(255,57,12,0.06) 0%, transparent 70%); filter: blur(60px); }
+      .iv-hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; background: var(--iv-black); }
+      .iv-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+      .iv-hero-bg img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 58% center; filter: saturate(.82) contrast(1.08); transition: transform 1.2s cubic-bezier(.23,1,.32,1); }
+      .iv-hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,9,9,.84) 0%, rgba(8,9,9,.28) 45%, rgba(8,9,9,.2) 100%), linear-gradient(0deg, rgba(8,9,9,.72), transparent 42%, rgba(8,9,9,.36)); }
+      .iv-hero-top, .iv-hero-main { position: relative; z-index: 2; }
+      .iv-hero-top { display: flex; justify-content: space-between; align-items: center; padding: 7.5rem 4.8vw 0; color: var(--iv-white); }
+      .iv-hero-meta { display: flex; align-items: center; gap: 0.8rem; color: rgba(246,246,246,.82); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+      .iv-hero-pulse { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--iv-orange); box-shadow: 0 0 0 0.25rem rgba(255,57,12,0.18); }
+      .iv-hero-date { color: rgba(246,246,246,.76); font-size: 0.62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+      .iv-hero-index { color: rgba(246,246,246,.7); font-size: 0.6rem; font-weight: 700; }
+      .iv-hero-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 4.8vw 2rem; }
+      .iv-hero-title-wrap h1 { margin: 0; max-width: 90rem; font-size: clamp(4.4rem, 11.4vw, 13.5rem); line-height: .72; letter-spacing: -.1em; font-weight: 400; text-transform: uppercase; }
+      .iv-hero-title-wrap h1 span { display: block; color: var(--iv-white); }
+      .iv-hero-title-wrap h1 span:nth-child(2) { margin-left: 14vw; }
+      .iv-hero-title-wrap h1 b { color: var(--iv-orange); font-size: .6em; vertical-align: .1em; font-weight: 400; }
+      .iv-hero-middle-copy { position: absolute; left: 4.8vw; bottom: 25%; color: rgba(246,246,246,.9); font-size: .55rem; font-weight: 700; letter-spacing: .04em; line-height: 1.25; text-transform: uppercase; }
+      .iv-hero-footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-top: auto; padding-top: clamp(3rem, 8vh, 7rem); }
+      .iv-hero-copy { max-width: 25rem; }
+      .iv-hero-copy p { max-width: 23rem; margin: 0 0 1.5rem; color: rgba(246,246,246,.78); font-size: .85rem; line-height: 1.5; }
+      .iv-hero-actions { display: flex; align-items: center; gap: .7rem; }
+      .iv-hero-cta, .iv-hero-scroll { display: inline-flex; align-items: center; gap: .7rem; min-height: 2.7rem; border-radius: 999px; padding: 0 1rem; font: inherit; font-size: .58rem; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; cursor: pointer; }
+      .iv-hero-cta { border: 0; background: var(--iv-orange); color: #111; }
+      .iv-hero-scroll { border: 1px solid rgba(246,246,246,.5); color: var(--iv-white); }
+      .iv-hero-cta b, .iv-hero-scroll b { font-size: 1rem; font-weight: 400; }
+      .iv-hero-mini-cards { display: flex; align-items: flex-end; gap: .7rem; }
+      .iv-hero-mini-card { width: clamp(4.8rem, 7vw, 7rem); height: clamp(6rem, 9vw, 9rem); overflow: hidden; border-radius: .8rem; border: 1px solid rgba(246,246,246,.22); background: rgba(15,18,19,.68); }
+      .iv-hero-mini-card img { width: 100%; height: 100%; object-fit: cover; }
+      .iv-hero-mini-card-dark { display: flex; flex-direction: column; justify-content: flex-end; padding: .8rem; box-sizing: border-box; color: var(--iv-white); }
+      .iv-hero-mini-card-dark strong { font-size: 1.5rem; font-weight: 400; line-height: 1; }
+      .iv-hero-mini-card-dark span { margin-top: .4rem; color: rgba(246,246,246,.66); font-size: .48rem; line-height: 1.3; text-transform: uppercase; }
 
-      .iv-hero-top { display: flex; justify-content: space-between; align-items: center; padding: 7.5rem 4.8vw 0; }
-      .iv-hero-meta { display: flex; align-items: center; gap: 0.8rem; color: var(--iv-muted); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
-      .iv-hero-pulse { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--iv-orange); box-shadow: 0 0 0 0.25rem rgba(255,57,12,0.15); }
-      .iv-hero-index { color: var(--iv-muted); font-size: 0.6rem; font-weight: 700; }
-
-      .iv-hero-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 4.8vw; }
-      .iv-hero-title-wrap h1 { margin: 0; font-size: clamp(4.5rem, 13vw, 15rem); line-height: 0.76; letter-spacing: -0.1em; text-transform: uppercase; }
-      .iv-hero-line-1 { display: block; color: var(--iv-white); }
-      .iv-hero-line-2 { display: block; color: var(--iv-magenta); }
-
-      .iv-hero-footer { margin-top: clamp(2rem, 6vh, 6rem); }
-      .iv-hero-copy { max-width: 32rem; }
-      .iv-hero-copy p { margin: 0 0 2.5rem; color: var(--iv-muted); font-size: clamp(0.9rem, 1.2vw, 1.1rem); line-height: 1.6; }
-      .iv-hero-actions { display: flex; align-items: center; gap: 2.5rem; }
-      .iv-hero-cta { border: 0; padding: 0; background: transparent; color: var(--iv-white); font: inherit; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; }
-      .iv-hero-cta b { color: var(--iv-magenta); font-size: 1.2rem; font-weight: 400; }
-      .iv-hero-scroll { color: var(--iv-muted); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-decoration: none; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
+      .iv-about-trust { display: grid; grid-template-columns: 1fr .8fr; gap: 6vw; align-items: end; padding: 0 4.8vw 5rem; }
+      .iv-about-trust h3 { max-width: 36rem; margin: 1.3rem 0 0; font-size: clamp(2rem, 4.8vw, 5.5rem); font-weight: 400; letter-spacing: -.08em; line-height: .82; text-transform: uppercase; }
+      .iv-about-trust h3 b { display: inline-block; margin-left: .25em; color: var(--iv-orange); font-size: .45em; vertical-align: .2em; font-weight: 400; }
+      .iv-about-trust p { max-width: 24rem; margin: 0; color: var(--iv-muted); font-size: .95rem; line-height: 1.5; }
+      .iv-about-mosaic { display: grid; grid-template-columns: .65fr 1.15fr .82fr; align-items: end; gap: 2rem; padding: 0 4.8vw 8rem; }
+      .iv-about-mosaic figure { position: relative; margin: 0; overflow: hidden; border-radius: .7rem; background: #181a18; }
+      .iv-about-mosaic figure img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .6s cubic-bezier(.23,1,.32,1); }
+      .iv-about-mosaic figure:hover img { transform: scale(1.04); }
+      .iv-about-mosaic-small { height: 15rem; }
+      .iv-about-mosaic-large { height: 28rem; }
+      .iv-about-mosaic-medium { height: 24rem; }
+      .iv-about-mosaic figcaption { position: absolute; right: 1rem; bottom: 1rem; left: 1rem; color: var(--iv-white); font-size: .7rem; font-weight: 700; letter-spacing: .08em; line-height: 1.1; text-transform: uppercase; text-shadow: 0 1px 12px rgba(0,0,0,.65); }
 
       /* ===== ABOUT ===== */
       .iv-about { border-top: 1px solid var(--iv-line); }
@@ -234,10 +255,23 @@
         .iv-header-cta { margin-left: auto; padding: .65rem .8rem; font-size: .52rem; }
         .iv-menu-button { display: block; flex: 0 0 auto; }
         .iv-about-grid, .iv-smm-grid, .iv-proof-grid, .iv-faq-grid { grid-template-columns: 1fr; gap: 4rem; }
-        .iv-hero-top { padding-top: 6rem; }
-        .iv-hero-title-wrap h1 { font-size: 18vw; }
-        .iv-hero-actions { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+        .iv-hero-top { padding: 6rem 1.15rem 0; }
+        .iv-hero-date { display: none; }
+        .iv-hero-main { padding: 0 1.15rem 1.2rem; }
+        .iv-hero-title-wrap h1 { font-size: clamp(3.1rem, 16.8vw, 7rem); line-height: .76; }
+        .iv-hero-title-wrap h1 span:nth-child(2) { margin-left: 7vw; }
+        .iv-hero-middle-copy { left: 1.15rem; bottom: 29%; font-size: .48rem; }
+        .iv-hero-footer { display: grid; grid-template-columns: 1fr; gap: 1.4rem; padding-top: 3rem; }
+        .iv-hero-actions { flex-direction: row; align-items: center; gap: .45rem; }
+        .iv-hero-cta, .iv-hero-scroll { min-height: 2.5rem; padding: 0 .75rem; font-size: .5rem; }
+        .iv-hero-mini-cards { justify-content: flex-end; }
         .iv-about-side { order: -1; }
+        .iv-about-trust { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 3rem; }
+        .iv-about-mosaic { grid-template-columns: repeat(2, 1fr); gap: .7rem; padding: 0 1.15rem 5rem; }
+        .iv-about-mosaic-small { height: 12rem; }
+        .iv-about-mosaic-large { height: 24rem; }
+        .iv-about-mosaic-medium { height: 18rem; }
+        .iv-about-mosaic-large { grid-row: span 2; }
         .iv-about-orbit { position: relative; width: 60%; margin: 0 auto 3rem; }
         .iv-proof-stats { grid-template-columns: 1fr; gap: 2.5rem; }
         .iv-contact-grid { grid-template-columns: 1fr; gap: 3rem; }
