@@ -22,7 +22,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
   return (
     <section id="accueil" className={`pipam-hero ${visible ? 'is-visible' : ''}`}>
       <div className="pipam-hero-media" aria-hidden="true" style={{ transform: `translate3d(${pointer.x * -.14}px, ${pointer.y * -.14}px, 0)` }}>
-        <img src="/images/ivision-hero-editorial.webp" alt="" fetchPriority="high" decoding="async" />
+        <img src="/images/ivision-orbit.webp" alt="" fetchPriority="high" decoding="async" />
         <div className="pipam-hero-aurora" />
         <div className="pipam-hero-orb" />
         <div className="pipam-hero-shade" />
