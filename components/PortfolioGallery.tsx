@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { trackEvent } from '../lib/analytics';
+import type { Language } from '../lib/translations';
 
 interface Project {
   id: number;
   name: string;
-  categories: string[];
+  sector: string;
+  summary: string;
   description: string;
   tasks: string[];
   results: string[];
@@ -15,62 +18,122 @@ const projects: Project[] = [
   {
     id: 1,
     name: 'Center Bissan',
-    categories: ['Marketing', 'Branding', 'Video', 'Design'],
-    description: 'Strategie marketing complete pour centre de bien-etre. Content creation, campagnes Meta Ads et branding visuel.',
-    tasks: ['Content Creation', 'Meta Ads', 'Branding', 'Video Production'],
+    sector: 'Bien-être & services',
+    summary: 'Une présence de marque cohérente pour attirer et rassurer les clientes locales.',
+    description: 'Stratégie marketing complète pour centre de bien-être : création de contenu, campagnes Meta Ads et branding visuel.',
+    tasks: ['Création de contenu', 'Meta Ads', 'Branding', 'Production vidéo'],
     results: ['+250% ROI', 'Brand Awareness', 'Croissance Social Media'],
     logo: 'https://i.ibb.co/kVbgDJnn/image.png',
   },
   {
     id: 2,
     name: 'Lecmo Oud',
-    categories: ['Marketing', 'Branding', 'Video', 'Design', 'Web'],
-    description: 'Marketing digital complet et creation du site e-commerce pour marque de parfums et oud haut de gamme.',
-    tasks: ['Marketing Digital', 'Content Creation', 'Meta Ads', 'Site Web E-commerce'],
-    results: ['+120K Interactions', 'Haut Traffic Web', 'E-commerce Live'],
+    sector: 'Parfumerie & e-commerce',
+    summary: 'Une expérience digitale premium pour une marque de parfums et de oud.',
+    description: 'Marketing digital complet et création du site e-commerce pour une marque de parfums et de oud haut de gamme.',
+    tasks: ['Stratégie digitale', 'Création de contenu', 'Meta Ads', 'Site e-commerce'],
+    results: ['+120K Interactions', 'E-commerce Live', 'Trafic qualifié'],
     logo: 'https://i.ibb.co/BVTDnpBZ/image.png',
     website: 'https://www.lecmooud.com',
   },
   {
     id: 3,
     name: 'White Aura',
-    categories: ['Marketing', 'Branding', 'Video', 'Design', 'Web'],
-    description: 'Creation du site web et strategie de vente complete pour marque de cosmetiques premium.',
-    tasks: ['Site Web', 'Strategie de Vente', 'Branding', 'Marketing Digital'],
-    results: ['+100% ROI', 'E-commerce Live', 'Croissance Ventes'],
+    sector: 'Cosmétiques premium',
+    summary: 'Un site et un parcours de vente conçus pour valoriser une offre beauté premium.',
+    description: 'Création du site web et stratégie de vente complète pour une marque de cosmétiques premium.',
+    tasks: ['Site web', 'Stratégie de vente', 'Branding', 'Marketing digital'],
+    results: ['+100% ROI', 'E-commerce Live', 'Croissance ventes'],
     logo: 'https://i.ibb.co/tTc50H8n/white-aura.png',
     website: 'https://white-aura.vercel.app',
   },
   {
     id: 5,
     name: 'MOVESMART',
-    categories: ['Branding', 'Platform', 'UI/UX', 'Web'],
-    description: 'Branding complet et construction de plateforme digitale de A a Z pour une marque immobiliere et business setup a Dubai.',
-    tasks: ['Branding Complet', 'Construction Plateforme', 'UI/UX Design', 'Developpement'],
-    results: ['Plateforme Live', 'Branding Premium', 'Marche Dubai'],
+    sector: 'Immobilier & plateforme digitale',
+    summary: 'Une identité claire et une plateforme digitale pensée pour un marché international.',
+    description: 'Branding complet et construction d’une plateforme digitale de A à Z pour une marque immobilière à Dubai.',
+    tasks: ['Branding complet', 'Plateforme digitale', 'UI/UX Design', 'Développement'],
+    results: ['Plateforme live', 'Branding premium', 'Marché Dubai'],
     logo: 'https://i.ibb.co/60PJ8PVw/aass.png',
     website: 'https://movesmart-ecru.vercel.app/',
   },
   {
     id: 4,
     name: 'FIDALI',
-    categories: ['Marketing', 'Branding', 'Video', 'Design', 'Platform'],
-    description: 'Branding complet et construction de plateforme digitale de A a Z. Identite visuelle, UI/UX et developpement.',
-    tasks: ['Branding Complet', 'Construction Plateforme', 'UI/UX Design', 'Developpement'],
-    results: ['Plateforme Live', 'Branding Premium', 'Lancement Imminent'],
+    sector: 'Branding & plateforme digitale',
+    summary: 'Une identité visuelle forte et une plateforme prête à accompagner le lancement.',
+    description: 'Branding complet et construction d’une plateforme digitale de A à Z : identité visuelle, UI/UX et développement.',
+    tasks: ['Branding complet', 'Plateforme digitale', 'UI/UX Design', 'Développement'],
+    results: ['Plateforme live', 'Branding premium', 'Lancement imminent'],
     logo: 'https://i.ibb.co/7xtLynLz/logo-white.png',
     website: 'https://fidali.vercel.app',
   },
 ];
 
-interface PortfolioGalleryProps { language: string; }
+interface PortfolioGalleryProps {
+  language: Language;
+  onQuoteClick: () => void;
+}
 
-const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
+const labels = {
+  fr: {
+    eyebrow: 'Portfolio & études de cas',
+    title: 'DES MARQUES QUI',
+    accent: 'NOUS FONT CONFIANCE.',
+    intro: 'Cliquez sur un logo pour découvrir le projet, notre intervention et les résultats obtenus.',
+    choose: 'Choisir un projet',
+    selected: 'Étude de cas sélectionnée',
+    work: 'Notre intervention',
+    results: 'Résultats clés',
+    website: 'Voir le site',
+    quote: 'Obtenir un devis similaire',
+    assets: 'Voir toutes nos réalisations',
+    designs: 'Designs',
+    videos: 'Vidéos & créatifs',
+    ads: 'Résultats publicitaires',
+  },
+  en: {
+    eyebrow: 'Portfolio & case studies',
+    title: 'BRANDS THAT',
+    accent: 'TRUST US.',
+    intro: 'Click a logo to discover the project, our work and the results delivered.',
+    choose: 'Choose a project',
+    selected: 'Selected case study',
+    work: 'Our work',
+    results: 'Key results',
+    website: 'Visit website',
+    quote: 'Request a similar quote',
+    assets: 'See all our work',
+    designs: 'Designs',
+    videos: 'Videos & creatives',
+    ads: 'Ad results',
+  },
+  ar: {
+    eyebrow: 'أعمالنا ودراسات الحالة',
+    title: 'علامات تجارية',
+    accent: 'تثق بنا.',
+    intro: 'اضغط على الشعار لاكتشاف المشروع وتدخلنا والنتائج المحققة.',
+    choose: 'اختر مشروعاً',
+    selected: 'دراسة الحالة المختارة',
+    work: 'تدخلنا',
+    results: 'أهم النتائج',
+    website: 'زيارة الموقع',
+    quote: 'احصل على عرض مماثل',
+    assets: 'شاهد كل أعمالنا',
+    designs: 'التصاميم',
+    videos: 'الفيديوهات والإبداعات',
+    ads: 'نتائج الإعلانات',
+  },
+};
+
+const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteClick }) => {
   const isRTL = language === 'ar';
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const t = labels[language];
+  const [selectedId, setSelectedId] = useState(projects[0].id);
   const [isVisible, setIsVisible] = useState(false);
-  const [showRealisations, setShowRealisations] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const selectedProject = projects.find(project => project.id === selectedId) ?? projects[0];
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -80,226 +143,108 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
     return () => observer.disconnect();
   }, []);
 
-  // Trois répétitions suffisent pour garder la boucle visuelle sans charger 30 images identiques.
-  const scrollLogos = [...projects, ...projects, ...projects];
+  const selectProject = (project: Project) => {
+    setSelectedId(project.id);
+    trackEvent('view_case_study', { case_name: project.name });
+  };
 
   return (
-    <>
-      <section id="portfolio" ref={sectionRef} className="py-24 md:py-40 bg-white/0 dark:bg-transparent relative border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
-
-        {/* ===== HEADER ===== */}
-        <div className="container">
-          <div className={`mb-16 md:mb-24 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
-              <div className="max-w-4xl">
-                <div className="sketch-badge mb-6 md:mb-8">Portfolio</div>
-                <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
-                  DES MARQUES QUI NOUS <br className="hidden md:block" />
-                  <span className="text-brand-blue">FONT CONFIANCE</span>
-                </h2>
-              </div>
-              <p className="text-base md:text-2xl text-brand-gray dark:text-brand-gray/80 max-w-sm font-medium leading-tight opacity-70 md:border-l-2 md:border-brand-blue/30 md:pl-8">
-                {language === 'ar' ? 'انقر على شعار لاكتشاف المشروع بالتفصيل.' : language === 'en' ? 'Click on a logo to discover the project in detail.' : 'Cliquez sur un logo pour decouvrir le projet en detail.'}
-              </p>
-            </div>
-          </div>
+    <section id="etudes-de-cas" ref={sectionRef} className="py-24 md:py-40 border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
+      <div className="container">
+        <div className={`max-w-4xl mb-12 md:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="sketch-badge mb-6 md:mb-8">{t.eyebrow}</div>
+          <h2 className="text-[clamp(2.5rem,7vw,7rem)] font-black text-navy dark:text-white tracking-tighter leading-[0.88] uppercase">
+            {t.title}<br />
+            <span className="text-brand-blue">{t.accent}</span>
+          </h2>
+          <p className="mt-7 max-w-2xl text-lg md:text-xl text-brand-gray dark:text-brand-gray/80 leading-relaxed">{t.intro}</p>
         </div>
 
-        {/* ===== BANDE DE LOGOS ===== */}
-        <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div style={{ overflow: 'hidden', position: 'relative', background: 'transparent', direction: 'ltr' }}>
-            <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white dark:from-transparent to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white dark:from-transparent to-transparent z-10 pointer-events-none"></div>
+        <div className={`overflow-hidden rounded-[2rem] border border-navy/10 dark:border-white/10 bg-white/80 dark:bg-white/[0.035] shadow-[0_24px_80px_rgba(11,27,58,0.10)] dark:shadow-2xl transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
+            <div className="p-5 md:p-8 border-b lg:border-b-0 lg:border-r border-navy/10 dark:border-white/10 bg-navy/[0.025] dark:bg-white/[0.02]">
+              <div className="flex items-center justify-between gap-4 mb-5">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-gray">{t.choose}</p>
+                <span className="text-[10px] font-bold text-brand-blue">{projects.length.toString().padStart(2, '0')} clients</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-3">
+                {projects.map(project => {
+                  const isSelected = project.id === selectedProject.id;
+                  return (
+                    <button
+                      key={project.id}
+                      type="button"
+                      aria-pressed={isSelected}
+                      onClick={() => selectProject(project)}
+                      className={`group min-h-28 rounded-2xl border p-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#081126] ${isSelected ? 'border-brand-blue bg-brand-blue/10 shadow-[0_12px_28px_rgba(36,87,255,0.14)]' : 'border-navy/10 dark:border-white/10 bg-white/70 dark:bg-white/[0.03] hover:-translate-y-1 hover:border-brand-blue/45'}`}
+                    >
+                      <span className={`flex h-14 items-center justify-center rounded-xl transition-colors ${isSelected ? 'bg-white dark:bg-white/10' : 'bg-navy/[0.035] dark:bg-white/[0.04]'}`}>
+                        <img loading="lazy" decoding="async" src={project.logo} alt={project.name} className={`logo-white max-h-10 max-w-[82%] object-contain transition-all duration-200 ${isSelected ? 'opacity-100' : 'opacity-55 group-hover:opacity-100'}`} />
+                      </span>
+                      <span className={`mt-3 block text-[10px] font-black uppercase tracking-wider ${isSelected ? 'text-brand-blue' : 'text-navy dark:text-white'}`}>{project.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-            <div className="logo-scroll-band" style={{ display: 'flex', alignItems: 'center', animationDirection: isRTL ? 'reverse' : 'normal' }}>
-              {scrollLogos.map((project, i) => (
-                <div
-                  key={`logo-${i}`}
-                  onClick={() => setSelectedProject(project)}
-                  className="cursor-pointer group"
-                  style={{
-                    flexShrink: 0,
-                    padding: '30px 60px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+            <div className="p-6 md:p-10 lg:p-12 bg-gradient-to-br from-brand-blue/[0.08] via-white/70 to-white dark:from-brand-blue/[0.16] dark:via-[#081126] dark:to-[#0B1B3A]">
+              <div className="flex flex-wrap items-start justify-between gap-5 mb-8">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-3">{t.selected} · {selectedProject.sector}</p>
+                  <h3 className="text-3xl md:text-5xl font-black text-navy dark:text-white tracking-tighter uppercase">{selectedProject.name}</h3>
+                </div>
+                <div className="flex h-16 w-24 items-center justify-center rounded-2xl bg-white/80 dark:bg-white/10 p-3 shadow-sm">
+                  <img src={selectedProject.logo} alt={`${selectedProject.name} logo`} className="logo-white max-h-11 max-w-full object-contain" />
+                </div>
+              </div>
+
+              <p className="max-w-2xl text-base md:text-lg text-navy/75 dark:text-white/75 leading-relaxed">{selectedProject.summary}</p>
+
+              <div className="mt-8 grid gap-7 md:grid-cols-2">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-gray mb-3">{t.work}</p>
+                  <p className="text-sm md:text-base text-navy dark:text-white/90 leading-relaxed mb-4">{selectedProject.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.tasks.map(task => <span key={task} className="rounded-full border border-navy/10 dark:border-white/10 bg-white/65 dark:bg-white/[0.06] px-3 py-1.5 text-[10px] font-bold text-navy dark:text-white/85">{task}</span>)}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-gray mb-3">{t.results}</p>
+                  <div className="grid gap-2">
+                    {selectedProject.results.map(result => <div key={result} className="rounded-xl bg-brand-blue px-4 py-3 text-sm font-black text-white shadow-[0_8px_20px_rgba(36,87,255,0.18)]">{result}</div>)}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-9 flex flex-col sm:flex-row gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackEvent('case_study_quote_click', { case_name: selectedProject.name });
+                    onQuoteClick();
                   }}
+                  className="btn-ivision flex-1"
                 >
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src={project.logo}
-                    alt={project.name}
-                    className="logo-white opacity-30 group-hover:opacity-100 transition-all duration-500 group-hover:scale-125"
-                    style={{
-                      height: 'auto',
-                      width: 'auto',
-                      maxHeight: '160px',
-                      maxWidth: '300px',
-                      display: 'block',
-                    }}
-                  />
-                </div>
-              ))}
+                  {t.quote}
+                  <span aria-hidden="true">→</span>
+                </button>
+                {selectedProject.website && <a href={selectedProject.website} target="_blank" rel="noopener noreferrer" className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-navy/15 dark:border-white/15 px-6 py-4 text-xs font-black uppercase tracking-widest text-navy dark:text-white hover:border-brand-blue hover:text-brand-blue transition-colors">{t.website}<span aria-hidden="true">↗</span></a>}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4 border-t border-navy/10 dark:border-white/10 p-5 md:flex-row md:items-center md:justify-between md:p-6">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-navy dark:text-white">{t.assets}</p>
+            <div className="flex flex-wrap gap-2">
+              <a href="https://drive.google.com/drive/folders/1Jw6feJMIECj1sXn6qFQ16GZatV6-zpgI?usp=drive_link" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-navy/10 dark:border-white/10 px-3 py-2 text-xs font-bold text-navy dark:text-white hover:border-brand-blue hover:text-brand-blue transition-colors">🎨 {t.designs}</a>
+              <a href="https://drive.google.com/drive/folders/1ohDO3lGcqElZ4WL08tF5zd_YbBrhW6bv?usp=drive_link" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-navy/10 dark:border-white/10 px-3 py-2 text-xs font-bold text-navy dark:text-white hover:border-brand-blue hover:text-brand-blue transition-colors">🎬 {t.videos}</a>
+              <a href="https://drive.google.com/drive/folders/16tiNLtOd6wnNFEqWkvNf-MxSHNpnlq8_?usp=drive_link" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-navy/10 dark:border-white/10 px-3 py-2 text-xs font-bold text-navy dark:text-white hover:border-brand-blue hover:text-brand-blue transition-colors">📊 {t.ads}</a>
             </div>
           </div>
         </div>
-
-        {/* ===== BOUTON RÉALISATIONS ===== */}
-        <div className={`container mt-16 md:mt-24 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="flex flex-col items-center gap-6">
-            <button
-              onClick={() => setShowRealisations(prev => !prev)}
-              className="btn-ivision px-10 py-4"
-            >
-              <span>{language === 'ar' ? 'إنجازاتنا' : language === 'en' ? 'OUR WORK' : 'NOS RÉALISATIONS'}</span>
-              <svg className={`w-4 h-4 transition-transform duration-300 ${showRealisations ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </button>
-            <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-500 ${showRealisations ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-3 pointer-events-none'}`}>
-              <a
-                href="https://drive.google.com/drive/folders/1Jw6feJMIECj1sXn6qFQ16GZatV6-zpgI?usp=drive_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 border border-navy/10 dark:border-white/10 hover:border-brand-blue/50 px-6 py-4 rounded-2xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <span className="text-xl">🎨</span>
-                <span className="text-sm font-bold text-navy dark:text-white uppercase tracking-wider">Designs</span>
-                <svg className="w-4 h-4 text-brand-gray group-hover:text-brand-blue transition-colors ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-              </a>
-              <a
-                href="https://drive.google.com/drive/folders/1ohDO3lGcqElZ4WL08tF5zd_YbBrhW6bv?usp=drive_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 border border-navy/10 dark:border-white/10 hover:border-brand-blue/50 px-6 py-4 rounded-2xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <span className="text-xl">🎬</span>
-                <span className="text-sm font-bold text-navy dark:text-white uppercase tracking-wider">Videos & Creatives</span>
-                <svg className="w-4 h-4 text-brand-gray group-hover:text-brand-blue transition-colors ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-              </a>
-              <a
-                href="https://drive.google.com/drive/folders/16tiNLtOd6wnNFEqWkvNf-MxSHNpnlq8_?usp=drive_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 border border-navy/10 dark:border-white/10 hover:border-brand-blue/50 px-6 py-4 rounded-2xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <span className="text-xl">📊</span>
-                <span className="text-sm font-bold text-navy dark:text-white uppercase tracking-wider">Ad Results</span>
-                <svg className="w-4 h-4 text-brand-gray group-hover:text-brand-blue transition-colors ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== MODAL PROJET ===== */}
-      {selectedProject && (
-        <div
-          className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-xl animate-fade-in"
-          onClick={() => setSelectedProject(null)}
-        >
-          <div
-            className="relative bg-white/0 dark:bg-transparent border border-navy/10 dark:border-white/10 w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto scrollbar-none"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header avec logo */}
-            <div className="bg-brand-blue p-10 md:p-14 flex items-center justify-center relative">
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-              >
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              <img
-                src={selectedProject.logo}
-                alt={selectedProject.name}
-                style={{
-                  filter: 'brightness(0) invert(1)',
-                  height: 'auto',
-                  width: 'auto',
-                  maxHeight: '180px',
-                  maxWidth: '80%',
-                  display: 'block',
-                }}
-              />
-            </div>
-
-            {/* Content */}
-            <div className="p-6 md:p-10">
-              <h3 className="text-2xl md:text-3xl font-black text-navy dark:text-white tracking-tighter uppercase">
-                {selectedProject.name}
-              </h3>
-              <div className="flex flex-wrap gap-2 mt-3">
-                {selectedProject.categories.map((cat) => (
-                  <span
-                    key={cat}
-                    className="text-[9px] font-bold uppercase tracking-widest bg-brand-blue/10 text-brand-blue px-3 py-1.5 rounded-full"
-                  >
-                    {cat}
-                  </span>
-                ))}
-              </div>
-
-              <p className="text-brand-gray dark:text-brand-gray/80 mt-5 leading-relaxed font-medium">
-                {selectedProject.description}
-              </p>
-
-              <div className="mt-6">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray mb-3">{language === 'ar' ? 'ما قمنا به' : language === 'en' ? 'What we did' : 'Ce qu on a fait'}</p>
-                <div className="grid grid-cols-2 gap-2">
-                  {selectedProject.tasks.map((task) => (
-                    <div key={task} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-brand-blue rounded-full flex-shrink-0"></span>
-                      <span className="text-navy dark:text-white text-sm font-medium">{task}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-navy/5 dark:border-white/5">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray mb-3">{language === 'ar' ? 'النتائج' : language === 'en' ? 'Results' : 'Resultats'}</p>
-                <div className="flex flex-wrap gap-3">
-                  {selectedProject.results.map((result) => (
-                    <div key={result} className="bg-green-500/10 text-green-600 dark:text-green-400 font-bold text-sm px-4 py-2 rounded-xl">
-                      {result}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {selectedProject.website && (
-                <a
-                  href={selectedProject.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 text-brand-blue font-bold text-sm hover:gap-3 transition-all duration-300"
-                >
-                  {language === 'ar' ? 'زيارة الموقع' : language === 'en' ? 'Visit website' : 'Voir le site web'}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
-              )}
-
-              <button
-                onClick={() => {
-                  setSelectedProject(null);
-                  window.location.hash = '/devis';
-                }}
-                className="btn-ivision w-full py-4 mt-8"
-              >
-                {language === 'ar' ? 'أريد نفس النتيجة' : language === 'en' ? 'I want the same result' : 'Je veux le meme resultat'}
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+      </div>
+    </section>
   );
 };
 

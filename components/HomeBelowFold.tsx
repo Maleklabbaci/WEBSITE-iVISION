@@ -7,7 +7,6 @@ import FAQ from './FAQ';
 import Contact from './Contact';
 import type { Language } from '../lib/translations';
 
-const CaseStudies = lazy(() => import('./CaseStudies'));
 const ServiceComparator = lazy(() => import('./ServiceComparator'));
 const QuickQuote = lazy(() => import('./QuickQuote'));
 const BudgetCalculator = lazy(() => import('./BudgetCalculator'));
@@ -21,9 +20,8 @@ type HomeBelowFoldProps = {
 
 const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations, onQuoteClick }) => (
   <div className="below-fold-content">
-    <PortfolioGallery language={language} />
+    <PortfolioGallery language={language} onQuoteClick={onQuoteClick} />
     <Suspense fallback={null}>
-      <CaseStudies language={language} onQuoteClick={onQuoteClick} />
       <ServiceComparator language={language} onQuoteClick={onQuoteClick} />
       <QuickQuote language={language} onFullQuoteClick={onQuoteClick} />
       <BudgetCalculator language={language} />
