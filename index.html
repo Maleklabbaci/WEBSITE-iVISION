@@ -124,7 +124,7 @@
     <!-- ===== FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 
     <!-- ===== STYLES ===== -->
@@ -636,7 +636,7 @@
       /* ===== iVISION IMMERSIVE EXPERIENCE ===== */
       :root { --iv-black: #050505; --iv-paper: #f3f0ea; --iv-white: #f7f7f5; --iv-muted: rgba(247,247,245,.62); --iv-line: rgba(247,247,245,.2); --iv-cyan: #78ecf2; --iv-violet: #9f72ff; --iv-coral: #ff6b69; }
       html, body { background: var(--iv-black) !important; }
-      body { color: var(--iv-white); font-family: 'Archivo', 'Inter', sans-serif; }
+      body { color: var(--iv-white); font-family: 'Geist', 'Open Sans', sans-serif; }
       .pipam-hero, .pipam-about, .pipam-services, .pipam-work, .pipam-method { position: relative; overflow: hidden; background: var(--iv-black) !important; color: var(--iv-white); }
       .pipam-hero { min-height: 100svh; padding: 7.5rem 5vw 4.5rem; display: flex; flex-direction: column; justify-content: space-between; isolation: isolate; }
       .pipam-hero-media { position: absolute; inset: 0; z-index: -2; transition: transform 1.2s cubic-bezier(.23,1,.32,1); }
@@ -799,7 +799,222 @@
       .pipam-utility-row button { border: 0; background: transparent; color: rgba(247,247,245,.55); font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
       @keyframes iv-orbit { to { transform: translate(-50%, -50%) rotate(360deg); } }
       @keyframes iv-orbit-reverse { to { transform: translate(-50%, -50%) rotate(-360deg); } }
-      @media (prefers-reduced-motion: reduce) { .pipam-about-orbit, .pipam-work-orbit { animation: none; } .pipam-hero-media, .pipam-hero-title-wrap { transform: none !important; transition: none; } }
+      /* ===== REFERENCE VIDEO LAYOUT OVERRIDES ===== */
+      :root { --iv-magenta: #e6007e; --iv-grey: #efede8; }
+      body { font-family: 'Geist', 'Open Sans', sans-serif; }
+      .pipam-hero { min-height: 100svh; padding: 7rem 4.8vw 3.2rem; }
+      .pipam-hero-content { min-height: calc(100svh - 11rem); justify-content: space-between; }
+      .pipam-hero-media img { opacity: .2; mix-blend-mode: screen; filter: saturate(.55) contrast(1.3); }
+      .pipam-hero-aurora { opacity: .82; }
+      .pipam-hero-orb { top: 11%; right: 14%; width: min(41vw, 39rem); opacity: .7; }
+      .pipam-hero-title-wrap { margin-top: auto; margin-bottom: 2rem; }
+      .pipam-hero h1 { max-width: 100%; font-family: 'Geist', sans-serif; font-size: clamp(4.4rem, 12.6vw, 14rem); letter-spacing: -.105em; line-height: .75; }
+      .pipam-hero h1 span { white-space: nowrap; }
+      .pipam-hero-bottom { width: min(100%, 34rem); margin-left: auto; }
+      .pipam-hero-actions { gap: 1.8rem; }
+      .pipam-hero-inline-cta { color: var(--iv-white); }
+      .pipam-hero-inline-cta span, .pipam-scroll-link span:last-child { color: var(--iv-magenta); }
+      .pipam-about { min-height: 112svh; padding: 7rem 4.8vw 4rem; }
+      .pipam-about-title-stack { margin-top: 15vh; }
+      .pipam-about-title-line span { font-family: 'Geist', sans-serif; font-size: clamp(3.5rem, 9.6vw, 11rem); letter-spacing: -.105em; }
+      .pipam-about-orbit { left: 26%; width: clamp(18rem, 31vw, 34rem); }
+      .pipam-about-copy { right: 7vw; width: min(24rem, 30vw); }
+      .pipam-work-scene { position: relative; min-height: 180svh; overflow: hidden; padding: 7rem 4.8vw 4rem; background: #050505; color: var(--iv-white); }
+      .pipam-work-scene:before { content: ''; position: absolute; top: 17%; left: 50%; width: min(74vw, 70rem); aspect-ratio: 1.9; border: 1px solid rgba(255,255,255,.13); border-radius: 50%; transform: translateX(-50%) rotate(-10deg); pointer-events: none; }
+      .pipam-work-copy { position: relative; z-index: 2; width: min(100%, 70rem); margin: 14vh auto 0; text-align: center; }
+      .pipam-work-copy h2 { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(4.6rem, 12vw, 13rem); font-weight: 900; letter-spacing: -.11em; line-height: .73; text-transform: uppercase; }
+      .pipam-work-copy h2 span { display: block; }
+      .pipam-work-copy h2 .pipam-changing-word { color: var(--iv-white) !important; }
+      .pipam-work-copy p { max-width: 30rem; margin: 2rem auto 0; color: rgba(247,247,245,.66); font-size: .82rem; line-height: 1.55; letter-spacing: .08em; text-transform: uppercase; }
+      .pipam-work-floating-images { position: relative; z-index: 2; min-height: 88vh; max-width: 75rem; margin: -2rem auto 0; }
+      .pipam-work-card { position: absolute; display: block; width: clamp(8.5rem, 13vw, 13rem); aspect-ratio: 3 / 4; padding: 0; overflow: hidden; border: 0; background: #111; box-shadow: 0 1rem 3rem rgba(0,0,0,.36); cursor: pointer; transform: translate3d(0,0,0) rotate(var(--card-rotate)); transition: transform .6s cubic-bezier(.23,1,.32,1), width .35s ease, filter .35s ease; }
+      .pipam-work-card img { width: 100%; height: 100%; display: block; object-fit: cover; filter: saturate(.85) contrast(1.08); transition: transform .7s cubic-bezier(.23,1,.32,1), filter .35s ease; }
+      .pipam-work-card span { position: absolute; right: .7rem; bottom: .7rem; left: .7rem; color: #fff; font-size: .62rem; font-weight: 800; letter-spacing: .07em; text-align: left; text-transform: uppercase; opacity: 0; transform: translateY(.4rem); transition: opacity .25s ease, transform .25s ease; }
+      .pipam-work-card:hover, .pipam-work-card.is-active { z-index: 5; transform: translate3d(0,-.8rem,0) rotate(0deg) scale(1.06); }
+      .pipam-work-card:hover img, .pipam-work-card.is-active img { transform: scale(1.07); filter: saturate(1.12) contrast(1.08); }
+      .pipam-work-card:hover span, .pipam-work-card.is-active span { opacity: 1; transform: translateY(0); }
+      .pipam-work-card-1 { --card-rotate: -8deg; top: 23%; left: 2%; }
+      .pipam-work-card-2 { --card-rotate: 8deg; top: 38%; left: 18%; }
+      .pipam-work-card-3 { --card-rotate: -4deg; top: 57%; left: 35%; }
+      .pipam-work-card-4 { --card-rotate: 7deg; top: 33%; right: 17%; }
+      .pipam-work-card-5 { --card-rotate: -9deg; top: 55%; right: 1%; }
+      .pipam-work-project-list { position: relative; z-index: 4; display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--iv-line); border-bottom: 1px solid var(--iv-line); }
+      .pipam-work-project-list button { display: grid; grid-template-columns: 2rem 1fr 1rem; align-items: center; gap: .5rem; min-width: 0; min-height: 4.2rem; padding: .8rem .45rem; border: 0; border-right: 1px solid var(--iv-line); background: transparent; color: rgba(247,247,245,.5); text-align: left; transition: background .25s ease, color .25s ease; }
+      .pipam-work-project-list button:last-child { border-right: 0; }
+      .pipam-work-project-list button.is-active, .pipam-work-project-list button:hover { background: var(--iv-magenta); color: var(--iv-white); }
+      .pipam-work-project-list span { color: var(--iv-magenta); font-size: .65rem; font-weight: 800; }
+      .pipam-work-project-list button.is-active span, .pipam-work-project-list button:hover span { color: #fff; }
+      .pipam-work-project-list strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .68rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+      .pipam-work-project-list i { font-size: .9rem; font-style: normal; }
+      .pipam-work-detail { position: fixed; inset: auto 5vw 2rem auto; z-index: 120; width: min(31rem, calc(100vw - 2.4rem)); padding: 1.5rem; background: var(--iv-grey); color: #0a0a0a; box-shadow: 1rem 1rem 0 var(--iv-magenta); }
+      .pipam-work-detail-close { float: right; border: 0; background: transparent; color: #0a0a0a; font-size: .65rem; font-weight: 800; text-transform: uppercase; }
+      .pipam-work-detail > p:first-of-type { margin: 1.5rem 0 .5rem; color: var(--iv-magenta); font-size: .65rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+      .pipam-work-detail h3 { margin: 0 0 .8rem; font-family: 'Geist', sans-serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; letter-spacing: -.09em; line-height: .83; text-transform: uppercase; }
+      .pipam-work-detail > p:nth-of-type(2) { max-width: 25rem; margin: 0 0 1rem; color: rgba(10,10,10,.65); line-height: 1.5; }
+      .pipam-work-detail > div:not(.pipam-project-actions) { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1rem; }
+      .pipam-work-detail > div:not(.pipam-project-actions) span { padding: .4rem .5rem; border: 1px solid rgba(10,10,10,.25); font-size: .6rem; font-weight: 800; text-transform: uppercase; }
+      .pipam-work-detail .pipam-text-link { color: #0a0a0a; }
+      .pipam-work-detail .pipam-text-link span:last-child { color: var(--iv-magenta); }
+      .pipam-services { min-height: 130svh; padding: 7rem 4.8vw 4rem; background: var(--iv-grey) !important; }
+      .pipam-services-header { margin-top: 14vh; }
+      .pipam-services-feature { margin-bottom: 5rem; }
+      .pipam-service-feature-copy h3 { font-family: 'Geist', sans-serif; }
+      .pipam-services-slider { grid-template-columns: repeat(4, 1fr); }
+      .pipam-service-slide { border-right: 1px solid rgba(10,10,10,.34); }
+      .pipam-service-slide.is-active, .pipam-service-slide:hover { background: var(--iv-magenta); }
+      .pipam-impact { min-height: 100svh; }
+      .pipam-faq { min-height: 100svh; }
+      .pipam-hero, .pipam-about-title-line span, .pipam-work-copy, .pipam-work-card, .pipam-services-feature, .pipam-services-slider, .pipam-impact-copy, .pipam-faq-list { will-change: transform, opacity; }
+      .pipam-hero, .pipam-about, .pipam-work-scene, .pipam-services, .pipam-impact, .pipam-faq, .contact-section, .site-footer { font-family: 'Geist', 'Open Sans', sans-serif; }
+      @media (max-width: 760px) {
+        .pipam-hero { padding: 6rem 1.15rem 2.5rem; }
+        .pipam-hero-content { min-height: calc(100svh - 8rem); }
+        .pipam-hero-orb { top: 14%; right: -26%; width: 100vw; }
+        .pipam-hero-title-wrap { margin-top: 10vh; }
+        .pipam-hero h1 { font-size: clamp(3.2rem, 15.8vw, 6.4rem); line-height: .78; }
+        .pipam-hero-bottom { width: 100%; }
+        .pipam-about { min-height: 105svh; padding: 6rem 1.15rem 3rem; }
+        .pipam-about-title-stack { margin-top: 11vh; }
+        .pipam-about-title-line span { font-size: clamp(2.65rem, 13.5vw, 5.4rem); }
+        .pipam-about-orbit { top: 44%; left: 51%; width: 84vw; }
+        .pipam-about-copy { right: 1.15rem; bottom: 2.6rem; width: 70%; }
+        .pipam-work-scene { min-height: 145svh; padding: 6rem 1.15rem 3rem; }
+        .pipam-work-copy { margin-top: 10vh; text-align: left; }
+        .pipam-work-copy h2 { font-size: clamp(3.3rem, 15vw, 6.2rem); }
+        .pipam-work-copy p { margin-left: 0; font-size: .7rem; }
+        .pipam-work-floating-images { min-height: 82vh; margin-top: 1rem; }
+        .pipam-work-card { width: clamp(6.3rem, 26vw, 8.8rem); }
+        .pipam-work-card-1 { top: 12%; left: 0; }
+        .pipam-work-card-2 { top: 32%; left: 17%; }
+        .pipam-work-card-3 { top: 54%; left: 37%; }
+        .pipam-work-card-4 { top: 25%; right: 14%; }
+        .pipam-work-card-5 { top: 58%; right: 0; }
+        .pipam-work-project-list { grid-template-columns: repeat(2, 1fr); }
+        .pipam-work-project-list button:nth-child(2n) { border-right: 0; }
+        .pipam-work-project-list button:nth-child(5) { grid-column: 1 / -1; border-right: 0; }
+        .pipam-services { padding: 6rem 1.15rem 3rem; }
+        .pipam-services-header { margin: 9vh 0 6vh; }
+        .pipam-services-header h2 { font-size: clamp(3.3rem, 15vw, 6.4rem); }
+        .pipam-services-feature { display: flex; flex-direction: column; align-items: stretch; gap: 1.4rem; }
+        .pipam-service-feature-image { width: 100%; aspect-ratio: 1.35; }
+        .pipam-services-slider { grid-template-columns: 1fr 1fr; }
+        .pipam-service-slide { min-height: 7.3rem; }
+        .pipam-work-detail { right: 1.15rem; bottom: 1.2rem; }
+      }
+      .pipam-hero { padding: 7.5rem 5vw 3.6rem; }
+      .pipam-hero-media { background: #080808; }
+      .pipam-hero-media img { opacity: .36; mix-blend-mode: screen; filter: saturate(.72) contrast(1.2); }
+      .pipam-hero-aurora { position: absolute; inset: -22%; background: conic-gradient(from 30deg at 52% 48%, transparent 0deg, rgba(231,0,126,.12) 70deg, rgba(255,255,255,.18) 135deg, rgba(0,213,255,.15) 225deg, transparent 320deg); filter: blur(26px); animation: iv-aurora 18s linear infinite; }
+      .pipam-hero-orb { position: absolute; top: 16%; right: 12%; width: min(48vw, 42rem); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 28% 20%, rgba(255,255,255,.72), transparent 8%), radial-gradient(circle at 65% 60%, rgba(231,0,126,.62), transparent 30%), radial-gradient(circle at 35% 70%, rgba(0,194,255,.62), transparent 32%), radial-gradient(circle, rgba(255,255,255,.11), transparent 68%); box-shadow: inset -2rem -2rem 5rem rgba(0,0,0,.78), inset 1rem 1rem 2rem rgba(255,255,255,.18), 0 0 7rem rgba(231,0,126,.2); opacity: .84; filter: saturate(1.35); animation: iv-orb-float 9s ease-in-out infinite alternate; }
+      .pipam-hero-shade { background: linear-gradient(90deg, rgba(5,5,5,.94) 0%, rgba(5,5,5,.44) 58%, rgba(5,5,5,.18) 100%), linear-gradient(0deg, rgba(5,5,5,.9), transparent 50%); }
+      @keyframes iv-aurora { to { transform: rotate(360deg) scale(1.06); } }
+      @keyframes iv-orb-float { from { transform: translate3d(0, 0, 0) scale(.98); } to { transform: translate3d(-2rem, 1.5rem, 0) scale(1.04); } }
+      .pipam-hero-content { position: relative; z-index: 2; display: flex; min-height: calc(100svh - 10rem); flex-direction: column; justify-content: center; }
+      .pipam-hero-title-wrap { margin: 0 0 2rem; }
+      .pipam-hero h1 { max-width: none; font-size: clamp(4rem, 11vw, 13rem); line-height: .77; }
+      .pipam-hero h1 span { display: block; white-space: nowrap; }
+      .pipam-hero-bottom { width: min(100%, 34rem); margin: 0 0 0 auto; align-items: flex-start; text-align: left; }
+      .pipam-hero-actions { align-items: flex-start; }
+      .pipam-hero-inline-cta { display: inline-flex; align-items: center; gap: 1rem; padding: 0; border: 0; background: transparent; color: var(--iv-white); font-size: .68rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+      .pipam-hero-inline-cta span { color: #e6007e; font-size: 1rem; transition: transform .2s ease; }
+      .pipam-hero-inline-cta:hover span { transform: translateX(.25rem); }
+      .pipam-about { min-height: 115svh; }
+      .pipam-about:before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 48% 48%, rgba(255,255,255,.055), transparent 28%), linear-gradient(135deg, transparent 30%, rgba(230,0,126,.08), transparent 68%); pointer-events: none; }
+      .pipam-about-bg-ring { position: absolute; inset: 14% 12% 7%; border: 1px solid rgba(255,255,255,.13); border-radius: 50%; transform: rotate(-9deg) scaleX(1.12); }
+      .pipam-about-title-stack { position: relative; z-index: 2; margin-top: 14vh; }
+      .pipam-about-title-line { overflow: hidden; }
+      .pipam-about-title-line span { display: block; font-size: clamp(3.4rem, 9.2vw, 10rem); font-weight: 900; letter-spacing: -.095em; line-height: .81; text-transform: uppercase; transform: translateY(1rem); opacity: 0; transition: transform .9s cubic-bezier(.23,1,.32,1), opacity .9s ease; }
+      .pipam-about.is-visible .pipam-about-title-line span { transform: translateY(0); opacity: 1; }
+      .pipam-about-title-line:nth-child(2) span { transition-delay: .08s; }
+      .pipam-about-title-line:nth-child(3) span { transition-delay: .16s; }
+      .pipam-about-title-line .is-outline { color: transparent; -webkit-text-stroke: 1px rgba(247,247,245,.82); }
+      .pipam-about-orbit { top: 49%; left: 28%; width: clamp(18rem, 33vw, 34rem); opacity: .9; animation-duration: 28s; }
+      .pipam-about-copy { right: 8vw; bottom: 8%; width: min(28rem, 35vw); }
+      .pipam-work { min-height: 155svh; }
+      .pipam-work-title { margin-top: 13vh; }
+      .pipam-work-title h2 { line-height: .78; }
+      .pipam-changing-word { color: #e6007e !important; background: none; }
+      .pipam-work-stage { min-height: 72vh; }
+      .pipam-work-orbit { opacity: .42; }
+      .pipam-project-visual { border: 0; box-shadow: none; }
+      .pipam-project-info h3 { color: var(--iv-white); }
+      .pipam-services { min-height: 130svh; background: #f0eee9 !important; color: #0a0a0a; }
+      .pipam-services .pipam-section-meta { color: rgba(10,10,10,.62); }
+      .pipam-services .pipam-section-number { color: rgba(10,10,10,.42); }
+      .pipam-services .pipam-pulse { background: #e6007e; box-shadow: 0 0 0 .28rem rgba(230,0,126,.16); }
+      .pipam-services-header { margin: 12vh 0 8vh; }
+      .pipam-services-header h2 { margin: 0; max-width: 9ch; font-size: clamp(4.2rem, 10.5vw, 11rem); font-weight: 900; letter-spacing: -.1em; line-height: .78; text-transform: uppercase; }
+      .pipam-services-header h2 span { display: block; }
+      .pipam-services-header h2 .is-gradient { color: #e6007e !important; background: none; }
+      .pipam-services-feature { display: grid; grid-template-columns: minmax(18rem, .68fr) minmax(20rem, 1fr); align-items: center; gap: 5vw; margin-bottom: 4rem; }
+      .pipam-service-feature-image { width: min(100%, 27rem); aspect-ratio: 1.45; overflow: hidden; background: #111; }
+      .pipam-service-feature-image img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(.25) contrast(1.08); transition: opacity .35s ease, transform .65s cubic-bezier(.23,1,.32,1); }
+      .pipam-service-feature-copy { max-width: 34rem; }
+      .pipam-service-feature-number { color: #e6007e; font-size: .72rem; font-weight: 800; letter-spacing: .13em; }
+      .pipam-service-feature-copy h3 { margin: .9rem 0 1.1rem; font-size: clamp(2.4rem, 5.2vw, 5.8rem); font-weight: 900; letter-spacing: -.08em; line-height: .83; text-transform: uppercase; }
+      .pipam-service-feature-copy p { max-width: 29rem; margin: 0 0 1.6rem; color: rgba(10,10,10,.62); font-size: .92rem; line-height: 1.55; }
+      .pipam-services .pipam-text-link { color: #0a0a0a; }
+      .pipam-services .pipam-text-link span:last-child { color: #e6007e; }
+      .pipam-services-slider { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(10,10,10,.42); }
+      .pipam-service-slide { min-height: 9rem; display: grid; grid-template-rows: auto 1fr auto; gap: .8rem; padding: 1rem; border: 0; border-right: 1px solid rgba(10,10,10,.32); background: transparent; color: #0a0a0a; text-align: left; transition: background .28s ease, color .28s ease, transform .28s ease; }
+      .pipam-service-slide:last-child { border-right: 0; }
+      .pipam-service-slide:hover, .pipam-service-slide.is-active { background: #e6007e; color: #fff; transform: translateY(-.25rem); }
+      .pipam-service-slide .pipam-service-number { color: #e6007e; }
+      .pipam-service-slide:hover .pipam-service-number, .pipam-service-slide.is-active .pipam-service-number { color: #fff; }
+      .pipam-service-slide .pipam-service-name { font-size: clamp(1rem, 1.55vw, 1.5rem); line-height: .95; }
+      .pipam-service-slide .pipam-service-arrow { justify-self: end; color: #e6007e; }
+      .pipam-service-slide:hover .pipam-service-arrow, .pipam-service-slide.is-active .pipam-service-arrow { color: #fff; }
+      .pipam-hero, .pipam-about, .pipam-work, .pipam-impact, .pipam-faq { background: #050505 !important; }
+      .pipam-impact { background: #e6007e !important; }
+      .pipam-impact-image div { background: linear-gradient(120deg, rgba(230,0,126,.94), rgba(230,0,126,.45) 54%, rgba(0,0,0,.48)); }
+      .pipam-impact-copy h2 .is-gradient { background: none; color: #fff !important; }
+      .pipam-faq .pipam-pulse, .pipam-impact .pipam-pulse { background: #e6007e; }
+      .pipam-faq-item button i { color: #e6007e; }
+      @media (max-width: 760px) {
+        .pipam-hero-content { min-height: calc(100svh - 8rem); }
+        .pipam-hero h1 { font-size: clamp(3.5rem, 16vw, 6.6rem); }
+        .pipam-hero h1 span { white-space: normal; }
+        .pipam-hero-orb { top: 24%; right: -14%; width: 84vw; opacity: .58; }
+        .pipam-hero-bottom { margin: 0; }
+        .pipam-about-title-stack { margin-top: 9vh; }
+        .pipam-about-title-line span { font-size: clamp(2.8rem, 14vw, 5.5rem); }
+        .pipam-about-orbit { top: 45%; left: 46%; width: 76vw; }
+        .pipam-about-copy { right: 1.15rem; bottom: 3.6rem; width: 72%; }
+        .pipam-services { min-height: auto; }
+        .pipam-services-header { margin: 8vh 0 6vh; }
+        .pipam-services-header h2 { font-size: clamp(3.5rem, 16vw, 6.4rem); }
+        .pipam-services-feature { display: flex; flex-direction: column; align-items: stretch; gap: 1.6rem; margin-bottom: 3rem; }
+        .pipam-service-feature-image { width: 100%; max-width: none; aspect-ratio: 1.25; }
+        .pipam-service-feature-copy h3 { font-size: clamp(2.35rem, 12vw, 4.8rem); }
+        .pipam-services-slider { grid-template-columns: 1fr 1fr; }
+        .pipam-service-slide { min-height: 7.6rem; border-bottom: 1px solid rgba(10,10,10,.32); }
+        .pipam-service-slide:nth-child(2n) { border-right: 0; }
+        .pipam-work { min-height: auto; }
+      }
+      @media (prefers-reduced-motion: reduce) { .pipam-about-orbit, .pipam-work-orbit, .pipam-hero-aurora, .pipam-hero-orb, .pipam-client-track { animation: none; } .pipam-hero-media, .pipam-hero-title-wrap { transform: none !important; transition: none; } }
+      .site-footer { padding: 8rem 4.8vw 1.6rem !important; border-top: 1px solid rgba(247,247,245,.18) !important; background: #050505 !important; color: var(--iv-white) !important; }
+      .site-footer-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 3rem; }
+      .site-footer-logo { display: block; width: 5.2rem; height: auto; margin-bottom: 1.5rem; filter: brightness(0) invert(1); }
+      .site-footer-top p { max-width: 18rem; margin: 0; color: rgba(247,247,245,.56); font-size: .82rem; line-height: 1.5; }
+      .site-footer-talk { display: inline-flex; align-items: center; gap: 1rem; color: var(--iv-white) !important; font-size: clamp(2.8rem, 7vw, 7rem); font-weight: 900; letter-spacing: -.095em; line-height: .8; text-decoration: none; text-transform: uppercase; }
+      .site-footer-talk span { color: var(--iv-magenta); font-size: 1.4rem; transition: transform .2s ease; }
+      .site-footer-talk:hover span { transform: translateX(.3rem); }
+      .site-footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem; margin-top: 7rem; padding: 1rem 0; border-top: 1px solid rgba(247,247,245,.18); border-bottom: 1px solid rgba(247,247,245,.18); }
+      .site-footer-contact > a, .site-footer-socials a { color: rgba(247,247,245,.7) !important; font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+      .site-footer-contact > a:hover, .site-footer-socials a:hover { color: var(--iv-magenta) !important; }
+      .site-footer-socials { display: flex; gap: 1.2rem; margin-left: auto; }
+      .site-footer-bottom { display: flex; justify-content: space-between; gap: 1rem; padding-top: 1.4rem; color: rgba(247,247,245,.42); font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      .site-footer-bottom p { margin: 0; }
+      .site-footer-bottom div { display: flex; gap: 1rem; }
+      .site-footer-bottom button { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-transform: inherit; }
+      @media (max-width: 760px) {
+        .site-footer { padding: 6rem 1.15rem 1.4rem !important; }
+        .site-footer-top { display: block; }
+        .site-footer-talk { display: flex; margin-top: 5rem; font-size: clamp(2.65rem, 13vw, 5rem); }
+        .site-footer-contact { display: grid; gap: .9rem; margin-top: 4rem; }
+        .site-footer-socials { margin-left: 0; }
+        .site-footer-bottom { display: grid; gap: .9rem; }
+      }
       @media (max-width: 760px) {
         .pipam-header { padding: 1rem 1.15rem; }
         .pipam-nav, .pipam-header-cta { display: none; }
