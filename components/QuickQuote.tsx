@@ -34,7 +34,7 @@ const QuickQuote: React.FC<{ language: Language; onFullQuoteClick?: () => void }
   };
 
   return (
-    <section id="devis-rapide" className="py-24 md:py-36 bg-brand-blue text-white relative overflow-hidden">
+    <section id="devis-rapide" className="quick-quote-section py-24 md:py-36 bg-brand-blue text-white relative overflow-hidden">
       <div className="absolute -right-32 -top-32 w-96 h-96 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
       <div className="container relative grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20 items-center">
         <div>

@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
   if (!translations?.contact) return null;
 
   return (
-    <footer className="border-t border-navy/10 bg-white/70 py-16 dark:border-white/10 dark:bg-transparent">
+    <footer className="site-footer border-t border-navy/10 bg-white/70 py-16 dark:border-white/10 dark:bg-transparent">
       <div className="container">
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr] md:gap-16">
           <div className="max-w-xs">

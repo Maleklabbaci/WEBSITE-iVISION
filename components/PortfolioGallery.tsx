@@ -149,7 +149,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
   };
 
   return (
-    <section id="etudes-de-cas" ref={sectionRef} className="py-24 md:py-40 border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
+    <section id="etudes-de-cas" ref={sectionRef} className="portfolio-section py-24 md:py-40 border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
       <div className="container">
         <div className={`max-w-4xl mb-12 md:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="sketch-badge mb-6 md:mb-8">{t.eyebrow}</div>

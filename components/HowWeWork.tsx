@@ -31,7 +31,7 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="methodologie" ref={sectionRef} className="py-20 md:py-28 bg-white/0 dark:bg-transparent transition-colors duration-500 border-t border-navy/5 dark:border-white/5 overflow-hidden">
+    <section id="methodologie" ref={sectionRef} className="method-section py-20 md:py-28 bg-white/0 dark:bg-transparent transition-colors duration-500 border-t border-navy/5 dark:border-white/5 overflow-hidden">
       <div className="container">
         <div className={`mb-12 md:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-10">

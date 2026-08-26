@@ -341,11 +341,284 @@
       }
 
       /* Hover links */
-      a.hover\:text-brand-blue:hover,
-      .hover\:text-brand-blue:hover {
+      a.hover\\:text-brand-blue:hover,
+      .hover\\:text-brand-blue:hover {
         -webkit-text-fill-color: #2457FF !important;
         color: #2457FF !important;
         background: none !important;
+      }
+
+      /* ===== KINETIC BLUEPRINT VISUAL SYSTEM ===== */
+      :root { color-scheme: light; }
+
+      html:not(.dark) body {
+        background:
+          radial-gradient(circle at 12% 8%, rgba(217, 243, 106, 0.28), transparent 24%),
+          radial-gradient(circle at 92% 26%, rgba(91, 92, 255, 0.14), transparent 30%),
+          #F3F3ED;
+        color: #11162E;
+      }
+
+      html.dark body {
+        background:
+          radial-gradient(circle at 88% 10%, rgba(91, 92, 255, 0.25), transparent 30%),
+          radial-gradient(circle at 8% 80%, rgba(217, 243, 106, 0.08), transparent 24%),
+          #11162E;
+        color: #FAFAF4;
+      }
+
+      ::selection { background: #D9F36A; color: #11162E; }
+
+      .sketch-badge {
+        border: 1.5px solid #11162E !important;
+        border-radius: 999px;
+        padding: 6px 13px;
+        transform: rotate(-1deg);
+        color: #11162E !important;
+        -webkit-text-fill-color: #11162E !important;
+        background: #D9F36A !important;
+        letter-spacing: 0.1em;
+      }
+
+      html.dark .sketch-badge {
+        border-color: #D9F36A !important;
+        color: #D9F36A !important;
+        -webkit-text-fill-color: #D9F36A !important;
+        background: rgba(217, 243, 106, 0.1) !important;
+      }
+
+      .btn-ivision {
+        background: #D9F36A !important;
+        color: #11162E !important;
+        -webkit-text-fill-color: #11162E !important;
+        border: 1.5px solid #11162E;
+        border-radius: 999px;
+        box-shadow: 4px 4px 0 #11162E;
+        transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      }
+
+      .btn-ivision:hover {
+        background: #5B5CFF !important;
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        transform: translate(-2px, -2px) !important;
+        box-shadow: 7px 7px 0 #11162E;
+      }
+
+      .btn-ivision:active { transform: translate(2px, 2px) !important; box-shadow: 2px 2px 0 #11162E; }
+
+      .glass-card {
+        border: 1.5px solid rgba(17, 22, 46, 0.14) !important;
+        border-radius: 20px !important;
+        background: rgba(250, 250, 244, 0.72) !important;
+        box-shadow: 5px 5px 0 rgba(17, 22, 46, 0.08) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      }
+
+      html.dark .glass-card {
+        border-color: rgba(250, 250, 244, 0.16) !important;
+        background: rgba(250, 250, 244, 0.055) !important;
+        box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.18) !important;
+      }
+
+      html:not(.dark) .glass-card:hover,
+      html.dark .glass-card:hover {
+        transform: translate(-3px, -3px) !important;
+        border-color: #5B5CFF !important;
+        background: rgba(250, 250, 244, 0.95) !important;
+        box-shadow: 9px 9px 0 rgba(91, 92, 255, 0.16) !important;
+      }
+
+      html.dark .glass-card:hover { background: rgba(91, 92, 255, 0.12) !important; }
+
+      html:not(.dark) .text-brand-blue {
+        color: #5B5CFF !important;
+        -webkit-text-fill-color: #5B5CFF !important;
+      }
+
+      html.dark .text-brand-blue {
+        color: #AEB0FF !important;
+        -webkit-text-fill-color: #AEB0FF !important;
+      }
+
+      .portfolio-stage {
+        background:
+          radial-gradient(circle at 50% 45%, rgba(91, 92, 255, 0.2), transparent 42%),
+          linear-gradient(145deg, rgba(250, 250, 244, 0.96), rgba(233, 235, 255, 0.82));
+      }
+
+      .portfolio-stage::before,
+      .portfolio-stage::after { border-color: rgba(91, 92, 255, 0.3); }
+      .portfolio-stage .portfolio-tile { border-color: rgba(17, 22, 46, 0.16); background: rgba(250, 250, 244, 0.92); }
+      .portfolio-stage .portfolio-tile:hover,
+      .portfolio-stage .portfolio-tile:focus-visible,
+      .portfolio-stage .portfolio-tile[data-selected='true'] { border-color: #5B5CFF; box-shadow: 0 18px 42px rgba(91, 92, 255, 0.26); }
+      .portfolio-stage .portfolio-stage-label { border-color: rgba(17, 22, 46, 0.14); background: #D9F36A; color: #11162E; }
+      html.dark .portfolio-stage { background: radial-gradient(circle at 50% 45%, rgba(91, 92, 255, 0.3), transparent 42%), #161D3C; }
+      html.dark .portfolio-stage .portfolio-tile { border-color: rgba(250, 250, 244, 0.18); background: rgba(17, 22, 46, 0.8); }
+      html.dark .portfolio-stage .portfolio-stage-label { border-color: rgba(217, 243, 106, 0.35); background: rgba(217, 243, 106, 0.16); color: #D9F36A; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .portfolio-stage::before,
+        .portfolio-stage::after,
+        .portfolio-stage .portfolio-tile { animation: none !important; }
+      }
+
+      /* ===== SECTION-BY-SECTION COMPOSITION ===== */
+      .site-header {
+        border-bottom: 1px solid rgba(17, 22, 46, 0.08);
+        background: rgba(243, 243, 237, 0.76) !important;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+
+      html.dark .site-header { border-bottom-color: rgba(250, 250, 244, 0.1); background: rgba(17, 22, 46, 0.78) !important; }
+      .site-header .container { max-width: 1240px; }
+      .site-header nav a { letter-spacing: 0.12em; }
+      .site-header nav a span { height: 2px; background: #D9F36A; }
+      .site-header button { border-radius: 12px; }
+
+      .hero-section { isolation: isolate; }
+      .hero-section::before {
+        content: 'iVISION / DIGITAL GROWTH';
+        position: absolute;
+        top: 19%;
+        right: 5%;
+        z-index: -1;
+        color: rgba(17, 22, 46, 0.2);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.22em;
+        transform: rotate(90deg);
+      }
+      html.dark .hero-section::before { color: rgba(250, 250, 244, 0.25); }
+      .hero-section h1 { text-wrap: balance; }
+      .hero-section h1 .text-brand-blue { text-decoration: underline; text-decoration-thickness: 0.08em; text-underline-offset: 0.08em; text-decoration-color: #D9F36A; }
+      .hero-section .btn-ivision { min-height: 52px; }
+
+      .services-section { background: rgba(250, 250, 244, 0.32); }
+      html.dark .services-section { background: rgba(250, 250, 244, 0.025); }
+      .services-section .glass-card { position: relative; overflow: hidden; }
+      .services-section .glass-card::after {
+        content: '↗';
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        color: #5B5CFF;
+        font-size: 18px;
+        font-weight: 900;
+        transition: transform 180ms ease;
+      }
+      .services-section .glass-card:hover::after { transform: translate(3px, -3px); }
+
+      .portfolio-section { background: rgba(250, 250, 244, 0.2); }
+      .portfolio-section > .container > div:first-child { position: relative; }
+      .portfolio-section > .container > div:first-child::after {
+        content: 'SELECT / MOVE / GROW';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: rgba(17, 22, 46, 0.38);
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+      }
+      html.dark .portfolio-section > .container > div:first-child::after { color: rgba(250, 250, 244, 0.38); }
+      .portfolio-section .portfolio-stage { border: 1.5px solid rgba(17, 22, 46, 0.14); box-shadow: inset 0 0 0 8px rgba(250, 250, 244, 0.28); }
+      .portfolio-section .portfolio-stage-label { letter-spacing: 0.16em; }
+
+      .quick-quote-section {
+        background: #5B5CFF !important;
+        background-image: radial-gradient(circle at 12% 20%, rgba(217, 243, 106, 0.24), transparent 28%), linear-gradient(135deg, #5B5CFF, #4546D9) !important;
+      }
+      .quick-quote-section::before {
+        content: 'LET’S MAKE IT REAL';
+        position: absolute;
+        bottom: 8%;
+        left: -2%;
+        color: rgba(217, 243, 106, 0.3);
+        font-size: clamp(3rem, 11vw, 11rem);
+        font-weight: 900;
+        letter-spacing: -0.08em;
+        line-height: 0.8;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+      .quick-quote-section .sketch-badge { background: #D9F36A !important; border-color: #11162E !important; color: #11162E !important; -webkit-text-fill-color: #11162E !important; }
+      .quick-quote-section .text-navy { color: #11162E !important; }
+      .quick-quote-section > .container > div:nth-child(2) { border: 1.5px solid #11162E; border-radius: 24px; box-shadow: 8px 8px 0 #11162E; }
+      .quick-quote-section input,
+      .quick-quote-section select { border-width: 1.5px; border-radius: 12px; background: #FAFAF4; }
+      .quick-quote-section .btn-ivision { border-color: #11162E; }
+
+      .method-section { background: #D9F36A; color: #11162E; }
+      html.dark .method-section { background: rgba(217, 243, 106, 0.08); }
+      .method-section .sketch-badge { background: #11162E !important; color: #D9F36A !important; -webkit-text-fill-color: #D9F36A !important; border-color: #11162E !important; }
+      .method-section .glass-card { background: rgba(250, 250, 244, 0.58) !important; box-shadow: 4px 4px 0 #11162E !important; }
+      html.dark .method-section .glass-card { background: rgba(17, 22, 46, 0.78) !important; box-shadow: 4px 4px 0 rgba(217, 243, 106, 0.45) !important; }
+      .method-section .btn-ivision { background: #11162E !important; color: #D9F36A !important; -webkit-text-fill-color: #D9F36A !important; border-color: #11162E; box-shadow: 4px 4px 0 #5B5CFF; }
+      .method-section .btn-ivision:hover { background: #5B5CFF !important; color: white !important; -webkit-text-fill-color: white !important; }
+
+      .contact-section { background: rgba(250, 250, 244, 0.42); }
+      html.dark .contact-section { background: rgba(250, 250, 244, 0.025); }
+      .contact-section .glass-card { box-shadow: 6px 6px 0 rgba(17, 22, 46, 0.09) !important; }
+      html.dark .contact-section .glass-card { box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.22) !important; }
+      .contact-section .glass-card a > div { border-radius: 14px; background: #11162E; }
+
+      .site-footer { background: #11162E !important; border-top-color: #D9F36A !important; color: #FAFAF4; }
+      .site-footer .text-brand-gray,
+      .site-footer .text-brand-gray\/80,
+      .site-footer .text-brand-gray\/60 { color: rgba(250, 250, 244, 0.68) !important; }
+      .site-footer .text-navy\/40,
+      .site-footer .text-white\/40 { color: #D9F36A !important; }
+      .site-footer .text-brand-blue { color: #D9F36A !important; -webkit-text-fill-color: #D9F36A !important; }
+      .site-footer a:hover,
+      .site-footer button:hover { color: #D9F36A !important; }
+      .site-footer .border-t { border-color: rgba(217, 243, 106, 0.28) !important; }
+      .site-footer .logo-img { filter: brightness(0) invert(1) !important; }
+
+      .mobile-conversion-bar { border-color: #D9F36A !important; background: #11162E !important; box-shadow: 5px 5px 0 rgba(17, 22, 46, 0.35) !important; }
+      .mobile-conversion-bar a:last-child { background: #D9F36A !important; color: #11162E !important; }
+
+      .site-header #guide-contact-btn { background: #D9F36A !important; border-color: #11162E !important; color: #11162E !important; box-shadow: 3px 3px 0 #11162E; }
+      .site-header #guide-contact-btn:hover { background: #5B5CFF !important; border-color: #11162E !important; color: #FFFFFF !important; }
+      .site-header #guide-theme-toggle,
+      .site-header button[aria-label="Changer la langue"] { background: rgba(250, 250, 244, 0.68); border-color: rgba(17, 22, 46, 0.16); }
+      html.dark .site-header #guide-theme-toggle,
+      html.dark .site-header button[aria-label="Changer la langue"] { background: rgba(250, 250, 244, 0.08); border-color: rgba(250, 250, 244, 0.16); }
+
+      .hero-section img[alt="Team"] { border: 1.5px solid #11162E !important; border-radius: 26px 8px 26px 8px !important; box-shadow: 8px 8px 0 rgba(17, 22, 46, 0.18) !important; }
+      .hero-section img[alt="Results"] { border: 1.5px solid #D9F36A !important; border-radius: 8px 26px 8px 26px !important; box-shadow: 8px 8px 0 #5B5CFF !important; }
+      .hero-section .glass-card { border-radius: 14px !important; box-shadow: 5px 5px 0 #D9F36A !important; }
+
+      .services-section .glass-card,
+      .contact-section .glass-card { min-height: 100%; }
+      .services-section .glass-card h3 { max-width: 13rem; }
+      .services-section .glass-card .text-brand-blue { color: #5B5CFF !important; }
+
+      .portfolio-section > .container > div:nth-child(2) { border-color: #11162E !important; box-shadow: 8px 8px 0 rgba(17, 22, 46, 0.15) !important; }
+      html.dark .portfolio-section > .container > div:nth-child(2) { border-color: rgba(217, 243, 106, 0.42) !important; box-shadow: 8px 8px 0 rgba(217, 243, 106, 0.16) !important; }
+      .portfolio-section .portfolio-stage .portfolio-tile { border-width: 1.5px; }
+      .portfolio-section .portfolio-stage .portfolio-tile[data-selected='true'] { background: #D9F36A; }
+      .portfolio-section .portfolio-stage .portfolio-tile[data-selected='true'] img { filter: brightness(0) saturate(100%); }
+      html.dark .portfolio-section .portfolio-stage .portfolio-tile[data-selected='true'] img { filter: brightness(0) invert(1); }
+
+      .quick-quote-section .btn-ivision,
+      .contact-section .btn-ivision { box-shadow: 4px 4px 0 #11162E; }
+      .quick-quote-section a:not(.btn-ivision) { color: #D9F36A; }
+      .quick-quote-section a:not(.btn-ivision):hover { color: #FAFAF4; }
+
+      @media (max-width: 767px) {
+        .hero-section::before,
+        .portfolio-section > .container > div:first-child::after { display: none; }
+        .site-header { padding-top: 0.8rem !important; padding-bottom: 0.8rem !important; }
+        .services-section .glass-card::after { top: 14px; right: 14px; }
+        .quick-quote-section::before { font-size: 3.5rem; bottom: 5%; }
+        .method-section { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+        .portfolio-section .portfolio-stage { min-height: 330px; }
+        .portfolio-section .portfolio-stage .portfolio-tile { width: 72px; }
       }
     </style>
 

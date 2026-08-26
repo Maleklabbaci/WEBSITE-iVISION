@@ -10,7 +10,7 @@ const BackgroundFlow: React.FC = () => (
   <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1440 800" fill="none">
     <path 
       d="M-100 300C200 150 500 450 800 350C1100 250 1400 550 1600 450" 
-      stroke="rgba(0, 51, 255, 0.15)" 
+      stroke="rgba(91, 92, 255, 0.22)"
       strokeWidth="1.5" 
       className="dotted-path"
     />
@@ -39,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="accueil" className="relative min-h-[90vh] md:min-h-screen pt-32 pb-16 md:pt-40 md:pb-20 bg-white/0 dark:bg-transparent transition-colors duration-500 flex items-center perspective-stage">
+    <section id="accueil" className="hero-section relative min-h-[90vh] md:min-h-screen pt-32 pb-16 md:pt-40 md:pb-20 bg-white/0 dark:bg-transparent transition-colors duration-500 flex items-center perspective-stage">
       <BackgroundFlow />
       
       <div className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-brand-blue/10 blur-[100px] md:blur-[180px] rounded-full -z-10"></div>

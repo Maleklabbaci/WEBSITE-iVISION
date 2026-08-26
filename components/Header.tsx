@@ -101,7 +101,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
 
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full z-[110] transition-all duration-700 ${headerBgClass}`}>
+      <header className={`site-header fixed top-0 left-0 w-full z-[110] transition-all duration-700 ${headerBgClass}`}>
         <div className="container flex items-center justify-between">
           {/* ===== LOGO ===== */}
           <a href="#" onClick={handleLogoClick} className="flex items-center gap-2 group z-[120]">
