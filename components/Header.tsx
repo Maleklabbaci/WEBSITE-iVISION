@@ -50,34 +50,10 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     }
   };
 
-  const handleAnchorClick = (e: React.MouseEvent, sectionId: string) => {
+  const handleRouteClick = (e: React.MouseEvent, route: string) => {
     e.preventDefault();
     handleLinkClick();
-    const currentHash = window.location.hash;
-    // Si on est sur une sous-page (blog, services, devis, academiq...)
-    const isSubPage = currentHash.startsWith('#/') && currentHash.length > 2;
-    if (isSubPage) {
-      // Retourner à la home d'abord, puis scroller vers la section
-      window.location.hash = '';
-      setTimeout(() => {
-        const el = document.getElementById(sectionId);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 350);
-    } else {
-      // Déjà sur la home, scroller directement
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        // Section pas encore visible (lazy), retenter après render
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => {
-          const el2 = document.getElementById(sectionId);
-          if (el2) el2.scrollIntoView({ behavior: 'smooth' });
-        }, 300);
-      }
-    }
+    window.location.hash = route;
   };
 
   // BUG 8 FIX: Cycle de langue sans reload
@@ -97,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     ? 'py-4 bg-white/80 dark:bg-black/20 backdrop-blur-2xl border-b border-navy/5 dark:border-white/10 shadow-sm' 
     : 'py-6 md:py-8 bg-transparent';
 
-  const sectionIds = ['services', 'projets', 'methodologie', 'contact'];
+  const routes = ['/services', '/resultats', '/methode', '/contact'];
 
   return (
     <>
@@ -117,8 +93,8 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
             {translations.links.map((link, i) => (
               <a 
                 key={i} 
-                href={`#${sectionIds[i]}`} 
-                onClick={(e) => handleAnchorClick(e, sectionIds[i])}
+                href={`#${routes[i]}`}
+                onClick={(e) => handleRouteClick(e, routes[i])}
                 className="text-[11px] font-bold uppercase tracking-[0.15em] text-navy/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-white transition-all duration-300 relative group/link"
               >
                 {link}
@@ -200,8 +176,8 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
           {translations.links.map((link, i) => (
             <a 
               key={i} 
-              href={`#${sectionIds[i]}`} 
-              onClick={(e) => handleAnchorClick(e, sectionIds[i])}
+href={`#${routes[i]}`}
+              onClick={(e) => handleRouteClick(e, routes[i])}
               className={`text-3xl font-black uppercase tracking-tighter transition-all duration-700 transform text-navy dark:text-white ${isMobileMenuOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-12 opacity-0 blur-md'}`}
               style={{ transitionDelay: `${isMobileMenuOpen ? i * 100 + 200 : 0}ms` }}
             >

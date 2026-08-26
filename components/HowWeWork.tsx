@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import InfoModal from './InfoModal';
 
 const icons = [
   <svg className="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
@@ -21,7 +20,6 @@ interface HowWeWorkProps {
 
 const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedStep, setSelectedStep] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -73,28 +71,18 @@ const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => 
                 {step.details}
               </p>
               
-              <button 
-                onClick={() => setSelectedStep(index)}
+              <a
+                href={`#/methode/${index + 1}`}
                 className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-brand-blue hover:gap-5 transition-all whitespace-nowrap"
               >
                 DÉMARRER
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
-              </button>
+              </a>
             </div>
           ))}
         </div>
       </div>
 
-      <InfoModal 
-        isOpen={selectedStep !== null} 
-        onClose={() => setSelectedStep(null)}
-        title={selectedStep !== null ? steps[selectedStep].title : ''}
-        description={selectedStep !== null ? steps[selectedStep].description : ''}
-        details={selectedStep !== null ? steps[selectedStep].details : ''}
-        icon={selectedStep !== null ? icons[selectedStep] : null}
-        translations={translations?.modal}
-        onCtaClick={onQuoteClick}
-      />
     </section>
   );
 };

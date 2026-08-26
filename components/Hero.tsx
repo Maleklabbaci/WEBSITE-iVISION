@@ -73,7 +73,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </button>
-              <a href="#etudes-de-cas" onClick={(event) => { event.preventDefault(); document.getElementById('etudes-de-cas')?.scrollIntoView({ behavior: 'smooth' }); }} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-navy/15 dark:border-white/20 px-6 py-4 text-xs font-black uppercase tracking-widest text-navy dark:text-white hover:border-brand-blue hover:text-brand-blue transition-colors">
+              <a href="#/resultats" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-navy/15 dark:border-white/20 px-6 py-4 text-xs font-black uppercase tracking-widest text-navy dark:text-white hover:border-brand-blue hover:text-brand-blue transition-colors">
                 <span>Voir nos résultats</span>
                 <span aria-hidden="true">↓</span>
               </a>

@@ -10,7 +10,7 @@ const serviceSlugMap: Record<number, string> = {
    0: 'marketing-digital',
   1: 'production-audiovisuelle',
   2: 'creation-site-web',
-  3: 'marketing-digital',
+  3: 'branding-identite-visuelle',
 };
 
 const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
@@ -55,9 +55,13 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {translations.items.map((item, i) => (
-            <div 
-              key={i} 
-              onClick={() => handleServiceClick(i)}
+            <a
+              key={i}
+              href={`#/services/${serviceSlugMap[i] || 'marketing-digital'}`}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleServiceClick(i);
+              }}
               className="group glass-card p-8 md:p-12 hover:border-brand-blue/30 transition-all duration-500 flex flex-col h-full cursor-pointer"
             >
               <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue mb-8 md:mb-10 group-hover:bg-brand-blue group-hover:text-white transition-all transform group-hover:rotate-6">
@@ -70,17 +74,11 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
               <p className="text-brand-gray dark:text-brand-gray/80 text-xs md:text-sm leading-relaxed mb-8 md:mb-12 font-medium opacity-60 group-hover:opacity-100">
                 {item.details}
               </p>
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleServiceClick(i);
-                }} 
-                className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-brand-blue hover:gap-5 transition-all"
-              >
+              <span className="mt-auto flex items-center gap-3 text-[10px] md:text-[11px] font-black uppercase text-brand-blue group-hover:gap-5 transition-all">
                 EN SAVOIR PLUS
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeWidth="3" /></svg>
-              </button>
-            </div>
+              </span>
+            </a>
           ))}
         </div>
       </div>

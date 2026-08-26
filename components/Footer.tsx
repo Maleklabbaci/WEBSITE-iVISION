@@ -13,7 +13,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
   const year = new Date().getFullYear();
-  const staticLinks = ['accueil', 'services', 'projets', 'methodologie', 'contact'];
+  const routeLinks = ['#/services', '#/resultats', '#/methode', '#/contact'];
 
   if (!translations || !translations.contact) {
     return null;
@@ -39,9 +39,7 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
             <div className="flex flex-col gap-6">
                 <span className="text-[10px] font-black uppercase tracking-widest text-navy/20 dark:text-white/20">Navigation</span>
                 {translations.links.map((link, index) => {
-                  // BUG 10 FIX: utiliser staticLinks pour tous les index, fallback sécurisé
-                  const sectionId = staticLinks[index] || 'contact';
-                  const href = `#${sectionId}`;
+                  const href = routeLinks[index] || '#/contact';
                   return (
                     <a key={link} href={href} className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
                       {link}
@@ -51,13 +49,13 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
                 <a href="#/devis" className="text-xs font-black uppercase tracking-widest text-brand-blue hover:brightness-110 transition-all">
                   {translations.contactUs}
                 </a>
-                <a href="#devis-rapide" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
+                <a href="#/devis-rapide" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
                   Devis rapide
                 </a>
-                <a href="#etudes-de-cas" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
+                <a href="#/resultats" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
                   Études de cas
                 </a>
-                <a href="#comparateur" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
+                <a href="#/comparateur" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
                   Comparer les services
                 </a>
                 <a href="#/academiq" className="text-xs font-bold uppercase tracking-widest text-brand-gray dark:text-brand-gray/80 hover:text-brand-blue transition-colors">
@@ -108,18 +106,12 @@ const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
             &copy; {year} {translations.copyright}
           </p>
           <div className="flex gap-10">
-            <button 
-                onClick={() => onOpenPolicy('privacy')}
-                className="text-[10px] font-black uppercase tracking-widest text-brand-gray/30 hover:text-brand-blue transition-colors"
-            >
+            <a href="#/confidentialite" className="text-[10px] font-black uppercase tracking-widest text-brand-gray/30 hover:text-brand-blue transition-colors">
                 Confidentialité
-            </button>
-            <button 
-                onClick={() => onOpenPolicy('terms')}
-                className="text-[10px] font-black uppercase tracking-widest text-brand-gray/30 hover:text-brand-blue transition-colors"
-            >
+            </a>
+            <a href="#/conditions" className="text-[10px] font-black uppercase tracking-widest text-brand-gray/30 hover:text-brand-blue transition-colors">
                 Conditions
-            </button>
+            </a>
           </div>
         </div>
       </div>
