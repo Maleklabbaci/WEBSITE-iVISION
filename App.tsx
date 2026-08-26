@@ -290,7 +290,7 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
       </div>
 
       {!isLoading && !showLangSelector && !policyType && currentView === 'home' && (
-        <MobileConversionBar language={language} onQuoteClick={handleOpenQuotePage} />
+        <MobileConversionBar language={language} />
       )}
     </div>
   );

@@ -9,15 +9,17 @@ const labels = {
   ar: { whatsapp: 'واتساب', quote: 'عرض' },
 };
 
-const MobileConversionBar: React.FC<{ language: Language; onQuoteClick: () => void }> = ({ language, onQuoteClick }) => {
+type MobileConversionBarProps = { language: Language };
+
+const MobileConversionBar: React.FC<MobileConversionBarProps> = ({ language }) => {
   const t = labels[language];
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Bonjour iVISION, je souhaite obtenir un devis.')}`;
 
   return (
-    <nav aria-label="Actions de contact rapides" className="fixed bottom-3 left-3 right-3 z-[105] lg:hidden rounded-2xl border border-white/20 bg-navy/95 p-2 shadow-2xl backdrop-blur-xl pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
+    <nav aria-label="Actions de contact rapides" className="pointer-events-auto fixed bottom-3 left-3 right-3 z-[120] rounded-2xl border border-white/20 bg-navy/95 p-2 shadow-2xl backdrop-blur-xl pb-[calc(0.5rem+env(safe-area-inset-bottom))] touch-manipulation lg:hidden">
       <div className="grid grid-cols-2 gap-2">
-        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('whatsapp_click', { location: 'mobile_bar' })} className="flex min-h-12 items-center justify-center rounded-xl bg-[#25D366] px-2 text-[10px] font-black uppercase tracking-wide text-white">{t.whatsapp}</a>
-        <button type="button" onClick={() => { trackEvent('quick_quote_click', { location: 'mobile_bar' }); onQuoteClick(); }} className="min-h-12 rounded-xl bg-white px-2 text-[10px] font-black uppercase tracking-wide text-navy">{t.quote}</button>
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('whatsapp_click', { location: 'mobile_bar' })} className="flex min-h-12 items-center justify-center rounded-xl bg-[#25D366] px-2 text-[10px] font-black uppercase tracking-wide text-white transition-transform active:scale-[0.98]">{t.whatsapp}</a>
+        <a href="#/devis" onClick={() => trackEvent('quick_quote_click', { location: 'mobile_bar' })} className="flex min-h-12 items-center justify-center rounded-xl bg-white px-2 text-[10px] font-black uppercase tracking-wide text-navy transition-transform active:scale-[0.98]">{t.quote}</a>
       </div>
     </nav>
   );

@@ -162,29 +162,29 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
 
         <div className={`overflow-hidden rounded-[2rem] border border-navy/10 dark:border-white/10 bg-white/80 dark:bg-white/[0.035] shadow-[0_24px_80px_rgba(11,27,58,0.10)] dark:shadow-2xl transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
-            <div className="p-5 md:p-8 border-b lg:border-b-0 lg:border-r border-navy/10 dark:border-white/10 bg-navy/[0.025] dark:bg-white/[0.02]">
-              <div className="flex items-center justify-between gap-4 mb-5">
+            <div className="border-b border-navy/10 bg-navy/[0.025] p-5 dark:border-white/10 dark:bg-white/[0.02] lg:border-b-0 lg:border-r md:p-8">
+              <div className="mb-5 flex items-center justify-between gap-4">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-gray">{t.choose}</p>
                 <span className="text-[10px] font-bold text-brand-blue">{projects.length.toString().padStart(2, '0')} clients</span>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-3">
-                {projects.map(project => {
+              <div className="portfolio-stage rounded-[1.5rem]" aria-label={t.choose}>
+                {projects.map((project, index) => {
                   const isSelected = project.id === selectedProject.id;
                   return (
                     <button
                       key={project.id}
                       type="button"
+                      aria-label={`${t.choose}: ${project.name}`}
                       aria-pressed={isSelected}
+                      data-selected={isSelected}
                       onClick={() => selectProject(project)}
-                      className={`group min-h-28 rounded-2xl border p-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#081126] ${isSelected ? 'border-brand-blue bg-brand-blue/10 shadow-[0_12px_28px_rgba(36,87,255,0.14)]' : 'border-navy/10 dark:border-white/10 bg-white/70 dark:bg-white/[0.03] hover:-translate-y-1 hover:border-brand-blue/45'}`}
+                      className={`portfolio-tile portfolio-tile-${index} ${isSelected ? 'is-selected' : ''}`}
                     >
-                      <span className={`flex h-14 items-center justify-center rounded-xl transition-colors ${isSelected ? 'bg-white dark:bg-white/10' : 'bg-navy/[0.035] dark:bg-white/[0.04]'}`}>
-                        <img loading="lazy" decoding="async" src={project.logo} alt={project.name} className={`logo-white max-h-10 max-w-[82%] object-contain transition-all duration-200 ${isSelected ? 'opacity-100' : 'opacity-55 group-hover:opacity-100'}`} />
-                      </span>
-                      <span className={`mt-3 block text-[10px] font-black uppercase tracking-wider ${isSelected ? 'text-brand-blue' : 'text-navy dark:text-white'}`}>{project.name}</span>
+                      <img loading={index < 2 ? 'eager' : 'lazy'} decoding="async" src={project.logo} alt={project.name} />
                     </button>
                   );
                 })}
+                <div className="portfolio-stage-label" aria-live="polite">{selectedProject.name}</div>
               </div>
             </div>
 
