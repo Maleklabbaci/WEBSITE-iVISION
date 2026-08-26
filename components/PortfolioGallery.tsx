@@ -79,8 +79,8 @@ interface PortfolioGalleryProps {
 const labels = {
   fr: {
     eyebrow: 'Portfolio & études de cas',
-    title: 'DES MARQUES QUI',
-    accent: 'NOUS FONT CONFIANCE.',
+    title: 'LES MARQUES QUI ONT CHOISI',
+    accent: 'DE VOIR PLUS GRAND.',
     intro: 'Cliquez sur un logo pour découvrir le projet, notre intervention et les résultats obtenus.',
     choose: 'Choisir un projet',
     selected: 'Étude de cas sélectionnée',
@@ -95,8 +95,8 @@ const labels = {
   },
   en: {
     eyebrow: 'Portfolio & case studies',
-    title: 'BRANDS THAT',
-    accent: 'TRUST US.',
+    title: 'BRANDS THAT CHOSE TO',
+    accent: 'THINK BIGGER.',
     intro: 'Click a logo to discover the project, our work and the results delivered.',
     choose: 'Choose a project',
     selected: 'Selected case study',
@@ -111,8 +111,8 @@ const labels = {
   },
   ar: {
     eyebrow: 'أعمالنا ودراسات الحالة',
-    title: 'علامات تجارية',
-    accent: 'تثق بنا.',
+    title: 'علامات اختارت أن',
+    accent: 'ترى أبعد.',
     intro: 'اضغط على الشعار لاكتشاف المشروع وتدخلنا والنتائج المحققة.',
     choose: 'اختر مشروعاً',
     selected: 'دراسة الحالة المختارة',
