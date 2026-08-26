@@ -1110,6 +1110,14 @@
       }
       /* ===== FINAL SPACING AND CONTACT CLEANUP ===== */
       .pipam-work-scroll { position: relative; height: 420vh; background: #0f1213 !important; color: #f6f6f6; }
+      .pipam-work-sticky { height: 100svh; min-height: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; }
+      .pipam-work-scroll-head { margin: 3vh auto 0; }
+      .pipam-work-scroll-head h2 { font-size: clamp(3.9rem, 8.2vw, 9rem); }
+      .pipam-work-scroll-stage { min-height: 0; margin: 0 auto; }
+      .pipam-work-scroll-copy { min-width: 0; }
+      .pipam-website-frame { max-height: min(38vh, 21rem); }
+      .pipam-website-frame img { height: 100%; }
+
       .pipam-work-sticky { position: sticky; top: 0; display: flex; min-height: 100svh; flex-direction: column; justify-content: space-between; overflow: hidden; padding: 6.8rem 4.8vw 2.2rem; }
       .pipam-work-scroll-head { width: min(100%, 76rem); margin: 7vh auto 0; }
       .pipam-work-scroll-head h2 { margin: 0; color: #f6f6f6; font-family: 'Geist', sans-serif; font-size: clamp(4.4rem, 10vw, 11rem); font-weight: 500 !important; letter-spacing: -.08em; line-height: .8; }
@@ -1210,6 +1218,11 @@
       .fixed.bottom-24.right-6.bg-brand-blue:hover { background: #ff390c !important; }
       @media (max-width: 760px) {
         .pipam-work-scroll { height: 460vh; }
+        .pipam-work-sticky { height: 100svh; min-height: 0; }
+        .pipam-work-scroll-head { margin-top: 3vh; }
+        .pipam-work-scroll-stage { margin: 0; }
+        .pipam-website-frame { max-height: 26vh; }
+
         .pipam-work-sticky { min-height: 100svh; padding: 5.8rem 1.15rem 1.8rem; }
         .pipam-work-scroll-head { margin-top: 6vh; }
         .pipam-work-scroll-head h2 { font-size: clamp(3.9rem, 16vw, 6.5rem); line-height: .82; }
@@ -1263,6 +1276,20 @@
         .pipam-contact-heading p { max-width: 20rem; margin-top: 2rem; font-size: .82rem; }
         .pipam-contact-links { grid-template-columns: 1fr; gap: 1.7rem; }
         .pipam-contact-links a { font-size: 1.35rem; }
+      }
+      /* ===== SCROLL WORK FINAL OVERRIDE ===== */
+      .pipam-work-sticky { height: 100svh !important; min-height: 0 !important; display: grid !important; grid-template-rows: auto auto minmax(0, 1fr) auto !important; justify-content: initial !important; }
+      .pipam-work-scroll-head { margin: 3vh auto 0 !important; }
+      .pipam-work-scroll-head h2 { font-size: clamp(3.9rem, 8.2vw, 9rem) !important; }
+      .pipam-work-scroll-stage { min-height: 0 !important; margin: 0 auto !important; }
+      .pipam-website-frame { max-height: min(38vh, 21rem) !important; }
+      .pipam-website-frame img { height: 100% !important; }
+      @media (max-width: 760px) {
+        .pipam-work-sticky { height: 100svh !important; min-height: 0 !important; padding: 5.8rem 1.15rem 1.8rem !important; }
+        .pipam-work-scroll-head { margin-top: 3vh !important; }
+        .pipam-work-scroll-head h2 { font-size: clamp(3.9rem, 16vw, 6.5rem) !important; }
+        .pipam-work-scroll-stage { margin: 0 !important; }
+        .pipam-website-frame { max-height: 26vh !important; }
       }
         </style>
   </head>
