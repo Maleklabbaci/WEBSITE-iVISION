@@ -139,6 +139,34 @@
       .iv-work-dots i { width: 1.5rem; height: 2px; background: var(--iv-line); transition: all 0.3s ease; }
       .iv-work-dots i.is-active { width: 3rem; background: var(--iv-magenta); }
 
+      /* ===== SIMPLE CASE STUDIES ===== */
+      .iv-work-simple { border-top: 1px solid var(--iv-line); padding: 7rem 4.8vw 8rem; }
+      .iv-work-simple-heading { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 6vw; margin: 5rem 0 4rem; }
+      .iv-work-simple-heading h2 { margin: 1rem 0 0; font-size: clamp(4rem, 9vw, 10rem); line-height: .75; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
+      .iv-work-simple-heading h2 span { display: block; }
+      .iv-work-simple-heading h2 span:last-child { color: var(--iv-orange); }
+      .iv-work-simple-intro { max-width: 24rem; padding-bottom: .5rem; }
+      .iv-work-simple-intro p { margin: 0 0 2rem; color: var(--iv-muted); font-size: 1rem; line-height: 1.6; }
+      .iv-work-simple-cta { display: inline-flex; align-items: center; gap: .7rem; border: 0; border-bottom: 1px solid var(--iv-orange); padding: 0 0 .7rem; background: transparent; color: var(--iv-white); font: inherit; font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+      .iv-work-simple-cta b { color: var(--iv-orange); font-size: 1rem; font-weight: 400; }
+      .iv-work-simple-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 1rem; align-items: start; }
+      .iv-work-card { min-width: 0; }
+      .iv-work-card a { display: block; color: inherit; text-decoration: none; }
+      .iv-work-card-media { position: relative; overflow: hidden; aspect-ratio: 1 / 1.08; border-radius: .7rem; background: #181a18; }
+      .iv-work-card.is-featured .iv-work-card-media { aspect-ratio: 1.18 / 1; }
+      .iv-work-card-media::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.58)); content: ''; pointer-events: none; }
+      .iv-work-card-media img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .7s cubic-bezier(.23,1,.32,1); }
+      .iv-work-card:hover .iv-work-card-media img { transform: scale(1.05); }
+      .iv-work-card-bar { position: absolute; top: 0; right: 0; left: 0; z-index: 1; display: flex; align-items: center; gap: .3rem; height: 2rem; padding: 0 .8rem; background: rgba(15,18,19,.74); }
+      .iv-work-card-bar span { width: .35rem; height: .35rem; border-radius: 50%; background: rgba(246,246,246,.65); }
+      .iv-work-card-bar small { margin-left: auto; color: rgba(246,246,246,.76); font-size: .45rem; font-weight: 700; letter-spacing: .15em; }
+      .iv-work-card-meta { padding: 1.2rem 0 2.5rem; }
+      .iv-work-card-meta > span { color: var(--iv-orange); font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .iv-work-card-meta h3 { margin: .65rem 0 .45rem; font-size: clamp(1.6rem, 3vw, 3.2rem); line-height: .9; font-weight: 400; text-transform: uppercase; }
+      .iv-work-card-meta p { max-width: 22rem; margin: 0 0 1rem; color: var(--iv-muted); font-size: .82rem; line-height: 1.5; }
+      .iv-work-card-meta strong { color: var(--iv-white); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+      .iv-work-card-meta strong b { color: var(--iv-orange); font-size: 1rem; font-weight: 400; }
+
       /* ===== SMM ===== */
       .iv-smm { min-height: 88svh; border-top: 1px solid var(--iv-line); padding: 8rem 4.8vw 7rem; box-sizing: border-box; }
       .iv-smm-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 7vw; align-items: center; min-height: 62vh; }
@@ -262,6 +290,11 @@
         .iv-header-cta { margin-left: auto; padding: .65rem .8rem; font-size: .52rem; }
         .iv-menu-button { display: block; flex: 0 0 auto; }
         .iv-about-grid, .iv-smm-grid, .iv-proof-grid, .iv-faq-grid { grid-template-columns: 1fr; gap: 4rem; }
+        .iv-work-simple { padding: 6rem 1.15rem; }
+        .iv-work-simple-heading { grid-template-columns: 1fr; gap: 2.5rem; margin: 3.5rem 0; }
+        .iv-work-simple-heading h2 { font-size: clamp(3.7rem, 16vw, 7rem); }
+        .iv-work-simple-grid { grid-template-columns: 1fr; gap: 0; }
+        .iv-work-card.is-featured .iv-work-card-media { aspect-ratio: 1 / 1.08; }
         .iv-hero-top { padding: 6rem 1.15rem 0; }
         .iv-hero-date { display: none; }
         .iv-hero-main { padding: 0 1.15rem 1.2rem; }

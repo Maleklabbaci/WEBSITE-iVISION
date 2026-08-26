@@ -2,17 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { trackEvent } from '../lib/analytics';
 import type { Language } from '../lib/translations';
 
-interface Project { id: number; name: string; sector: string; summary: string; results: string[]; media: string; website: string }
+interface Project { id: number; name: string; sector: string; summary: string; media: string; website: string }
 const projects: Project[] = [
-  { id: 1, name: 'DC16 X WYN', sector: 'E-commerce · streetwear', summary: 'Une boutique minimaliste et radicale pour une collection streetwear pensée autour du produit.', results: ['Boutique e-commerce', 'Collection live'], media: '/images/project-dc16.webp', website: 'https://dc16.shop/' },
-  { id: 2, name: 'MoveSmart', sector: 'Immobilier · Dubai', summary: 'Une expérience premium pour présenter les opportunités immobilières, la création d’entreprise et la résidence aux Émirats.', results: ['Hero immersif', 'Parcours conseil'], media: '/images/project-movesmart.webp', website: 'https://movesmart-ecru.vercel.app/' },
-  { id: 3, name: 'Fidali', sector: 'SaaS · fidélité digitale', summary: 'Un produit SaaS clair qui transforme les cartes papier en programme de fidélité digital pour les commerçants algériens.', results: ['Produit SaaS', 'Onboarding digital'], media: '/images/project-fidali.webp', website: 'https://fidali.vercel.app/' },
-  { id: 4, name: 'White Aura', sector: 'Cosmétiques · e-commerce', summary: 'Une boutique beauté immersive qui met en scène la nature, les produits et l’histoire de la marque.', results: ['Boutique premium', '58 wilayas livrées'], media: '/images/project-white-aura.webp', website: 'https://white-aura.vercel.app/' }
+  { id: 1, name: 'DC16 X WYN', sector: 'E-commerce · streetwear', summary: 'Une boutique pensée autour du produit et de la culture streetwear.', media: '/images/project-dc16.webp', website: 'https://dc16.shop/' },
+  { id: 2, name: 'MoveSmart', sector: 'Immobilier · Dubai', summary: 'Une expérience premium pour présenter les opportunités aux Émirats.', media: '/images/project-movesmart.webp', website: 'https://movesmart-ecru.vercel.app/' },
+  { id: 3, name: 'Fidali', sector: 'SaaS · fidélité digitale', summary: 'Un produit digital clair pour transformer la fidélité des commerçants.', media: '/images/project-fidali.webp', website: 'https://fidali.vercel.app/' },
+  { id: 4, name: 'White Aura', sector: 'Cosmétiques · e-commerce', summary: 'Une boutique beauté immersive pour une marque premium.', media: '/images/project-white-aura.webp', website: 'https://white-aura.vercel.app/' },
 ];
+
 const copy = {
-  fr: { label: 'NOS RÉALISATIONS', building: 'BÂTIR', words: ['DES CAMPAGNES', 'DES MARQUES', 'DU CONTENU', 'DES SITES'], ending: 'AVEC 100% DE PASSION ET UN IMPACT AUDACIEUX.', view: 'Ouvrir le site', quote: 'Parler de mon projet', scrollHint: 'SCROLLEZ POUR EXPLORER' },
-  en: { label: 'OUR WORK', building: 'BUILDING', words: ['CAMPAIGNS', 'BRANDS', 'CONTENT', 'WEBSITES'], ending: 'WITH 100% PASSION & BOLD IMPACT.', view: 'Open the site', quote: 'Talk about my project', scrollHint: 'SCROLL TO EXPLORE' },
-  ar: { label: 'أعمالنا', building: 'نبني', words: ['حملات', 'علامات', 'محتوى', 'مواقع'], ending: 'بشغف وتأثير جريء.', view: 'فتح الموقع', quote: 'تحدث عن مشروعي', scrollHint: 'مرر للاستكشاف' }
+  fr: { label: 'NOS RÉALISATIONS', kicker: 'SELECTED DIGITAL WORK', title: ['DES SITES', 'QUI BOUGENT.'], body: 'Des expériences digitales qui donnent une forme claire aux marques et une place forte aux idées.', view: 'Voir le site', quote: 'Parler de mon projet' },
+  en: { label: 'OUR WORK', kicker: 'SELECTED DIGITAL WORK', title: ['WEBSITES', 'THAT MOVE.'], body: 'Digital experiences that give brands a clear shape and ideas a stronger place.', view: 'View website', quote: 'Talk about my project' },
+  ar: { label: 'أعمالنا', kicker: 'SELECTED DIGITAL WORK', title: ['مواقع', 'تتحرك.'], body: 'تجارب رقمية تمنح العلامات شكلاً واضحاً وأفكاراً أكثر حضوراً.', view: 'فتح الموقع', quote: 'تحدث عن مشروعي' },
 };
 
 interface PortfolioGalleryProps { language: Language; onQuoteClick: () => void }
@@ -20,49 +21,26 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
   const t = copy[language];
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const activeIndex = Math.min(projects.length - 1, Math.floor(progress * projects.length));
-  const selected = projects[activeIndex];
 
   useEffect(() => {
     projects.forEach(({ media }) => { const image = new Image(); image.decoding = 'async'; image.src = media; });
-  }, []);
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: .08 });
+    trackEvent('view_portfolio', { projects: projects.map((project) => project.name).join(', ') });
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: .12 });
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
-  useEffect(() => {
-    if (!visible) return;
-    let frame = 0;
-    const update = () => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const scrollable = Math.max(ref.current.offsetHeight - window.innerHeight, 1);
-      const next = Math.min(0.9999, Math.max(0, -rect.top / scrollable));
-      setProgress(next);
-      frame = 0;
-    };
-    const onScroll = () => { if (!frame) frame = window.requestAnimationFrame(update); };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); if (frame) window.cancelAnimationFrame(frame); };
-  }, [visible]);
-  useEffect(() => { trackEvent('view_case_study', { case_name: selected.name }); }, [selected.name]);
 
   return (
-    <section ref={ref} id="etudes-de-cas" className={`iv-work-scroll ${visible ? 'is-visible' : ''}`}>
-      <div className="iv-work-sticky">
-        <div className="iv-section-topline"><span>{t.label}</span><span>02 / 07</span></div>
-        <div className="iv-work-heading"><h2><span>{t.building}</span><span className="iv-work-changing-word" key={selected.id}>{t.words[activeIndex]}</span></h2><p>{t.ending}</p></div>
-        <div className="iv-work-stage">
-          <div className="iv-work-copy"><div className="iv-work-project-index"><span>0{selected.id}</span><b /><span>0{projects.length}</span></div><span className="iv-work-sector">{selected.sector}</span><h3 key={selected.id}>{selected.name}</h3><p>{selected.summary}</p><div className="iv-work-results">{selected.results.map((result) => <span key={result}>{result}</span>)}</div><div className="iv-work-actions"><button type="button" className="iv-work-link" onClick={onQuoteClick}><span>{t.quote}</span><b aria-hidden="true">↗</b></button><a className="iv-work-link" href={selected.website} target="_blank" rel="noopener noreferrer"><span>{t.view}</span><b aria-hidden="true">↗</b></a></div></div>
-          <a className="iv-work-frame" key={selected.id} href={selected.website} target="_blank" rel="noopener noreferrer" aria-label={`${selected.name} — ouvrir le site`}><div className="iv-work-frame-bar"><span /><span /><span /><small>WEBSITE</small></div><div className="iv-work-frame-image"><img src={selected.media} alt={`${selected.name} — aperçu du site`} loading="eager" decoding="async" /><span className="iv-work-frame-caption">{selected.name}</span></div></a>
-        </div>
-        <div className="iv-work-bottomline"><span>{t.scrollHint}</span><div className="iv-work-progress"><i style={{ transform: `scaleX(${Math.max(.08, progress)})` }} /></div><div className="iv-work-dots">{projects.map((project) => <i key={project.id} className={project.id === selected.id ? 'is-active' : ''} />)}</div></div>
+    <section ref={ref} id="etudes-de-cas" className={`iv-work-simple ${visible ? 'is-visible' : ''}`}>
+      <div className="iv-section-topline"><span>{t.label}</span><span>02 / 07</span></div>
+      <div className="iv-work-simple-heading"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{t.title[1]}</span></h2></div><div className="iv-work-simple-intro"><p>{t.body}</p><button type="button" className="iv-work-simple-cta" onClick={onQuoteClick}><span>{t.quote}</span><b aria-hidden="true">↗</b></button></div></div>
+      <div className="iv-work-simple-grid">
+        {projects.map((project, index) => <article key={project.id} className={`iv-work-card ${index === 0 ? 'is-featured' : ''}`}>
+          <a href={project.website} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} — ${t.view}`}><div className="iv-work-card-media"><div className="iv-work-card-bar"><span /><span /><span /><small>WEBSITE</small></div><img src={project.media} alt={`${project.name} — aperçu du site`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /></div><div className="iv-work-card-meta"><span>0{project.id} · {project.sector}</span><h3>{project.name}</h3><p>{project.summary}</p><strong>{t.view} <b aria-hidden="true">↗</b></strong></div></a>
+        </article>)}
       </div>
     </section>
   );
 };
+
 export default PortfolioGallery;
