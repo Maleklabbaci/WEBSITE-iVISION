@@ -1,5 +1,6 @@
 import React from 'react';
 import PortfolioGallery from './PortfolioGallery';
+import SMMTeaser from './SMMTeaser';
 import Services from './Services';
 import ImpactStrip from './ImpactStrip';
 import FAQ from './FAQ';
@@ -16,6 +17,7 @@ const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations, o
   return (
     <div className="below-fold-content">
       <PortfolioGallery language={language} onQuoteClick={onQuoteClick} />
+      <SMMTeaser language={language} />
       <Services translations={{ ...translations.services, modal: translations.contact?.modal }} onQuoteClick={onQuoteClick} />
       <ImpactStrip language={language} />
       {translations.faq?.faqs && <FAQ translations={translations.faq} />}

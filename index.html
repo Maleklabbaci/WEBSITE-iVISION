@@ -1121,6 +1121,18 @@
       .pipam-impact-stats { border-top-color: rgba(15,18,19,.3); }
       .pipam-impact-stats strong { color: #0f1213; font-weight: 500; }
       .pipam-impact-stats span { color: rgba(15,18,19,.62); }
+      .pipam-smm-scene { min-height: auto; padding: 8rem 4.8vw 7rem; background: #0f1213 !important; color: #f6f6f6; border-top: 1px solid rgba(246,246,246,.14); border-bottom: 1px solid rgba(246,246,246,.14); }
+      .pipam-smm-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(18rem, .55fr); align-items: end; gap: clamp(3rem, 10vw, 10rem); width: min(100%, 80rem); margin: 11vh auto 0; }
+      .pipam-smm-layout h2 { margin: 0; color: #f6f6f6; font-family: 'Geist', sans-serif; font-size: clamp(4.8rem, 12vw, 13rem); font-weight: 500 !important; letter-spacing: -.085em; line-height: .78; }
+      .pipam-smm-layout h2 span { display: block; }
+      .pipam-smm-layout h2 .is-accent { color: #e82393; }
+      .pipam-smm-copy { max-width: 27rem; padding-bottom: .4rem; }
+      .pipam-smm-copy > p { margin: 0 0 2.3rem; color: rgba(246,246,246,.7); font-size: .93rem; line-height: 1.65; }
+      .pipam-smm-points { border-top: 1px solid rgba(246,246,246,.22); }
+      .pipam-smm-points span { display: flex; gap: 1rem; align-items: baseline; padding: .85rem 0; border-bottom: 1px solid rgba(246,246,246,.22); color: rgba(246,246,246,.86); font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; }
+      .pipam-smm-points b { color: #e82393; font-size: .62rem; font-weight: 600; }
+      .pipam-smm-cta { display: inline-flex; align-items: center; gap: 1rem; margin-top: 2rem; padding: .9rem 1.1rem; background: #e82393; color: #0f1213 !important; font-size: .67rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; transition: background .2s ease, transform .2s ease; }
+      .pipam-smm-cta:hover { background: #f6f6f6; transform: translateY(-2px); }
       .pipam-services { min-height: auto; padding: 6.5rem 4.8vw 4.5rem; }
       .pipam-services-header { margin: 5vh 0 4vh; }
       .pipam-services-header h2 { max-width: 10ch; font-size: clamp(4rem, 8.8vw, 9.5rem); line-height: .84; }
@@ -1141,8 +1153,8 @@
       .pipam-work-feature-copy > p { max-width: 25rem; margin: 0 0 1.8rem; color: rgba(246,246,246,.62); font-size: .88rem; line-height: 1.6; }
       .pipam-work-results { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 2rem; }
       .pipam-work-results strong { padding: .52rem .7rem; border: 1px solid rgba(246,246,246,.22); color: rgba(246,246,246,.84); font-size: .62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-      .pipam-work-feature-media { width: min(100%, 28rem); aspect-ratio: 4 / 5; justify-self: end; overflow: hidden; background: #1d1f1e; }
-      .pipam-work-feature-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(.82) contrast(1.08); transition: transform .7s cubic-bezier(.23,1,.32,1), filter .35s ease; }
+      .pipam-work-feature-media { display: block; width: min(100%, 32rem); aspect-ratio: 16 / 9; justify-self: end; overflow: hidden; background: #1d1f1e; }
+      .pipam-work-feature-media img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; filter: saturate(.88) contrast(1.04); transition: transform .7s cubic-bezier(.23,1,.32,1), filter .35s ease; }
       .pipam-work-feature-media:hover img { transform: scale(1.035); filter: saturate(1) contrast(1.08); }
       .pipam-work-floating-images { display: none !important; }
       .pipam-work-project-list { margin: 0 auto; width: min(100%, 76rem); }
@@ -1177,6 +1189,11 @@
         .pipam-impact-copy p { max-width: 20rem; margin-top: 1.8rem; }
         .pipam-impact-stats { grid-template-columns: 1fr; gap: 1.25rem; }
         .pipam-impact-stats strong { font-size: 4rem; }
+        .pipam-smm-scene { padding: 5.8rem 1.15rem 4.5rem; }
+        .pipam-smm-layout { display: block; margin-top: 7vh; }
+        .pipam-smm-layout h2 { font-size: clamp(4rem, 17vw, 7rem); line-height: .82; }
+        .pipam-smm-copy { max-width: 22rem; margin-top: 3rem; }
+        .pipam-smm-copy > p { font-size: .86rem; }
         .pipam-services { min-height: auto; padding: 5.5rem 1.15rem 3.2rem; }
         .pipam-services-header { margin: 5vh 0 3.5vh; }
         .pipam-services-header h2 { font-size: clamp(3.5rem, 15vw, 6rem); }
@@ -1190,7 +1207,7 @@
         .pipam-work-feature { grid-template-columns: 1fr; gap: 2.2rem; margin: 6vh 0 3.5rem; }
         .pipam-work-feature-copy { max-width: 21rem; }
         .pipam-work-feature-copy h3 { font-size: clamp(2.7rem, 13vw, 5rem); }
-        .pipam-work-feature-media { width: min(78vw, 20rem); justify-self: end; }
+        .pipam-work-feature-media { width: 100%; aspect-ratio: 16 / 9; justify-self: stretch; }
         .pipam-work-project-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .pipam-work-project-list button { min-height: 3.6rem; }
         .pipam-work-project-list button:nth-child(2n) { border-right: 0; }
