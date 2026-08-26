@@ -1,21 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 
 interface HeroProps {
-  translations: { badge: string; title: string; subtitle: string; cta: string; secondaryCta: string; }
+  translations: { badge: string; title: string; subtitle: string; cta: string; secondaryCta: string; };
   onQuoteClick: () => void;
 }
-
-const BackgroundFlow: React.FC = () => (
-  <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1440 800" fill="none">
-    <path 
-      d="M-100 300C200 150 500 450 800 350C1100 250 1400 550 1600 450" 
-      stroke="rgba(91, 92, 255, 0.22)"
-      strokeWidth="1.5" 
-      className="dotted-path"
-    />
-  </svg>
-);
 
 const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,15 +11,14 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
 
   useEffect(() => {
     setIsVisible(true);
-    const handleMove = (e: MouseEvent) => {
+    const handleMove = (event: MouseEvent) => {
+      if (window.innerWidth <= 900 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       setTilt({
-        x: (e.clientX / window.innerWidth - 0.5) * 6,
-        y: (e.clientY / window.innerHeight - 0.5) * 6
+        x: (event.clientX / window.innerWidth - 0.5) * 3,
+        y: (event.clientY / window.innerHeight - 0.5) * 3,
       });
     };
-    if (window.innerWidth > 768) {
-      window.addEventListener('mousemove', handleMove);
-    }
+    window.addEventListener('mousemove', handleMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);
 
@@ -39,92 +26,60 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
   const splitIndex = Math.ceil(words.length / 2);
 
   return (
-    <section id="accueil" className="hero-section relative min-h-[90vh] md:min-h-screen pt-32 pb-16 md:pt-40 md:pb-20 bg-white/0 dark:bg-transparent transition-colors duration-500 flex items-center perspective-stage">
-      <BackgroundFlow />
-      
-      <div className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-brand-blue/10 blur-[100px] md:blur-[180px] rounded-full -z-10"></div>
-      
-      <div className="container relative z-10 layer-3d" style={{ transform: window.innerWidth > 768 ? `rotateX(${-tilt.y}deg) rotateY(${tilt.x}deg)` : 'none' }}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 items-center">
-          
-          <div className={`lg:col-span-7 transition-all duration-[1s] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="mb-6 md:mb-8">
-              <div className="sketch-badge">
-                {translations.badge}
-              </div>
-            </div>
+    <section id="accueil" className="hero-section relative min-h-[92vh] overflow-hidden flex items-center">
+      <div className="hero-media" aria-hidden="true">
+        <img src="/images/ivision-hero-team.webp" alt="" fetchPriority="high" decoding="async" />
+        <div className="hero-media-overlay" />
+      </div>
 
-            <h1 className="text-[clamp(2.5rem,8vw,8rem)] font-black mb-6 md:mb-8 leading-[0.9] tracking-tighter text-navy dark:text-white uppercase transition-colors duration-500">
-              {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
-              <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
+      <div className="container relative z-10 w-full" style={{ transform: `translate3d(${tilt.x * 0.35}px, ${tilt.y * 0.35}px, 0)` }}>
+        <div className="hero-grid">
+          <div className={`hero-copy transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <div className="hero-kicker"><span className="hero-kicker-dot" />{translations.badge}</div>
+            <h1 className="hero-title">
+              {words.slice(0, splitIndex).join(' ')} <br />
+              <span>{words.slice(splitIndex).join(' ')}</span>
             </h1>
+            <p className="hero-subtitle">{translations.subtitle}</p>
 
-            <p className="text-base md:text-2xl text-brand-gray dark:text-brand-gray/80 max-w-xl mb-10 md:mb-12 font-medium leading-snug opacity-70">
-              {translations.subtitle}
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center gap-8 md:gap-10">
-              <button 
-                onClick={onQuoteClick}
-                className="btn-ivision group w-full sm:w-auto px-10 py-5"
-              >
+            <div className="hero-actions">
+              <button onClick={onQuoteClick} className="btn-ivision group">
                 <span>{translations.cta}</span>
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </button>
-              <a href="#etudes-de-cas" onClick={(event) => { event.preventDefault(); document.getElementById('etudes-de-cas')?.scrollIntoView({ behavior: 'smooth' }); }} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-navy/15 dark:border-white/20 px-6 py-4 text-xs font-black uppercase tracking-widest text-navy dark:text-white hover:border-brand-blue hover:text-brand-blue transition-colors">
-                <span>Voir nos résultats</span>
+              <a href="#etudes-de-cas" onClick={(event) => { event.preventDefault(); document.getElementById('etudes-de-cas')?.scrollIntoView({ behavior: 'smooth' }); }} className="hero-secondary-link">
+                <span>{translations.secondaryCta}</span>
                 <span aria-hidden="true">↓</span>
               </a>
-              
-              <div className="flex items-center gap-4" id="guide-scroll">
-                <div className="flex -space-x-2 md:-space-x-3">
-                  {[1, 2, 3].map(i => (
-                    <img key={i} src={`https://i.pravatar.cc/100?u=${i+20}`} width="48" height="48" className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white dark:border-navy object-cover" alt="Client" loading="eager" decoding="async" />
-                  ))}
-                </div>
-                <div>
-                  <div className="text-navy dark:text-white font-black text-xl md:text-2xl leading-none">200+</div>
-                  <div className="text-[9px] md:text-[10px] text-brand-gray uppercase font-black tracking-widest mt-1">Clients Certifiés</div>
-                </div>
+            </div>
+
+            <div className="hero-proof">
+              <div className="hero-avatar-stack" aria-hidden="true">
+                <span>iV</span><span>+</span><span>5</span>
+              </div>
+              <div>
+                <strong>200+</strong>
+                <small>marques accompagnées</small>
               </div>
             </div>
           </div>
 
-          <div className={`lg:col-span-5 relative transition-all duration-[1s] delay-300 ease-out hidden lg:block ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="grid grid-cols-2 gap-4 layer-3d">
-              <div className="space-y-4 float-3d" style={{ animationDelay: '-1s' }}>
-                <img 
-                  src="/images/ivision-hero-team.webp"
-                  width="600"
-                  height="400"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="w-full h-64 object-cover rounded-[40px] rounded-tr-[10px] shadow-2xl border border-navy/5 dark:border-white/5" 
-                  alt="Équipe iVISION en session de stratégie digitale"
-                />
-                <div className="glass-card p-8 flex flex-col items-center justify-center text-center">
-                  <div className="text-4xl font-black text-brand-blue">98%</div>
-                  <div className="text-[10px] font-black uppercase tracking-widest text-brand-gray">Satisfaction</div>
-                </div>
-              </div>
-              <div className="pt-12 float-3d" style={{ animationDelay: '-3s' }}>
-                <img 
-                  src="/images/ivision-hero-analytics.webp"
-                  width="600"
-                  height="450"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="w-full h-80 object-cover rounded-[10px] rounded-br-[40px] shadow-2xl border-2 border-brand-blue/20" 
-                  alt="Tableau de bord de performance marketing iVISION"
-                />
-              </div>
+          <div className={`hero-aside transition-all duration-1000 delay-200 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="hero-stat-card">
+              <span className="hero-stat-value">98%</span>
+              <span className="hero-stat-label">satisfaction client</span>
+            </div>
+            <div className="hero-analytics-card">
+              <img src="/images/ivision-hero-analytics.webp" alt="Tableau de bord de performance marketing" loading="eager" decoding="async" />
+              <div className="hero-analytics-caption"><span className="hero-kicker-dot" /> pilotage en temps réel</div>
             </div>
           </div>
-
         </div>
       </div>
+
+      <div className="hero-scroll-hint" aria-hidden="true"><span /> scroll pour découvrir</div>
     </section>
   );
 };
