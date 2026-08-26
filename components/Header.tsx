@@ -97,11 +97,11 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onTo
     ? 'py-4 bg-white/80 dark:bg-black/20 backdrop-blur-2xl border-b border-navy/5 dark:border-white/10 shadow-sm' 
     : 'py-6 md:py-8 bg-transparent';
 
-  const sectionIds = ['services', 'projets', 'methodologie', 'contact'];
+  const sectionIds = ['services', 'etudes-de-cas', 'methodologie', 'contact'];
 
   return (
     <>
-      <header className={`site-header fixed top-0 left-0 w-full z-[110] transition-all duration-700 ${headerBgClass}`}>
+      <header className={`site-header fixed top-0 left-0 w-full z-[110] transition-all duration-700 ${isScrolled || isMobileMenuOpen ? 'is-scrolled' : ''} ${headerBgClass}`}>
         <div className="container flex items-center justify-between">
           {/* ===== LOGO ===== */}
           <a href="#" onClick={handleLogoClick} className="flex items-center gap-2 group z-[120]">
