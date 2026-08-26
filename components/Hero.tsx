@@ -96,13 +96,13 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
             <div className="grid grid-cols-2 gap-4 layer-3d">
               <div className="space-y-4 float-3d" style={{ animationDelay: '-1s' }}>
                 <img 
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=600" 
+                  src="/images/ivision-hero-team.webp"
                   width="600"
-                  height="256"
+                  height="400"
                   fetchPriority="high"
                   decoding="async"
                   className="w-full h-64 object-cover rounded-[40px] rounded-tr-[10px] shadow-2xl border border-navy/5 dark:border-white/5" 
-                  alt="Team" 
+                  alt="Équipe iVISION en session de stratégie digitale"
                 />
                 <div className="glass-card p-8 flex flex-col items-center justify-center text-center">
                   <div className="text-4xl font-black text-brand-blue">98%</div>
@@ -111,13 +111,13 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
               </div>
               <div className="pt-12 float-3d" style={{ animationDelay: '-3s' }}>
                 <img 
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600" 
+                  src="/images/ivision-hero-analytics.webp"
                   width="600"
-                  height="320"
+                  height="450"
                   fetchPriority="high"
                   decoding="async"
                   className="w-full h-80 object-cover rounded-[10px] rounded-br-[40px] shadow-2xl border-2 border-brand-blue/20" 
-                  alt="Results" 
+                  alt="Tableau de bord de performance marketing iVISION"
                 />
               </div>
             </div>
