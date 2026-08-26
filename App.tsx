@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Services from './components/Services';
+import AboutVisual from './components/AboutVisual';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import MobileConversionBar from './components/MobileConversionBar';
@@ -118,9 +118,8 @@ const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewType>('home');
   const [currentSlug, setCurrentSlug] = useState<string>('');
 
-  const [showLangSelector, setShowLangSelector] = useState(() => {
-    return !localStorage.getItem('ivision-lang-selected');
-  });
+  // L’entrée sur la home reste immédiate, comme sur l’expérience de référence.
+  const [showLangSelector, setShowLangSelector] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   
   const WHATSAPP_NUMBER = "213563839404";
@@ -166,13 +165,7 @@ const App: React.FC = () => {
     setLanguage(selectedLanguage);
     localStorage.setItem('ivision-lang-selected', selectedLanguage);
     setIsExitingLangSelector(true);
-    setTimeout(() => {
-      setShowLangSelector(false);
-      const guideShown = localStorage.getItem('ivision-guide-shown');
-      if (!guideShown && currentView === 'home') {
-        setShowGuide(true);
-      }
-    }, 500);
+    setTimeout(() => setShowLangSelector(false), 500);
   };
 
   const toggleTheme = () => {
@@ -219,7 +212,7 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
         return (
           <>
             <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
-            <Services translations={{...t.services, modal: t.contact?.modal}} onQuoteClick={handleOpenQuotePage} />
+            <AboutVisual language={language} />
             <Suspense fallback={null}>
               <HomeBelowFold
                 language={language}

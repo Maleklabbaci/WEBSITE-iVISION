@@ -1,250 +1,111 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface HeaderProps {
-    translations: { links: string[]; cta: string; };
-    onQuoteClick: () => void;
-    theme: 'dark' | 'light';
-    onToggleTheme: () => void;
-    language?: string;
-    onChangeLanguage?: (lang: 'fr' | 'en' | 'ar') => void;
+  translations: { links: string[]; cta: string };
+  onQuoteClick: () => void;
+  theme: 'dark' | 'light';
+  onToggleTheme: () => void;
+  language?: string;
+  onChangeLanguage?: (lang: 'fr' | 'en' | 'ar') => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onToggleTheme, language, onChangeLanguage }) => {
+const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, theme, onToggleTheme, language = 'fr', onChangeLanguage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const navItems = [
+    { label: language === 'ar' ? 'الرئيسية' : language === 'en' ? 'Home' : 'Accueil', id: 'accueil' },
+    { label: language === 'ar' ? 'من نحن' : language === 'en' ? 'About' : 'À propos', id: 'about' },
+    { label: translations.links[0], id: 'services' },
+    { label: translations.links[1], id: 'etudes-de-cas' },
+  ];
+
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-    if (!isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
+
+  const closeMenu = () => setIsMobileMenuOpen(false);
+
+  const handleAnchorClick = (event: React.MouseEvent, sectionId: string) => {
+    event.preventDefault();
+    closeMenu();
+    const isSubPage = window.location.hash.startsWith('#/') && window.location.hash.length > 2;
+    const scroll = () => document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (isSubPage) {
+      window.location.hash = '';
+      window.setTimeout(scroll, 280);
     } else {
-      document.body.style.overflow = 'unset';
+      scroll();
     }
   };
 
-  const handleLinkClick = () => {
-    setIsMobileMenuOpen(false);
-    document.body.style.overflow = 'unset';
-  };
-
-  const handleBlogClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    handleLinkClick();
+  const handleBlogClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    closeMenu();
     window.location.hash = '/blog';
   };
 
-  const handleLogoClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    handleLinkClick();
-    if (window.location.hash && window.location.hash !== '#accueil') {
-      window.location.hash = '';
-      setTimeout(() => window.scrollTo(0, 0), 50);
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+  const handleLogoClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    closeMenu();
+    if (window.location.hash.startsWith('#/')) window.location.hash = '';
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleAnchorClick = (e: React.MouseEvent, sectionId: string) => {
-    e.preventDefault();
-    handleLinkClick();
-    const currentHash = window.location.hash;
-    // Si on est sur une sous-page (blog, services, devis, academiq...)
-    const isSubPage = currentHash.startsWith('#/') && currentHash.length > 2;
-    if (isSubPage) {
-      // Retourner à la home d'abord, puis scroller vers la section
-      window.location.hash = '';
-      setTimeout(() => {
-        const el = document.getElementById(sectionId);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 350);
-    } else {
-      // Déjà sur la home, scroller directement
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        // Section pas encore visible (lazy), retenter après render
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => {
-          const el2 = document.getElementById(sectionId);
-          if (el2) el2.scrollIntoView({ behavior: 'smooth' });
-        }, 300);
-      }
-    }
+  const cycleLanguage = () => {
+    const langs: ('fr' | 'en' | 'ar')[] = ['fr', 'en', 'ar'];
+    const next = langs[(langs.indexOf(language as 'fr' | 'en' | 'ar') + 1) % langs.length];
+    onChangeLanguage?.(next);
   };
-
-  // BUG 8 FIX: Cycle de langue sans reload
-  const handleResetLang = () => {
-    if (onChangeLanguage) {
-      const langs: ('fr' | 'en' | 'ar')[] = ['fr', 'en', 'ar'];
-      const currentIndex = langs.indexOf((language || 'fr') as 'fr' | 'en' | 'ar');
-      const nextLang = langs[(currentIndex + 1) % langs.length];
-      onChangeLanguage(nextLang);
-    } else {
-      localStorage.removeItem('ivision-lang-selected');
-      window.location.reload();
-    }
-  };
-
-  const headerBgClass = isScrolled || isMobileMenuOpen 
-    ? 'py-4 bg-white/80 dark:bg-black/20 backdrop-blur-2xl border-b border-navy/5 dark:border-white/10 shadow-sm' 
-    : 'py-6 md:py-8 bg-transparent';
-
-  const sectionIds = ['services', 'etudes-de-cas', 'methodologie', 'contact'];
 
   return (
     <>
-      <header className={`site-header fixed top-0 left-0 w-full z-[110] transition-all duration-700 ${isScrolled || isMobileMenuOpen ? 'is-scrolled' : ''} ${headerBgClass}`}>
-        <div className="container flex items-center justify-between">
-          {/* ===== LOGO ===== */}
-          <a href="#" onClick={handleLogoClick} className="flex items-center gap-2 group z-[120]">
-            <img 
-              src="https://i.ibb.co/vCV92NXv/logo2.png" 
-              alt="iVISION" 
-              className="h-8 md:h-10 w-auto object-contain transition-transform duration-500 group-hover:scale-110 logo-img"
-            />
+      <header className={`site-header pipam-header ${isScrolled || isMobileMenuOpen ? 'is-scrolled' : ''}`}>
+        <div className="pipam-header-inner">
+          <a href="#accueil" onClick={handleLogoClick} className="pipam-brand" aria-label="iVISION — accueil">
+            <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="iVISION" className="logo-img" />
           </a>
 
-          {/* ===== DESKTOP NAV ===== */}
-          <nav className="hidden lg:flex items-center gap-12">
-            {translations.links.map((link, i) => (
-              <a 
-                key={i} 
-                href={`#${sectionIds[i]}`} 
-                onClick={(e) => handleAnchorClick(e, sectionIds[i])}
-                className="text-[11px] font-bold uppercase tracking-[0.15em] text-navy/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-white transition-all duration-300 relative group/link"
-              >
-                {link}
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-blue transition-all duration-300 group-hover/link:w-full"></span>
-              </a>
+          <nav className="pipam-nav" aria-label="Navigation principale">
+            {navItems.map((item) => (
+              <a key={item.id} href={`#${item.id}`} onClick={(event) => handleAnchorClick(event, item.id)}>{item.label}</a>
             ))}
-
-            {/* ===== LIEN BLOG ===== */}
-            <a 
-              href="#/blog" 
-              onClick={handleBlogClick}
-              className="text-[11px] font-bold uppercase tracking-[0.15em] text-navy/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-white transition-all duration-300 relative group/link"
-            >
-              Blog
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-blue transition-all duration-300 group-hover/link:w-full"></span>
-            </a>
+            <a href="#/blog" onClick={handleBlogClick}>Blog</a>
           </nav>
 
-          <div className="flex items-center gap-3">
-            {/* ===== BOUTON LANGUE ===== */}
-            <button
-              onClick={handleResetLang}
-              className="p-2 rounded-full bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all duration-300"
-              aria-label="Changer la langue"
-              title="Changer la langue"
-            >
-              <svg className="w-4 h-4 text-navy/60 dark:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-              </svg>
+          <div className="pipam-header-right">
+            <button id="guide-contact-btn" type="button" onClick={onQuoteClick} className="pipam-header-cta">
+              <span>{translations.cta}</span><span aria-hidden="true">↗</span>
             </button>
-
-
-
-            {/* ===== THEME TOGGLE ===== */}
-            <button 
-                id="guide-theme-toggle"
-                onClick={onToggleTheme}
-                className="p-2 rounded-full bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 hover:border-brand-blue transition-all duration-300"
-                aria-label="Changer de thème"
-            >
-                {theme === 'dark' ? (
-                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z" />
-                    </svg>
-                ) : (
-                    <svg className="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                )}
-            </button>
-
-            {/* ===== CTA DESKTOP ===== */}
-            <button 
-              id="guide-contact-btn"
-              onClick={() => { handleLinkClick(); onQuoteClick(); }} 
-              className="hidden lg:block bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 text-navy dark:text-white font-bold px-6 py-2.5 rounded-full text-[10px] uppercase tracking-widest hover:bg-brand-blue hover:border-brand-blue hover:text-white transition-all duration-500"
-            >
-              {translations.cta}
-            </button>
-
-            {/* ===== HAMBURGER MOBILE ===== */}
-            <button 
-              id="guide-mobile-menu"
-              onClick={toggleMobileMenu}
-              className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-[120]"
-              aria-label="Toggle Menu"
-            >
-              <span className={`w-6 h-0.5 bg-navy dark:bg-white transition-all duration-500 transform ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-              <span className={`w-6 h-0.5 bg-navy dark:bg-white transition-all duration-500 ${isMobileMenuOpen ? 'opacity-0 scale-x-0' : ''}`}></span>
-              <span className={`w-6 h-0.5 bg-navy dark:bg-white transition-all duration-500 transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            <button type="button" className={`pipam-menu-toggle ${isMobileMenuOpen ? 'is-open' : ''}`} onClick={() => setIsMobileMenuOpen((open) => !open)} aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'} aria-expanded={isMobileMenuOpen}>
+              <span /><span />
             </button>
           </div>
         </div>
       </header>
 
-      {/* ===== MOBILE MENU ===== */}
-      <div className={`fixed inset-0 z-[100] bg-white/95 dark:bg-navy/95 backdrop-blur-3xl flex flex-col items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-full'}`}>
-        <nav className="flex flex-col items-center gap-10">
-          {translations.links.map((link, i) => (
-            <a 
-              key={i} 
-              href={`#${sectionIds[i]}`} 
-              onClick={(e) => handleAnchorClick(e, sectionIds[i])}
-              className={`text-3xl font-black uppercase tracking-tighter transition-all duration-700 transform text-navy dark:text-white ${isMobileMenuOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-12 opacity-0 blur-md'}`}
-              style={{ transitionDelay: `${isMobileMenuOpen ? i * 100 + 200 : 0}ms` }}
-            >
-              {link}
-            </a>
-          ))}
-
-          {/* ===== BLOG MOBILE ===== */}
-          <a 
-            href="#/blog" 
-            onClick={handleBlogClick}
-            className={`text-3xl font-black uppercase tracking-tighter transition-all duration-700 transform text-brand-blue ${isMobileMenuOpen ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-12 opacity-0 blur-md'}`}
-            style={{ transitionDelay: `${isMobileMenuOpen ? translations.links.length * 100 + 200 : 0}ms` }}
-          >
-            Blog
-          </a>
-
-          {/* ===== CTA MOBILE ===== */}
-          <button 
-            onClick={() => { handleLinkClick(); onQuoteClick(); }}
-            className={`mt-6 btn-ivision px-12 py-5 transition-all duration-700 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-12 opacity-0 scale-90'}`}
-            style={{ transitionDelay: `${isMobileMenuOpen ? (translations.links.length + 1) * 100 + 200 : 0}ms` }}
-          >
-            {translations.cta}
-          </button>
-
-          {/* ===== LANGUE + GUIDE MOBILE ===== */}
-          <div 
-            className={`flex gap-4 mt-4 transition-all duration-700 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
-            style={{ transitionDelay: `${isMobileMenuOpen ? (translations.links.length + 2) * 100 + 200 : 0}ms` }}
-          >
-            <button
-              onClick={handleResetLang}
-              className="flex items-center gap-2 text-brand-gray text-sm font-medium hover:text-brand-blue transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-              </svg>
-              Langue
-            </button>
-
+      <div className={`pipam-mobile-menu ${isMobileMenuOpen ? 'is-open' : ''}`} aria-hidden={!isMobileMenuOpen}>
+        <div className="pipam-mobile-menu-inner">
+          <nav aria-label="Navigation mobile">
+            {navItems.map((item, index) => (
+              <a key={item.id} href={`#${item.id}`} onClick={(event) => handleAnchorClick(event, item.id)} style={{ transitionDelay: `${index * 60}ms` }}>{item.label}</a>
+            ))}
+            <a href="#/blog" onClick={handleBlogClick} style={{ transitionDelay: `${navItems.length * 60}ms` }}>Blog</a>
+          </nav>
+          <button type="button" onClick={() => { closeMenu(); onQuoteClick(); }} className="pipam-mobile-cta">{translations.cta}<span aria-hidden="true">↗</span></button>
+          <div className="pipam-utility-row">
+            <button type="button" onClick={cycleLanguage} aria-label="Changer la langue">{language.toUpperCase()}</button>
+            <button id="guide-theme-toggle" type="button" onClick={onToggleTheme} aria-label="Changer de thème">{theme === 'dark' ? 'Light' : 'Dark'}</button>
           </div>
-        </nav>
+        </div>
       </div>
     </>
   );

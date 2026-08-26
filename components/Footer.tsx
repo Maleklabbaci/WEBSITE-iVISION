@@ -13,7 +13,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ translations, onOpenPolicy }) => {
   const year = new Date().getFullYear();
-  const sectionIds = ['services', 'projets', 'methodologie', 'contact'];
+  const sectionIds = ['services', 'etudes-de-cas', 'methodologie', 'contact'];
 
   if (!translations?.contact) return null;
 

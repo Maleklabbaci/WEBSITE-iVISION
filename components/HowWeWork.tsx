@@ -1,50 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 interface HowWeWorkProps {
-  translations: {
-    title: string;
-    subtitle: string;
-    steps: { title: string; description: string; details: string }[];
-  };
+  translations: { title: string; subtitle: string; steps: { title: string; description: string; details: string }[] };
   onQuoteClick: () => void;
 }
 
 const HowWeWork: React.FC<HowWeWorkProps> = ({ translations, onQuoteClick }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLElement>(null);
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setIsVisible(true);
-    }, { threshold: 0.12 });
-    if (sectionRef.current) observer.observe(sectionRef.current);
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: 0.12 });
+    if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
-  const words = translations?.title?.split(' ') || [];
-  const splitIndex = Math.ceil(words.length / 2);
+  const words = translations.title.replace('.', '').split(' ');
 
   return (
-    <section id="methodologie" ref={sectionRef} className="method-section py-24 md:py-36 border-t border-white/10 transition-colors duration-500 overflow-hidden">
-      <div className="container">
-        <header className={`method-intro transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div><div className="method-kicker"><span /> Processus</div><h2>{words.slice(0, splitIndex).join(' ')}<br /><span>{words.slice(splitIndex).join(' ')}</span></h2></div>
-          <p>{translations?.subtitle}</p>
-        </header>
-
-        <div className="method-list" role="list">
-          {(translations?.steps || []).map((step, index) => (
-            <article key={index} className={`method-row ${isVisible ? 'is-visible' : ''}`} style={{ transitionDelay: `${index * 70}ms` }} role="listitem">
-              <span className="method-row-index">0{index + 1}</span>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-              <span className="method-row-arrow" aria-hidden="true">↗</span>
-            </article>
-          ))}
-        </div>
-
-        <button type="button" onClick={onQuoteClick} className="btn-ivision method-cta">Demander un audit <span aria-hidden="true">→</span></button>
+    <section ref={ref} id="methodologie" className={`pipam-method ${visible ? 'is-visible' : ''}`}>
+      <div className="pipam-section-meta"><span className="pipam-pulse" />Processus<span className="pipam-section-number">06 / 07</span></div>
+      <div className="pipam-method-heading"><h2>{words.map((word, index) => <span key={`${word}-${index}`} className={index === words.length - 1 ? 'is-gradient' : ''}>{word}</span>)}</h2><p>{translations.subtitle}</p></div>
+      <div className="pipam-method-list" role="list">
+        {translations.steps.map((step, index) => <article key={step.title} className="pipam-method-row" style={{ transitionDelay: `${index * 70}ms` }} role="listitem"><span className="pipam-method-index">0{index + 1}</span><div><h3>{step.title}</h3><p>{step.description}</p></div><span className="pipam-method-arrow" aria-hidden="true">↗</span></article>)}
       </div>
+      <button type="button" onClick={onQuoteClick} className="pipam-round-cta pipam-method-cta"><span>{translations.title.includes('SUIVEZ') ? 'Demander un audit' : 'Start a project'}</span><span aria-hidden="true">↗</span></button>
     </section>
   );
 };

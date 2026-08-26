@@ -11,35 +11,36 @@ interface Project {
   tasks: string[];
   results: string[];
   logo: string;
+  media: string;
   website?: string;
 }
 
 const projects: Project[] = [
-  { id: 1, name: 'Center Bissan', sector: 'Bien-être & services', summary: 'Une présence de marque cohérente pour attirer et rassurer les clientes locales.', description: 'Stratégie marketing complète pour centre de bien-être : création de contenu, campagnes Meta Ads et branding visuel.', tasks: ['Création de contenu', 'Meta Ads', 'Branding', 'Production vidéo'], results: ['+250% ROI', 'Brand Awareness', 'Croissance Social Media'], logo: 'https://i.ibb.co/kVbgDJnn/image.png' },
-  { id: 2, name: 'Lecmo Oud', sector: 'Parfumerie & e-commerce', summary: 'Une expérience digitale premium pour une marque de parfums et de oud.', description: 'Marketing digital complet et création du site e-commerce pour une marque de parfums et de oud haut de gamme.', tasks: ['Stratégie digitale', 'Création de contenu', 'Meta Ads', 'Site e-commerce'], results: ['+120K Interactions', 'E-commerce Live', 'Trafic qualifié'], logo: 'https://i.ibb.co/BVTDnpBZ/image.png', website: 'https://www.lecmooud.com' },
-  { id: 3, name: 'White Aura', sector: 'Cosmétiques premium', summary: 'Un site et un parcours de vente conçus pour valoriser une offre beauté premium.', description: 'Création du site web et stratégie de vente complète pour une marque de cosmétiques premium.', tasks: ['Site web', 'Stratégie de vente', 'Branding', 'Marketing digital'], results: ['+100% ROI', 'E-commerce Live', 'Croissance ventes'], logo: 'https://i.ibb.co/tTc50H8n/white-aura.png', website: 'https://white-aura.vercel.app' },
-  { id: 5, name: 'MOVESMART', sector: 'Immobilier & plateforme digitale', summary: 'Une identité claire et une plateforme digitale pensée pour un marché international.', description: 'Branding complet et construction d’une plateforme digitale de A à Z pour une marque immobilière à Dubai.', tasks: ['Branding complet', 'Plateforme digitale', 'UI/UX Design', 'Développement'], results: ['Plateforme live', 'Branding premium', 'Marché Dubai'], logo: 'https://i.ibb.co/60PJ8PVw/aass.png', website: 'https://movesmart-ecru.vercel.app/' },
-  { id: 4, name: 'FIDALI', sector: 'Branding & plateforme digitale', summary: 'Une identité visuelle forte et une plateforme prête à accompagner le lancement.', description: 'Branding complet et construction d’une plateforme digitale de A à Z : identité visuelle, UI/UX et développement.', tasks: ['Branding complet', 'Plateforme digitale', 'UI/UX Design', 'Développement'], results: ['Plateforme live', 'Branding premium', 'Lancement imminent'], logo: 'https://i.ibb.co/7xtLynLz/logo-white.png', website: 'https://fidali.vercel.app' },
+  { id: 1, name: 'Center Bissan', sector: 'Bien-être & services', summary: 'Une présence de marque cohérente pour attirer et rassurer les clientes locales.', description: 'Contenu, campagnes Meta Ads et branding visuel pour faire émerger la marque localement.', tasks: ['Contenu', 'Meta Ads', 'Branding'], results: ['+250% ROI', 'Croissance sociale'], logo: 'https://i.ibb.co/kVbgDJnn/image.png', media: '/images/ivision-hero-editorial.webp' },
+  { id: 2, name: 'Lecmo Oud', sector: 'Parfumerie & e-commerce', summary: 'Une expérience digitale premium pour une marque de parfums et de oud haut de gamme.', description: 'Stratégie digitale, création de contenu et parcours e-commerce pensé pour la conversion.', tasks: ['Stratégie', 'E-commerce', 'Ads'], results: ['+120K interactions', 'Trafic qualifié'], logo: 'https://i.ibb.co/BVTDnpBZ/image.png', media: '/images/ivision-project-fashion.webp', website: 'https://www.lecmooud.com' },
+  { id: 3, name: 'White Aura', sector: 'Cosmétiques premium', summary: 'Un site et un parcours de vente conçus pour valoriser une offre beauté premium.', description: 'Un écosystème de marque qui relie image, expérience et vente en ligne.', tasks: ['Site web', 'Branding', 'Growth'], results: ['+100% ROI', 'E-commerce live'], logo: 'https://i.ibb.co/tTc50H8n/white-aura.png', media: '/images/ivision-project-fashion.webp', website: 'https://white-aura.vercel.app' },
+  { id: 4, name: 'MOVESMART', sector: 'Immobilier & plateforme digitale', summary: 'Une identité claire et une plateforme digitale pensée pour un marché international.', description: 'Branding, UI/UX et plateforme digitale pour installer une nouvelle mobilité immobilière.', tasks: ['Branding', 'UI/UX', 'Plateforme'], results: ['Plateforme live', 'Marché Dubai'], logo: 'https://i.ibb.co/60PJ8PVw/aass.png', media: '/images/ivision-project-mobility.webp', website: 'https://movesmart-ecru.vercel.app/' },
+  { id: 5, name: 'FIDALI', sector: 'Branding & plateforme digitale', summary: 'Une identité visuelle forte et une plateforme prête à accompagner le lancement.', description: 'De l’identité au produit digital, un socle clair pour transformer une ambition en lancement.', tasks: ['Identité', 'Produit digital', 'Développement'], results: ['Plateforme live', 'Lancement prêt'], logo: 'https://i.ibb.co/7xtLynLz/logo-white.png', media: '/images/ivision-orbit.webp', website: 'https://fidali.vercel.app' },
 ];
 
-interface PortfolioGalleryProps { language: Language; onQuoteClick: () => void; }
-
 const labels = {
-  fr: { eyebrow: 'Portfolio & études de cas', title: 'DES PROJETS QUI', accent: 'FONT AVANCER.', intro: 'Des stratégies pensées pour être belles, utiles et mesurables.', choose: 'Projets sélectionnés', selected: 'Projet sélectionné', work: 'Notre intervention', results: 'Résultats clés', website: 'Voir le projet', quote: 'Parler de mon projet', assets: 'Explorer nos réalisations', designs: 'Designs', videos: 'Vidéos & créatifs', ads: 'Résultats publicitaires' },
-  en: { eyebrow: 'Portfolio & case studies', title: 'WORK THAT', accent: 'MOVES BRANDS.', intro: 'Strategies designed to look sharp, work hard and deliver measurable growth.', choose: 'Selected projects', selected: 'Selected project', work: 'Our intervention', results: 'Key results', website: 'View project', quote: 'Talk about my project', assets: 'Explore our work', designs: 'Designs', videos: 'Videos & creatives', ads: 'Ad results' },
-  ar: { eyebrow: 'أعمالنا ودراسات الحالة', title: 'مشاريع', accent: 'تحرك العلامات.', intro: 'استراتيجيات جميلة ومفيدة وقابلة للقياس.', choose: 'مشاريع مختارة', selected: 'المشروع المختار', work: 'تدخلنا', results: 'أهم النتائج', website: 'زيارة المشروع', quote: 'تحدث عن مشروعي', assets: 'استكشف أعمالنا', designs: 'التصاميم', videos: 'الفيديوهات والإبداعات', ads: 'نتائج الإعلانات' },
+  fr: { eyebrow: 'NOS RÉALISATIONS', title: 'BÂTIR DES', accent: 'MARQUES QUI AVANCENT.', work: 'Notre travail', results: 'Résultats', view: 'Voir le projet', quote: 'Parler de mon projet', counter: '/ 05' },
+  en: { eyebrow: 'OUR WORK', title: 'BUILDING', accent: 'BRANDS THAT MOVE.', work: 'Our work', results: 'Results', view: 'View project', quote: 'Talk about my project', counter: '/ 05' },
+  ar: { eyebrow: 'أعمالنا', title: 'نبني', accent: 'علامات تتقدم.', work: 'عملنا', results: 'النتائج', view: 'زيارة المشروع', quote: 'تحدث عن مشروعي', counter: '/ 05' },
 };
+
+interface PortfolioGalleryProps { language: Language; onQuoteClick: () => void }
 
 const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteClick }) => {
   const t = labels[language];
-  const [selectedId, setSelectedId] = useState(projects[0].id);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const selectedProject = projects.find(project => project.id === selectedId) ?? projects[0];
+  const [selectedId, setSelectedId] = useState(1);
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const selected = projects.find((project) => project.id === selectedId) || projects[0];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setIsVisible(true); }, { threshold: 0.1 });
-    if (sectionRef.current) observer.observe(sectionRef.current);
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: 0.1 });
+    if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
@@ -49,55 +50,25 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
   };
 
   return (
-    <section id="etudes-de-cas" ref={sectionRef} dir={language === 'ar' ? 'rtl' : 'ltr'} className="portfolio-section py-24 md:py-36 border-t border-navy/5 dark:border-white/5 transition-colors duration-500">
-      <div className="container">
-        <header className={`portfolio-intro transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div>
-            <div className="sketch-badge mb-5">{t.eyebrow}</div>
-            <h2 className="portfolio-heading text-navy dark:text-white">{t.title}<br /><span>{t.accent}</span></h2>
+    <section ref={ref} id="etudes-de-cas" className={`pipam-work ${visible ? 'is-visible' : ''}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
+      <div className="pipam-section-meta"><span className="pipam-pulse" />{t.eyebrow}<span className="pipam-section-number">03 / 07</span></div>
+      <div className="pipam-work-title"><h2><span>{t.title}</span><span className="is-gradient">{t.accent}</span></h2></div>
+      <div className="pipam-work-stage">
+        <div className="pipam-work-orbit" aria-hidden="true"><img src="/images/ivision-orbit.webp" alt="" loading="lazy" decoding="async" /></div>
+        <div className="pipam-project-visual"><img key={selected.media} src={selected.media} alt={`${selected.name} — aperçu de projet`} loading="lazy" decoding="async" /><span className="pipam-project-stamp">iV / {String(selected.id).padStart(2, '0')}</span></div>
+        <div className="pipam-project-info">
+          <p className="pipam-project-sector">{selected.sector}</p>
+          <h3>{selected.name}</h3>
+          <p className="pipam-project-summary">{selected.summary}</p>
+          <div className="pipam-project-results">{selected.results.map((result) => <span key={result}>{result}</span>)}</div>
+          <div className="pipam-project-actions">
+            <button type="button" onClick={() => { trackEvent('case_study_quote_click', { case_name: selected.name }); onQuoteClick(); }} className="pipam-text-link"><span>{t.quote}</span><span aria-hidden="true">↗</span></button>
+            {selected.website && <a className="pipam-text-link" href={selected.website} target="_blank" rel="noopener noreferrer"><span>{t.view}</span><span aria-hidden="true">↗</span></a>}
           </div>
-          <p className="portfolio-intro-copy text-brand-gray dark:text-brand-gray/80">{t.intro}</p>
-        </header>
-
-        <div className={`portfolio-case transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <aside className="portfolio-index">
-            <div className="portfolio-index-head"><span>{t.choose}</span><strong>0{projects.length}</strong></div>
-            <div className="portfolio-tabs" role="tablist" aria-label={t.choose}>
-              {projects.map((project, index) => {
-                const active = project.id === selectedId;
-                return (
-                  <button key={project.id} type="button" role="tab" aria-selected={active} aria-label={`${t.choose}: ${project.name}`} onClick={() => selectProject(project)} className={`portfolio-tab ${active ? 'is-active' : ''}`}>
-                    <span className="portfolio-tab-index">0{index + 1}</span>
-                    <span className="portfolio-tab-name">{project.name}</span>
-                    <span className="portfolio-tab-arrow" aria-hidden="true">↗</span>
-                  </button>
-                );
-              })}
-            </div>
-            <p className="portfolio-index-note">Chaque projet commence par une question claire et se termine par un résultat lisible.</p>
-          </aside>
-
-          <article className="portfolio-case-content" aria-live="polite">
-            <div className="portfolio-case-topline"><span><i className="portfolio-live-dot" />{t.selected}</span><span>0{selectedProject.id} / 05</span></div>
-            <div className="portfolio-case-brand">
-              <div className="portfolio-logo-frame"><img src={selectedProject.logo} alt={`${selectedProject.name} logo`} /></div>
-              <div><p className="portfolio-case-sector">{selectedProject.sector}</p><h3>{selectedProject.name}</h3></div>
-            </div>
-            <p className="portfolio-case-summary">{selectedProject.summary}</p>
-
-            <div className="portfolio-case-grid">
-              <div><p className="portfolio-label">{t.work}</p><p className="portfolio-description">{selectedProject.description}</p><div className="portfolio-tags">{selectedProject.tasks.map(task => <span key={task}>{task}</span>)}</div></div>
-              <div><p className="portfolio-label">{t.results}</p><div className="portfolio-results">{selectedProject.results.map(result => <div key={result}>{result}</div>)}</div></div>
-            </div>
-
-            <div className="portfolio-case-actions">
-              <button type="button" onClick={() => { trackEvent('case_study_quote_click', { case_name: selectedProject.name }); onQuoteClick(); }} className="btn-ivision">{t.quote}<span aria-hidden="true">→</span></button>
-              {selectedProject.website && <a href={selectedProject.website} target="_blank" rel="noopener noreferrer" className="portfolio-outline-link">{t.website}<span aria-hidden="true">↗</span></a>}
-            </div>
-          </article>
         </div>
-
-        <div className="portfolio-assets"><span>{t.assets}</span><div><a href="https://drive.google.com/drive/folders/1Jw6feJMIECj1sX6qFQ16GZatV6-zpgI?usp=drive_link" target="_blank" rel="noopener noreferrer">{t.designs}</a><a href="https://drive.google.com/drive/folders/1ohDO3lGcqElZ4WL08tF5zd_YbBrhW6bv?usp=drive_link" target="_blank" rel="noopener noreferrer">{t.videos}</a><a href="https://drive.google.com/drive/folders/16tiNLtOd6wnNFEqWkvNf-MxSHNpnlq8_?usp=drive_link" target="_blank" rel="noopener noreferrer">{t.ads}</a></div></div>
+      </div>
+      <div className="pipam-project-nav" role="tablist" aria-label={t.work}>
+        {projects.map((project) => <button key={project.id} type="button" role="tab" aria-selected={selected.id === project.id} onClick={() => selectProject(project)} className={selected.id === project.id ? 'is-active' : ''}><span>{String(project.id).padStart(2, '0')}</span><strong>{project.name}</strong><i aria-hidden="true">↗</i></button>)}
       </div>
     </section>
   );
