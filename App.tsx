@@ -220,7 +220,7 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
   };
 
   return (
-    <div className="min-h-screen relative font-sans overflow-x-hidden selection:bg-brand-blue selection:text-white">
+    <div className="min-h-screen relative font-sans overflow-x-clip selection:bg-brand-blue selection:text-white">
       <StaticBackground />
       
       {isLoading && <SplashScreen />}
