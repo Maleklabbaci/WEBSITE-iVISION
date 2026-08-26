@@ -57,7 +57,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
                 <span>{translations.cta}</span>
                 <b aria-hidden="true">↗</b>
               </button>
-              <a href="#about" className="iv-hero-scroll">
+              <a href="#services" className="iv-hero-scroll">
                 <span>{translations.secondaryCta}</span>
                 <b aria-hidden="true">↓</b>
               </a>

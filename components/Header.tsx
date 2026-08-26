@@ -34,7 +34,13 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, language = 
 
   const scrollTo = (id: string) => {
     setOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const go = () => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.location.hash.startsWith('#/') && window.location.hash.length > 2) {
+      window.location.hash = '';
+      window.setTimeout(go, 280);
+    } else {
+      go();
+    }
   };
 
   return (
