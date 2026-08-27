@@ -22,13 +22,12 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
   return (
     <section id="accueil" className={`iv-hero ${visible ? 'is-visible' : ''}`}>
       <div className="iv-hero-bg" aria-hidden="true">
-        <img src="/images/agency-hero-motion.jpg" alt="" style={{ transform: `scale(1.04) translate3d(${pointer.x * -0.12}px, ${pointer.y * -0.12}px, 0)` }} />
+        <img src="/images/agency-hero-growth.jpg" alt="" style={{ transform: `scale(1.04) translate3d(${pointer.x * -0.12}px, ${pointer.y * -0.12}px, 0)` }} />
         <div className="iv-hero-shade" />
       </div>
 
       <div className="iv-hero-top">
         <div className="iv-hero-meta"><span className="iv-hero-pulse" /><span className="iv-hero-badge">{translations.badge}</span></div>
-        <div className="iv-hero-date">17/06 — 27/06/2026</div>
         <div className="iv-hero-index">IV / 00</div>
       </div>
 

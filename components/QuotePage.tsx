@@ -58,7 +58,7 @@ const QuotePage = () => {
           </p>
           <button
             onClick={() => navigate('/')}
-            className="px-8 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-500 transition"
+            className="px-8 py-3 bg-orange-600 text-white rounded-xl font-semibold hover:bg-orange-500 transition"
           >
             Retour à l'accueil
           </button>
@@ -80,7 +80,7 @@ const QuotePage = () => {
           </button>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Demandez votre{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
               devis gratuit
             </span>
           </h1>
@@ -104,7 +104,7 @@ const QuotePage = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Votre nom"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
               />
             </div>
 
@@ -120,7 +120,7 @@ const QuotePage = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="votre@email.com"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
               />
             </div>
 
@@ -136,7 +136,7 @@ const QuotePage = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="05XX XX XX XX"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
               />
             </div>
 
@@ -151,7 +151,7 @@ const QuotePage = () => {
                 value={formData.company}
                 onChange={handleChange}
                 placeholder="Nom de votre entreprise"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
               />
             </div>
           </div>
@@ -166,7 +166,7 @@ const QuotePage = () => {
               required
               value={formData.service}
               onChange={handleChange}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition appearance-none"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition appearance-none"
             >
               <option value="" className="bg-gray-900">Sélectionnez un service</option>
               <option value="site-web" className="bg-gray-900">Création de site web</option>
@@ -188,7 +188,7 @@ const QuotePage = () => {
               name="budget"
               value={formData.budget}
               onChange={handleChange}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition appearance-none"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition appearance-none"
             >
               <option value="" className="bg-gray-900">Sélectionnez votre budget</option>
               <option value="< 100,000 DZD" className="bg-gray-900">&lt; 100,000 DZD</option>
@@ -211,14 +211,14 @@ const QuotePage = () => {
               value={formData.message}
               onChange={handleChange}
               placeholder="Parlez-nous de votre projet, vos objectifs, vos délais..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition resize-none"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition resize-none"
             />
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-purple-500/25 transition"
+            className="w-full py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-orange-500/25 transition"
           >
             Envoyer ma demande via WhatsApp →
           </button>
@@ -231,7 +231,7 @@ const QuotePage = () => {
 
         {/* Contact direct */}
         <div className="mt-12 grid md:grid-cols-3 gap-6 text-center">
-          <a href="tel:+213563839404" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-purple-500/30 transition">
+          <a href="tel:+213563839404" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-orange-500/30 transition">
             <span className="text-2xl block mb-2">📞</span>
             <span className="text-white font-medium block">Téléphone</span>
             <span className="text-gray-400 text-sm">+213 563 839 404</span>
@@ -241,7 +241,7 @@ const QuotePage = () => {
             <span className="text-white font-medium block">WhatsApp</span>
             <span className="text-gray-400 text-sm">Chat direct</span>
           </a>
-          <a href="mailto:contact@ivision.agency" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-blue-500/30 transition">
+          <a href="mailto:contact@ivision.agency" className="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-orange-500/30 transition">
             <span className="text-2xl block mb-2">📧</span>
             <span className="text-white font-medium block">Email</span>
             <span className="text-gray-400 text-sm">contact@ivision.agency</span>

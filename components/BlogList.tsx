@@ -98,14 +98,14 @@ const BlogList = () => {
 
 const BlogCard = ({ post }: { post: BlogPost }) => {
   const categoryColors: Record<string, string> = {
-    'Marketing Digital': 'bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400',
-    'Design': 'bg-pink-500/10 text-pink-600 dark:bg-pink-500/20 dark:text-pink-400',
+    'Marketing Digital': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
+    'Design': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
     'SEO': 'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-400',
     'Social Media': 'bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400',
     'E-commerce': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
-    'Branding': 'bg-purple-500/10 text-purple-600 dark:bg-purple-500/20 dark:text-purple-400',
+    'Branding': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
     'Publicité': 'bg-red-500/10 text-red-600 dark:bg-red-500/20 dark:text-red-400',
-    'Intelligence Artificielle': 'bg-cyan-500/10 text-cyan-600 dark:bg-cyan-500/20 dark:text-cyan-400',
+    'Intelligence Artificielle': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
     'Performance': 'bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400',
   };
 
