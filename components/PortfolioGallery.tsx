@@ -34,15 +34,14 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
   return (
     <section ref={ref} id="etudes-de-cas" className={`iv-work-scene ${visible ? 'is-visible' : ''}`}>
       <div className="iv-work-scene-sticky">
-        <div className="iv-section-topline"><span>{t.label}</span><span>02 / 07</span></div>
+        <div className="iv-section-topline"><span>{t.label}</span></div>
         <div className="iv-work-scene-heading"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{t.title[1]}</span></h2></div><div className="iv-work-scene-intro"><p>{t.body}</p><button type="button" className="iv-work-simple-cta" onClick={onQuoteClick}><span>{t.quote}</span><b aria-hidden="true">↗</b></button></div></div>
         <div className="iv-work-fixed-grid" aria-label={t.scroll}>
           {projects.map((project) => <a key={project.id} href={project.website} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} — ${t.view}`} className="iv-work-fixed-card" onClick={() => trackEvent('view_project', { project: project.name })}>
             <div className="iv-work-float-media"><div className="iv-work-float-bar"><span /><span /><span /><small>WEBSITE</small></div><img src={project.media} alt={`${project.name} — aperçu du site`} loading={project.id === 1 ? 'eager' : 'lazy'} decoding="async" /></div>
-            <div className="iv-work-float-meta"><span>0{project.id} · {project.sector}</span><strong>{project.name}</strong><small>{t.view} <b aria-hidden="true">↗</b></small></div>
+            <div className="iv-work-float-meta"><span>{project.sector}</span><strong>{project.name}</strong><small>{t.view} <b aria-hidden="true">↗</b></small></div>
           </a>)}
         </div>
-        <div className="iv-work-scene-footer"><span>{t.scroll}</span><div className="iv-work-scene-progress"><i /></div><span>04 / 04</span></div>
       </div>
     </section>
   );

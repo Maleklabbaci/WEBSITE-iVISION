@@ -24,7 +24,7 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
 
   return (
     <section ref={ref} id="services" className={`iv-services ${visible ? 'is-visible' : ''}`}>
-      <div className="iv-section-topline"><span>SERVICES / 04</span><span>04 / 07</span></div>
+      <div className="iv-section-topline"><span>SERVICES</span></div>
       <div className="iv-services-header">
         <h2>{translations.title}</h2>
         <p>{translations.subtitle}</p>
@@ -32,8 +32,7 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
       <div className="iv-services-grid">
         {items.map((item, index) => (
           <button key={item.title} type="button" className="iv-service-card" onClick={() => openService(index)}>
-            <div className="iv-service-card-head">
-              <span className="iv-service-number">0{index + 1}</span>
+              <div className="iv-service-card-head">
               <b aria-hidden="true">↗</b>
             </div>
             <h3>{item.title}</h3>

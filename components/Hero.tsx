@@ -28,7 +28,6 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
 
       <div className="iv-hero-top">
         <div className="iv-hero-meta"><span className="iv-hero-pulse" /><span className="iv-hero-badge">{translations.badge}</span></div>
-        <div className="iv-hero-index">IV / 00</div>
       </div>
 
       <div className="iv-hero-main">
