@@ -146,7 +146,7 @@
       .iv-work-scene-intro p { margin: 0 0 1.7rem; color: var(--iv-muted); font-size: .88rem; line-height: 1.55; }
       .iv-work-marquee { width: 100%; overflow: hidden; margin: 0 auto; }
       .iv-work-marquee-track { display: flex; width: max-content; animation: iv-work-marquee-right 42s linear infinite; will-change: transform; }
-      .iv-work-marquee-set { display: flex; flex: 0 0 auto; gap: clamp(1rem, 2vw, 2rem); }
+      .iv-work-marquee-set { display: flex; flex: 0 0 auto; gap: clamp(1rem, 2vw, 2rem); padding-right: clamp(1rem, 2vw, 2rem); box-sizing: border-box; }
       .iv-work-fixed-card { display: block; flex: 0 0 clamp(18rem, 29vw, 32rem); min-width: 0; color: var(--iv-white); text-decoration: none; }
       .iv-work-fixed-card:hover .iv-work-float-media { border-color: rgba(255,57,12,.8); transform: translateY(-.35rem); }
       .iv-work-float-media { transition: border-color .3s ease, transform .3s ease; }
@@ -325,7 +325,7 @@
         .iv-work-scene-intro { max-width: 19rem; }
         .iv-work-scene-intro p { font-size: .8rem; }
         .iv-work-marquee { margin-left: -1.15rem; width: calc(100% + 2.3rem); }
-        .iv-work-marquee-set { gap: .8rem; }
+        .iv-work-marquee-set { gap: .8rem; padding-right: .8rem; }
         .iv-work-fixed-card { flex-basis: clamp(15rem, 72vw, 22rem); }
         .iv-work-float-media { aspect-ratio: 16 / 10; border-radius: .5rem; }
         .iv-work-float-bar { height: 1.3rem; padding: 0 .4rem; }
