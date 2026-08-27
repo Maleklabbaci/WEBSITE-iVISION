@@ -62,10 +62,17 @@
       .iv-hero-signature { display: inline-flex; align-items: center; align-self: flex-end; gap: .7rem; padding-bottom: .35rem; color: rgba(246,246,246,.78); font-size: .52rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
       .iv-hero-signature i { width: .3rem; height: .3rem; border-radius: 50%; background: var(--iv-orange); }
 
-      .iv-about-trust { display: grid; grid-template-columns: 1fr .8fr; gap: 5vw; align-items: end; padding: 0 4.8vw 3.5rem; }
+      .iv-about-trust { padding: 0 4.8vw 3.5rem; }
+      .iv-about-trust-heading { display: grid; grid-template-columns: 1fr .8fr; gap: 5vw; align-items: end; margin-bottom: 2.5rem; }
       .iv-about-trust h3 { max-width: 36rem; margin: 1.3rem 0 0; font-size: clamp(2rem, 4.8vw, 5.5rem); font-weight: 400; letter-spacing: -.08em; line-height: .82; text-transform: uppercase; }
       .iv-about-trust h3 b { display: inline-block; margin-left: .25em; color: var(--iv-orange); font-size: .45em; vertical-align: .2em; font-weight: 400; }
       .iv-about-trust p { max-width: 24rem; margin: 0; color: var(--iv-muted); font-size: .95rem; line-height: 1.5; }
+      .iv-trust-logo-window { overflow: hidden; border-top: 1px solid var(--iv-line); border-bottom: 1px solid var(--iv-line); padding: 1.1rem 0; }
+      .iv-trust-logo-track { display: flex; width: max-content; animation: iv-trust-marquee 32s linear infinite; will-change: transform; }
+      .iv-trust-logo-set { display: flex; flex: 0 0 auto; gap: clamp(2.5rem, 6vw, 6rem); padding-right: clamp(2.5rem, 6vw, 6rem); box-sizing: border-box; }
+      .iv-trust-logo { display: inline-flex; align-items: center; gap: .5rem; color: rgba(246,246,246,.78); font-size: clamp(.85rem, 1.25vw, 1.2rem); font-weight: 500; letter-spacing: -.02em; text-decoration: none; text-transform: uppercase; white-space: nowrap; transition: color .25s ease; }
+      .iv-trust-logo span { color: var(--iv-orange); font-size: .85em; }
+      .iv-trust-logo:hover { color: var(--iv-white); }
       .iv-about-mosaic { display: grid; grid-template-columns: .65fr 1.15fr .82fr; align-items: end; gap: 1.5rem; padding: 0 4.8vw 5rem; }
       .iv-about-mosaic figure { position: relative; margin: 0; overflow: hidden; border-radius: .7rem; background: #181a18; }
       .iv-about-mosaic figure img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .6s cubic-bezier(.23,1,.32,1); }
@@ -165,6 +172,7 @@
       .iv-work-scene-progress { height: 1px; background: var(--iv-line); }
       .iv-work-scene-progress i { display: block; width: 100%; height: 100%; background: var(--iv-orange); }
       @keyframes iv-work-marquee-right { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+      @keyframes iv-trust-marquee { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
 
       /* ===== SIMPLE CASE STUDIES ===== */
       .iv-work-simple { border-top: 1px solid var(--iv-line); padding: 7rem 4.8vw 8rem; }
@@ -352,7 +360,11 @@
         .iv-hero-cta, .iv-hero-scroll { min-height: 2.5rem; padding: 0 .75rem; font-size: .5rem; }
         .iv-hero-signature { align-self: flex-start; gap: .55rem; padding-bottom: 0; font-size: .44rem; }
         .iv-about-side { order: -1; }
-        .iv-about-trust { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 3rem; }
+        .iv-about-trust { padding: 0 1.15rem 3rem; }
+        .iv-about-trust-heading { grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 2rem; }
+        .iv-trust-logo-window { margin: 0 -1.15rem; padding: .9rem 0; }
+        .iv-trust-logo-set { gap: 2rem; padding-right: 2rem; }
+        .iv-trust-logo { font-size: .8rem; }
         .iv-smm { min-height: auto; padding: 6rem 1.15rem; }
         .iv-smm-grid { min-height: auto; gap: 3.5rem; }
         .iv-smm-grid h2 { font-size: clamp(3rem, 12.5vw, 5.4rem); }
@@ -391,7 +403,7 @@
       .iv-about-mosaic figure, .iv-service-card { transition: transform .35s cubic-bezier(.23,1,.32,1), border-color .35s ease, background .35s ease; }
       @keyframes iv-fade-up { from { opacity: 0; transform: translateY(2rem); } to { opacity: 1; transform: translateY(0); } }
       @media (prefers-reduced-motion: reduce) {
-        .iv-work-marquee-track { animation: none; transform: translateX(0); }
+        .iv-work-marquee-track, .iv-trust-logo-track { animation: none; transform: translateX(0); }
 
         *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
         .iv-hero-title-wrap h1 span { opacity: 1; transform: none; }
