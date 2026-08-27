@@ -45,7 +45,7 @@ const AboutVisual: React.FC<AboutVisualProps> = ({ language }) => {
           </div>
         </div>
       </div>
-      <div className="iv-about-mosaic" aria-label="Visuels temporaires de la direction artistique"><figure className="iv-about-mosaic-small"><img src="/images/agency-card-product.jpg" alt="Composition artistique orange et crème" /></figure><figure className="iv-about-mosaic-large"><img src="/images/agency-card-lifestyle.jpg" alt="Campagne éditoriale en mouvement" /><figcaption>E-COMMERCE &amp; D2C<br />BRANDS</figcaption></figure><figure className="iv-about-mosaic-medium"><img src="/images/agency-card-portrait.jpg" alt="Portrait éditorial" /><figcaption>UX / REFINEMENT</figcaption></figure></div>
+      <div className="iv-about-mosaic" aria-label="Visuels de stratégie digitale"><figure className="iv-about-mosaic-small"><img src="/images/agency-card-ecommerce-new.jpg" alt="Direction artistique pour une campagne e-commerce" /><figcaption>E-COMMERCE<br />DIRECTION</figcaption></figure><figure className="iv-about-mosaic-large"><img src="/images/agency-card-content-studio.jpg" alt="Studio de création de contenu pour une campagne digitale" /><figcaption>CONTENT<br />CAMPAIGNS</figcaption></figure><figure className="iv-about-mosaic-medium"><img src="/images/agency-card-growth-new.jpg" alt="Stratégie digitale et croissance mesurable" /><figcaption>GROWTH<br />SYSTEMS</figcaption></figure></div>
     </section>
   );
 };
