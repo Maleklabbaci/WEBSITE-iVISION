@@ -59,12 +59,8 @@
       .iv-hero-cta { border: 0; background: var(--iv-orange); color: #111; }
       .iv-hero-scroll { border: 1px solid rgba(246,246,246,.5); color: var(--iv-white); }
       .iv-hero-cta b, .iv-hero-scroll b { font-size: 1rem; font-weight: 400; }
-      .iv-hero-mini-cards { display: flex; align-items: flex-end; gap: .7rem; }
-      .iv-hero-mini-card { width: clamp(4.2rem, 6vw, 6rem); height: clamp(5.2rem, 7.5vw, 7.5rem); overflow: hidden; border-radius: .65rem; border: 1px solid rgba(246,246,246,.22); background: rgba(15,18,19,.68); }
-      .iv-hero-mini-card img { width: 100%; height: 100%; object-fit: cover; }
-      .iv-hero-mini-card-dark { display: flex; flex-direction: column; justify-content: flex-end; padding: .8rem; box-sizing: border-box; color: var(--iv-white); }
-      .iv-hero-mini-card-dark strong { font-size: 1.25rem; font-weight: 400; line-height: 1; }
-      .iv-hero-mini-card-dark span { margin-top: .35rem; color: rgba(246,246,246,.66); font-size: .4rem; line-height: 1.25; text-transform: uppercase; }
+      .iv-hero-signature { display: inline-flex; align-items: center; align-self: flex-end; gap: .7rem; padding-bottom: .35rem; color: rgba(246,246,246,.78); font-size: .52rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+      .iv-hero-signature i { width: .3rem; height: .3rem; border-radius: 50%; background: var(--iv-orange); }
 
       .iv-about-trust { display: grid; grid-template-columns: 1fr .8fr; gap: 6vw; align-items: end; padding: 0 4.8vw 5rem; }
       .iv-about-trust h3 { max-width: 36rem; margin: 1.3rem 0 0; font-size: clamp(2rem, 4.8vw, 5.5rem); font-weight: 400; letter-spacing: -.08em; line-height: .82; text-transform: uppercase; }
@@ -350,7 +346,7 @@
         .iv-hero-footer { display: grid; grid-template-columns: 1fr; gap: 1.4rem; padding-top: 3rem; }
         .iv-hero-actions { flex-direction: row; align-items: center; gap: .45rem; }
         .iv-hero-cta, .iv-hero-scroll { min-height: 2.5rem; padding: 0 .75rem; font-size: .5rem; }
-        .iv-hero-mini-cards { justify-content: flex-end; }
+        .iv-hero-signature { align-self: flex-start; gap: .55rem; padding-bottom: 0; font-size: .44rem; }
         .iv-about-side { order: -1; }
         .iv-about-trust { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 3rem; }
         .iv-smm { min-height: auto; padding: 6rem 1.15rem; }

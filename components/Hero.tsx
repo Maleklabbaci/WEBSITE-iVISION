@@ -39,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
 
         <div className="iv-hero-footer">
           <div className="iv-hero-copy"><p>{translations.subtitle}</p><div className="iv-hero-actions"><button type="button" onClick={onQuoteClick} className="iv-hero-cta"><span>{translations.cta}</span><b aria-hidden="true">↗</b></button><a href="#services" className="iv-hero-scroll"><span>{translations.secondaryCta}</span><b aria-hidden="true">↓</b></a></div></div>
-          <div className="iv-hero-mini-cards" aria-hidden="true"><div className="iv-hero-mini-card iv-hero-mini-card-dark"><strong>50+</strong><span>Projects<br />delivered</span></div><div className="iv-hero-mini-card"><img src="/images/agency-card-portrait.jpg" alt="" /></div><div className="iv-hero-mini-card"><img src="/images/agency-card-product.jpg" alt="" /></div></div>
+          <div className="iv-hero-signature" aria-label="Expertises iVISION"><span>STRATEGY</span><i aria-hidden="true" /><span>CONTENT</span><i aria-hidden="true" /><span>WEB EXPERIENCES</span></div>
         </div>
       </div>
     </section>
