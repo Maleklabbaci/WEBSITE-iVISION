@@ -148,7 +148,7 @@
       .iv-work-scene-heading h2 span:last-child { color: var(--iv-orange); }
       .iv-work-scene-intro { max-width: 22rem; padding-bottom: .3rem; }
       .iv-work-scene-intro p { margin: 0 0 1.7rem; color: var(--iv-muted); font-size: .88rem; line-height: 1.55; }
-      .iv-work-canvas { position: relative; min-height: 0; overflow: visible; }
+      .iv-work-canvas { position: relative; min-height: 0; margin-top: -.5rem; overflow: visible; }
       .iv-work-canvas-crosshair { position: absolute; top: 50%; left: 50%; width: min(38vw, 31rem); aspect-ratio: 1; border: 1px solid rgba(246,246,246,.08); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
       .iv-work-canvas-crosshair::before, .iv-work-canvas-crosshair::after { position: absolute; top: 50%; left: 50%; background: rgba(246,246,246,.1); content: ''; transform: translate(-50%, -50%); }
       .iv-work-canvas-crosshair::before { width: 125%; height: 1px; }
@@ -160,9 +160,9 @@
       .iv-work-canvas-crosshair i:nth-child(4) { top: 50%; left: -.18rem; transform: translateY(-50%); }
       .iv-work-canvas-label { position: absolute; top: 1.3rem; right: 0; z-index: 6; display: flex; gap: 1rem; color: var(--iv-muted); font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
       .iv-work-canvas-label b { color: var(--iv-orange); font-weight: 700; }
-      .iv-work-float-card { position: absolute; top: calc(50% + var(--card-y)); left: calc(50% + var(--card-x)); width: clamp(11rem, 18vw, 20rem); color: var(--iv-white); opacity: var(--card-opacity); filter: blur(var(--card-blur)); text-decoration: none; transform: translate(-50%, -50%) rotate(var(--card-rotate)) scale(var(--card-scale)); transform-origin: center; transition: opacity .45s ease, filter .45s ease, transform .65s cubic-bezier(.23,1,.32,1); }
+      .iv-work-float-card { position: absolute; top: calc(34% + var(--card-y)); left: calc(50% + var(--card-x)); width: clamp(13rem, 20vw, 22rem); color: var(--iv-white); opacity: var(--card-opacity); filter: blur(var(--card-blur)); text-decoration: none; transform: translate(-50%, -50%) rotate(var(--card-rotate)) scale(var(--card-scale)); transform-origin: center; transition: opacity .45s ease, filter .45s ease, transform .65s cubic-bezier(.23,1,.32,1); }
       .iv-work-float-card.is-active { filter: none; }
-      .iv-work-float-media { position: relative; overflow: hidden; aspect-ratio: 1.25 / 1; border: 1px solid rgba(246,246,246,.28); border-radius: .65rem; background: #181a18; box-shadow: 0 1.5rem 4rem rgba(0,0,0,.28); }
+      .iv-work-float-media { position: relative; overflow: hidden; aspect-ratio: 1.28 / 1; border: 1px solid rgba(246,246,246,.28); border-radius: .65rem; background: #181a18; box-shadow: 0 1.5rem 4rem rgba(0,0,0,.28); }
       .iv-work-float-media::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.38)); content: ''; pointer-events: none; }
       .iv-work-float-media img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .7s cubic-bezier(.23,1,.32,1); }
       .iv-work-float-card:hover .iv-work-float-media img { transform: scale(1.06); }
@@ -337,7 +337,7 @@
         .iv-work-scene-intro p { font-size: .8rem; }
         .iv-work-canvas-label { top: .5rem; font-size: .48rem; }
         .iv-work-canvas-crosshair { width: min(70vw, 20rem); }
-        .iv-work-float-card { width: clamp(9rem, 49vw, 13rem); }
+        .iv-work-float-card { width: clamp(10.5rem, 56vw, 15rem); }
         .iv-work-float-meta { padding-top: .5rem; }
         .iv-work-float-meta strong { font-size: .92rem; }
         .iv-work-float-meta > span, .iv-work-float-meta small { font-size: .42rem; }

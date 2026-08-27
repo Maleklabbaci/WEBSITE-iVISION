@@ -53,10 +53,10 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
   const activeIndex = Math.min(projects.length - 1, Math.floor(progress * projects.length));
   const phase = progress * projects.length;
   const positions = [
-    { x: -27, y: 7, r: -7 },
-    { x: 23, y: -15, r: 6 },
-    { x: 28, y: 22, r: 4 },
-    { x: -20, y: -24, r: -5 },
+    { x: -26, y: 2, r: -7 },
+    { x: 22, y: -6, r: 6 },
+    { x: 26, y: 6, r: 4 },
+    { x: -20, y: -10, r: -5 },
   ];
 
   return (
@@ -71,8 +71,8 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
             const position = positions[index];
             const distance = index - phase + .5;
             const distanceAbs = Math.abs(distance);
-            const opacity = clamp(1.08 - distanceAbs * .8, .16, 1);
-            const scale = index === activeIndex ? 1 : clamp(.78 + (1 - distanceAbs) * .08, .72, .86);
+            const opacity = clamp(1.12 - distanceAbs * .62, .3, 1);
+            const scale = index === activeIndex ? 1 : clamp(.8 + (1 - distanceAbs) * .08, .76, .9);
             const blur = index === activeIndex ? 0 : clamp(distanceAbs * 1.5, 0, 2.5);
             return <a key={project.id} href={project.website} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} — ${t.view}`} className={`iv-work-float-card ${index === activeIndex ? 'is-active' : ''}`} style={{ '--card-x': `${position.x + Math.sin(phase * .9 + index) * 3}%`, '--card-y': `${position.y + Math.cos(phase * .7 + index) * 2}%`, '--card-rotate': `${position.r + Math.sin(phase + index) * 1.5}deg`, '--card-opacity': opacity, '--card-scale': scale, '--card-blur': `${blur}px`, zIndex: index === activeIndex ? 5 : 4 - index } as React.CSSProperties}>
               <div className="iv-work-float-media"><div className="iv-work-float-bar"><span /><span /><span /><small>WEBSITE</small></div><img src={project.media} alt={`${project.name} — aperçu du site`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /></div>
