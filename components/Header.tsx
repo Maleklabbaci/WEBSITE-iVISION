@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, language = 
       <header className={`iv-header ${isScrolled || open ? 'is-scrolled' : ''}`}>
         <div className="iv-header-inner">
           <a href="#accueil" className="iv-logo" onClick={(event) => { event.preventDefault(); setOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }} aria-label="iVISION — accueil">
-            <img src="https://i.ibb.co/vCV92NXv/logo2.png" alt="iVISION" />
+            <img src="/images/ivision-logo-white.png" alt="iVISION" />
           </a>
           <nav className="iv-nav" aria-label="Navigation principale">
             <a href="#accueil" onClick={(event) => { event.preventDefault(); scrollTo('accueil'); }}>{labels.home}</a>

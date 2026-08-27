@@ -153,9 +153,9 @@
       .iv-work-fixed-card:nth-child(2) { margin-top: 3.5rem; }
       .iv-work-fixed-card:nth-child(3) { margin-top: -1rem; }
       .iv-work-fixed-card:nth-child(4) { margin-top: 2.5rem; }
-      .iv-work-float-media { position: relative; overflow: hidden; aspect-ratio: 1.28 / 1; border: 1px solid rgba(246,246,246,.28); border-radius: .65rem; background: #181a18; box-shadow: 0 1.5rem 4rem rgba(0,0,0,.28); }
-      .iv-work-float-media::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.38)); content: ''; pointer-events: none; }
-      .iv-work-float-media img { width: 100%; height: 100%; display: block; object-fit: cover; }
+      .iv-work-float-media { position: relative; overflow: hidden; aspect-ratio: 16 / 10; border: 1px solid rgba(246,246,246,.28); border-radius: .65rem; background: #181a18; box-shadow: 0 1.5rem 4rem rgba(0,0,0,.28); }
+      .iv-work-float-media::after { display: none; }
+      .iv-work-float-media img { width: 100%; height: 100%; display: block; object-fit: contain; background: #181a18; }
       .iv-work-float-bar { position: absolute; top: 0; right: 0; left: 0; z-index: 1; display: flex; align-items: center; gap: .25rem; height: 1.6rem; padding: 0 .55rem; background: rgba(15,18,19,.72); }
       .iv-work-float-bar span { width: .28rem; height: .28rem; border-radius: 50%; background: rgba(246,246,246,.58); }
       .iv-work-float-bar small { margin-left: auto; color: rgba(246,246,246,.72); font-size: .38rem; font-weight: 700; letter-spacing: .14em; }
@@ -273,8 +273,8 @@
       .iv-header { position: fixed; top: 1.3rem; right: 2.4rem; left: 2.4rem; z-index: 100; border: 1px solid rgba(246,246,246,.45); border-radius: 999px; background: rgba(15,18,19,.26); transition: background .35s ease, border-color .35s ease, transform .35s ease; }
       .iv-header.is-scrolled { background: rgba(15,18,19,.82); border-color: rgba(246,246,246,.28); backdrop-filter: blur(16px); }
       .iv-header-inner { width: 100%; height: 3.65rem; display: flex; align-items: center; gap: 2rem; padding: .4rem .45rem .4rem .5rem; box-sizing: border-box; }
-      .iv-logo { display: inline-flex; align-items: center; flex: 0 0 auto; padding: .55rem .8rem; border-radius: 999px; background: rgba(246,246,246,.96); }
-      .iv-logo img { width: 4.7rem; height: auto; display: block; filter: brightness(0); }
+      .iv-logo { display: inline-flex; align-items: center; flex: 0 0 auto; padding: .2rem 0; }
+      .iv-logo img { width: 6rem; height: auto; display: block; filter: none; }
       .iv-nav { display: flex; align-items: center; gap: 2.2rem; margin-left: auto; }
       .iv-nav a { color: var(--iv-muted); font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; transition: color .25s ease; }
       .iv-nav a:hover { color: var(--iv-white); }
@@ -326,7 +326,7 @@
         .iv-work-scene-intro p { font-size: .8rem; }
         .iv-work-fixed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.2rem .8rem; }
         .iv-work-fixed-card:nth-child(2), .iv-work-fixed-card:nth-child(3), .iv-work-fixed-card:nth-child(4) { margin-top: 0; }
-        .iv-work-float-media { aspect-ratio: 1.08 / 1; border-radius: .5rem; }
+        .iv-work-float-media { aspect-ratio: 16 / 10; border-radius: .5rem; }
         .iv-work-float-bar { height: 1.3rem; padding: 0 .4rem; }
         .iv-work-float-bar small { font-size: .32rem; }
         .iv-work-float-meta { padding-top: .5rem; }
