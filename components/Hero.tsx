@@ -22,7 +22,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
   return (
     <section id="accueil" className={`iv-hero ${visible ? 'is-visible' : ''}`}>
       <div className="iv-hero-bg" aria-hidden="true">
-        <img src="/images/agency-hero-growth.jpg" alt="" style={{ transform: `scale(1.04) translate3d(${pointer.x * -0.12}px, ${pointer.y * -0.12}px, 0)` }} />
+        <img src="/images/agency-hero-growth.webp" alt="" style={{ transform: `scale(1.04) translate3d(${pointer.x * -0.12}px, ${pointer.y * -0.12}px, 0)` }} />
         <div className="iv-hero-shade" />
       </div>
 
