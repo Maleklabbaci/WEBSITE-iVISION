@@ -9,6 +9,8 @@ const copy = {
 };
 
 const clientLogos = [
+  { name: 'Centre Bissan', website: '#', media: '/images/client-logo-centre-bissane.png' },
+  { name: 'Eminora', website: '#', media: '/images/client-logo-eminora.png' },
   { name: 'DC16 X WYN', website: 'https://dc16.shop/' },
   { name: 'MOVESMART', website: 'https://movesmart-ecru.vercel.app/' },
   { name: 'FIDALI', website: 'https://fidali.vercel.app/' },
@@ -34,11 +36,11 @@ const AboutVisual: React.FC<AboutVisualProps> = ({ language }) => {
         <div className="iv-about-side"><ol>{t.principles.map((principle) => <li key={principle}><p>{principle}</p></li>)}</ol></div>
       </div>
       <div className="iv-about-trust">
-        <div className="iv-about-trust-heading"><div><span className="iv-label">TRUST &amp; LEGACY</span><h3>{t.trust}<b aria-hidden="true">↗</b></h3></div><p>Des marques qui nous confient leur image, leur expérience et leur croissance digitale.</p></div>
+        <div className="iv-about-trust-heading"><span className="iv-label">TRUST &amp; LEGACY</span><h3>{t.trust}<b aria-hidden="true">↗</b></h3></div>
         <div className="iv-trust-logo-window" aria-label="Marques accompagnées par iVISION">
           <div className="iv-trust-logo-track">
             {[0, 1].map((set) => <div className="iv-trust-logo-set" key={set} aria-hidden={set === 1}>
-              {clientLogos.map((logo) => <a key={`${set}-${logo.name}`} href={logo.website} target="_blank" rel="noopener noreferrer" className="iv-trust-logo" tabIndex={set === 1 ? -1 : undefined}>{logo.name}<span aria-hidden="true">↗</span></a>)}
+              {clientLogos.map((logo) => <a key={`${set}-${logo.name}`} href={logo.website === '#' ? undefined : logo.website} target={logo.website === '#' ? undefined : '_blank'} rel={logo.website === '#' ? undefined : 'noopener noreferrer'} className={`iv-trust-logo ${logo.media ? 'has-image' : ''}`} tabIndex={set === 1 ? -1 : undefined}>{logo.media ? <img src={logo.media} alt={logo.name} loading={set === 0 ? 'lazy' : 'eager'} decoding="async" /> : <>{logo.name}<span aria-hidden="true">↗</span></>}</a>)}
             </div>)}
           </div>
         </div>
