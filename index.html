@@ -139,33 +139,23 @@
       .iv-work-dots i { width: 1.5rem; height: 2px; background: var(--iv-line); transition: all 0.3s ease; }
       .iv-work-dots i.is-active { width: 3rem; background: var(--iv-magenta); }
 
-      /* ===== SCROLLING FLOATING CASE STUDIES ===== */
-      .iv-work-scene { position: relative; height: 430vh; background: var(--iv-black); }
-      .iv-work-scene-sticky { position: sticky; top: 0; height: 100svh; box-sizing: border-box; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; overflow: hidden; padding: 7.5rem 4.8vw 2rem; }
-      .iv-work-scene-heading { display: grid; grid-template-columns: 1.05fr .95fr; align-items: end; gap: 6vw; margin: 4rem 0 1rem; }
+      /* ===== FIXED CASE STUDIES GRID ===== */
+      .iv-work-scene { position: relative; background: var(--iv-black); }
+      .iv-work-scene-sticky { box-sizing: border-box; padding: 7.5rem 4.8vw 4.5rem; }
+      .iv-work-scene-heading { display: grid; grid-template-columns: 1.05fr .95fr; align-items: end; gap: 6vw; margin: 4rem 0 2.5rem; }
       .iv-work-scene-heading h2 { margin: 1rem 0 0; font-size: clamp(3rem, 7vw, 8rem); line-height: .76; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
       .iv-work-scene-heading h2 span { display: block; }
       .iv-work-scene-heading h2 span:last-child { color: var(--iv-orange); }
       .iv-work-scene-intro { max-width: 22rem; padding-bottom: .3rem; }
       .iv-work-scene-intro p { margin: 0 0 1.7rem; color: var(--iv-muted); font-size: .88rem; line-height: 1.55; }
-      .iv-work-canvas { position: relative; min-height: 0; margin-top: -.5rem; overflow: visible; }
-      .iv-work-canvas-crosshair { position: absolute; top: 50%; left: 50%; width: min(38vw, 31rem); aspect-ratio: 1; border: 1px solid rgba(246,246,246,.08); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-      .iv-work-canvas-crosshair::before, .iv-work-canvas-crosshair::after { position: absolute; top: 50%; left: 50%; background: rgba(246,246,246,.1); content: ''; transform: translate(-50%, -50%); }
-      .iv-work-canvas-crosshair::before { width: 125%; height: 1px; }
-      .iv-work-canvas-crosshair::after { width: 1px; height: 125%; }
-      .iv-work-canvas-crosshair i { position: absolute; width: .35rem; height: .35rem; border-radius: 50%; background: var(--iv-orange); }
-      .iv-work-canvas-crosshair i:nth-child(1) { top: -.18rem; left: 50%; transform: translateX(-50%); }
-      .iv-work-canvas-crosshair i:nth-child(2) { top: 50%; right: -.18rem; transform: translateY(-50%); }
-      .iv-work-canvas-crosshair i:nth-child(3) { bottom: -.18rem; left: 50%; transform: translateX(-50%); }
-      .iv-work-canvas-crosshair i:nth-child(4) { top: 50%; left: -.18rem; transform: translateY(-50%); }
-      .iv-work-canvas-label { position: absolute; top: 1.3rem; right: 0; z-index: 6; display: flex; gap: 1rem; color: var(--iv-muted); font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-      .iv-work-canvas-label b { color: var(--iv-orange); font-weight: 700; }
-      .iv-work-float-card { position: absolute; top: calc(34% + var(--card-y)); left: calc(50% + var(--card-x)); width: clamp(13rem, 20vw, 22rem); color: var(--iv-white); opacity: var(--card-opacity); filter: blur(var(--card-blur)); text-decoration: none; transform: translate(-50%, -50%) rotate(var(--card-rotate)) scale(var(--card-scale)); transform-origin: center; transition: opacity .45s ease, filter .45s ease, transform .65s cubic-bezier(.23,1,.32,1); }
-      .iv-work-float-card.is-active { filter: none; }
+      .iv-work-fixed-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.2rem 2.5rem; align-items: start; max-width: 76rem; margin: 0 auto; }
+      .iv-work-fixed-card { display: block; min-width: 0; color: var(--iv-white); text-decoration: none; }
+      .iv-work-fixed-card:nth-child(2) { margin-top: 3.5rem; }
+      .iv-work-fixed-card:nth-child(3) { margin-top: -1rem; }
+      .iv-work-fixed-card:nth-child(4) { margin-top: 2.5rem; }
       .iv-work-float-media { position: relative; overflow: hidden; aspect-ratio: 1.28 / 1; border: 1px solid rgba(246,246,246,.28); border-radius: .65rem; background: #181a18; box-shadow: 0 1.5rem 4rem rgba(0,0,0,.28); }
       .iv-work-float-media::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.38)); content: ''; pointer-events: none; }
-      .iv-work-float-media img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .7s cubic-bezier(.23,1,.32,1); }
-      .iv-work-float-card:hover .iv-work-float-media img { transform: scale(1.06); }
+      .iv-work-float-media img { width: 100%; height: 100%; display: block; object-fit: cover; }
       .iv-work-float-bar { position: absolute; top: 0; right: 0; left: 0; z-index: 1; display: flex; align-items: center; gap: .25rem; height: 1.6rem; padding: 0 .55rem; background: rgba(15,18,19,.72); }
       .iv-work-float-bar span { width: .28rem; height: .28rem; border-radius: 50%; background: rgba(246,246,246,.58); }
       .iv-work-float-bar small { margin-left: auto; color: rgba(246,246,246,.72); font-size: .38rem; font-weight: 700; letter-spacing: .14em; }
@@ -174,9 +164,9 @@
       .iv-work-float-meta strong { display: block; margin: .35rem 0 .3rem; font-size: clamp(.9rem, 1.4vw, 1.35rem); font-weight: 400; line-height: 1; text-transform: uppercase; }
       .iv-work-float-meta small { color: var(--iv-muted); font-size: .5rem; letter-spacing: .1em; text-transform: uppercase; }
       .iv-work-float-meta small b { color: var(--iv-orange); font-size: .9rem; font-weight: 400; }
-      .iv-work-scene-footer { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; color: var(--iv-muted); font-size: .56rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .iv-work-scene-footer { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; max-width: 76rem; margin: 3.5rem auto 0; color: var(--iv-muted); font-size: .56rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
       .iv-work-scene-progress { height: 1px; background: var(--iv-line); }
-      .iv-work-scene-progress i { display: block; width: 100%; height: 100%; background: var(--iv-orange); transform-origin: left; }
+      .iv-work-scene-progress i { display: block; width: 100%; height: 100%; background: var(--iv-orange); }
 
       /* ===== SIMPLE CASE STUDIES ===== */
       .iv-work-simple { border-top: 1px solid var(--iv-line); padding: 7rem 4.8vw 8rem; }
@@ -329,19 +319,20 @@
         .iv-header-cta { margin-left: auto; padding: .65rem .8rem; font-size: .52rem; }
         .iv-menu-button { display: block; flex: 0 0 auto; }
         .iv-about-grid, .iv-smm-grid, .iv-proof-grid, .iv-faq-grid { grid-template-columns: 1fr; gap: 4rem; }
-        .iv-work-scene { height: 360vh; }
-        .iv-work-scene-sticky { padding: 6rem 1.15rem 1.5rem; }
-        .iv-work-scene-heading { grid-template-columns: 1fr; gap: 1.5rem; margin: 3rem 0 0; }
+        .iv-work-scene-sticky { padding: 6rem 1.15rem 3.5rem; }
+        .iv-work-scene-heading { grid-template-columns: 1fr; gap: 1.5rem; margin: 3rem 0 2rem; }
         .iv-work-scene-heading h2 { font-size: clamp(3.3rem, 15vw, 6rem); }
         .iv-work-scene-intro { max-width: 19rem; }
         .iv-work-scene-intro p { font-size: .8rem; }
-        .iv-work-canvas-label { top: .5rem; font-size: .48rem; }
-        .iv-work-canvas-crosshair { width: min(70vw, 20rem); }
-        .iv-work-float-card { width: clamp(10.5rem, 56vw, 15rem); }
+        .iv-work-fixed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.2rem .8rem; }
+        .iv-work-fixed-card:nth-child(2), .iv-work-fixed-card:nth-child(3), .iv-work-fixed-card:nth-child(4) { margin-top: 0; }
+        .iv-work-float-media { aspect-ratio: 1.08 / 1; border-radius: .5rem; }
+        .iv-work-float-bar { height: 1.3rem; padding: 0 .4rem; }
+        .iv-work-float-bar small { font-size: .32rem; }
         .iv-work-float-meta { padding-top: .5rem; }
-        .iv-work-float-meta strong { font-size: .92rem; }
-        .iv-work-float-meta > span, .iv-work-float-meta small { font-size: .42rem; }
-        .iv-work-scene-footer { gap: .6rem; font-size: .46rem; }
+        .iv-work-float-meta strong { font-size: .82rem; }
+        .iv-work-float-meta > span, .iv-work-float-meta small { font-size: .38rem; }
+        .iv-work-scene-footer { gap: .6rem; margin-top: 2.5rem; font-size: .46rem; }
         .iv-work-simple { padding: 6rem 1.15rem; }
         .iv-work-simple-heading { grid-template-columns: 1fr; gap: 2.5rem; margin: 3.5rem 0; }
         .iv-work-simple-heading h2 { font-size: clamp(3.4rem, 15vw, 7rem); }
