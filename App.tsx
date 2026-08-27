@@ -8,7 +8,6 @@ import MobileConversionBar from './components/MobileConversionBar';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import QuoteForm from './components/QuoteForm';
 import TrainingCenterLanding from './components/TrainingCenterLanding';
-import SplashScreen from './components/SplashScreen';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
@@ -104,7 +103,7 @@ const parseHash = (): { view: ViewType; slug?: string } => {
 };
 
 const App: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading] = useState(false);
   const [language, setLanguage] = useState<Language>('fr');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
@@ -119,12 +118,10 @@ const App: React.FC = () => {
   const WHATSAPP_NUMBER = "213563839404";
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1200);
     const savedLang = localStorage.getItem('ivision-lang-selected') as Language;
     if (savedLang) {
       setLanguage(savedLang);
     }
-    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -223,8 +220,6 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
     <div className="min-h-screen relative font-sans overflow-x-clip selection:bg-brand-blue selection:text-white">
       <StaticBackground />
       
-      {isLoading && <SplashScreen />}
-
       {!isLoading && (
         <>
           <WhatsAppButton phoneNumber={WHATSAPP_NUMBER} message={t.whatsapp?.message || ""} />
