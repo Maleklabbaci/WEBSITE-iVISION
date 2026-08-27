@@ -36,11 +36,15 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
       <div className="iv-work-scene-sticky">
         <div className="iv-section-topline"><span>{t.label}</span></div>
         <div className="iv-work-scene-heading"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{t.title[1]}</span></h2></div><div className="iv-work-scene-intro"><p>{t.body}</p><button type="button" className="iv-work-simple-cta" onClick={onQuoteClick}><span>{t.quote}</span><b aria-hidden="true">↗</b></button></div></div>
-        <div className="iv-work-fixed-grid" aria-label={t.scroll}>
-          {projects.map((project) => <a key={project.id} href={project.website} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} — ${t.view}`} className="iv-work-fixed-card" onClick={() => trackEvent('view_project', { project: project.name })}>
-            <div className="iv-work-float-media"><div className="iv-work-float-bar"><span /><span /><span /><small>WEBSITE</small></div><img src={project.media} alt={`${project.name} — aperçu du site`} loading={project.id === 1 ? 'eager' : 'lazy'} decoding="async" /></div>
-            <div className="iv-work-float-meta"><span>{project.sector}</span><strong>{project.name}</strong><small>{t.view} <b aria-hidden="true">↗</b></small></div>
-          </a>)}
+        <div className="iv-work-marquee" aria-label={t.scroll}>
+          <div className="iv-work-marquee-track">
+            {[0, 1].map((set) => <div className="iv-work-marquee-set" key={set} aria-hidden={set === 1}>
+              {projects.map((project) => <a key={`${set}-${project.id}`} href={project.website} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} — ${t.view}`} className="iv-work-fixed-card" tabIndex={set === 1 ? -1 : undefined} onClick={() => trackEvent('view_project', { project: project.name })}>
+                <div className="iv-work-float-media"><div className="iv-work-float-bar"><span /><span /><span /><small>WEBSITE</small></div><img src={project.media} alt={set === 1 ? '' : `${project.name} — aperçu du site`} loading={project.id === 1 && set === 0 ? 'eager' : 'lazy'} decoding="async" /></div>
+                <div className="iv-work-float-meta"><span>{project.sector}</span><strong>{project.name}</strong><small>{t.view} <b aria-hidden="true">↗</b></small></div>
+              </a>)}
+            </div>)}
+          </div>
         </div>
       </div>
     </section>
