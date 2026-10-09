@@ -30,7 +30,7 @@ const BlogList = () => {
     <section className="min-h-screen pt-32 pb-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 iv-reveal">
           <span className="text-brand-blue text-sm font-semibold tracking-widest uppercase">
             Notre Blog
           </span>
@@ -84,7 +84,7 @@ const BlogList = () => {
             <p className="text-brand-gray text-lg">Aucun article trouvé.</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 iv-reveal-group">
             {filteredPosts.map((post) => (
               <div key={post.id}>
                 <BlogCard post={post} />
@@ -114,7 +114,7 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
   return (
     <article
       onClick={() => (window.location.hash = `/blog/${post.slug}`)}
-      className="group bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[2rem] overflow-hidden cursor-pointer hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="group iv-reveal bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[2rem] overflow-hidden cursor-pointer hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image placeholder */}
      <div className="h-48 overflow-hidden">

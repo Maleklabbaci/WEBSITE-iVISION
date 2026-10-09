@@ -29,7 +29,7 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
         <h2>{translations.title}</h2>
         <p>{translations.subtitle}</p>
       </div>
-      <div className="iv-services-grid">
+      <div className="iv-services-grid iv-reveal-group">
         {items.map((item, index) => (
           <button key={item.title} type="button" className="iv-service-card" onClick={() => openService(index)}>
               <div className="iv-service-card-head">

@@ -12,6 +12,7 @@ import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
 import { parseRoute } from './lib/router';
+import { initReveal } from './lib/reveal';
 
 // ===== LAZY LOADING (Performance) =====
 const BlogList = lazy(() => import('./components/BlogList'));
@@ -120,6 +121,7 @@ const App: React.FC = () => {
     if (savedLang) {
       setLanguage(savedLang);
     }
+    initReveal();
   }, []);
 
   useEffect(() => {
@@ -263,7 +265,9 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
         />
         
         <main className="flex-grow">
-          {renderContent()}
+          <div key={currentView + currentSlug} className="iv-page-enter">
+            {renderContent()}
+          </div>
         </main>
 
         <Footer translations={t.footer} onOpenPolicy={(type) => setPolicyType(type)} />
