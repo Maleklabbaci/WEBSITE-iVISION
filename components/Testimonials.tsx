@@ -52,7 +52,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ translations }) => {
           <div className="flex flex-col md:flex-row justify-between items-end gap-12">
             <div className="max-w-4xl">
               <div className="sketch-badge mb-8">Confiance</div>
-              <h2 className="text-4xl md:text-[8rem] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
+              <h2 className="text-4xl md:text-[8rem] font-medium text-navy dark:text-white tracking-[-0.02em] leading-[1] md:leading-[0.95] uppercase transition-colors duration-500">
                 {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
                 <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
               </h2>
@@ -88,8 +88,8 @@ const Testimonials: React.FC<TestimonialsProps> = ({ translations }) => {
                     "{testimonial.quote}"
                   </blockquote>
                   <cite className="block not-italic">
-                    <div className="font-black text-brand-blue text-xl md:text-2xl uppercase tracking-tighter mb-1">{testimonial.author}</div>
-                    <div className="text-brand-gray/60 text-[10px] md:text-[11px] font-black uppercase">{testimonial.position}</div>
+                    <div className="font-medium text-brand-blue text-xl md:text-2xl uppercase tracking-[-0.02em] mb-1">{testimonial.author}</div>
+                    <div className="text-brand-gray/60 text-[10px] md:text-[11px] font-medium uppercase">{testimonial.position}</div>
                   </cite>
                 </div>
               </div>

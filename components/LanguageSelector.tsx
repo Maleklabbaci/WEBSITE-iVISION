@@ -61,7 +61,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelectLanguage })
       {/* Glow Effect behind the popup */}
       <div className="absolute -inset-10 bg-brand-blue/30 blur-[100px] rounded-full opacity-50"></div>
       
-      <div className="relative float-3d bg-brand-dark/80 border border-white/10 backdrop-blur-3xl rounded-[3.5rem] p-8 md:p-14 shadow-[0_60px_120px_rgba(0,0,0,0.9)] max-w-md w-full layer-3d">
+      <div className="relative float-3d bg-brand-dark/80 border border-white/10 backdrop-blur-3xl rounded-[.55rem] p-8 md:p-14 shadow-[0_60px_120px_rgba(0,0,0,0.9)] max-w-md w-full layer-3d">
         <div className="text-center mb-12">
           <img 
             src="/images/ivision-logo-white.png"
@@ -83,14 +83,14 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelectLanguage })
                 {lang.icon}
                 <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/10 rounded-full transition-all duration-500"></div>
               </div>
-              <span className="text-[11px] font-black text-brand-gray group-hover:text-brand-blue transition-colors">
+              <span className="text-[11px] font-medium text-brand-gray group-hover:text-brand-blue transition-colors">
                 {lang.label}
               </span>
             </button>
           ))}
         </div>
 
-        <p className="mt-14 text-center text-[11px] uppercase text-brand-gray/30 font-black">
+        <p className="mt-14 text-center text-[11px] uppercase text-brand-gray/30 font-medium">
           SÉLECTION DU TERMINAL
         </p>
       </div>

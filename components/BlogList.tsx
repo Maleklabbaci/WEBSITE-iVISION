@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { blogPosts, getBlogCategories, type BlogPost } from '../data/blog-posts';
 import { updateSEO } from '../lib/seo-utils';
+import { getCanonicalUrl } from '../lib/router';
 
 const BlogList = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -12,7 +13,7 @@ const BlogList = () => {
       title: 'Blog - Actualités Marketing Digital & Web',
       description: 'Articles, guides et conseils sur le marketing digital, le web design, le SEO et le branding en Algérie.',
       keywords: 'blog marketing digital algérie, conseils web design, guide SEO algérie',
-      canonical: 'https://ivision.agency/blog',
+      canonical: getCanonicalUrl({ type: 'blog' }),
     });
   }, []);
 
@@ -29,14 +30,13 @@ const BlogList = () => {
     <section className="min-h-screen pt-32 pb-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <span className="text-brand-blue text-sm font-semibold tracking-widest uppercase">
-            Notre Blog
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black text-navy dark:text-white mt-4 mb-6 tracking-tighter">
+        <div className="mb-14 iv-reveal">
+          <div className="iv-section-topline" style={{ padding: '1.5rem 0', marginBottom: '1.8rem' }}><span>Blog</span></div>
+          <span className="iv-label">Selected insights</span>
+          <h1 className="text-[clamp(2.6rem,6vw,5.6rem)] font-medium text-navy dark:text-white mb-6 tracking-[-0.02em] leading-[.98]">
             Insights & <span className="text-brand-blue">Stratégies</span>
           </h1>
-          <p className="text-brand-gray dark:text-brand-gray/80 text-lg max-w-2xl mx-auto">
+          <p className="text-brand-gray dark:text-brand-gray/80 text-lg max-w-2xl">
             Guides pratiques, analyses et conseils pour développer votre business en ligne en Algérie.
           </p>
         </div>
@@ -48,15 +48,15 @@ const BlogList = () => {
             placeholder="Rechercher un article..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl px-5 py-3 text-navy dark:text-white placeholder-brand-gray/50 focus:outline-none focus:border-brand-blue transition"
+            className="flex-1 bg-transparent border-0 border-b border-navy/20 rounded-none px-0 py-3 text-navy dark:text-white placeholder-brand-gray/50 focus:outline-none focus:border-navy transition"
           />
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition ${
+              className={`px-3.5 py-2 rounded-none text-[11px] font-bold uppercase tracking-[.12em] border transition ${
                 selectedCategory === 'all'
-                  ? 'bg-brand-blue text-white'
-                  : 'bg-navy/5 dark:bg-white/5 text-brand-gray hover:bg-navy/10 dark:hover:bg-white/10'
+                  ? 'bg-brand-blue text-white border-brand-blue'
+                  : 'border-navy/15 text-brand-gray hover:border-navy/50 hover:text-navy'
               }`}
             >
               Tous
@@ -83,7 +83,7 @@ const BlogList = () => {
             <p className="text-brand-gray text-lg">Aucun article trouvé.</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 iv-reveal-group">
             {filteredPosts.map((post) => (
               <div key={post.id}>
                 <BlogCard post={post} />
@@ -97,22 +97,23 @@ const BlogList = () => {
 };
 
 const BlogCard = ({ post }: { post: BlogPost }) => {
+  // Monochrome éditorial : une seule pastille d'encre pour toutes les catégories
   const categoryColors: Record<string, string> = {
-    'Marketing Digital': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
-    'Design': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
-    'SEO': 'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-400',
-    'Social Media': 'bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400',
-    'E-commerce': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
-    'Branding': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
-    'Publicité': 'bg-red-500/10 text-red-600 dark:bg-red-500/20 dark:text-red-400',
-    'Intelligence Artificielle': 'bg-orange-500/10 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400',
-    'Performance': 'bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400',
+    'Marketing Digital': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
+    'Design': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
+    'SEO': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
+    'Social Media': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
+    'E-commerce': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
+    'Branding': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
+    'Publicité': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
+    'Intelligence Artificielle': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
+    'Performance': 'bg-navy/5 text-navy/70 dark:bg-white/10 dark:text-white/70',
   };
 
   return (
     <article
       onClick={() => (window.location.hash = `/blog/${post.slug}`)}
-      className="group bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[2rem] overflow-hidden cursor-pointer hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="group iv-reveal bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[.55rem] overflow-hidden cursor-pointer hover:border-navy/30 hover:shadow-[0_1rem_2.5rem_rgba(20,18,15,.08)] transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image placeholder */}
      <div className="h-48 overflow-hidden">
@@ -125,14 +126,14 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
       <div className="p-6">
         {/* Category + Read Time */}
         <div className="flex items-center justify-between mb-3">
-          <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${categoryColors[post.category] || 'bg-navy/5 dark:bg-white/10 text-brand-gray'}`}>
+          <span className="px-2.5 py-1 rounded-none text-[10px] font-bold uppercase tracking-[.14em] border border-navy/10 text-brand-gray">
             {post.category}
           </span>
           <span className="text-brand-gray/60 text-xs">{post.readTime}</span>
         </div>
 
         {/* Title */}
-        <h2 className="text-navy dark:text-white font-bold text-lg mb-2 group-hover:text-brand-blue transition line-clamp-2">
+        <h2 className="text-navy dark:text-white font-medium text-xl tracking-[-0.01em] mb-2 group-hover:text-brand-blue transition line-clamp-2">
           {post.title}
         </h2>
 

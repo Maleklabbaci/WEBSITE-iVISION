@@ -11,6 +11,8 @@ import TrainingCenterLanding from './components/TrainingCenterLanding';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
+import { parseRoute } from './lib/router';
+import { initReveal } from './lib/reveal';
 
 // ===== LAZY LOADING (Performance) =====
 const BlogList = lazy(() => import('./components/BlogList'));
@@ -90,22 +92,19 @@ const StaticBackground: React.FC = () => <div className="source-page-background"
 
 type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service' | 'centres';
 
+// Source unique de routage : lib/router.ts (plus de parseHash dupliqué ici).
 const parseHash = (): { view: ViewType; slug?: string } => {
-  const hash = window.location.hash.slice(1) || '/';
-  
-  if (hash === '/academiq') return { view: 'centres' };
-  if (hash === '/devis') return { view: 'quote' };
-  if (hash === '/blog') return { view: 'blog' };
-  if (hash.startsWith('/blog/')) return { view: 'blog-post', slug: hash.replace('/blog/', '') };
-  if (hash.startsWith('/services/')) return { view: 'service', slug: hash.replace('/services/', '') };
-  
-  return { view: 'home' };
+  const route = parseRoute();
+  return {
+    view: route.type,
+    slug: route.type === 'blog-post' || route.type === 'service' ? route.slug : undefined,
+  };
 };
 
 const App: React.FC = () => {
   const [isLoading] = useState(false);
   const [language, setLanguage] = useState<Language>('fr');
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
   const [isExitingLangSelector, setIsExitingLangSelector] = useState(false);
   const [policyType, setPolicyType] = useState<'privacy' | 'terms' | null>(null);
   const [currentView, setCurrentView] = useState<ViewType>('home');
@@ -122,6 +121,7 @@ const App: React.FC = () => {
     if (savedLang) {
       setLanguage(savedLang);
     }
+    initReveal();
   }, []);
 
   useEffect(() => {
@@ -265,13 +265,15 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
         />
         
         <main className="flex-grow">
-          {renderContent()}
+          <div key={currentView + currentSlug} className="iv-page-enter">
+            {renderContent()}
+          </div>
         </main>
 
         <Footer translations={t.footer} onOpenPolicy={(type) => setPolicyType(type)} />
       </div>
 
-      {!isLoading && !showLangSelector && !policyType && currentView === 'home' && (
+      {!isLoading && !showLangSelector && !policyType && currentView !== 'quote' && (
         <MobileConversionBar language={language} />
       )}
     </div>

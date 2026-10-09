@@ -57,7 +57,7 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
         {/* Glow Effect */}
         <div className="absolute -inset-4 bg-whatsapp-green/20 blur-3xl rounded-full"></div>
         
-        <div className="relative bg-brand-dark/95 border border-whatsapp-green/40 backdrop-blur-2xl rounded-[2.5rem] p-10 md:p-12 shadow-[0_0_100px_rgba(37,211,102,0.25)] text-center overflow-hidden">
+        <div className="relative bg-brand-dark/95 border border-whatsapp-green/40 backdrop-blur-2xl rounded-[.55rem] p-10 md:p-12 shadow-[0_0_100px_rgba(37,211,102,0.25)] text-center overflow-hidden">
           {/* Subtle line at top */}
           <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-whatsapp-green to-transparent"></div>
 
@@ -86,7 +86,7 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
             </div>
           </div>
 
-          <h3 className="text-2xl md:text-3xl font-black mb-4 text-brand-light tracking-tight leading-tight">
+          <h3 className="text-2xl md:text-3xl font-medium mb-4 text-brand-light tracking-tight leading-tight">
             {title}
           </h3>
           
@@ -100,7 +100,7 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleClose}
-              className="flex items-center justify-center w-full py-5 px-8 bg-whatsapp-green text-white font-black text-sm uppercase tracking-[0.2em] rounded-2xl hover:brightness-110 transition-all duration-300 transform hover:scale-[1.03] active:scale-95 shadow-xl shadow-whatsapp-green/30"
+              className="flex items-center justify-center w-full py-5 px-8 bg-whatsapp-green text-white font-medium text-sm uppercase tracking-[0.2em] rounded-lg hover:brightness-110 transition-all duration-300 transform hover:scale-[1.03] active:scale-95 shadow-xl shadow-whatsapp-green/30"
             >
               {btnLabel}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 rtl:rotate-180" viewBox="0 0 20 20" fill="currentColor">
@@ -110,7 +110,7 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
             
             <button 
               onClick={handleClose}
-              className="text-[10px] font-black tracking-[0.4em] text-brand-gray/50 uppercase hover:text-brand-light transition-colors py-2"
+              className="text-[10px] font-medium tracking-[0.4em] text-brand-gray/50 uppercase hover:text-brand-light transition-colors py-2"
             >
               Fermer l'offre
             </button>

@@ -35,7 +35,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
     <section ref={ref} id="etudes-de-cas" className={`iv-work-scene ${visible ? 'is-visible' : ''}`}>
       <div className="iv-work-scene-sticky">
         <div className="iv-section-topline"><span>{t.label}</span></div>
-        <div className="iv-work-scene-heading"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{t.title[1]}</span></h2></div><div className="iv-work-scene-intro"><p>{t.body}</p><button type="button" className="iv-work-simple-cta" onClick={onQuoteClick}><span>{t.quote}</span><b aria-hidden="true">↗</b></button></div></div>
+        <div className="iv-work-scene-heading iv-reveal"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{t.title[1]}</span></h2></div><div className="iv-work-scene-intro"><p>{t.body}</p><button type="button" className="iv-work-simple-cta" onClick={onQuoteClick}><span>{t.quote}</span><b aria-hidden="true">↗</b></button></div></div>
         <div className="iv-work-marquee" aria-label={t.scroll}>
           <div className="iv-work-marquee-track">
             {[0, 1].map((set) => <div className="iv-work-marquee-set" key={set} aria-hidden={set === 1}>

@@ -34,20 +34,20 @@ const ServiceComparator: React.FC<{ language: Language; onQuoteClick: () => void
       <div className="container">
         <div className="max-w-3xl mb-12">
           <div className="sketch-badge mb-6">{t.eyebrow}</div>
-          <h2 className="text-[clamp(2.5rem,7vw,7rem)] font-black tracking-tighter leading-[0.88] text-navy dark:text-white uppercase">{t.title}<br /><span className="text-brand-blue">{t.accent}</span></h2>
+          <h2 className="text-[clamp(2.5rem,7vw,7rem)] font-medium tracking-[-0.02em] leading-[0.88] text-navy dark:text-white uppercase">{t.title}<br /><span className="text-brand-blue">{t.accent}</span></h2>
           <p className="mt-8 max-w-xl text-lg md:text-xl text-brand-gray dark:text-brand-gray/80 leading-relaxed">{t.intro}</p>
         </div>
         <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-none" role="tablist" aria-label={t.title}>
           {SERVICES.map(service => (
-            <button key={service.id} type="button" role="tab" aria-selected={activeId === service.id} onClick={() => { setActiveId(service.id); trackEvent('service_comparison_view', { service: service.id }); }} className={`shrink-0 rounded-full px-5 py-3 text-[10px] font-black uppercase tracking-widest border transition-all ${activeId === service.id ? 'bg-brand-blue text-white border-brand-blue' : 'border-navy/10 dark:border-white/10 text-navy dark:text-white hover:border-brand-blue/50'}`}>
+            <button key={service.id} type="button" role="tab" aria-selected={activeId === service.id} onClick={() => { setActiveId(service.id); trackEvent('service_comparison_view', { service: service.id }); }} className={`shrink-0 rounded-full px-5 py-3 text-[10px] font-medium uppercase tracking-widest border transition-all ${activeId === service.id ? 'bg-brand-blue text-white border-brand-blue' : 'border-navy/10 dark:border-white/10 text-navy dark:text-white hover:border-brand-blue/50'}`}>
               {text(service.name)}
             </button>
           ))}
         </div>
         <div className="mt-6 grid md:grid-cols-3 gap-5" role="tabpanel">
-          <div className="p-7 rounded-[2rem] bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10"><p className="text-[10px] uppercase font-black tracking-widest text-brand-blue mb-4">{t.goal}</p><p className="text-xl font-black text-navy dark:text-white leading-tight">{text(active.goal)}</p></div>
-          <div className="p-7 rounded-[2rem] bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10"><p className="text-[10px] uppercase font-black tracking-widest text-brand-blue mb-4">{t.forWho}</p><p className="text-xl font-black text-navy dark:text-white leading-tight">{text(active.forWho)}</p></div>
-          <div className="p-7 rounded-[2rem] bg-brand-blue text-white"><p className="text-[10px] uppercase font-black tracking-widest text-white/70 mb-4">{t.included}</p><ul className="space-y-3">{active.deliverables.map(item => <li key={item.fr} className="flex gap-2 font-bold"><span aria-hidden="true">✓</span>{text(item)}</li>)}</ul></div>
+          <div className="p-7 rounded-[.55rem] bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10"><p className="text-[10px] uppercase font-medium tracking-widest text-brand-blue mb-4">{t.goal}</p><p className="text-xl font-medium text-navy dark:text-white leading-tight">{text(active.goal)}</p></div>
+          <div className="p-7 rounded-[.55rem] bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10"><p className="text-[10px] uppercase font-medium tracking-widest text-brand-blue mb-4">{t.forWho}</p><p className="text-xl font-medium text-navy dark:text-white leading-tight">{text(active.forWho)}</p></div>
+          <div className="p-7 rounded-[.55rem] bg-brand-blue text-white"><p className="text-[10px] uppercase font-medium tracking-widest text-white/70 mb-4">{t.included}</p><ul className="space-y-3">{active.deliverables.map(item => <li key={item.fr} className="flex gap-2 font-bold"><span aria-hidden="true">✓</span>{text(item)}</li>)}</ul></div>
         </div>
         <button type="button" onClick={() => { trackEvent('service_comparison_quote_click', { service: active.id }); onQuoteClick(); }} className="btn-ivision mt-8">{t.quote} <span aria-hidden="true">→</span></button>
       </div>

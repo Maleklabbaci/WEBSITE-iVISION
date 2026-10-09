@@ -72,11 +72,11 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ phoneNumber, message })
         transition: isDragging ? 'none' : 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
         touchAction: 'none'
       }}
-      className="fixed z-[90] group cursor-pointer hidden sm:block"
+      className="fixed z-[90] group cursor-pointer hidden lg:block"
       aria-label="Contactez-nous sur WhatsApp"
     >
-      <div className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-white dark:bg-navy border border-navy/10 dark:border-white/10 rounded-xl whitespace-nowrap shadow-xl opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hidden md:block pointer-events-none">
-        <span className="text-[10px] font-black uppercase tracking-widest text-brand-blue">Discuter avec un expert</span>
+      <div className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-white dark:bg-navy border border-navy/10 dark:border-white/10 rounded-lg whitespace-nowrap shadow-xl opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hidden md:block pointer-events-none">
+        <span className="text-[10px] font-medium uppercase tracking-widest text-brand-blue">Discuter avec un expert</span>
         <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-white dark:bg-navy border-r border-b border-navy/10 dark:border-white/10 rotate-45 -translate-y-1"></div>
       </div>
 

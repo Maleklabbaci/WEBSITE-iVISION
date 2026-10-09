@@ -14,22 +14,24 @@ module.exports = {
       padding: {
         DEFAULT: '1.25rem',
         md: '2rem',
-        lg: '8rem',
+        lg: '4.5rem',
       },
     },
     extend: {
       colors: {
-        navy: '#0B1533',
-        'brand-blue': '#5B5CFF',
-        'brand-white': '#F8FAFF',
-        'brand-gray': '#718096',
-        'brand-dark': '#0B1533',
-        'brand-accent': '#20D9C3',
-        'brand-paper': '#F5F7FB',
-        'brand-border': 'rgba(11,21,51,0.10)',
+        // ===== Palette éditoriale monochrome "iVISION" — crème chaud + noir d'encre =====
+        navy: '#14120f',                    // = encre (texte principal / fond sombre)
+        'brand-blue': '#14120f',            // accent = encre (boutons noirs, mots d'accent)
+        'brand-white': '#fbf8f2',           // = papier ivoire
+        'brand-gray': '#6b6259',            // gris chaud, lisible sur crème
+        'brand-dark': '#14120f',
+        'brand-accent': '#55504a',          // graphite chaud (secondaire)
+        'brand-paper': '#fbf8f2',
+        'brand-border': 'rgba(20,18,15,0.12)',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Jost', 'system-ui', 'sans-serif'],
+        display: ['"Bodoni Moda"', 'Times New Roman', 'serif'],
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',

@@ -9,6 +9,8 @@ export default defineConfig({
   server: {
     port: 3000,
     host: '0.0.0.0',
+    // Autoriser les aperçus proxys (type *.e2b.app) en plus de localhost.
+    allowedHosts: ['.e2b.app'],
   },
   plugins: [react()],
   resolve: {

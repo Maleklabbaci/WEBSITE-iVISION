@@ -51,7 +51,7 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
       <div className="container mx-auto px-6">
         <div className={`text-center mb-20 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="uni-badge mb-6">Expertise Agency</div>
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">
+          <h2 className="text-4xl md:text-6xl font-medium uppercase tracking-[-0.02em] mb-6">
             Pourquoi <span className="text-brand-accent">iVISION ?</span>
           </h2>
           <p className="text-brand-gray text-lg md:text-xl max-w-2xl mx-auto font-medium opacity-80">
@@ -67,12 +67,12 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
               className={`uni-card p-10 flex flex-col items-center text-center cursor-pointer group transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <div className="text-brand-accent mb-8 p-4 bg-brand-accent/10 rounded-2xl group-hover:bg-brand-accent/20 transition-colors">
+              <div className="text-brand-accent mb-8 p-4 bg-brand-accent/10 rounded-lg group-hover:bg-brand-accent/20 transition-colors">
                   {icons[index]}
               </div>
-              <h3 className="text-xl md:text-2xl font-black text-white mb-4 uppercase tracking-tighter group-hover:text-brand-accent transition-colors">{point.title}</h3>
+              <h3 className="text-xl md:text-2xl font-medium text-white mb-4 uppercase tracking-[-0.02em] group-hover:text-brand-accent transition-colors">{point.title}</h3>
               <p className="text-brand-gray text-sm md:text-base leading-relaxed font-medium opacity-80">{point.description}</p>
-              <div className="mt-8 text-brand-accent text-[8px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all">Détails</div>
+              <div className="mt-8 text-brand-accent text-[8px] font-medium uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all">Détails</div>
             </div>
           ))}
         </div>
@@ -81,7 +81,7 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
       {/* SECTION 2 : ILS NOUS FONT CONFIANCE & PORTFOLIO */}
       <div className="container mx-auto px-6 mt-32">
         <div className={`text-center mb-16 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '300ms' }}>
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4 text-white">
+          <h2 className="text-4xl md:text-5xl font-medium uppercase tracking-[-0.02em] mb-4 text-white">
             Ils nous font <span className="text-brand-accent">confiance</span>
           </h2>
         </div>
@@ -102,7 +102,7 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
              <img loading="lazy" decoding="async" src="https://i.ibb.co/60PJ8PVw/aass.png" alt="MOVESMART" className="max-h-full opacity-50 group-hover:opacity-5 grayscale group-hover:grayscale-0 transition-all duration-500" />
              
              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 text-center px-2">
-                <span className="font-black text-white text-base md:text-lg tracking-wider mb-1">MOVESMART</span>
+                <span className="font-medium text-white text-base md:text-lg tracking-wider mb-1">MOVESMART</span>
                 <span className="text-[8px] md:text-[9px] text-brand-accent font-bold uppercase tracking-widest leading-tight">
                   Branding • UI/UX<br/>Plateforme • Dev
                 </span>
@@ -115,7 +115,7 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ translations, onQuoteClick })
             href="https://drive.google.com/drive/u/0/folders/18Va6uCP-dukdpxWcPG9AYn_DKfTCgzLp" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="group flex items-center justify-center gap-4 bg-brand-accent text-white font-black px-12 py-5 rounded-xl hover:shadow-[0_0_30px_rgba(0,51,255,0.4)] transition-all hover:-translate-y-1 uppercase tracking-wider text-sm"
+            className="group flex items-center justify-center gap-4 bg-brand-accent text-white font-medium px-12 py-5 rounded-lg hover:shadow-[0_0_30px_rgba(0,51,255,0.4)] transition-all hover:-translate-y-1 uppercase tracking-wider text-sm"
           >
             Consulter notre Portfolio
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
