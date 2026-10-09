@@ -14,22 +14,24 @@ module.exports = {
       padding: {
         DEFAULT: '1.25rem',
         md: '2rem',
-        lg: '8rem',
+        lg: '4.5rem',
       },
     },
     extend: {
       colors: {
-        navy: '#0B1533',
-        'brand-blue': '#5B5CFF',
-        'brand-white': '#F8FAFF',
-        'brand-gray': '#718096',
-        'brand-dark': '#0B1533',
-        'brand-accent': '#20D9C3',
-        'brand-paper': '#F5F7FB',
-        'brand-border': 'rgba(11,21,51,0.10)',
+        // ===== Palette unique "iVISION" (source : design system iv-* de index.html) =====
+        navy: '#0f1213',                    // = --iv-black (fond principal)
+        'brand-blue': '#ff390c',            // = --iv-orange / --iv-magenta (accent signature)
+        'brand-white': '#f6f6f6',           // = --iv-white (texte principal)
+        'brand-gray': '#7c7c79',            // = gris lisible sur fond clair ET sombre
+        'brand-dark': '#0f1213',
+        'brand-accent': '#00674f',          // = --iv-green (accent secondaire)
+        'brand-paper': '#f3f3f3',           // = --iv-paper
+        'brand-border': 'rgba(15,18,19,0.10)',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
+        display: ['Geist', '"Open Sans"', 'sans-serif'],
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',

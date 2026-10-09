@@ -91,7 +91,7 @@ const ServicePage = ({ slug }: Props) => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-transparent transition-colors duration-500">
+    <div className="min-h-screen bg-brand-paper dark:bg-transparent transition-colors duration-500">
 
       {/* ===== HERO ===== */}
       <section className="pt-32 md:pt-44 pb-20 md:pb-32 relative overflow-hidden">

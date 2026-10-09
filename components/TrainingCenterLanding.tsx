@@ -406,7 +406,7 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
 
   if (status === 'done') {
     return (
-      <div className="min-h-screen bg-white dark:bg-transparent flex items-center justify-center p-8 transition-colors duration-500">
+      <div className="min-h-screen bg-brand-paper dark:bg-transparent flex items-center justify-center p-8 transition-colors duration-500">
         <div className={`text-center animate-scale-in max-w-lg ${isRtl ? 'rtl' : ''}`}>
           <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center mb-8 mx-auto text-white shadow-2xl shadow-brand-blue/30">
             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
@@ -421,7 +421,7 @@ const PricingQuoteForm: React.FC<{ selectedPack: string; onBack: () => void; lan
   }
 
   return (
-    <div className={`min-h-screen bg-white dark:bg-transparent transition-colors duration-500 py-24 md:py-32 ${isRtl ? 'rtl' : ''}`}>
+    <div className={`min-h-screen bg-brand-paper dark:bg-transparent transition-colors duration-500 py-24 md:py-32 ${isRtl ? 'rtl' : ''}`}>
       <div className="container max-w-2xl">
         <button onClick={onBack} className="mb-12 text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
           <svg className={`w-5 h-5 transition-transform ${isRtl ? 'group-hover:translate-x-1 rotate-180' : 'group-hover:-translate-x-1'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
@@ -561,7 +561,7 @@ const TrainingCenterLanding: React.FC<Props> = ({ language: lang }) => {
   if (selectedPack) return <PricingQuoteForm selectedPack={selectedPack} onBack={() => setSelectedPack(null)} lang={lang} />;
 
   return (
-    <div className={`min-h-screen bg-white dark:bg-transparent transition-colors duration-500 overflow-x-hidden ${isRtl ? 'rtl' : ''}`}>
+    <div className={`min-h-screen bg-brand-paper dark:bg-transparent transition-colors duration-500 overflow-x-hidden ${isRtl ? 'rtl' : ''}`}>
       <section className="relative min-h-screen pt-36 pb-24 px-6 flex items-center">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-blue/10 blur-[150px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-brand-blue/5 blur-[120px] rounded-full pointer-events-none" />
