@@ -30,14 +30,13 @@ const BlogList = () => {
     <section className="min-h-screen pt-32 pb-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16 iv-reveal">
-          <span className="text-brand-blue text-sm font-semibold tracking-widest uppercase">
-            Notre Blog
-          </span>
-          <h1 className="text-4xl md:text-6xl font-medium text-navy dark:text-white mt-4 mb-6 tracking-[-0.02em]">
+        <div className="mb-14 iv-reveal">
+          <div className="iv-section-topline" style={{ padding: '1.5rem 0', marginBottom: '1.8rem' }}><span>Blog</span></div>
+          <span className="iv-label">Selected insights</span>
+          <h1 className="text-[clamp(2.6rem,6vw,5.6rem)] font-medium text-navy dark:text-white mb-6 tracking-[-0.02em] leading-[.98]">
             Insights & <span className="text-brand-blue">Stratégies</span>
           </h1>
-          <p className="text-brand-gray dark:text-brand-gray/80 text-lg max-w-2xl mx-auto">
+          <p className="text-brand-gray dark:text-brand-gray/80 text-lg max-w-2xl">
             Guides pratiques, analyses et conseils pour développer votre business en ligne en Algérie.
           </p>
         </div>
@@ -49,15 +48,15 @@ const BlogList = () => {
             placeholder="Rechercher un article..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-lg px-5 py-3 text-navy dark:text-white placeholder-brand-gray/50 focus:outline-none focus:border-brand-blue transition"
+            className="flex-1 bg-transparent border-0 border-b border-navy/20 rounded-none px-0 py-3 text-navy dark:text-white placeholder-brand-gray/50 focus:outline-none focus:border-navy transition"
           />
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition ${
+              className={`px-3.5 py-2 rounded-none text-[11px] font-bold uppercase tracking-[.12em] border transition ${
                 selectedCategory === 'all'
-                  ? 'bg-brand-blue text-white'
-                  : 'bg-navy/5 dark:bg-white/5 text-brand-gray hover:bg-navy/10 dark:hover:bg-white/10'
+                  ? 'bg-brand-blue text-white border-brand-blue'
+                  : 'border-navy/15 text-brand-gray hover:border-navy/50 hover:text-navy'
               }`}
             >
               Tous
@@ -114,7 +113,7 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
   return (
     <article
       onClick={() => (window.location.hash = `/blog/${post.slug}`)}
-      className="group iv-reveal bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[2rem] overflow-hidden cursor-pointer hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="group iv-reveal bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[.55rem] overflow-hidden cursor-pointer hover:border-navy/30 hover:shadow-[0_1rem_2.5rem_rgba(20,18,15,.08)] transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image placeholder */}
      <div className="h-48 overflow-hidden">
@@ -127,14 +126,14 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
       <div className="p-6">
         {/* Category + Read Time */}
         <div className="flex items-center justify-between mb-3">
-          <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${categoryColors[post.category] || 'bg-navy/5 dark:bg-white/10 text-brand-gray'}`}>
+          <span className="px-2.5 py-1 rounded-none text-[10px] font-bold uppercase tracking-[.14em] border border-navy/10 text-brand-gray">
             {post.category}
           </span>
           <span className="text-brand-gray/60 text-xs">{post.readTime}</span>
         </div>
 
         {/* Title */}
-        <h2 className="text-navy dark:text-white font-bold text-lg mb-2 group-hover:text-brand-blue transition line-clamp-2">
+        <h2 className="text-navy dark:text-white font-medium text-xl tracking-[-0.01em] mb-2 group-hover:text-brand-blue transition line-clamp-2">
           {post.title}
         </h2>
 
