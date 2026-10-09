@@ -65,16 +65,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isVisible, index, on
         <div className="p-6">
             <div className="grid grid-cols-2 gap-3 mb-6">
                 {project.results.map((stat, i) => (
-                    <div key={i} className="bg-brand-dark/60 border border-brand-border/40 rounded-xl p-3 flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:border-brand-accent/20">
+                    <div key={i} className="bg-brand-dark/60 border border-brand-border/40 rounded-lg p-3 flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:border-brand-accent/20">
                         <div className="flex items-center">
                             {getIconForLabel(stat.label)}
-                            <span className="text-lg font-black text-brand-light">{stat.value}</span>
+                            <span className="text-lg font-medium text-brand-light">{stat.value}</span>
                         </div>
                         <p className="text-[8px] uppercase tracking-wider font-bold text-brand-gray mt-1">{stat.label}</p>
                     </div>
                 ))}
             </div>
-            <button onClick={onCtaClick} className="w-full text-center text-brand-accent font-black py-3 px-4 rounded-xl hover:bg-brand-accent/10 transition-all duration-300 flex items-center justify-center group/cta border border-brand-accent/10 hover:border-brand-accent uppercase tracking-widest text-[9px]">
+            <button onClick={onCtaClick} className="w-full text-center text-brand-accent font-medium py-3 px-4 rounded-lg hover:bg-brand-accent/10 transition-all duration-300 flex items-center justify-center group/cta border border-brand-accent/10 hover:border-brand-accent uppercase tracking-widest text-[9px]">
                 <span>{project.cta}</span>
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1.5 transition-transform duration-300 group-hover/cta:translate-x-1 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </button>
@@ -105,7 +105,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ translations, onQuoteClick }) => 
     <section id="portfolio" ref={sectionRef} className="py-24 bg-transparent text-brand-light scroll-mt-24">
       <div className="container">
         <div className={`text-center mb-16 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">{translations.title}</h2>
+          <h2 className="text-2xl md:text-3xl font-medium uppercase tracking-tight">{translations.title}</h2>
           <p className="text-base text-brand-gray mt-3 max-w-xl mx-auto font-medium">{translations.subtitle}</p>
           <div className="w-16 h-0.5 bg-brand-accent mx-auto mt-6 rounded-full"></div>
         </div>

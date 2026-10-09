@@ -38,7 +38,7 @@ const InfoModal: React.FC<InfoModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="relative bg-[#0D0D0D] border border-white/10 p-8 md:p-12 max-w-2xl w-full rounded-2xl shadow-2xl">
+      <div className="relative bg-[#0D0D0D] border border-white/10 p-8 md:p-12 max-w-2xl w-full rounded-lg shadow-2xl">
         <button 
           onClick={onClose}
           className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors"
@@ -53,7 +53,7 @@ const InfoModal: React.FC<InfoModalProps> = ({
             {icon || null}
           </div>
           
-          <h2 className="text-3xl font-black text-white mb-4 tracking-tight">
+          <h2 className="text-3xl font-medium text-white mb-4 tracking-tight">
             {title || ''}
           </h2>
           

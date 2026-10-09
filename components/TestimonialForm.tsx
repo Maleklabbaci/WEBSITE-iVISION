@@ -79,8 +79,8 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ translations }) => {
     }
   };
 
-  const labelClass = "block text-[10px] font-black uppercase tracking-widest text-brand-gray mb-2 ms-1 text-start";
-  const inputClass = "w-full p-4 bg-brand-dark/50 border border-brand-border rounded-xl focus:ring-1 focus:ring-brand-accent transition-all text-xs text-start rtl:text-right outline-none";
+  const labelClass = "block text-[10px] font-medium uppercase tracking-widest text-brand-gray mb-2 ms-1 text-start";
+  const inputClass = "w-full p-4 bg-brand-dark/50 border border-brand-border rounded-lg focus:ring-1 focus:ring-brand-accent transition-all text-xs text-start rtl:text-right outline-none";
 
   return (
     <section className="py-12 md:py-20 animate-fade-in-up">
@@ -91,13 +91,13 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ translations }) => {
                <div className="mx-auto bg-brand-accent/20 text-brand-accent w-20 h-20 rounded-full flex items-center justify-center mb-8 scale-in">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                </div>
-              <h3 className="text-3xl font-black mb-4 tracking-tight uppercase">{translations.success}</h3>
-              <a href="#accueil" className="mt-12 inline-block bg-brand-accent text-brand-dark font-black py-4 px-12 rounded-2xl transition-all shadow-xl shadow-brand-accent/20 uppercase tracking-widest text-xs">Accueil</a>
+              <h3 className="text-3xl font-medium mb-4 tracking-tight uppercase">{translations.success}</h3>
+              <a href="#accueil" className="mt-12 inline-block bg-brand-accent text-brand-dark font-medium py-4 px-12 rounded-lg transition-all shadow-xl shadow-brand-accent/20 uppercase tracking-widest text-xs">Accueil</a>
             </div>
           ) : (
             <>
               <div className="mb-12 text-center">
-                <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tighter uppercase">{translations.title}</h2>
+                <h2 className="text-3xl md:text-5xl font-medium mb-4 tracking-[-0.02em] uppercase">{translations.title}</h2>
                 <div className="w-16 h-0.5 bg-brand-accent mx-auto rounded-full opacity-50"></div>
               </div>
 
@@ -134,7 +134,7 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ translations }) => {
 
                   <div>
                     <div className="flex justify-between items-center mb-2 ms-1">
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-brand-gray">{translations.messageLabel}</label>
+                        <label className="block text-[10px] font-medium uppercase tracking-widest text-brand-gray">{translations.messageLabel}</label>
                         <span className={`text-[10px] font-bold ${message.length > 90 ? 'text-brand-accent' : 'text-brand-gray'}`}>
                             {message.length}/100
                         </span>
@@ -154,7 +154,7 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ translations }) => {
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full md:w-auto min-w-[200px] bg-brand-accent text-brand-dark font-black py-4 px-10 rounded-2xl uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-brand-accent/20"
+                    className="w-full md:w-auto min-w-[200px] bg-brand-accent text-brand-dark font-medium py-4 px-10 rounded-lg uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-brand-accent/20"
                   >
                     {isSubmitting ? '...' : translations.cta}
                   </button>

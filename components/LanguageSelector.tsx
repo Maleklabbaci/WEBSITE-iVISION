@@ -83,14 +83,14 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelectLanguage })
                 {lang.icon}
                 <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/10 rounded-full transition-all duration-500"></div>
               </div>
-              <span className="text-[11px] font-black text-brand-gray group-hover:text-brand-blue transition-colors">
+              <span className="text-[11px] font-medium text-brand-gray group-hover:text-brand-blue transition-colors">
                 {lang.label}
               </span>
             </button>
           ))}
         </div>
 
-        <p className="mt-14 text-center text-[11px] uppercase text-brand-gray/30 font-black">
+        <p className="mt-14 text-center text-[11px] uppercase text-brand-gray/30 font-medium">
           SÉLECTION DU TERMINAL
         </p>
       </div>

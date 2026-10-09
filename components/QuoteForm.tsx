@@ -207,7 +207,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
           <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center mb-8 mx-auto text-white shadow-2xl shadow-brand-blue/30">
             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
           </div>
-          <h2 className="text-4xl font-black mb-4 text-navy dark:text-white uppercase tracking-tighter">{labels.successTitle}</h2>
+          <h2 className="text-4xl font-medium mb-4 text-navy dark:text-white uppercase tracking-[-0.02em]">{labels.successTitle}</h2>
           <p className="text-brand-gray text-lg font-medium mb-10 opacity-80 leading-relaxed">{labels.successMessage}</p>
           <button onClick={() => window.location.hash = ''} className="btn-ivision w-full py-5">{labels.backToHome}</button>
         </div>
@@ -215,9 +215,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     );
   }
 
-  const inputClass = "w-full p-6 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-navy dark:text-white font-bold text-lg placeholder:opacity-30";
+  const inputClass = "w-full p-6 bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-lg focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/5 transition-all outline-none text-navy dark:text-white font-bold text-lg placeholder:opacity-30";
   const labelClass = "block text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-blue mb-4 ml-2";
-  const cardClass = (selected: boolean) => `relative p-6 rounded-2xl border-2 transition-all cursor-pointer flex flex-col items-start justify-between h-full group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`;
+  const cardClass = (selected: boolean) => `relative p-6 rounded-lg border-2 transition-all cursor-pointer flex flex-col items-start justify-between h-full group ${selected ? 'bg-brand-blue/10 border-brand-blue shadow-lg shadow-brand-blue/10' : 'bg-navy/5 dark:bg-white/5 border-navy/5 dark:border-white/5 hover:border-brand-blue/30'}`;
   const handleCardKeyDown = (event: React.KeyboardEvent, action: () => void) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -231,7 +231,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
         <div className="mb-12 flex items-center justify-between">
           <button onClick={handleBack} className="text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors flex items-center gap-2 group">
             <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-            <span className="text-[10px] font-black tracking-widest uppercase">{labels.back}</span>
+            <span className="text-[10px] font-medium tracking-widest uppercase">{labels.back}</span>
           </button>
           <div className="flex gap-2 w-40">
             {[1, 2, 3, 4, 5].map(i => (
@@ -572,35 +572,35 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                   </div>
                 </div>
 
-                <div className="bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl p-8 space-y-6">
+                <div className="bg-navy/5 dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-lg p-8 space-y-6">
                   <div className="text-center mb-8">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue mb-2">{labels.summaryLabel}</p>
-                    <h3 className="text-2xl font-black text-navy dark:text-white">{formData.company}</h3>
+                    <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-brand-blue mb-2">{labels.summaryLabel}</p>
+                    <h3 className="text-2xl font-medium text-navy dark:text-white">{formData.company}</h3>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
                     <div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{labels.contactInfoLabel}</p>
+                      <p className="text-[8px] font-medium uppercase tracking-widest text-brand-blue/60 mb-1">{labels.contactInfoLabel}</p>
                       <p className="text-navy dark:text-white font-bold">{formData.name}</p>
                       <p className="text-navy/60 dark:text-white/60">{formData.phone}{formData.email ? ` • ${formData.email}` : ''}</p>
                     </div>
                     <div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{labels.profileLabel}</p>
+                      <p className="text-[8px] font-medium uppercase tracking-widest text-brand-blue/60 mb-1">{labels.profileLabel}</p>
                       <p className="text-navy dark:text-white font-bold">{formData.businessType === labels.businessTypeOptions[labels.businessTypeOptions.length - 1] ? formData.otherBusinessType : formData.businessType}</p>
                       <p className="text-navy/60 dark:text-white/60">{formData.businessAge} • {formData.hasPaidAds}</p>
                     </div>
                     <div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{labels.needLabel}</p>
+                      <p className="text-[8px] font-medium uppercase tracking-widest text-brand-blue/60 mb-1">{labels.needLabel}</p>
                       <p className="text-navy dark:text-white font-bold truncate">{formData.problems.join(', ')}</p>
                     </div>
                     <div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-1">{labels.engagementLabel}</p>
+                      <p className="text-[8px] font-medium uppercase tracking-widest text-brand-blue/60 mb-1">{labels.engagementLabel}</p>
                       <p className="text-navy dark:text-white font-bold">{formData.timeline} • {formData.budget}</p>
                     </div>
                   </div>
 
                   <div className="pt-6 border-t border-navy/10 dark:border-white/10">
-                    <p className="text-[8px] font-black uppercase tracking-widest text-brand-blue/60 mb-2">{labels.projectDetailsLabel}</p>
+                    <p className="text-[8px] font-medium uppercase tracking-widest text-brand-blue/60 mb-2">{labels.projectDetailsLabel}</p>
                     <p className="text-navy dark:text-white text-sm leading-relaxed opacity-80">{formData.projectDescription}</p>
                   </div>
                 </div>
@@ -616,7 +616,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                 </label>
 
                 {status === 'error' && (
-                  <div role="alert" aria-live="polite" className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold text-center">
+                  <div role="alert" aria-live="polite" className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500 text-sm font-bold text-center">
                     {formData.privacyConsent ? labels.networkError : 'Veuillez accepter l’utilisation de vos informations pour continuer.'}
                   </div>
                 )}

@@ -46,10 +46,10 @@ const VisualCard: React.FC<{ item: ShowcaseItem; index: number; isVisible: boole
 
       <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end bg-gradient-to-t from-navy via-navy/60 to-transparent">
         <div className="space-y-4 md:space-y-6 transform md:translate-y-6 group-hover:translate-y-0 transition-all duration-700 ease-out">
-          <div className="inline-block px-4 py-1.5 md:px-6 md:py-2 bg-brand-blue text-white text-[9px] md:text-[11px] font-black uppercase rounded-xl shadow-lg shadow-brand-blue/30">
+          <div className="inline-block px-4 py-1.5 md:px-6 md:py-2 bg-brand-blue text-white text-[9px] md:text-[11px] font-medium uppercase rounded-lg shadow-lg shadow-brand-blue/30">
             {item.stat}
           </div>
-          <h3 className="text-2xl sm:text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none break-words">
+          <h3 className="text-2xl sm:text-3xl md:text-5xl font-medium text-white uppercase tracking-[-0.02em] leading-none break-words">
             {item.label}
           </h3>
           <p className="text-brand-gray text-sm md:text-lg font-medium opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 max-w-sm">
@@ -90,7 +90,7 @@ const VisualShowcase: React.FC<VisualShowcaseProps> = ({ translations }) => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
             <div className="max-w-4xl">
               <div className="sketch-badge mb-6 md:mb-8">Portefeuille</div>
-              <h2 className="text-[clamp(2rem,6vw,8rem)] font-black text-navy dark:text-white tracking-tighter leading-[1] md:leading-[0.8] uppercase transition-colors duration-500">
+              <h2 className="text-[clamp(2rem,6vw,8rem)] font-medium text-navy dark:text-white tracking-[-0.02em] leading-[1] md:leading-[0.95] uppercase transition-colors duration-500">
                 {words.slice(0, splitIndex).join(' ')} <br className="hidden md:block" />
                 <span className="text-brand-blue">{words.slice(splitIndex).join(' ')}</span>
               </h2>

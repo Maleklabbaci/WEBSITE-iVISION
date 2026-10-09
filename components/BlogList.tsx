@@ -34,7 +34,7 @@ const BlogList = () => {
           <span className="text-brand-blue text-sm font-semibold tracking-widest uppercase">
             Notre Blog
           </span>
-          <h1 className="text-4xl md:text-6xl font-black text-navy dark:text-white mt-4 mb-6 tracking-tighter">
+          <h1 className="text-4xl md:text-6xl font-medium text-navy dark:text-white mt-4 mb-6 tracking-[-0.02em]">
             Insights & <span className="text-brand-blue">Stratégies</span>
           </h1>
           <p className="text-brand-gray dark:text-brand-gray/80 text-lg max-w-2xl mx-auto">
@@ -49,7 +49,7 @@ const BlogList = () => {
             placeholder="Rechercher un article..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl px-5 py-3 text-navy dark:text-white placeholder-brand-gray/50 focus:outline-none focus:border-brand-blue transition"
+            className="flex-1 bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-lg px-5 py-3 text-navy dark:text-white placeholder-brand-gray/50 focus:outline-none focus:border-brand-blue transition"
           />
           <div className="flex flex-wrap gap-2">
             <button

@@ -50,7 +50,7 @@ const BlogPostPage = ({ slug }: Props) => {
     return (
       <section className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-black text-navy dark:text-white mb-4">Article non trouvé</h1>
+          <h1 className="text-4xl font-medium text-navy dark:text-white mb-4">Article non trouvé</h1>
           <p className="text-brand-gray mb-8">Cet article n'existe pas ou a été déplacé.</p>
           <button
             onClick={() => (window.location.hash = '/blog')}
@@ -83,7 +83,7 @@ const BlogPostPage = ({ slug }: Props) => {
             <span className="text-brand-gray/60 text-sm">{post.readTime} de lecture</span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-black text-navy dark:text-white mb-6 leading-tight tracking-tighter">
+          <h1 className="text-3xl md:text-5xl font-medium text-navy dark:text-white mb-6 leading-tight tracking-[-0.02em]">
             {post.title}
           </h1>
 
@@ -113,8 +113,8 @@ const BlogPostPage = ({ slug }: Props) => {
         <article className="mb-16">
           <div
             className="
-              [&_h1]:text-3xl [&_h1]:font-black [&_h1]:text-navy [&_h1]:dark:text-white [&_h1]:mt-12 [&_h1]:mb-6 [&_h1]:tracking-tighter
-              [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-navy [&_h2]:dark:text-white [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:border-b [&_h2]:border-navy/10 [&_h2]:dark:border-white/10 [&_h2]:pb-3 [&_h2]:tracking-tighter
+              [&_h1]:text-3xl [&_h1]:font-medium [&_h1]:text-navy [&_h1]:dark:text-white [&_h1]:mt-12 [&_h1]:mb-6 [&_h1]:tracking-[-0.02em]
+              [&_h2]:text-2xl [&_h2]:font-medium [&_h2]:text-navy [&_h2]:dark:text-white [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:border-b [&_h2]:border-navy/10 [&_h2]:dark:border-white/10 [&_h2]:pb-3 [&_h2]:tracking-[-0.02em]
               [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-navy [&_h3]:dark:text-white [&_h3]:mt-8 [&_h3]:mb-3
               [&_p]:text-brand-gray [&_p]:dark:text-brand-gray/80 [&_p]:leading-relaxed [&_p]:mb-4
               [&_ul]:text-brand-gray [&_ul]:dark:text-brand-gray/80 [&_ul]:space-y-2 [&_ul]:mb-4 [&_ul]:ml-5 [&_ul]:list-disc
@@ -124,7 +124,7 @@ const BlogPostPage = ({ slug }: Props) => {
               [&_a]:text-brand-blue [&_a]:underline [&_a]:hover:opacity-80
               [&_blockquote]:border-l-4 [&_blockquote]:border-brand-blue [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-brand-gray
               [&_code]:bg-navy/5 [&_code]:dark:bg-white/10 [&_code]:px-2 [&_code]:py-1 [&_code]:rounded [&_code]:text-brand-blue [&_code]:text-sm
-              [&_pre]:bg-navy/5 [&_pre]:dark:bg-white/5 [&_pre]:border [&_pre]:border-navy/10 [&_pre]:dark:border-white/10 [&_pre]:rounded-2xl [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:mb-6
+              [&_pre]:bg-navy/5 [&_pre]:dark:bg-white/5 [&_pre]:border [&_pre]:border-navy/10 [&_pre]:dark:border-white/10 [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:mb-6
               [&_pre_code]:bg-transparent [&_pre_code]:p-0
               [&_table]:w-full [&_table]:mb-6
               [&_th]:text-left [&_th]:text-navy [&_th]:dark:text-white [&_th]:p-3 [&_th]:border-b [&_th]:border-navy/20 [&_th]:dark:border-white/20 [&_th]:font-bold
@@ -146,7 +146,7 @@ const BlogPostPage = ({ slug }: Props) => {
 
         {/* CTA */}
         <div className="bg-brand-blue/5 dark:bg-brand-blue/10 border border-brand-blue/20 rounded-[2rem] p-8 text-center mb-16">
-          <h3 className="text-2xl font-black text-navy dark:text-white mb-3 tracking-tighter">
+          <h3 className="text-2xl font-medium text-navy dark:text-white mb-3 tracking-[-0.02em]">
             Besoin d'aide pour votre projet ?
           </h3>
           <p className="text-brand-gray mb-6">
@@ -163,7 +163,7 @@ const BlogPostPage = ({ slug }: Props) => {
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <div>
-            <h3 className="text-2xl font-black text-navy dark:text-white mb-8 tracking-tighter">
+            <h3 className="text-2xl font-medium text-navy dark:text-white mb-8 tracking-[-0.02em]">
               Articles similaires
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
@@ -171,7 +171,7 @@ const BlogPostPage = ({ slug }: Props) => {
                 <article
                   key={rp.id}
                   onClick={() => (window.location.hash = `/blog/${rp.slug}`)}
-                  className="bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-2xl p-5 cursor-pointer hover:border-brand-blue/50 transition group"
+                  className="bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-lg p-5 cursor-pointer hover:border-brand-blue/50 transition group"
                 >
                   <span className="text-xs text-brand-blue font-bold uppercase tracking-wider">{rp.category}</span>
                   <h4 className="text-navy dark:text-white font-bold mt-2 group-hover:text-brand-blue transition line-clamp-2">

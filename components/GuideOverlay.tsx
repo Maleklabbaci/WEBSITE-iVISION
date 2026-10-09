@@ -139,9 +139,9 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
         <div className="bg-white dark:bg-navy p-6 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-navy/10 dark:border-white/10 border-b-4 border-b-brand-blue animate-fade-in-up">
           <div className="flex items-center gap-3 mb-3">
              <div className="w-8 h-8 bg-brand-blue/10 rounded-full flex items-center justify-center text-brand-blue">
-                <span className="text-xs font-black">{currentStep}</span>
+                <span className="text-xs font-medium">{currentStep}</span>
              </div>
-             <h4 className="text-brand-blue text-[10px] font-black uppercase tracking-widest">
+             <h4 className="text-brand-blue text-[10px] font-medium uppercase tracking-widest">
                {stepData.title}
              </h4>
           </div>
@@ -151,13 +151,13 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
           <div className={`flex items-center justify-between ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
              <button 
                onClick={onClose}
-               className="text-[10px] font-black text-navy/40 dark:text-white/40 hover:text-brand-blue uppercase tracking-widest transition-colors px-2 py-1"
+               className="text-[10px] font-medium text-navy/40 dark:text-white/40 hover:text-brand-blue uppercase tracking-widest transition-colors px-2 py-1"
              >
                {t.skip}
              </button>
              <button 
                onClick={nextStep}
-               className="text-[10px] font-black text-brand-blue uppercase tracking-widest hover:translate-x-1 transition-transform flex items-center gap-2"
+               className="text-[10px] font-medium text-brand-blue uppercase tracking-widest hover:translate-x-1 transition-transform flex items-center gap-2"
              >
                {currentStep < stepsCount ? t.next : t.finish}
                <svg className={`w-3 h-3 ${isRtl ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
