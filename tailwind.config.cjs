@@ -19,19 +19,19 @@ module.exports = {
     },
     extend: {
       colors: {
-        // ===== Palette unique "iVISION" (source : design system iv-* de index.html) =====
-        navy: '#0f1213',                    // = --iv-black (fond principal)
-        'brand-blue': '#ff390c',            // = --iv-orange / --iv-magenta (accent signature)
-        'brand-white': '#f6f6f6',           // = --iv-white (texte principal)
-        'brand-gray': '#7c7c79',            // = gris lisible sur fond clair ET sombre
-        'brand-dark': '#0f1213',
-        'brand-accent': '#00674f',          // = --iv-green (accent secondaire)
-        'brand-paper': '#f3f3f3',           // = --iv-paper
-        'brand-border': 'rgba(15,18,19,0.10)',
+        // ===== Palette éditoriale monochrome "iVISION" — crème chaud + noir d'encre =====
+        navy: '#14120f',                    // = encre (texte principal / fond sombre)
+        'brand-blue': '#14120f',            // accent = encre (boutons noirs, mots d'accent)
+        'brand-white': '#fbf8f2',           // = papier ivoire
+        'brand-gray': '#6b6259',            // gris chaud, lisible sur crème
+        'brand-dark': '#14120f',
+        'brand-accent': '#55504a',          // graphite chaud (secondaire)
+        'brand-paper': '#fbf8f2',
+        'brand-border': 'rgba(20,18,15,0.12)',
       },
       fontFamily: {
-        sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
-        display: ['Geist', '"Open Sans"', 'sans-serif'],
+        sans: ['Jost', 'system-ui', 'sans-serif'],
+        display: ['"Bodoni Moda"', 'Times New Roman', 'serif'],
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',

@@ -23,23 +23,24 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
     <style>
       :root {
-        --iv-black: #0f1213;
-        --iv-white: #f6f6f6;
-        --iv-paper: #f3f3f3;
-        --iv-magenta: #ff390c;
-        --iv-orange: #ff390c;
+        /* Palette éditoriale monochrome (mode sombre) — ivoire profond + noir d'encre */
+        --iv-black: #14120f;
+        --iv-white: #f2ede4;
+        --iv-paper: #1e1b17;
+        --iv-magenta: #a69b8b;
+        --iv-orange: #f2ede4;
         --iv-green: #00674f;
-        --iv-line: rgba(246,246,246,0.12);
-        --iv-muted: rgba(246,246,246,0.55);
+        --iv-line: rgba(242,237,228,0.14);
+        --iv-muted: rgba(242,237,228,0.55);
       }
 
       html, body { background: var(--iv-black); color: var(--iv-white); margin: 0; padding: 0; }
-      body { font-family: 'Open Sans', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip; }
-      h1, h2, h3, .iv-font-geist { font-family: 'Geist', sans-serif; font-weight: 500; letter-spacing: -0.06em; }
+      body { font-family: 'Jost', 'Open Sans', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+      h1, h2, h3, .iv-font-geist { font-family: 'Bodoni Moda', 'Times New Roman', serif; font-weight: 500; letter-spacing: -0.02em; }
 
       /* ===== LAYOUT PRIMITIVES ===== */
       .iv-section-topline { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4.8vw; border-bottom: 1px solid var(--iv-line); color: var(--iv-muted); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
@@ -60,7 +61,7 @@
       .iv-hero-date { color: rgba(246,246,246,.76); font-size: 0.62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
       .iv-hero-index { color: rgba(246,246,246,.7); font-size: 0.6rem; font-weight: 700; }
       .iv-hero-main { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; padding: clamp(1.5rem, 5vh, 4rem) 4.8vw 2rem; }
-      .iv-hero-title-wrap h1 { margin: 0; max-width: 90rem; font-size: clamp(3.3rem, 5.6vw, 7.2rem); line-height: .76; letter-spacing: -.095em; font-weight: 400; text-transform: uppercase; }
+      .iv-hero-title-wrap h1 { margin: 0; max-width: 90rem; font-size: clamp(3.3rem, 5.6vw, 7.2rem); line-height: .82; letter-spacing: -.015em; font-weight: 500; text-transform: uppercase; }
       .iv-hero-title-wrap h1 span { display: block; color: var(--iv-white); }
       .iv-hero-title-wrap h1 span:nth-child(2) { margin-left: 12vw; }
       .iv-hero-title-wrap h1 b { color: var(--iv-orange); font-size: .6em; vertical-align: .1em; font-weight: 400; }
@@ -307,7 +308,7 @@
       .iv-mobile-menu { position: fixed; inset: .7rem; z-index: 90; display: none; padding: 7rem 1.2rem 2rem; border: 1px solid rgba(246,246,246,.25); border-radius: 1.4rem; background: rgba(15,18,19,.98); }
       .iv-mobile-menu.is-open { display: block; }
       .iv-mobile-menu nav { display: flex; flex-direction: column; gap: 1.2rem; }
-      .iv-mobile-menu a, .iv-mobile-menu button { color: var(--iv-white); font: inherit; font-family: 'Geist', sans-serif; font-size: clamp(2.6rem, 12vw, 5rem); font-weight: 500; letter-spacing: -.06em; line-height: .9; text-decoration: none; text-transform: uppercase; text-align: left; }
+      .iv-mobile-menu a, .iv-mobile-menu button { color: var(--iv-white); font: inherit; font-family: 'Bodoni Moda', serif; font-size: clamp(2.6rem, 12vw, 5rem); font-weight: 500; letter-spacing: -.02em; line-height: .95; text-decoration: none; text-transform: uppercase; text-align: left; }
       .iv-mobile-menu button { border: 0; padding: 1.5rem 0 0; background: transparent; color: var(--iv-magenta); cursor: pointer; }
 
       .pipam-header { background: transparent !important; border-bottom: 1px solid transparent; transition: all 0.4s ease; }
