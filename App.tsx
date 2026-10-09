@@ -269,7 +269,7 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
         <Footer translations={t.footer} onOpenPolicy={(type) => setPolicyType(type)} />
       </div>
 
-      {!isLoading && !showLangSelector && !policyType && currentView === 'home' && (
+      {!isLoading && !showLangSelector && !policyType && currentView !== 'quote' && (
         <MobileConversionBar language={language} />
       )}
     </div>

@@ -40,7 +40,8 @@ const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations, o
 
       <section id="smm" className="iv-smm">
         <div className="iv-section-topline"><span>{t.smm.label}</span></div>
-        <div className="iv-smm-grid"><div className="iv-smm-heading"><h2>{splitLines(t.smm.title)}</h2><div className="iv-smm-orbit"><b>social<br />systems</b></div></div><div className="iv-smm-copy"><p>{t.smm.body}</p><ol>{t.smm.points.map((point) => <li key={point}><b>{point}</b></li>)}</ol><a href="#services" className="iv-arrow-link"><span>{t.smm.cta}</span><b aria-hidden="true">↗</b></a></div></div>
+        <div className="iv-smm-grid"><div className="iv-smm-heading"><h2>{splitLines(t.smm.title)}</h2><div className="iv-smm-orbit"><span aria-hidden="true">✦</span><b>social<br />systems</b></div></div><div className="iv-smm-copy"><p>{t.smm.body}</p><ol>{t.smm.points.map((point, index) => <li key={point}><span>0{index + 1}</span><b>{point}</b></li>)}</ol><a href="#services" className="iv-arrow-link"><span>{t.smm.cta}</span><b aria-hidden="true">↗</b></a></div></div>
+        <div className="iv-smm-platforms" aria-label="Plateformes gérées"><span>Instagram</span><i aria-hidden="true">✦</i><span>TikTok</span><i aria-hidden="true">✦</i><span>Facebook</span><i aria-hidden="true">✦</i><span>LinkedIn</span><i aria-hidden="true">✦</i><span>YouTube</span><i aria-hidden="true">✦</i><span>Snapchat</span></div>
       </section>
 
       <Services translations={translations.services} onQuoteClick={onQuoteClick} />

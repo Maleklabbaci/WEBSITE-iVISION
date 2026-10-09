@@ -17,6 +17,8 @@
     --iv-paper: #fbf8f2;
     --iv-line: rgba(20, 18, 15, 0.14);
     --iv-muted: rgba(20, 18, 15, 0.55);
+    --iv-orange: #14120f;
+    --iv-magenta: #55504a;
     color-scheme: light;
     background: #f2ede4;
   }
@@ -47,14 +49,27 @@
     background: var(--iv-black);
   }
 
-  html:not(.dark) .iv-header {
-    background: rgba(246, 246, 246, 0.45);
-    border-color: rgba(15, 18, 19, 0.22);
+  /* ===== Header : verre sombre au-dessus du hero, verre crème une fois scrollé =====
+     Les variables suivent l'état : le logo blanc reste lisible sur le hero,
+     puis bascule en noir sur le fond crème au scroll. */
+  html:not(.dark) .iv-header:not(.is-scrolled) {
+    --iv-black: #14120f;
+    --iv-white: #f2ede4;
+    --iv-line: rgba(242, 237, 228, 0.14);
+    --iv-muted: rgba(242, 237, 228, 0.55);
+    --iv-orange: #f2ede4;
+    --iv-magenta: #a69b8b;
+    background: rgba(20, 18, 15, 0.38);
+    border-color: rgba(242, 237, 228, 0.28);
   }
 
   html:not(.dark) .iv-header.is-scrolled {
-    background: rgba(246, 246, 246, 0.88);
-    border-color: rgba(15, 18, 19, 0.18);
+    background: rgba(242, 237, 228, 0.92);
+    border-color: rgba(20, 18, 15, 0.14);
+  }
+
+  html:not(.dark) .iv-header.is-scrolled .iv-logo img {
+    filter: brightness(0);
   }
 
   html:not(.dark) .iv-trust-logo {
@@ -65,9 +80,9 @@
     background: rgba(15, 18, 19, 0.03);
   }
 
-  html:not(.dark) .iv-menu-button {
-    border-color: rgba(15, 18, 19, 0.35);
-    background: rgba(246, 246, 246, 0.5);
+  html:not(.dark) .iv-header.is-scrolled .iv-menu-button {
+    border-color: rgba(20, 18, 15, 0.35);
+    background: rgba(251, 248, 242, 0.55);
   }
 
   html:not(.dark) .iv-mobile-menu {

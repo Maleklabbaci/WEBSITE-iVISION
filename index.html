@@ -57,7 +57,7 @@
       .iv-hero-top, .iv-hero-main { position: relative; z-index: 2; }
       .iv-hero-top { display: flex; justify-content: space-between; align-items: center; padding: 7.5rem 4.8vw 0; color: var(--iv-white); }
       .iv-hero-meta { display: flex; align-items: center; gap: 0.8rem; color: rgba(246,246,246,.82); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
-      .iv-hero-pulse { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--iv-orange); box-shadow: 0 0 0 0.25rem rgba(255,57,12,0.18); }
+      .iv-hero-pulse { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--iv-orange); box-shadow: 0 0 0 0.25rem rgba(20,18,15,0.18); }
       .iv-hero-date { color: rgba(246,246,246,.76); font-size: 0.62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
       .iv-hero-index { color: rgba(246,246,246,.7); font-size: 0.6rem; font-weight: 700; }
       .iv-hero-main { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; padding: clamp(1.5rem, 5vh, 4rem) 4.8vw 2rem; }
@@ -161,7 +161,7 @@
       .iv-work-scene { position: relative; background: var(--iv-black); }
       .iv-work-scene-sticky { box-sizing: border-box; padding: 7.5rem 4.8vw 4.5rem; }
       .iv-work-scene-heading { display: grid; grid-template-columns: 1.05fr .95fr; align-items: end; gap: 6vw; margin: 4rem 0 2.5rem; }
-      .iv-work-scene-heading h2 { margin: 1rem 0 0; font-size: clamp(3rem, 7vw, 8rem); line-height: .76; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
+      .iv-work-scene-heading h2 { margin: 1rem 0 0; font-size: clamp(3rem, 7vw, 8rem); line-height: .84; letter-spacing: -.02em; font-weight: 400; text-transform: uppercase; }
       .iv-work-scene-heading h2 span { display: block; }
       .iv-work-scene-heading h2 span:last-child { color: var(--iv-orange); }
       .iv-work-scene-intro { max-width: 22rem; padding-bottom: .3rem; }
@@ -170,7 +170,7 @@
       .iv-work-marquee-track { display: flex; width: max-content; animation: iv-work-marquee-right 42s linear infinite; will-change: transform; }
       .iv-work-marquee-set { display: flex; flex: 0 0 auto; gap: clamp(1rem, 2vw, 2rem); padding-right: clamp(1rem, 2vw, 2rem); box-sizing: border-box; }
       .iv-work-fixed-card { display: block; flex: 0 0 clamp(18rem, 29vw, 32rem); min-width: 0; color: var(--iv-white); text-decoration: none; }
-      .iv-work-fixed-card:hover .iv-work-float-media { border-color: rgba(255,57,12,.8); transform: translateY(-.35rem); }
+      .iv-work-fixed-card:hover .iv-work-float-media { border-color: rgba(20,18,15,.8); transform: translateY(-.35rem); }
       .iv-work-float-media { transition: border-color .3s ease, transform .3s ease; }
       .iv-work-float-media { position: relative; overflow: hidden; aspect-ratio: 16 / 10; border: 1px solid rgba(246,246,246,.28); border-radius: .65rem; background: #181a18; box-shadow: 0 1.5rem 4rem rgba(0,0,0,.28); }
       .iv-work-float-media::after { display: none; }
@@ -192,7 +192,7 @@
       /* ===== SIMPLE CASE STUDIES ===== */
       .iv-work-simple { border-top: 1px solid var(--iv-line); padding: 7rem 4.8vw 8rem; }
       .iv-work-simple-heading { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 6vw; margin: 5rem 0 4rem; }
-      .iv-work-simple-heading h2 { margin: 1rem 0 0; font-size: clamp(4rem, 9vw, 10rem); line-height: .75; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
+      .iv-work-simple-heading h2 { margin: 1rem 0 0; font-size: clamp(4rem, 9vw, 10rem); line-height: .84; letter-spacing: -.02em; font-weight: 400; text-transform: uppercase; }
       .iv-work-simple-heading h2 span { display: block; }
       .iv-work-simple-heading h2 span:last-child { color: var(--iv-orange); white-space: nowrap; }
       .iv-work-simple-intro { max-width: 24rem; padding-bottom: .5rem; }
@@ -220,7 +220,7 @@
       /* ===== SMM ===== */
       .iv-smm { min-height: 88svh; border-top: 1px solid var(--iv-line); padding: 8rem 4.8vw 7rem; box-sizing: border-box; }
       .iv-smm-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 7vw; align-items: center; min-height: 62vh; }
-      .iv-smm-grid h2 { margin: 0; font-size: clamp(3rem, 6vw, 7rem); line-height: .75; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
+      .iv-smm-grid h2 { margin: 0; font-size: clamp(3rem, 6vw, 7rem); line-height: .84; letter-spacing: -.02em; font-weight: 400; text-transform: uppercase; }
       .iv-smm-grid h2 span { display: block; }
       .iv-smm-grid h2 span:last-child { color: var(--iv-orange); }
       .iv-smm-copy { max-width: 28rem; }
@@ -230,18 +230,22 @@
       .iv-smm-copy li:last-child { border-bottom: 1px solid var(--iv-line); }
       .iv-smm-copy li span { color: var(--iv-orange); font-size: .65rem; }
       .iv-smm-copy li b { font-weight: 500; }
-      .iv-smm-orbit { display: grid; place-items: center; width: min(22vw, 15rem); aspect-ratio: 1; margin: 3rem 0 0 auto; border: 1px solid rgba(255,57,12,.7); border-radius: 50%; color: var(--iv-white); transform: rotate(-12deg); }
-      .iv-smm-orbit span { color: var(--iv-orange); font-family: 'Geist', sans-serif; font-size: 2rem; }
+      .iv-smm-orbit { display: grid; place-items: center; width: min(22vw, 15rem); aspect-ratio: 1; margin: 3rem 0 0 auto; border: 1px solid rgba(20,18,15,.7); border-radius: 50%; color: var(--iv-white); transform: rotate(-12deg); }
+      .iv-smm-orbit span { color: var(--iv-orange); font-family: 'Bodoni Moda', serif; font-size: 2.4rem; line-height: 1; }
       .iv-smm-orbit b { margin-top: -1.5rem; font-size: .58rem; letter-spacing: .16em; line-height: 1.2; text-align: center; text-transform: uppercase; }
+      .iv-smm-heading h2 span:last-child { font-style: italic; }
+      .iv-smm-platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 1.1rem 1.7rem; margin-top: 6rem; padding: 1.7rem 0; border-top: 1px solid var(--iv-line); border-bottom: 1px solid var(--iv-line); font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+      .iv-smm-platforms span { color: var(--iv-white); }
+      .iv-smm-platforms i { color: var(--iv-magenta); font-style: normal; font-size: .65rem; }
 
       /* ===== SERVICES ===== */
       .iv-services { border-top: 1px solid var(--iv-line); padding: 8rem 4.8vw; }
       .iv-services-header { display: flex; justify-content: space-between; align-items: end; gap: 4rem; margin-bottom: 4rem; }
-      .iv-services-header h2 { max-width: 48rem; margin: 0; font-size: clamp(2.3rem, 4.8vw, 5.8rem); line-height: .76; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
+      .iv-services-header h2 { max-width: 48rem; margin: 0; font-size: clamp(2.3rem, 4.8vw, 5.8rem); line-height: .84; letter-spacing: -.02em; font-weight: 400; text-transform: uppercase; }
       .iv-services-header p { max-width: 22rem; margin: 0; color: var(--iv-muted); font-size: .95rem; line-height: 1.55; }
       .iv-services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
       .iv-service-card { min-height: 18rem; border: 1px solid var(--iv-line); padding: 1.5rem; background: rgba(246,246,246,.02); color: var(--iv-white); text-align: left; cursor: pointer; transition: border-color .3s ease, background .3s ease, transform .3s ease; display: flex; flex-direction: column; }
-      .iv-service-card:hover { border-color: var(--iv-orange); background: rgba(255,57,12,.07); transform: translateY(-.25rem); }
+      .iv-service-card:hover { border-color: var(--iv-orange); background: rgba(20,18,15,.07); transform: translateY(-.25rem); }
       .iv-service-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: auto; }
       .iv-service-number { color: var(--iv-orange); font-size: .68rem; font-weight: 700; }
       .iv-service-card b { color: var(--iv-orange); font-size: 1.15rem; font-weight: 400; }
@@ -252,7 +256,7 @@
       /* ===== PROOF / IMPACT ===== */
       .iv-proof { background: var(--iv-black); color: var(--iv-white); padding: 8rem 4.8vw; }
       .iv-proof-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 6vw; align-items: end; margin: 6rem 0 7rem; }
-      .iv-proof-grid h2 { margin: 0; font-size: clamp(2.9rem, 5.4vw, 6.5rem); line-height: .76; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
+      .iv-proof-grid h2 { margin: 0; font-size: clamp(2.9rem, 5.4vw, 6.5rem); line-height: .84; letter-spacing: -.02em; font-weight: 400; text-transform: uppercase; }
       .iv-proof-grid h2 span { display: block; }
       .iv-proof-grid h2 span:last-child { color: var(--iv-orange); }
       .iv-proof-grid p { max-width: 23rem; margin: 0; color: var(--iv-muted); font-size: 1rem; line-height: 1.6; }
@@ -265,7 +269,7 @@
       /* ===== FAQ ===== */
       .iv-faq { border-top: 1px solid var(--iv-line); padding: 8rem 4.8vw; }
       .iv-faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 7vw; margin-top: 5rem; }
-      .iv-faq-grid h2 { margin: 0 0 1.5rem; font-size: clamp(2.2rem, 4.5vw, 5.4rem); line-height: .76; letter-spacing: -.08em; font-weight: 400; text-transform: uppercase; }
+      .iv-faq-grid h2 { margin: 0 0 1.5rem; font-size: clamp(2.2rem, 4.5vw, 5.4rem); line-height: .84; letter-spacing: -.08em; font-weight: 400; text-transform: uppercase; }
       .iv-faq-grid h2 span { display: block; }
       .iv-faq-grid h2 span:last-child { color: var(--iv-orange); }
       .iv-faq-grid p { max-width: 22rem; margin: 0; color: var(--iv-muted); font-size: 1rem; line-height: 1.6; }
@@ -278,7 +282,7 @@
       /* ===== CONTACT ===== */
       .iv-contact { border-top: 1px solid var(--iv-line); padding: 8rem 4.8vw; }
       .iv-contact-heading { margin-bottom: 5rem; }
-      .iv-contact-heading h2 { margin: 0 0 2rem; font-size: clamp(2.3rem, 4.8vw, 5.8rem); line-height: .76; letter-spacing: -.09em; font-weight: 400; text-transform: uppercase; }
+      .iv-contact-heading h2 { margin: 0 0 2rem; font-size: clamp(2.3rem, 4.8vw, 5.8rem); line-height: .84; letter-spacing: -.02em; font-weight: 400; text-transform: uppercase; }
       .iv-contact-heading h2 span { display: block; }
       .iv-contact-heading h2 span:last-child { color: var(--iv-orange); }
       .iv-contact-heading p { max-width: 32rem; margin: 0; color: var(--iv-muted); font-size: 1rem; line-height: 1.6; }
@@ -338,7 +342,7 @@
         .iv-header-inner { height: 4.2rem; padding: 0 .7rem; gap: .5rem; }
         .iv-logo { margin-left: 0; padding: .4rem .5rem; }
         .iv-logo img { width: 4.7rem; }
-        .iv-header-cta { margin-left: auto; padding: .62rem .72rem; font-size: .5rem; }
+        .iv-header-cta { margin-left: auto; padding: .62rem .85rem; font-size: .62rem; }
         .iv-menu-button { display: block; flex: 0 0 auto; }
         .iv-about-grid, .iv-smm-grid, .iv-proof-grid, .iv-faq-grid { grid-template-columns: 1fr; gap: 3rem; }
         .iv-about-grid { padding: 4.5rem 1.15rem 3.5rem; }
@@ -366,14 +370,16 @@
         .iv-hero-top { padding: 6rem 1.15rem 0; }
         .iv-hero-date { display: none; }
         .iv-hero-main { padding: 1.4rem 1.15rem 1.2rem; }
-        .iv-hero-title-wrap h1 { font-size: clamp(2.8rem, 13.2vw, 5.6rem); line-height: .78; }
+        .iv-hero-title-wrap h1 { font-size: clamp(2.8rem, 13.2vw, 5.6rem); line-height: .85; }
         .iv-hero-title-wrap h1 span:nth-child(2) { margin-left: 7vw; }
         .iv-hero-middle-copy { display: none; }
         .iv-hero-shade { background: linear-gradient(90deg, rgba(8,9,9,.28) 0%, rgba(8,9,9,.04) 65%, rgba(8,9,9,.2) 100%), linear-gradient(0deg, rgba(8,9,9,.46), rgba(8,9,9,.02) 62%, rgba(8,9,9,.2)); }
-        .iv-hero-footer { display: grid; grid-template-columns: 1fr; gap: 1.4rem; padding-top: 3rem; }
-        .iv-hero-actions { flex-direction: row; align-items: center; gap: .45rem; }
-        .iv-hero-cta, .iv-hero-scroll { min-height: 2.5rem; padding: 0 .75rem; font-size: .5rem; }
-        .iv-hero-signature { align-self: flex-start; gap: .55rem; padding-bottom: 0; font-size: .44rem; }
+        .iv-hero-actions { flex-direction: column; align-items: stretch; gap: .55rem; }
+        .iv-hero-cta, .iv-hero-scroll { min-height: 3.1rem; padding: 0 1rem; font-size: .68rem; justify-content: center; }
+        .iv-hero-footer { display: grid; grid-template-columns: 1fr; gap: 1.4rem; padding-top: 3rem; padding-bottom: 5.2rem; }
+        .iv-hero-cta b, .iv-hero-scroll b { font-size: 1.05rem; }
+        .iv-hero-signature { align-self: flex-start; gap: .55rem; padding-bottom: 0; font-size: .56rem; }
+        .iv-hero-copy p { font-size: .84rem; max-width: 100%; }
         .iv-about-side { order: -1; }
         .iv-about-trust { padding: 0 1.15rem 3rem; }
         .iv-about-trust-heading { grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 2rem; }
