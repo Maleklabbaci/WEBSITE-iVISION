@@ -57,7 +57,7 @@ const WhatsAppPromoPopup: React.FC<WhatsAppPromoPopupProps> = ({
         {/* Glow Effect */}
         <div className="absolute -inset-4 bg-whatsapp-green/20 blur-3xl rounded-full"></div>
         
-        <div className="relative bg-brand-dark/95 border border-whatsapp-green/40 backdrop-blur-2xl rounded-[2.5rem] p-10 md:p-12 shadow-[0_0_100px_rgba(37,211,102,0.25)] text-center overflow-hidden">
+        <div className="relative bg-brand-dark/95 border border-whatsapp-green/40 backdrop-blur-2xl rounded-[.55rem] p-10 md:p-12 shadow-[0_0_100px_rgba(37,211,102,0.25)] text-center overflow-hidden">
           {/* Subtle line at top */}
           <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-whatsapp-green to-transparent"></div>
 

@@ -85,7 +85,7 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ translations }) => {
   return (
     <section className="py-12 md:py-20 animate-fade-in-up">
       <div className="container px-6">
-        <div className="bg-brand-dark/40 border border-brand-border p-8 md:p-14 rounded-[3.5rem] shadow-2xl relative overflow-hidden max-w-2xl mx-auto">
+        <div className="bg-brand-dark/40 border border-brand-border p-8 md:p-14 rounded-[.55rem] shadow-2xl relative overflow-hidden max-w-2xl mx-auto">
           {isSubmitted ? (
             <div className="text-center py-16">
                <div className="mx-auto bg-brand-accent/20 text-brand-accent w-20 h-20 rounded-full flex items-center justify-center mb-8 scale-in">

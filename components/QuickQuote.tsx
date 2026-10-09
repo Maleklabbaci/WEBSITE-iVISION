@@ -43,7 +43,7 @@ const QuickQuote: React.FC<{ language: Language; onFullQuoteClick?: () => void }
           <p className="mt-8 max-w-xl text-lg md:text-xl text-white/80 leading-relaxed">{t.intro}</p>
           <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('quick_quote_whatsapp_click')} className="inline-flex mt-8 font-medium uppercase tracking-widest text-xs border-b border-white/50 pb-2 hover:border-white transition-colors">WhatsApp direct <span aria-hidden="true" className="ml-2">→</span></a>
         </div>
-        <div className="rounded-[2rem] bg-white p-7 md:p-10 text-navy shadow-2xl">
+        <div className="rounded-[.55rem] bg-white p-7 md:p-10 text-navy shadow-2xl">
           {status === 'done' ? (
             <div role="status" className="py-10 text-center"><div className="w-16 h-16 rounded-full bg-brand-blue text-white grid place-items-center mx-auto mb-6 text-2xl">✓</div><p className="text-2xl font-medium mb-7">{t.success}</p><a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="btn-ivision">WhatsApp direct</a></div>
           ) : (

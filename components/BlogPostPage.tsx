@@ -101,7 +101,7 @@ const BlogPostPage = ({ slug }: Props) => {
         </header>
 
         {/* Hero Image Placeholder */}
-        <div className="w-full h-64 md:h-96 rounded-[2rem] mb-12 overflow-hidden">
+        <div className="w-full h-64 md:h-96 rounded-[.55rem] mb-12 overflow-hidden">
   <img 
     src={post.image} 
     alt={post.title}
@@ -145,19 +145,30 @@ const BlogPostPage = ({ slug }: Props) => {
         </div>
 
         {/* CTA */}
-        <div className="bg-brand-blue/5 dark:bg-brand-blue/10 border border-brand-blue/20 rounded-[2rem] p-8 text-center mb-16">
-          <h3 className="text-2xl font-medium text-navy dark:text-white mb-3 tracking-[-0.02em]">
+        <div className="bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[.55rem] p-8 md:p-10 mb-16">
+          <span className="iv-label">Next step</span>
+          <h3 className="text-[clamp(1.6rem,3vw,2.4rem)] font-medium text-navy dark:text-white mb-3 tracking-[-0.02em] leading-[1.05]">
             Besoin d'aide pour votre projet ?
           </h3>
-          <p className="text-brand-gray mb-6">
-            iVISION vous accompagne dans votre stratégie digitale. Audit gratuit de 60 minutes.
+          <p className="text-brand-gray mb-6 max-w-xl">
+            iVISION vous accompagne dans votre stratégie digitale. Audit gratuit de 60 minutes, sans engagement.
           </p>
-          <button
-            onClick={() => (window.location.hash = '/devis')}
-            className="btn-ivision px-8 py-3"
-          >
-            Demander un audit gratuit →
-          </button>
+          <div className="flex flex-wrap items-center gap-4">
+            <button
+              onClick={() => (window.location.hash = '/devis')}
+              className="btn-ivision px-8 py-3"
+            >
+              Demander mon audit gratuit
+            </button>
+            <a
+              href="https://wa.me/213563839404"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-brand-gray hover:text-navy border-b border-navy/20 pb-1 transition-colors"
+            >
+              WhatsApp direct
+            </a>
+          </div>
         </div>
 
         {/* Related Posts */}

@@ -47,7 +47,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, isVisible, index, onCtaClick }) => (
     <div 
-        className={`group bg-brand-dark/50 border border-brand-border rounded-[2rem] overflow-hidden transition-all duration-[1000ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-brand-accent/40 hover:-translate-y-1.5 hover:bg-brand-dark/60 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+        className={`group bg-brand-dark/50 border border-brand-border rounded-[.55rem] overflow-hidden transition-all duration-[1000ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-brand-accent/40 hover:-translate-y-1.5 hover:bg-brand-dark/60 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
         style={{ transitionDelay: `${index * 120}ms` }}
     >
         <div className="relative h-56">

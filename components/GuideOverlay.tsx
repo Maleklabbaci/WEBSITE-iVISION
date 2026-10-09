@@ -136,7 +136,7 @@ const GuideOverlay: React.FC<GuideOverlayProps> = ({ onClose, language }) => {
           width: cardWidth
         }}
       >
-        <div className="bg-white dark:bg-navy p-6 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-navy/10 dark:border-white/10 border-b-4 border-b-brand-blue animate-fade-in-up">
+        <div className="bg-white dark:bg-navy p-6 rounded-[.55rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-navy/10 dark:border-white/10 border-b-4 border-b-brand-blue animate-fade-in-up">
           <div className="flex items-center gap-3 mb-3">
              <div className="w-8 h-8 bg-brand-blue/10 rounded-full flex items-center justify-center text-brand-blue">
                 <span className="text-xs font-medium">{currentStep}</span>

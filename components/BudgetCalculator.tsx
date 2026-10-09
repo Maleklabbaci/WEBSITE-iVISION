@@ -28,7 +28,7 @@ const BudgetCalculator: React.FC<{ language: Language }> = ({ language }) => {
           <h2 className="text-[clamp(2.5rem,7vw,7rem)] font-medium tracking-[-0.02em] leading-[0.88] text-navy dark:text-white uppercase">{t.title}<br /><span className="text-brand-blue">{t.accent}</span></h2>
           <p className="mt-8 max-w-xl text-lg md:text-xl text-brand-gray dark:text-brand-gray/80 leading-relaxed">{t.intro}</p>
         </div>
-        <div className="rounded-[2rem] bg-white/70 dark:bg-white/[0.04] border border-navy/10 dark:border-white/10 p-7 md:p-10 shadow-xl">
+        <div className="rounded-[.55rem] bg-white/70 dark:bg-white/[0.04] border border-navy/10 dark:border-white/10 p-7 md:p-10 shadow-xl">
           <label className="block text-xs font-medium uppercase tracking-widest text-navy dark:text-white mb-3">{t.budget}</label>
           <input type="range" min="20000" max="1000000" step="10000" value={budget} onChange={e => { setBudget(Number(e.target.value)); trackEvent('budget_calculator_change', { field: 'budget' }); }} className="w-full accent-brand-blue" />
           <div className="flex justify-between text-sm font-medium text-brand-blue mt-2 mb-7"><span>20 000 {t.currency}</span><span>{formatNumber(budget, language)} {t.currency}</span></div>

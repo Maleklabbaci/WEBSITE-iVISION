@@ -45,9 +45,9 @@ const ServiceComparator: React.FC<{ language: Language; onQuoteClick: () => void
           ))}
         </div>
         <div className="mt-6 grid md:grid-cols-3 gap-5" role="tabpanel">
-          <div className="p-7 rounded-[2rem] bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10"><p className="text-[10px] uppercase font-medium tracking-widest text-brand-blue mb-4">{t.goal}</p><p className="text-xl font-medium text-navy dark:text-white leading-tight">{text(active.goal)}</p></div>
-          <div className="p-7 rounded-[2rem] bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10"><p className="text-[10px] uppercase font-medium tracking-widest text-brand-blue mb-4">{t.forWho}</p><p className="text-xl font-medium text-navy dark:text-white leading-tight">{text(active.forWho)}</p></div>
-          <div className="p-7 rounded-[2rem] bg-brand-blue text-white"><p className="text-[10px] uppercase font-medium tracking-widest text-white/70 mb-4">{t.included}</p><ul className="space-y-3">{active.deliverables.map(item => <li key={item.fr} className="flex gap-2 font-bold"><span aria-hidden="true">✓</span>{text(item)}</li>)}</ul></div>
+          <div className="p-7 rounded-[.55rem] bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10"><p className="text-[10px] uppercase font-medium tracking-widest text-brand-blue mb-4">{t.goal}</p><p className="text-xl font-medium text-navy dark:text-white leading-tight">{text(active.goal)}</p></div>
+          <div className="p-7 rounded-[.55rem] bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10"><p className="text-[10px] uppercase font-medium tracking-widest text-brand-blue mb-4">{t.forWho}</p><p className="text-xl font-medium text-navy dark:text-white leading-tight">{text(active.forWho)}</p></div>
+          <div className="p-7 rounded-[.55rem] bg-brand-blue text-white"><p className="text-[10px] uppercase font-medium tracking-widest text-white/70 mb-4">{t.included}</p><ul className="space-y-3">{active.deliverables.map(item => <li key={item.fr} className="flex gap-2 font-bold"><span aria-hidden="true">✓</span>{text(item)}</li>)}</ul></div>
         </div>
         <button type="button" onClick={() => { trackEvent('service_comparison_quote_click', { service: active.id }); onQuoteClick(); }} className="btn-ivision mt-8">{t.quote} <span aria-hidden="true">→</span></button>
       </div>

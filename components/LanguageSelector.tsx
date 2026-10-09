@@ -61,7 +61,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelectLanguage })
       {/* Glow Effect behind the popup */}
       <div className="absolute -inset-10 bg-brand-blue/30 blur-[100px] rounded-full opacity-50"></div>
       
-      <div className="relative float-3d bg-brand-dark/80 border border-white/10 backdrop-blur-3xl rounded-[3.5rem] p-8 md:p-14 shadow-[0_60px_120px_rgba(0,0,0,0.9)] max-w-md w-full layer-3d">
+      <div className="relative float-3d bg-brand-dark/80 border border-white/10 backdrop-blur-3xl rounded-[.55rem] p-8 md:p-14 shadow-[0_60px_120px_rgba(0,0,0,0.9)] max-w-md w-full layer-3d">
         <div className="text-center mb-12">
           <img 
             src="/images/ivision-logo-white.png"
