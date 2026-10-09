@@ -172,12 +172,12 @@
       .iv-work-fixed-card { display: block; flex: 0 0 clamp(18rem, 29vw, 32rem); min-width: 0; color: var(--iv-white); text-decoration: none; }
       .iv-work-fixed-card:hover .iv-work-float-media { border-color: rgba(20,18,15,.8); transform: translateY(-.35rem); }
       .iv-work-float-media { transition: border-color .3s ease, transform .3s ease; }
-      .iv-work-float-media { position: relative; overflow: hidden; aspect-ratio: 16 / 10; border: 1px solid rgba(246,246,246,.28); border-radius: .65rem; background: #181a18; box-shadow: 0 1.5rem 4rem rgba(0,0,0,.28); }
+      .iv-work-float-media { position: relative; overflow: hidden; aspect-ratio: 16 / 10; border: 1px solid var(--iv-line); border-radius: .55rem; background: var(--iv-paper); box-shadow: 0 .6rem 1.8rem rgba(20,18,15,.07); }
       .iv-work-float-media::after { display: none; }
-      .iv-work-float-media img { width: 100%; height: 100%; display: block; object-fit: contain; background: #181a18; }
-      .iv-work-float-bar { position: absolute; top: 0; right: 0; left: 0; z-index: 1; display: flex; align-items: center; gap: .25rem; height: 1.6rem; padding: 0 .55rem; background: rgba(15,18,19,.72); }
-      .iv-work-float-bar span { width: .28rem; height: .28rem; border-radius: 50%; background: rgba(246,246,246,.58); }
-      .iv-work-float-bar small { margin-left: auto; color: rgba(246,246,246,.72); font-size: .38rem; font-weight: 700; letter-spacing: .14em; }
+      .iv-work-float-media img { width: 100%; height: 100%; display: block; object-fit: contain; background: var(--iv-paper); }
+      .iv-work-float-bar { position: absolute; top: 0; right: 0; left: 0; z-index: 1; display: flex; align-items: center; gap: .25rem; height: 1.6rem; padding: 0 .55rem; background: var(--iv-paper); border-bottom: 1px solid var(--iv-line); }
+      .iv-work-float-bar span { width: .28rem; height: .28rem; border-radius: 50%; background: var(--iv-magenta); }
+      .iv-work-float-bar small { margin-left: auto; color: var(--iv-muted); font-size: .38rem; font-weight: 700; letter-spacing: .14em; }
       .iv-work-float-meta { padding: .7rem .1rem 0; }
       .iv-work-float-meta > span { display: block; overflow: hidden; color: var(--iv-orange); font-size: .48rem; font-weight: 700; letter-spacing: .11em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
       .iv-work-float-meta strong { display: block; margin: .35rem 0 .3rem; font-size: clamp(.9rem, 1.4vw, 1.35rem); font-weight: 400; line-height: 1; text-transform: uppercase; }
