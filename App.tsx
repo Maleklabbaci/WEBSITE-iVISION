@@ -11,6 +11,7 @@ import TrainingCenterLanding from './components/TrainingCenterLanding';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
+import { parseRoute } from './lib/router';
 
 // ===== LAZY LOADING (Performance) =====
 const BlogList = lazy(() => import('./components/BlogList'));
@@ -90,16 +91,13 @@ const StaticBackground: React.FC = () => <div className="source-page-background"
 
 type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service' | 'centres';
 
+// Source unique de routage : lib/router.ts (plus de parseHash dupliqué ici).
 const parseHash = (): { view: ViewType; slug?: string } => {
-  const hash = window.location.hash.slice(1) || '/';
-  
-  if (hash === '/academiq') return { view: 'centres' };
-  if (hash === '/devis') return { view: 'quote' };
-  if (hash === '/blog') return { view: 'blog' };
-  if (hash.startsWith('/blog/')) return { view: 'blog-post', slug: hash.replace('/blog/', '') };
-  if (hash.startsWith('/services/')) return { view: 'service', slug: hash.replace('/services/', '') };
-  
-  return { view: 'home' };
+  const route = parseRoute();
+  return {
+    view: route.type,
+    slug: route.type === 'blog-post' || route.type === 'service' ? route.slug : undefined,
+  };
 };
 
 const App: React.FC = () => {

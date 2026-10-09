@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
-import { navigate } from '../lib/router';
+import { navigate, getCanonicalUrl } from '../lib/router';
 import { updateSEO } from '../lib/seo-utils';
 
 const QuotePage = () => {
@@ -19,7 +19,7 @@ const QuotePage = () => {
     updateSEO({
       title: 'Demander un Devis Gratuit',
       description: 'Demandez votre devis gratuit pour votre projet web, marketing digital ou branding. Réponse en 24h garantie.',
-      canonical: 'https://ivision.agency/devis',
+      canonical: getCanonicalUrl({ type: 'quote' }),
     });
     window.scrollTo(0, 0);
   }, []);

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { getService, type ServiceDetail } from '../data/services';
 import { updateSEO, generateServiceSchema } from '../lib/seo-utils';
+import { getCanonicalUrl } from '../lib/router';
 
 interface Props {
   slug: string;
@@ -24,7 +25,7 @@ const ServicePage = ({ slug }: Props) => {
       updateSEO({
         title: found.title,
         description: found.metaDescription,
-        canonical: `https://ivision.agency/#/services/${found.slug}`,
+        canonical: getCanonicalUrl({ type: 'service', slug: found.slug }),
       });
 
       const schema = generateServiceSchema(found);

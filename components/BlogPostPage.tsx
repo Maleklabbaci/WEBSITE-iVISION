@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getBlogPost, getRelatedPosts, type BlogPost } from '../data/blog-posts';
 import { updateSEO, generateBlogSchema } from '../lib/seo-utils';
+import { getCanonicalUrl } from '../lib/router';
 
 interface Props {
   slug: string;
@@ -21,7 +22,7 @@ const BlogPostPage = ({ slug }: Props) => {
         keywords: foundPost.tags.join(', '),
         ogType: 'article',
         ogImage: foundPost.image,
-        canonical: `https://ivision.agency/blog/${foundPost.slug}`,
+        canonical: getCanonicalUrl({ type: 'blog-post', slug: foundPost.slug }),
       });
 
       const schema = generateBlogSchema(foundPost);

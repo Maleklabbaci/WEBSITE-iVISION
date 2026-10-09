@@ -45,7 +45,7 @@ const AboutVisual: React.FC<AboutVisualProps> = ({ language }) => {
           </div>
         </div>
       </div>
-      <div className="iv-about-mosaic" aria-label="Visuels de stratégie digitale"><figure className="iv-about-mosaic-small"><img src="/images/agency-card-ecommerce-new.jpg" alt="Direction artistique pour une campagne e-commerce" /><figcaption>E-COMMERCE<br />DIRECTION</figcaption></figure><figure className="iv-about-mosaic-large"><img src="/images/agency-card-content-studio.jpg" alt="Studio de création de contenu pour une campagne digitale" /><figcaption>CONTENT<br />CAMPAIGNS</figcaption></figure><figure className="iv-about-mosaic-medium"><img src="/images/agency-card-growth-new.jpg" alt="Stratégie digitale et croissance mesurable" /><figcaption>GROWTH<br />SYSTEMS</figcaption></figure></div>
+      <div className="iv-about-mosaic" aria-label="Visuels de stratégie digitale"><figure className="iv-about-mosaic-small"><img src="/images/agency-card-ecommerce-new.webp" alt="Direction artistique pour une campagne e-commerce" width={960} height={1200} loading="lazy" decoding="async" /><figcaption>E-COMMERCE<br />DIRECTION</figcaption></figure><figure className="iv-about-mosaic-large"><img src="/images/agency-card-content-studio.webp" alt="Studio de création de contenu pour une campagne digitale" width={1200} height={800} loading="lazy" decoding="async" /><figcaption>CONTENT<br />CAMPAIGNS</figcaption></figure><figure className="iv-about-mosaic-medium"><img src="/images/agency-card-growth-new.webp" alt="Stratégie digitale et croissance mesurable" width={900} height={1200} loading="lazy" decoding="async" /><figcaption>GROWTH<br />SYSTEMS</figcaption></figure></div>
     </section>
   );
 };

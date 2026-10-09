@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { blogPosts, getBlogCategories, type BlogPost } from '../data/blog-posts';
 import { updateSEO } from '../lib/seo-utils';
+import { getCanonicalUrl } from '../lib/router';
 
 const BlogList = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -12,7 +13,7 @@ const BlogList = () => {
       title: 'Blog - Actualités Marketing Digital & Web',
       description: 'Articles, guides et conseils sur le marketing digital, le web design, le SEO et le branding en Algérie.',
       keywords: 'blog marketing digital algérie, conseils web design, guide SEO algérie',
-      canonical: 'https://ivision.agency/blog',
+      canonical: getCanonicalUrl({ type: 'blog' }),
     });
   }, []);
 
