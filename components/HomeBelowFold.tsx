@@ -7,19 +7,19 @@ type HomeBelowFoldProps = { language: Language; translations: any; onQuoteClick:
 
 const localCopy = {
   fr: {
-    smm: { label: 'L’OFFRE QUI SUIT', title: 'SOCIAL MEDIA\nMANAGER', body: 'Une présence sociale qui attire, rassure et transforme l’attention en demandes.', points: ['Stratégie éditoriale', 'Direction artistique', 'Publication & optimisation'], cta: 'Découvrir le SMM' },
+    smm: { label: 'L’OFFRE QUI SUIT', title: 'SOCIAL MEDIA\nMANAGER', body: 'Une présence sociale qui attire, rassure et transforme l’attention en demandes.', points: ['Stratégie éditoriale', 'Direction artistique', 'Publication & optimisation'], cta: 'Découvrir le SMM', deliverables: [['Calendrier éditorial', 'Une ligne claire et un planning mensuel prêt à publier.'], ['Templates de marque', 'Des visuels réutilisables qui gardent votre feed cohérent.'], ['Community management', 'Réponses, modération et veille au quotidien.'], ['Rapport mensuel', 'Des résultats lisibles et les décisions du mois suivant.']] },
     proof: { label: 'IMPACT', title: 'Des idées\nqui avancent.', body: 'Chaque décision créative est reliée à un objectif business lisible.', stats: [['200+', 'marques accompagnées'], ['4', 'univers digitaux créés'], ['98%', 'satisfaction client']] },
     faq: { label: 'QUESTIONS', title: 'Les réponses\nclaires.', body: 'Les informations essentielles avant de lancer votre prochaine étape.' },
     contact: { label: 'CONTACT', title: 'On parle de\nvotre prochaine étape.', body: 'Un projet, une idée ou simplement besoin d’un regard extérieur ? Écrivez-nous.' },
   },
   en: {
-    smm: { label: 'THE NEXT OFFER', title: 'SOCIAL MEDIA\nMANAGER', body: 'A social presence that attracts, reassures and turns attention into demand.', points: ['Editorial strategy', 'Art direction', 'Publishing & optimisation'], cta: 'Discover SMM' },
+    smm: { label: 'THE NEXT OFFER', title: 'SOCIAL MEDIA\nMANAGER', body: 'A social presence that attracts, reassures and turns attention into demand.', points: ['Editorial strategy', 'Art direction', 'Publishing & optimisation'], cta: 'Discover SMM', deliverables: [['Editorial calendar', 'A clear line and a monthly plan ready to publish.'], ['Brand templates', 'Reusable visuals that keep your feed coherent.'], ['Community management', 'Daily replies, moderation and listening.'], ['Monthly report', 'Readable results and next month’s decisions.']] },
     proof: { label: 'IMPACT', title: 'Ideas\nthat move.', body: 'Every creative decision connects to a clear business goal.', stats: [['200+', 'brands supported'], ['4', 'digital worlds built'], ['98%', 'client satisfaction']] },
     faq: { label: 'QUESTIONS', title: 'Clear\nanswers.', body: 'The essential information before your next move.' },
     contact: { label: 'CONTACT', title: 'Let’s talk about\nwhat comes next.', body: 'A project, an idea or simply need an outside perspective? Write to us.' },
   },
   ar: {
-    smm: { label: 'العرض التالي', title: 'مدير وسائل\nالتواصل', body: 'حضور اجتماعي يجذب ويطمئن ويحوّل الانتباه إلى طلبات.', points: ['استراتيجية تحريرية', 'إخراج فني', 'نشر وتحسين'], cta: 'اكتشف الخدمة' },
+    smm: { label: 'العرض التالي', title: 'مدير وسائل\nالتواصل', body: 'حضور اجتماعي يجذب ويطمئن ويحوّل الانتباه إلى طلبات.', points: ['استراتيجية تحريرية', 'إخراج فني', 'نشر وتحسين'], cta: 'اكتشف الخدمة', deliverables: [['تقويم تحريري', 'خط واضح وخطة شهرية جاهزة للنشر.'], ['قوالب العلامة', 'تصاميم قابلة لإعادة الاستخدام لتجانس الحساب.'], ['إدارة المجتمع', 'الردود والإشراف والمتابعة اليومية.'], ['تقرير شهري', 'نتائج واضحة وقرارات الشهر التالي.']] },
     proof: { label: 'الأثر', title: 'أفكار\nتتقدم.', body: 'كل قرار إبداعي مرتبط بهدف تجاري واضح.', stats: [['200+', 'علامة تمت مرافقتها'], ['4', 'عوالم رقمية'], ['98%', 'رضا العملاء']] },
     faq: { label: 'أسئلة', title: 'إجابات\nواضحة.', body: 'المعلومات الأساسية قبل خطوتك القادمة.' },
     contact: { label: 'تواصل', title: 'لنتحدث عن\nخطوتك القادمة.', body: 'مشروع أو فكرة أو تحتاج إلى رأي خارجي؟ اكتب لنا.' },
@@ -41,6 +41,7 @@ const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations, o
       <section id="smm" className="iv-smm">
         <div className="iv-section-topline"><span>{t.smm.label}</span></div>
         <div className="iv-smm-grid"><div className="iv-smm-heading"><h2>{splitLines(t.smm.title)}</h2><div className="iv-smm-orbit"><span aria-hidden="true">✦</span><b>social<br />systems</b></div></div><div className="iv-smm-copy"><p>{t.smm.body}</p><ol>{t.smm.points.map((point, index) => <li key={point}><span>0{index + 1}</span><b>{point}</b></li>)}</ol><a href="#services" className="iv-arrow-link"><span>{t.smm.cta}</span><b aria-hidden="true">↗</b></a></div></div>
+        <div className="iv-smm-cards">{t.smm.deliverables.map(([title, desc], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{desc}</p></article>)}</div>
         <div className="iv-smm-platforms" aria-label="Plateformes gérées"><span>Instagram</span><i aria-hidden="true">✦</i><span>TikTok</span><i aria-hidden="true">✦</i><span>Facebook</span><i aria-hidden="true">✦</i><span>LinkedIn</span><i aria-hidden="true">✦</i><span>YouTube</span><i aria-hidden="true">✦</i><span>Snapchat</span></div>
       </section>
 
