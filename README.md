@@ -1,74 +1,39 @@
-# iVISION Agency — Site vitrine
+# Sawtify
 
-Site vitrine officiel de **iVISION Agency**, agence de marketing digital en Algérie. Le projet présente les services, les réalisations, les résultats, les études de cas, le blog et les parcours de contact.
+## Présentation
 
-Le site est une application frontend React + TypeScript + Vite déployée sur GitHub Pages avec un domaine personnalisé. Les formulaires de devis et de formation transmettent les demandes à Formspark ; aucune clé serveur ou API backend n’est nécessaire pour le fonctionnement du site vitrine.
+Sawtify est une plateforme algérienne de synthèse vocale (Text-to-Speech) nouvelle génération, pensée pour transformer instantanément du texte en voix naturelle et expressive. Conçue pour répondre aux besoins du marché local, elle propose un système de paiement à l'usage (Pay-as-you-go) intégrant les moyens de paiement algériens CIB et Edahabia.
 
-## Stack
+## Pourquoi Sawtify
 
-- React 19
-- TypeScript 5
-- Vite 6
-- Tailwind CSS compilé localement avec PostCSS
-- GitHub Pages et GitHub Actions
-- Formspark pour la réception des formulaires
+- **Rapidité** : génération de voix quasi instantanée, sans configuration complexe.
+- **Qualité naturelle** : des voix expressives, proches d'une élocution humaine, adaptées à différents contextes d'usage.
+- **Accessibilité locale** : paiement simple et sécurisé via CIB et Edahabia, sans besoin de carte internationale.
+- **Simplicité d'utilisation** : une interface claire, pensée pour être utilisée sans compétence technique.
 
-## Installation locale
+## À qui s'adresse Sawtify
 
-Pré-requis : Node.js 22 ou version plus récente et npm.
+- Créateurs de contenu et influenceurs souhaitant produire des voix off rapidement.
+- Entreprises et agences ayant besoin de contenus audio pour leurs publicités ou réseaux sociaux.
+- Enseignants et formateurs souhaitant vocaliser des supports pédagogiques.
+- Toute personne ou structure ayant besoin de convertir du texte en voix, sans matériel ni compétence en enregistrement audio.
 
-```bash
-npm ci
-npm run dev
-```
+## Fonctionnement
 
-Le serveur de développement est disponible par défaut sur `http://localhost:5173`.
+1. L'utilisateur crée un compte sur la plateforme.
+2. Il saisit ou colle le texte à transformer en voix.
+3. Il choisit la voix souhaitée.
+4. La génération se fait en quelques secondes.
+5. L'audio est disponible en écoute et en téléchargement.
 
-## Commandes disponibles
+Le système fonctionne sur un modèle de crédits : chaque utilisateur dispose d'un solde qu'il peut recharger selon ses besoins, sans abonnement obligatoire.
 
-```bash
-npm run dev        # lancer le serveur local
-npm run typecheck  # vérifier TypeScript
-npm run build      # produire la version de production
-npm run validate   # typecheck puis build
-npm run preview    # prévisualiser le build
-npm audit --omit=dev
-```
+## Accès temporaire à Agent IA
 
-## Formulaires et données
+Pendant le développement, l'accès à l'espace Agent et à ses API est protégé par un code vérifié par le serveur. Configure `AGENT_ACCESS_CODE` et un `AGENT_ACCESS_SECRET` aléatoire d'au moins 32 caractères dans les variables d'environnement **du serveur uniquement**. Ne place pas ces valeurs dans Supabase, dans une variable `VITE_*`, ni dans le dépôt. Si `AGENT_ACCESS_SECRET` est absent, le serveur utilise `SUPABASE_SERVICE_ROLE_KEY`, mais un secret dédié est préférable.
 
-Les formulaires principaux utilisent l’identifiant Formspark configuré dans `lib/config.ts`. Les données collectées servent uniquement à répondre aux demandes commerciales et sont envoyées au prestataire Formspark. Le site contient un consentement explicite et un champ honeypot anti-spam. Ne saisissez jamais de mot de passe ou de donnée bancaire dans les formulaires.
+Le jeton de session expire après 12 heures. Le portail informatif `/agent-ai` reste public. Pour retirer le code partagé plus tard, configure `AGENT_ACCESS_GATE_ENABLED=false` côté serveur. Le schéma de paiement Agent est fourni dans `supabase/agent_sawtify_pricing.sql` et doit être appliqué séparément dans Supabase.
 
-Avant une utilisation commerciale à grande échelle, vérifiez les conditions de Formspark, la durée de conservation des données, les notifications reçues par l’équipe et la politique de confidentialité affichée sur le site.
+## Contact
 
-## Déploiement
-
-Chaque push sur `main` déclenche `.github/workflows/deploy.yml`. Le workflow installe les dépendances avec `npm ci`, exécute `npm run validate`, construit l’application et publie `dist/` sur GitHub Pages.
-
-Le domaine officiel est : [https://ivision.agency/](https://ivision.agency/).
-
-Les enregistrements DNS du domaine doivent rester configurés pour GitHub Pages. Le fichier `public/robots.txt` et le sitemap `public/sitemap.xml` déclarent le domaine canonique.
-
-## Structure principale
-
-```text
-App.tsx                         Shell, routage hash et pages
-components/                     Sections, pages, formulaires et interactions
-data/                           Données des services et articles
-lib/config.ts                   Identifiants publics et coordonnées partagées
-lib/router.ts                   Helpers de routage et URLs canoniques
-public/                         Favicon, robots.txt et sitemap.xml
-styles.css                      Tailwind compilé et règles d’accessibilité
-index.html                      SEO, données structurées et styles globaux
-.github/workflows/deploy.yml    Validation et déploiement GitHub Pages
-```
-
-## SEO
-
-Le site utilise `https://ivision.agency/` comme domaine canonique, fournit un `robots.txt` et un sitemap. Les pages internes utilisent actuellement un routage hash (`#/blog`, `#/services/...`) afin de rester compatibles avec l’hébergement statique GitHub Pages.
-
-Après une modification importante du site, vérifiez la propriété `ivision.agency` dans Google Search Console et envoyez le sitemap `https://ivision.agency/sitemap.xml`.
-
-## Licence et contenu
-
-Le contenu, la marque, les visuels propriétaires et les données clients appartiennent à iVISION Agency ou à leurs détenteurs respectifs. Vérifiez les droits des images externes utilisées dans le portfolio, le blog et les témoignages avant toute redistribution.
+Pour toute question, démonstration ou partenariat concernant Sawtify, n'hésitez pas à nous contacter directement.

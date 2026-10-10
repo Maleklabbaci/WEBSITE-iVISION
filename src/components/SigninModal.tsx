@@ -1,0 +1,351 @@
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
+import { ArrowLeft, ShieldCheck, Gift, Zap, Mic, Volume2, AlertCircle, User, Mail, Lock, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { signInWithGoogle, signUpWithEmailPassword } from '../services/supabaseClient';
+import { trackMarketingEvent } from '../services/marketingTracking';
+
+interface SigninModalProps {
+  onClose: () => void;
+  onSigninSuccess: () => void;
+  onSwitchToLogin: () => void;
+  language: 'fr' | 'ar';
+}
+
+const GoogleGlyph: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+  <svg className={className} viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z" />
+    <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4c-7.5 0-14 4.2-17.7 10.7z" />
+    <path fill="#4CAF50" d="M24 44c5.5 0 10.4-2.1 14.2-5.5l-6.5-5.5C29.6 34.7 26.9 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.9 39.7 16.4 44 24 44z" />
+    <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.2 5.6l6.5 5.5C40.5 36.7 44 30.9 44 24c0-1.3-.1-2.7-.4-3.5z" />
+  </svg>
+);
+
+const FEATURES_FR = [
+  { icon: Gift, text: '50 points offerts dès la première connexion' },
+  { icon: Mic, text: 'Voix naturelles en Darja et Arabe classique' },
+  { icon: Zap, text: 'Aucune carte bancaire requise pour démarrer' },
+];
+const FEATURES_AR = [
+  { icon: Gift, text: '50 نقطة مجانية فور أول تسجيل دخول' },
+  { icon: Mic, text: 'أصوات طبيعية بالدارجة الجزائرية والعربية الفصحى' },
+  { icon: Zap, text: 'بدون الحاجة لبطاقة بنكية للبدء' },
+];
+
+export const SigninModal: React.FC<SigninModalProps> = ({
+  onClose,
+  onSigninSuccess,
+  onSwitchToLogin,
+  language,
+}) => {
+  const isRTL = language === 'ar';
+  const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const features = isRTL ? FEATURES_AR : FEATURES_FR;
+
+  // Inscription classique (Prénom, Nom, e-mail, mot de passe) — voie de
+  // secours quand "S'inscrire avec Google" est bloqué (navigateur intégré
+  // Facebook/Instagram, entre autres).
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isEmailLoading, setIsEmailLoading] = useState(false);
+  const [confirmationSent, setConfirmationSent] = useState(false);
+
+  const handleGoogleAuth = async () => {
+    setAuthError(null);
+    setIsLoading(true);
+    trackMarketingEvent('google_signup_click');
+    try {
+      await signInWithGoogle('signup');
+    } catch (err: any) {
+      console.error('Erreur d\'inscription Google:', err);
+      setAuthError(
+        isRTL ? 'تعذر الاتصال عبر Google. حاول مجدداً.' : 'Connexion Google impossible. Réessaie dans un instant.'
+      );
+      setIsLoading(false);
+    }
+  };
+
+  const handleEmailSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError(null);
+    if (!firstName.trim() || !lastName.trim() || !email.trim() || !password) return;
+    if (password.length < 6) {
+      setAuthError(isRTL ? 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.' : 'Le mot de passe doit contenir au moins 6 caractères.');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setAuthError(isRTL ? 'كلمتا المرور غير متطابقتين.' : 'Les deux mots de passe ne correspondent pas.');
+      return;
+    }
+    setIsEmailLoading(true);
+    trackMarketingEvent('email_signup_click');
+    try {
+      const hasSession = await signUpWithEmailPassword(firstName, lastName, email.trim(), password);
+      if (hasSession) {
+        // onAuthStateChange (App.tsx) prend le relais : compte détecté comme
+        // nouveau -> bonus de bienvenue, tracking Meta, etc.
+        onSigninSuccess();
+      } else {
+        // Confirmation par e-mail exigée côté projet Supabase.
+        setConfirmationSent(true);
+      }
+    } catch (err: any) {
+      console.error('Erreur d\'inscription e-mail:', err);
+      const message: string = err?.message || '';
+      const isDuplicate = /already registered|already exists|duplicate/i.test(message);
+      setAuthError(
+        isDuplicate
+          ? (isRTL ? 'يوجد حساب بهذا البريد الإلكتروني بالفعل.' : 'Un compte existe déjà avec cet e-mail.')
+          : (isRTL ? 'تعذر إنشاء الحساب. حاول مجدداً.' : 'Impossible de créer le compte. Réessaie dans un instant.')
+      );
+    } finally {
+      setIsEmailLoading(false);
+    }
+  };
+
+  return (
+    <div
+      className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 bg-white"
+      dir={isRTL ? 'rtl' : 'ltr'}
+      style={{ paddingTop: 'env(safe-area-inset-top, 0px)', paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+    >
+
+      {/* LEFT/BRAND PANEL — masqué sur mobile */}
+      <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden bg-gradient-to-br from-purple-950 via-purple-900 to-purple-700">
+        
+        {/* Background Photo with low opacity & nice overlay blend */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay pointer-events-none"
+          style={{ backgroundImage: 'url("https://i.pinimg.com/736x/42/91/50/429150b52e1e95fb7ad9312f5532e027.jpg")' }}
+        />
+
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-fuchsia-400/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl pointer-events-none" />
+
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="relative z-10 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center shadow-md">
+            <img src="https://i.ibb.co/nqShkPNP/68126702-75e5-4de6-9b53-e51800b05e4a.jpg" alt="Logo Sawtify" className="w-full h-full object-cover" />
+          </div>
+          <span className="font-extrabold text-white tracking-tight text-lg">SAWTIFY</span>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="relative z-10 space-y-8 max-w-md">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold w-fit">
+            <Gift className="w-3.5 h-3.5" />
+            <span>{isRTL ? 'هدية الانضمام: 50 نقطة' : 'Cadeau de bienvenue : 50 points'}</span>
+          </div>
+          <h2 className="text-3xl font-extrabold text-white leading-tight tracking-tight">
+            {isRTL ? 'ابدأ في توليد أصوات احترافية اليوم' : 'Commencez à générer des voix pro dès aujourd\'hui'}
+          </h2>
+          <div className="space-y-4">
+            {features.map((f, i) => (
+              <div key={i} className="flex items-center gap-3 text-purple-100">
+                <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shrink-0">
+                  <f.icon className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-sm font-medium">{f.text}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="relative z-10 flex items-center gap-2 text-purple-200 text-xs font-mono">
+          <ShieldCheck className="w-3.5 h-3.5" />
+          <span>{isRTL ? 'اتصال مشفر وآمن' : 'Connexion sécurisée & chiffrée'}</span>
+        </motion.div>
+      </div>
+
+      {/* RIGHT/FORM PANEL */}
+      <div className="flex flex-col justify-center px-6 sm:px-12 lg:px-20 py-12 relative">
+        <button
+          onClick={onClose}
+          className={`absolute top-6 ${isRTL ? 'right-6' : 'left-6'} inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 transition cursor-pointer`}
+        >
+          <ArrowLeft className={`w-3.5 h-3.5 ${isRTL ? 'rotate-180' : ''}`} />
+          <span>{isRTL ? 'العودة للرئيسية' : "Retour à l'accueil"}</span>
+        </button>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-sm mx-auto space-y-8"
+        >
+          <div className="space-y-2 text-center lg:text-left" style={isRTL ? { textAlign: 'right' } : undefined}>
+            <div className="lg:hidden w-12 h-12 mx-auto lg:mx-0 rounded-2xl bg-white overflow-hidden flex items-center justify-center shadow-md mb-4 border border-slate-100">
+              <img src="https://i.ibb.co/nqShkPNP/68126702-75e5-4de6-9b53-e51800b05e4a.jpg" alt="Logo Sawtify" className="w-full h-full object-cover" />
+            </div>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+              {isRTL ? 'إنشاء حساب جديد في صوتيفي' : 'Créer votre compte Sawtify'}
+            </h1>
+            <p className="text-sm text-slate-500">
+              {isRTL ? 'أنشئ حسابك عبر Google واحصل على 50 نقطة فوراً' : 'Inscrivez-vous avec Google et recevez 50 points offerts instantanément'}
+            </p>
+          </div>
+
+          {authError && (
+            <div className="flex items-center gap-2 px-3.5 py-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs font-medium">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <span>{authError}</span>
+            </div>
+          )}
+
+          {/* Google Signup Button */}
+          <button
+            type="button"
+            id="btn-google-signup"
+            onClick={handleGoogleAuth}
+            disabled={isLoading}
+            className="w-full py-3.5 bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-800 font-bold rounded-2xl flex items-center justify-center gap-3 transition-all duration-150 cursor-pointer border border-slate-200 shadow-sm hover:shadow-md disabled:opacity-60 disabled:cursor-not-allowed text-sm"
+          >
+            {isLoading ? (
+              <>
+                <span className="w-4 h-4 border-2 border-slate-300 border-t-purple-600 rounded-full animate-spin" />
+                <span>{isRTL ? 'جاري إنشاء الحساب...' : 'Création du compte...'}</span>
+              </>
+            ) : (
+              <>
+                <GoogleGlyph className="w-5 h-5" />
+                <span>{isRTL ? 'إنشاء حساب عبر Google' : "S'inscrire avec Google"}</span>
+              </>
+            )}
+          </button>
+
+          <div className="flex items-center gap-2 px-3 text-purple-700 bg-purple-50/70 border border-purple-200/70 rounded-xl py-2.5 text-[11px] font-medium">
+            <Volume2 className="w-3.5 h-3.5 shrink-0" />
+            <span>{isRTL ? 'بدون بطاقة بنكية، بدون كلمة مرور — تجربة فورية' : 'Sans carte bancaire, sans mot de passe — accès immédiat'}</span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-slate-200" />
+            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">
+              {isRTL ? 'أو' : 'ou'}
+            </span>
+            <div className="h-px flex-1 bg-slate-200" />
+          </div>
+
+          {/* Inscription classique — utile si "S'inscrire avec Google" est
+              bloqué (navigateur intégré Facebook/Instagram par exemple). */}
+          {confirmationSent ? (
+            <div className="space-y-4 text-center">
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-green-50 border border-green-200 flex items-center justify-center">
+                <CheckCircle2 className="w-5 h-5 text-green-600" />
+              </div>
+              <p className="text-sm text-slate-600">
+                {isRTL
+                  ? `تم إرسال رابط التفعيل إلى ${email}. تحقق من بريدك لإكمال إنشاء الحساب.`
+                  : `Un lien de confirmation a été envoyé à ${email}. Vérifie ta boîte mail pour activer ton compte.`}
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleEmailSignup} className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="relative">
+                  <User className="absolute top-1/2 -translate-y-1/2 start-3.5 w-4 h-4 text-slate-400" />
+                  <input
+                    type="text"
+                    required
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder={isRTL ? 'الاسم' : 'Prénom'}
+                    className="w-full ps-10 pe-3 py-3 rounded-2xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/5 transition"
+                  />
+                </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder={isRTL ? 'اللقب' : 'Nom'}
+                    className="w-full px-3.5 py-3 rounded-2xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/5 transition"
+                  />
+                </div>
+              </div>
+
+              <div className="relative">
+                <Mail className="absolute top-1/2 -translate-y-1/2 start-3.5 w-4 h-4 text-slate-400" />
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={isRTL ? 'البريد الإلكتروني' : 'Adresse e-mail'}
+                  className="w-full ps-10 pe-4 py-3 rounded-2xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/5 transition"
+                />
+              </div>
+
+              <div className="relative">
+                <Lock className="absolute top-1/2 -translate-y-1/2 start-3.5 w-4 h-4 text-slate-400" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder={isRTL ? 'كلمة المرور' : 'Mot de passe'}
+                  className="w-full ps-10 pe-10 py-3 rounded-2xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/5 transition"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="absolute top-1/2 -translate-y-1/2 end-3.5 text-slate-400 hover:text-slate-600 cursor-pointer"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+
+              <div className="relative">
+                <Lock className="absolute top-1/2 -translate-y-1/2 start-3.5 w-4 h-4 text-slate-400" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder={isRTL ? 'تأكيد كلمة المرور' : 'Confirmer le mot de passe'}
+                  className="w-full ps-10 pe-4 py-3 rounded-2xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/5 transition"
+                />
+              </div>
+
+              <button
+                type="submit"
+                id="btn-email-signup"
+                disabled={isEmailLoading || !firstName.trim() || !lastName.trim() || !email.trim() || !password || !confirmPassword}
+                className="w-full py-3.5 bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold rounded-2xl flex items-center justify-center gap-2 transition-all duration-150 cursor-pointer shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+              >
+                {isEmailLoading ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                    <span>{isRTL ? 'جاري إنشاء الحساب...' : 'Création du compte...'}</span>
+                  </>
+                ) : (
+                  <span>{isRTL ? 'إنشاء الحساب' : 'Créer mon compte'}</span>
+                )}
+              </button>
+            </form>
+          )}
+
+          <div className="pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
+            <span>{isRTL ? 'لديك حساب بالفعل؟' : 'Déjà un compte ?'}</span>{' '}
+            <button
+              type="button"
+              onClick={onSwitchToLogin}
+              className="text-purple-600 hover:text-purple-700 font-bold underline cursor-pointer"
+            >
+              {isRTL ? 'تسجيل الدخول' : 'Se connecter'}
+            </button>
+          </div>
+
+          <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 font-mono">
+            <ShieldCheck className="w-3 h-3 text-purple-600" />
+            <span>{isRTL ? 'معتمد رسمياً من SATIM • حماية عالية' : 'Sécurité SSL certifiée SATIM'}</span>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+};

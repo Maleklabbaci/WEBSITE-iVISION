@@ -1,0 +1,385 @@
+import { generateSyntheticTTS } from '../utils/audioGenerator';
+import { API_BASE_URL } from '../config/apiBase';
+import { supabase } from './supabaseClient';
+
+export interface TTSApiRequest {
+  text: string;
+  voice_id: string;
+  speed: number;
+  pitch: number;
+  emotion_tags?: string[];
+  /** Registre de langue choisi dans la popup (défaut "darija" côté serveur). */
+  register?: 'darija' | 'fusha' | 'francais';
+  /** Intensité émotionnelle choisie dans la popup (défaut "normal" côté serveur). */
+  intensity?: 'low' | 'normal' | 'high';
+  /** Direction de jeu vocale propre à cette génération, jamais persistante. */
+  style_prompt?: string;
+}
+
+export interface TTSApiResponse {
+  success: boolean;
+  generation_id: string;
+  audio_url: string;
+  duration_seconds: number;
+  latency_ms: number;
+  points_deducted: number;
+  remaining_balance: number;
+  voice_id: string;
+  parsed_tags: string[];
+  blob?: Blob;
+  notice?: string;
+  notification?: string;
+  milestone_bonus?: number;
+  /** true = audio de secours généré localement (offline/panne serveur), pas la vraie voix, jamais facturé */
+  degraded?: boolean;
+}
+
+export interface VoicePreviewResponse {
+  voice_id: string;
+  audio_url: string;
+  duration_seconds: number;
+}
+
+export interface DesignedVoiceResponse {
+  id: string;
+  name: string;
+  prompt: string;
+  preview_url: string | null;
+  created_at: string;
+  points_deducted: number;
+  remaining_balance: number;
+}
+
+export async function createDesignedVoice(params: { display_name: string; prompt: string; gender?: 'male' | 'female' | 'unknown'; language_code?: string }): Promise<DesignedVoiceResponse> {
+  const response = await fetch(`${API_BASE_URL}/api/v1/tts/voices/design`, { method: 'POST', headers: await getAuthHeaders(), body: JSON.stringify(params) });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || 'Création de la voix impossible');
+  return data as DesignedVoiceResponse;
+}
+
+/**
+ * Extrait de façon sécurisée le jeton de session actif de Supabase ou du localStorage pour l'autorisation.
+ */
+async function getAuthHeaders(): Promise<HeadersInit> {
+  let token = '';
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.access_token) {
+      token = session.access_token;
+    }
+  } catch (err) {}
+  
+  if (!token) {
+    token = localStorage.getItem('sawtify_token') || '';
+  }
+
+  return {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': token ? `Bearer ${token}` : '',
+  };
+}
+
+/**
+ * Convertit un URI de données base64 en un objet Blob standard et une URL d'objet.
+ */
+function dataUriToBlob(dataUri: string): { blob: Blob; url: string } {
+  const base64Data = dataUri.split(',')[1] || dataUri;
+  const binary = atob(base64Data);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  const blob = new Blob([bytes], { type: 'audio/wav' });
+  const url = URL.createObjectURL(blob);
+  return { blob, url };
+}
+
+/**
+ * Récupère un aperçu vocal naturel instantané pour une voix donnée (sans coût).
+ */
+const voicePreviewCache = new Map<string, string>();
+const voicePreviewInflight = new Map<string, Promise<string>>();
+
+export async function requestVoicePreview(voiceId: string, speed: number = 1.0, pitch: number = 1.0, uploadedAudioUrl?: string): Promise<string> {
+  // Les échantillons uploadés sont gratuits et ne doivent jamais réveiller Render/Gemini.
+  if (uploadedAudioUrl) return uploadedAudioUrl;
+  const cacheKey = `${voiceId}:${speed.toFixed(1)}:${pitch.toFixed(1)}`;
+  const cached = voicePreviewCache.get(cacheKey);
+  if (cached) return cached;
+  const pending = voicePreviewInflight.get(cacheKey);
+  if (pending) return pending;
+  const request = (async () => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/tts/preview?voice_id=${encodeURIComponent(voiceId)}&speed=${speed}&pitch=${pitch}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.audio_url) {
+        if (data.audio_url.startsWith('data:audio/wav;base64,')) {
+          const { url } = dataUriToBlob(data.audio_url);
+          voicePreviewCache.set(cacheKey, url);
+          return url;
+        }
+        voicePreviewCache.set(cacheKey, data.audio_url);
+        return data.audio_url;
+      }
+    }
+  } catch (err) {
+    console.warn('Erreur récupération aperçu vocal backend:', err);
+  }
+
+  const synth = await generateSyntheticTTS("Bonjour et bienvenue sur Sawtify", getLocaleForVoice(voiceId), speed, pitch);
+  voicePreviewCache.set(cacheKey, synth.url);
+  return synth.url;
+  })();
+  voicePreviewInflight.set(cacheKey, request);
+  try { return await request; } finally { voicePreviewInflight.delete(cacheKey); }
+}
+
+/**
+ * Client API principal pour la génération de synthèse vocale (TTS).
+ */
+export async function requestTTSGeneration(params: TTSApiRequest, currentBalance: number): Promise<TTSApiResponse> {
+  const startTime = performance.now();
+  const endpoint = `${API_BASE_URL}/api/v1/tts/generate`;
+
+  try {
+    const headers = await getAuthHeaders();
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        text: params.text,
+        voice: params.voice_id,
+        voice_id: params.voice_id,
+        speed: params.speed,
+        pitch: params.pitch,
+        emotion_tags: params.emotion_tags || [],
+        register: params.register || 'darija',
+        intensity: params.intensity || 'normal'
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      
+      if (data.audio_base64) {
+        const fullDataUri = `data:audio/wav;base64,${data.audio_base64}`;
+        const { blob, url } = dataUriToBlob(fullDataUri);
+        return {
+          ...data,
+          audio_url: url,
+          blob: blob
+        };
+      }
+
+      if (data.audio_url && data.audio_url.startsWith('data:audio/wav;base64,')) {
+        const { blob, url } = dataUriToBlob(data.audio_url);
+        return {
+          ...data,
+          audio_url: url,
+          blob: blob
+        };
+      }
+
+      if (data.audio_url && !data.audio_url.startsWith('data:')) {
+        return {
+          ...data,
+          audio_url: data.audio_url
+        };
+      }
+    } else if (response.status === 503) {
+      const errorData = await response.json().catch(() => ({}));
+      const retryAfter = Number(errorData.retry_after) || 10;
+      throw new Error(`[QUEUE_BUSY]${retryAfter}|${errorData.message || 'Le serveur vocal est occupé, réessayez dans quelques secondes.'}`);
+    } else if (response.status === 402) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.detail || errorData.error || 'Solde insuffisant.');
+    } else {
+      // Le serveur a répondu mais avec une erreur (500, panne Gemini, etc.) :
+      // on NE bascule PAS sur l'audio de secours ici. Avant, cette branche
+      // laissait le code continuer silencieusement vers la synthèse locale
+      // et facturait un son bidon comme si c'était la vraie génération.
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`[SERVER_ERROR]${errorData.detail || errorData.error || 'Erreur du serveur de génération.'}`);
+    }
+  } catch (err: any) {
+    if (err.message && (err.message.startsWith('[SERVER_ERROR]') || err.message.includes('Solde insuffisant') || err.message.includes('serveur de génération'))) {
+      throw err;
+    }
+    // Ici uniquement : vraie panne réseau (offline, DNS, timeout de connexion)
+    // -> le serveur n'a jamais reçu la requête, donc rien n'a pu être facturé
+    // côté backend. On propose un aperçu local hors-ligne, clairement marqué
+    // "degraded" et à 0 point : le frontend ne doit PAS le facturer.
+    console.info('Backend TTS injoignable (réseau) : aperçu local hors-ligne, non facturé');
+  }
+
+  const audioResult = await generateSyntheticTTS(params.text, getLocaleForVoice(params.voice_id), params.speed, params.pitch);
+  const latencyMs = Math.round(performance.now() - startTime) + 110;
+
+  return {
+    success: true,
+    generation_id: 'gen_' + Math.random().toString(36).substring(2, 9),
+    audio_url: audioResult.url,
+    duration_seconds: audioResult.durationSec,
+    latency_ms: latencyMs,
+    points_deducted: 0,
+    remaining_balance: currentBalance,
+    voice_id: params.voice_id,
+    parsed_tags: params.emotion_tags || [],
+    blob: audioResult.blob,
+    degraded: true,
+    notice: "Serveur injoignable : aperçu hors-ligne (non facturé, ce n'est pas ta vraie voix)"
+  };
+}
+
+/**
+ * Service LLM : Réécriture magique d'un texte en Darija Algérienne (المحسن السحري).
+ * Coût : 2 points.
+ */
+export async function requestEnhanceText(
+  text: string, 
+  region = 'general'
+): Promise<{ enhanced_text: string; points_cost: number; remaining_balance: number; notification?: string }> {
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/api/v1/llm/enhance`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ text, region })
+  });
+
+  if (!response.ok) {
+    const errData = await response.json().catch(() => ({}));
+    throw new Error(errData.error || "Erreur lors de l'amélioration du texte.");
+  }
+
+  const data = await response.json();
+  return { 
+    enhanced_text: data.enhanced_text, 
+    points_cost: data.points_cost || 2,
+    remaining_balance: data.remaining_balance,
+    notification: data.notification
+  };
+}
+
+/**
+ * Service LLM : Générateur de scripts publicitaires TikTok (منشئ سيناريو).
+ * Coût : 5 points.
+ */
+export async function requestGenerateScript(
+  product: string, 
+  style = 'excited', 
+  region = 'general'
+): Promise<{ script: string; points_cost: number; remaining_balance: number; notification?: string; sector_used?: string }> {
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/api/v1/llm/generate-script`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ product, style, region })
+  });
+
+  if (!response.ok) {
+    const errData = await response.json().catch(() => ({}));
+    throw new Error(errData.error || "Erreur lors de la génération du script.");
+  }
+
+  const data = await response.json();
+  return { 
+    script: data.script, 
+    points_cost: data.points_cost || 5,
+    remaining_balance: data.remaining_balance,
+    notification: data.notification,
+    sector_used: data.sector_used
+  };
+}
+
+/**
+ * Idées de sujets écrites par l'IA dans le domaine de l'utilisateur (studio).
+ * Coût : 2 points — débités uniquement si l'IA a renvoyé des idées exploitables.
+ * `context` = quelques textes récents du client (max 3, tronqués) pour rester dans son univers.
+ */
+export async function requestSubjectIdeas(payload: {
+  domain?: string;
+  domainLabel?: string;
+  mode: 'voice' | 'script';
+  language: string;
+  context?: string[];
+}): Promise<{ ideas: { label: string; text: string }[]; points_cost: number; remaining_balance?: number; notification?: string }> {
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/api/v1/llm/subject-ideas`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      domain: payload.domain || 'general',
+      domainLabel: payload.domainLabel || '',
+      mode: payload.mode,
+      language: payload.language,
+      context: (payload.context || []).filter(Boolean).slice(0, 3),
+    }),
+  });
+
+  if (!response.ok) {
+    const errData = await response.json().catch(() => ({}));
+    throw new Error(errData.error || "Erreur lors de la génération des idées.");
+  }
+
+  const data = await response.json();
+  return {
+    ideas: Array.isArray(data.ideas) ? data.ideas : [],
+    points_cost: data.points_cost || 2,
+    remaining_balance: data.remaining_balance,
+    notification: data.notification,
+  };
+}
+
+/**
+ * Envoie un avis (👍 / 👎) pour l'apprentissage automatique de l'IA.
+ */
+export async function sendAIFeedback(payload: {
+  output_text: string;
+  rating: number;
+  type: 'script' | 'enhance';
+  region?: string;
+  sector?: string;
+  input_text?: string;
+}): Promise<any> {
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_BASE_URL}/api/ai/feedback`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.error || "Erreur lors de l'envoi du feedback.");
+  }
+
+  return res.json();
+}
+
+function getLocaleForVoice(voiceId: string): string {
+  switch (voiceId) {
+    case 'voice_amin':
+    case 'voice_yasmin':
+    case 'voice_khalid':
+    case 'voice_maryam':
+    case 'voice_rashid':
+    case 'voice_layla':
+    case 'voice_bilal':
+    case 'voice_nour':
+    case 'voice_faycal':
+    case 'voice_dz_amine':
+    case 'voice_dz_yasmine':
+    case 'voice_dz_rachid':
+      return 'ar-DZ';
+    case 'voice_ar_sofiane':
+      return 'ar-SA';
+    case 'voice_fr_ines':
+      return 'fr-FR';
+    case 'voice_en_lina':
+      return 'en-US';
+    default:
+      return 'ar-DZ';
+  }
+}
