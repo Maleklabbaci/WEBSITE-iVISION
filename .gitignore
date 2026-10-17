@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Notes internes de benchmark/SEO conservées dans l'espace de travail (dépôt public).
+docs/benchmark-seo-agences-marketing-digital-algerie.md
+docs/plan-seo-national-ivision.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
