@@ -114,18 +114,55 @@ assert.equal(portfolioSchemas.length, 1);
 const portfolioGraph = JSON.parse(portfolioSchemas[0][1])['@graph'];
 assert.equal(portfolioGraph.find((item) => item['@type'] === 'CollectionPage')?.url, webPortfolioUrl);
 assert.equal(portfolioGraph.find((item) => item['@type'] === 'BreadcrumbList')?.itemListElement.at(-1)?.item, webPortfolioUrl);
+// Les huit sites actuellement présentés doivent rester identifiables. D'autres cartes peuvent être ajoutées sans figer leur nombre ici.
 const expectedSites = [
-  ['DC16 X WYN', 'https://dc16.shop/', 'project-dc16.webp'],
-  ['MoveSmart', 'https://movesmart-ecru.vercel.app/', 'project-movesmart.webp'],
-  ['Fidali', 'https://fidali.vercel.app/', 'project-fidali.webp'],
-  ['White Aura', 'https://white-aura.vercel.app/', 'project-white-aura.webp'],
+  { id: 'jawebflow', name: 'JawebFlow', image: 'portfolio-jawebflow.webp' },
+  { id: 'dc16', name: 'DC16 X WYN', image: 'portfolio-dc16-story.webp', url: 'https://dc16.shop/' },
+  { id: 'efolio', name: 'eFOLIO', image: 'portfolio-efolio.webp' },
+  { id: 'ivision', name: 'iVISION', image: 'portfolio-ivision.webp', url: `${base}/` },
+  { id: 'sawtify', name: 'Sawtify', image: 'portfolio-sawtify.webp' },
+  { id: 'white-aura', name: 'White Aura', image: 'portfolio-white-aura.webp', url: 'https://white-aura.vercel.app/' },
+  { id: 'movesmart', name: 'MoveSmart', image: 'portfolio-movesmart.webp', url: 'https://movesmart-ecru.vercel.app/' },
+  { id: 'fidali', name: 'Fidali', image: 'project-fidali.webp', url: 'https://fidali.vercel.app/' },
 ];
 const listedSites = portfolioGraph.find((item) => item['@type'] === 'ItemList')?.itemListElement;
-assert.deepEqual(listedSites?.map((item) => [item.name, item.url]), expectedSites.map(([name, url]) => [name, url]));
-assert.equal([...webPortfolio.matchAll(/class="pf-project"/g)].length, expectedSites.length);
-for (const [, url, image] of expectedSites) {
-  assert.ok(webPortfolio.includes(`href="${url}"`) && webPortfolio.includes(`src="/images/${image}"`), `Lien ou capture de site manquant : ${url}`);
-  assert.ok(homepage.includes(`href="${url}"`) && homepage.includes(`src="/images/${image}"`), `Projet web incohérent entre accueil et portfolio : ${url}`);
+const projects = [...webPortfolio.matchAll(/<article class="pf-project(?: [^"]+)?" id="([^"]+)" aria-labelledby="([^"]+)">([\s\S]*?)<\/article>/g)]
+  .map(([, id, titleId, markup]) => ({ id, titleId, markup }));
+assert.ok(projects.length >= expectedSites.length, 'Un projet reçu manque au portfolio web.');
+assert.equal(listedSites?.length, projects.length, 'La liste structurée doit inclure chaque projet une seule fois.');
+assert.deepEqual(listedSites.map((item) => item.position), projects.map((_, index) => index + 1));
+assert.equal(new Set(projects.map(({ id }) => id)).size, projects.length, 'Identifiants de projets uniques requis.');
+assert.equal(new Set(listedSites.map(({ name }) => name)).size, listedSites.length, 'Ne pas dédoubler un site.');
+for (const [index, { id, titleId, markup }] of projects.entries()) {
+  const name = markup.match(new RegExp(`<h3 id="${titleId}">([^<]+)<\\/h3>`))?.[1];
+  const image = markup.match(/<img src="(\/images\/[^\"]+)" alt="([^\"]+)" width="\d+" height="\d+" loading="lazy"/)?.[1];
+  const zoom = markup.match(/<a class="pf-project-zoom" href="([^"]+)" target="_blank" rel="noopener noreferrer" aria-label="([^"]+)"/);
+  const link = markup.match(/<a class="pf-project-link" href="([^"]+)"/)?.[1];
+  assert.ok(name && image, `Titre, image et texte alternatif attendus : #${id}`);
+  assert.equal(zoom?.[1], image, `Capture agrandissable attendue : #${id}`);
+  assert.match(zoom?.[2] ?? '', /en grand/, `Nom du lien vers la capture attendu : #${id}`);
+  assert.equal(name, listedSites[index].name, `Nom incohérent dans la liste structurée : #${id}`);
+  assert.ok(webPortfolio.includes(`href="#${id}"`), `Navigation vers le projet manquante : #${id}`);
+  assert.ok(existsSync(path.join(dist, image.slice(1))), `Capture introuvable : ${image}`);
+  assert.equal(listedSites[index].url, link ? new URL(link, `${base}/`).href : undefined, `Ne pas inventer de lien pour ${name}.`);
+  if (link) assert.doesNotMatch(markup, /class="pf-project-pending"/, `Adresse déjà renseignée : ${name}`);
+  else assert.match(markup, /class="pf-project-pending"/, `Informer si le lien de visite manque : ${name}`);
+  assert.match(markup, /class="pf-category"/, `Présentation du site manquante : ${name}`);
+}
+for (const { id, name, image, url } of expectedSites) {
+  const project = projects.find((item) => item.id === id);
+  assert.ok(project?.markup.includes(`<h3 id="${id}-title">${name}</h3>`), `Site manquant : ${name}`);
+  assert.ok(project.markup.includes(`src="/images/${image}"`), `Nouvelle capture manquante : ${name}`);
+  assert.equal(listedSites[projects.indexOf(project)].url, url, `Adresse de visite non confirmée : ${name}`);
+}
+assert.ok(projects.find(({ id }) => id === 'ivision')?.markup.includes('Site de l\'agence · Projet interne'), 'Le site iVISION doit rester distinct des projets tiers.');
+for (const [url, image] of [
+  ['https://dc16.shop/', 'project-dc16.webp'],
+  ['https://movesmart-ecru.vercel.app/', 'project-movesmart.webp'],
+  ['https://fidali.vercel.app/', 'project-fidali.webp'],
+  ['https://white-aura.vercel.app/', 'project-white-aura.webp'],
+]) {
+  assert.ok(homepage.includes(`href="${url}"`) && homepage.includes(`src="/images/${image}"`), `Sélection de l'accueil incohérente : ${url}`);
 }
 assert.match(socialPortfolio, /<meta name="robots" content="noindex,follow"/);
 assert.equal([...socialPortfolio.matchAll(/class="pf-project"/g)].length, 0, 'Ne pas fabriquer de projets social media.');

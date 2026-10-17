@@ -28,6 +28,10 @@
 .pf-project-media img { width:100%; height:auto; border:1px solid rgba(20,18,15,.15); box-shadow:0 1rem 2.5rem rgba(20,18,15,.13); }
 .pf-project-media figcaption { padding:.95rem 0 .1rem; color:var(--quiet); font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
 .pf-project-media figure { margin:0; }
+.pf-project-zoom { display:block; text-decoration:none; }
+.pf-project-zoom figcaption { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:.25rem 1rem; }
+.pf-project-zoom:hover figcaption span, .pf-project-zoom:focus-visible figcaption span { text-decoration:underline; text-underline-offset:.2em; }
+.pf-project-own .pf-project-zoom:focus-visible { outline-color:var(--light); }
 .pf-project-copy { max-width:31rem; }
 .pf-project-copy .pf-number { display:block; margin-bottom:2rem; color:var(--quiet); font-size:.66rem; font-weight:700; letter-spacing:.15em; }
 .pf-project-copy h3 { margin:0 0 .6rem; font-size:clamp(2.65rem,4.4vw,5rem); line-height:1; }
@@ -37,6 +41,8 @@
 .pf-project-copy li { padding:.42rem .75rem; border:1px solid var(--line); border-radius:99px; color:var(--quiet); font-size:.71rem; }
 .pf-project-link { display:inline-flex; align-items:center; gap:.8rem; border-bottom:1px solid var(--ink); padding-bottom:.55rem; font-size:.69rem; font-weight:700; letter-spacing:.12em; text-decoration:none; text-transform:uppercase; }
 .pf-project-link:hover { gap:1.1rem; }
+.pf-project-pending { display:inline-flex; align-items:center; min-height:2.35rem; border:1px dashed var(--line); padding:.5rem .8rem; color:var(--quiet); font-size:.69rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
+.pf-project-own .pf-project-media { background:#39312c; }
 .pf-disclaimer { margin:0; padding-top:1.35rem; border-top:1px solid var(--line); color:var(--quiet); font-size:.83rem; }
 .pf-cross { padding:clamp(4rem,7vw,7rem) 0; border-top:1px solid var(--line); background:var(--surface); }
 .pf-cross-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
