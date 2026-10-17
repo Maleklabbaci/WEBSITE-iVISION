@@ -9,7 +9,9 @@ npm run validate:site  # TypeScript, build Vite et vérification SEO
 npm run preview -- --host 0.0.0.0
 ```
 
-Le workflow GitHub Pages utilise `validate:site` sur `main` ; une branche de travail ou un PR ne déploie pas le domaine public. Les fichiers `src/`, `tts/` et `server.ts` concernent Sawtify et ne sont pas nécessaires au build de la vitrine iVISION. Les anciens articles du blog et certaines anciennes fiches à fragment contiennent des affirmations non vérifiées : ne pas les ajouter au sitemap sans revue éditoriale.
+Le workflow GitHub Pages utilise `validate:site` sur `main` ; une branche de travail ou un PR ne déploie pas le domaine public. **Pour publier sur `ivision.agency`, fusionner la PR contenant les sources : le workflow construit puis déploie `dist/`. Ne pas extraire un ZIP de fichiers construits à la racine du dépôt GitHub.** Ces fichiers (`assets/`, pages HTML et `sitemap.xml` à la racine) ne remplacent ni `npm ci` ni le code source ; ils peuvent créer des conflits avec `index.html`. Le ZIP de fichiers construits est réservé à un autre hébergement statique où l'on dépose directement des fichiers web.
+
+Les fichiers `src/`, `tts/` et `server.ts` concernent Sawtify et ne sont pas nécessaires au build de la vitrine iVISION. Les anciens articles du blog et certaines anciennes fiches à fragment contiennent des affirmations non vérifiées : ne pas les ajouter au sitemap sans revue éditoriale.
 
 ---
 
