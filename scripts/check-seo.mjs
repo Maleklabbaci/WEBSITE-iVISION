@@ -68,12 +68,72 @@ const webPage = read('creation-site-web-algerie.html');
 const webQuoteLink = 'href="/#/devis?service=site-web"';
 assert.match(webPage, /<body class="web-landing">/);
 assert.ok(webPage.includes('src="/images/project-fidali.webp"'), 'Aperçu réel manquant dans le hero web.');
-assert.equal([...webPage.matchAll(/class="project"/g)].length, 4, 'Quatre projets web doivent être présentés.');
+assert.equal([...webPage.matchAll(/class="project"/g)].length, 2, 'L’offre web doit montrer deux aperçus et renvoyer au portfolio complet.');
 assert.ok([...webPage.matchAll(/href="\/#\/devis\?service=site-web"/g)].length >= 3, 'Les appels à l’action web doivent ouvrir le devis adapté.');
 assert.ok(homepage.includes(webQuoteLink), 'Le parcours web doit être lié depuis l’accueil.');
-assert.ok(homepage.includes('Découvrir l’offre sites web'), 'L’offre web doit être visible depuis les projets de l’accueil.');
+assert.ok(homepage.includes('Voir le portfolio sites web'), 'Le portfolio web doit être visible depuis les projets de l’accueil.');
+assert.ok(webPage.includes('href="/portfolio-sites-web-algerie.html"'), 'L’offre web doit conduire au portfolio dédié.');
 assert.doesNotMatch(webPage, /href="\/#\/devis"/, 'Ne pas envoyer un projet web vers le devis de pack mensuel.');
 assert.ok(webPage.includes('mailto:contact@ivision.agency?subject=Demande%20de%20site%20web'), 'Alternative de contact web manquante.');
+
+const webPortfolioRoute = 'portfolio-sites-web-algerie.html';
+const socialPortfolioRoute = 'portfolio-social-media-algerie.html';
+const webPortfolioUrl = `${base}/${webPortfolioRoute}`;
+const socialPortfolioUrl = `${base}/${socialPortfolioRoute}`;
+const webPortfolio = read(webPortfolioRoute);
+const socialPortfolio = read(socialPortfolioRoute);
+for (const [route, html, url] of [
+  [webPortfolioRoute, webPortfolio, webPortfolioUrl],
+  [socialPortfolioRoute, socialPortfolio, socialPortfolioUrl],
+]) {
+  assert.match(html, /<html lang="fr-DZ">/);
+  assert.match(html, /<main id="contenu">/);
+  assert.equal([...html.matchAll(/<h1\b/g)].length, 1, `Un seul H1 attendu : ${route}`);
+  assert.ok(html.includes(`<link rel="canonical" href="${url}"`), `Canonique manquant : ${route}`);
+  assert.ok(html.includes(`<meta property="og:url" content="${url}"`), `OG URL manquante : ${route}`);
+  for (const css of ['landing.css', 'portfolio.css']) assert.ok(html.includes(`href="/seo/${css}"`));
+  for (const [, asset] of html.matchAll(/(?:src|href)="(\/(?:seo\/|images\/|favicon)[^"]+)"/g)) {
+    assert.ok(existsSync(path.join(dist, asset.slice(1))), `Asset introuvable : ${asset} (${route})`);
+  }
+  for (const [, anchor] of html.matchAll(/href="#([^"]+)"/g)) {
+    assert.ok(html.includes(`id="${anchor}"`), `Ancre #${anchor} sans cible : ${route}`);
+  }
+  const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
+  const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+  assert.ok(title && description && !titles.has(title) && !descriptions.has(description), `Métadonnées uniques requises : ${route}`);
+  titles.add(title);
+  descriptions.add(description);
+  assert.ok(homepage.includes(`href="/${route}"`), `Accès depuis l’accueil manquant : ${route}`);
+}
+assert.doesNotMatch(webPortfolio, /<meta name="robots" content="noindex/i);
+assert.ok(webPortfolio.includes('href="/#/devis?service=site-web"'));
+assert.ok(webPortfolio.includes('href="/creation-site-web-algerie.html"'));
+assert.ok(webPortfolio.includes('href="/portfolio-social-media-algerie.html"'));
+const portfolioSchemas = [...webPortfolio.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g)];
+assert.equal(portfolioSchemas.length, 1);
+const portfolioGraph = JSON.parse(portfolioSchemas[0][1])['@graph'];
+assert.equal(portfolioGraph.find((item) => item['@type'] === 'CollectionPage')?.url, webPortfolioUrl);
+assert.equal(portfolioGraph.find((item) => item['@type'] === 'BreadcrumbList')?.itemListElement.at(-1)?.item, webPortfolioUrl);
+const expectedSites = [
+  ['DC16 X WYN', 'https://dc16.shop/', 'project-dc16.webp'],
+  ['MoveSmart', 'https://movesmart-ecru.vercel.app/', 'project-movesmart.webp'],
+  ['Fidali', 'https://fidali.vercel.app/', 'project-fidali.webp'],
+  ['White Aura', 'https://white-aura.vercel.app/', 'project-white-aura.webp'],
+];
+const listedSites = portfolioGraph.find((item) => item['@type'] === 'ItemList')?.itemListElement;
+assert.deepEqual(listedSites?.map((item) => [item.name, item.url]), expectedSites.map(([name, url]) => [name, url]));
+assert.equal([...webPortfolio.matchAll(/class="pf-project"/g)].length, expectedSites.length);
+for (const [, url, image] of expectedSites) {
+  assert.ok(webPortfolio.includes(`href="${url}"`) && webPortfolio.includes(`src="/images/${image}"`), `Lien ou capture de site manquant : ${url}`);
+  assert.ok(homepage.includes(`href="${url}"`) && homepage.includes(`src="/images/${image}"`), `Projet web incohérent entre accueil et portfolio : ${url}`);
+}
+assert.match(socialPortfolio, /<meta name="robots" content="noindex,follow"/);
+assert.equal([...socialPortfolio.matchAll(/class="pf-project"/g)].length, 0, 'Ne pas fabriquer de projets social media.');
+assert.ok(socialPortfolio.includes('href="/portfolio-sites-web-algerie.html"'));
+assert.ok(read('creation-contenu-algerie.html').includes(`href="/${socialPortfolioRoute}"`));
+assert.ok(socialPortfolio.includes('https://www.instagram.com/ivision_agency/'));
+assert.ok(socialPortfolio.includes('https://web.facebook.com/agencyivision'));
+assert.ok(socialPortfolio.includes('https://www.tiktok.com/@ivisionagency1'));
 
 const guideRoute = 'choisir-seo-google-ads-meta-algerie.html';
 const guideUrl = `${base}/${guideRoute}`;
@@ -103,8 +163,21 @@ assert.equal(guideGraph.find((item) => item['@type'] === 'WebPage')?.url, guideU
 assert.equal(guideGraph.find((item) => item['@type'] === 'BreadcrumbList')?.itemListElement.at(-1)?.item, guideUrl);
 
 const listedUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert.deepEqual(listedUrls, [`${base}/`, ...routes.map((route) => `${base}/${route}`), guideUrl]);
+assert.deepEqual(listedUrls, [`${base}/`, ...routes.map((route) => `${base}/${route}`), webPortfolioUrl, guideUrl]);
+assert.ok(!listedUrls.includes(socialPortfolioUrl), 'Le portfolio social non finalisé ne doit pas figurer au sitemap.');
 assert.ok(listedUrls.every((url) => !url.includes('#')), 'Ne pas lister les routes à fragment dans le sitemap.');
 assert.ok(listedUrls.every((url) => existsSync(path.join(dist, new URL(url).pathname))), 'Chaque URL du sitemap doit avoir un fichier servi.');
 
-console.log(`SEO : accueil pré-rendu, ${routes.length} pages de service + guide, liens, schemas, assets et sitemap vérifiés.`);
+for (const [source, html] of [
+  ['index.html', homepage],
+  ...routes.map((route) => [route, read(route)]),
+  [webPortfolioRoute, webPortfolio],
+  [socialPortfolioRoute, socialPortfolio],
+  [guideRoute, guide],
+]) {
+  for (const [, target] of html.matchAll(/href="\/([^"#?]+\.html)(?:[?#][^"]*)?"/g)) {
+    assert.ok(existsSync(path.join(dist, target)), `Lien interne introuvable : ${source} → /${target}`);
+  }
+}
+
+console.log(`SEO : accueil, ${routes.length} pages de service, guide et portfolio web vérifiés ; portfolio social en brouillon non indexé.`);

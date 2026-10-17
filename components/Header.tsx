@@ -13,13 +13,14 @@ const Header: React.FC<HeaderProps> = ({ translations, onQuoteClick, language = 
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const labels = language === 'ar'
-    ? { home: 'الرئيسية', about: 'من نحن', work: 'أعمالنا', services: 'خدماتنا', marketing: 'التسويق الرقمي (فرنسي)', content: 'صناعة المحتوى (فرنسي)', web: 'مواقع ويب (فرنسي)' }
+    ? { home: 'الرئيسية', about: 'من نحن', work: 'أعمال المواقع (فرنسي)', social: 'أعمال التواصل (فرنسي)', services: 'خدماتنا', marketing: 'التسويق الرقمي (فرنسي)', content: 'صناعة المحتوى (فرنسي)', web: 'مواقع ويب (فرنسي)' }
     : language === 'en'
-      ? { home: 'Home', about: 'About', work: 'Work', services: 'Services', marketing: 'Digital marketing (FR)', content: 'Content (FR)', web: 'Websites (FR)' }
-      : { home: 'Accueil', about: 'À propos', work: 'Projets', services: 'Services', marketing: 'Marketing digital', content: 'Contenu', web: 'Sites web' };
+      ? { home: 'Home', about: 'About', work: 'Web portfolio (FR)', social: 'Social portfolio (FR)', services: 'Services', marketing: 'Digital marketing (FR)', content: 'Content (FR)', web: 'Websites (FR)' }
+      : { home: 'Accueil', about: 'À propos', work: 'Portfolio web', social: 'Portfolio social', services: 'Services', marketing: 'Marketing digital', content: 'Contenu', web: 'Sites web' };
   const navItems: { label: string; id?: string; hash?: string; href?: string }[] = [
     { label: labels.about, id: 'about' },
-    { label: labels.work, id: 'etudes-de-cas' },
+    { label: labels.work, href: '/portfolio-sites-web-algerie.html' },
+    { label: labels.social, href: '/portfolio-social-media-algerie.html' },
     { label: labels.services, id: 'services' },
     { label: labels.marketing, href: '/agence-marketing-digital-algerie.html' },
     { label: labels.content, href: '/creation-contenu-algerie.html' },
