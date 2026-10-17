@@ -177,3 +177,13 @@
   .topic-grid a { min-height:0; }
   .footer-links { gap:1rem; }
 }
+
+/* Offre web : montrer une interface réelle plutôt qu'une image d'ambiance. */
+.web-landing .hero-visual { display:flex; align-items:center; padding:clamp(1.5rem,3vw,3rem); background:#27231e; }
+.web-landing .hero-visual img { width:100%; height:auto; min-height:0; aspect-ratio:16/10; object-fit:cover; object-position:left center; border:1px solid rgba(242,237,228,.28); border-radius:.35rem; box-shadow:0 1.8rem 4rem rgba(0,0,0,.3); filter:none; }
+.web-landing .hero-visual:after { display:none; }
+.web-landing .hero-visual span { right:clamp(1.5rem,3vw,3rem); bottom:1rem; color:var(--light); }
+.web-landing .project-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.web-landing .project img { aspect-ratio:16/10; }
+@media(max-width:960px) { .web-landing .hero-visual { max-height:none; } }
+@media(max-width:650px) { .web-landing .project-grid { grid-template-columns:1fr; } }

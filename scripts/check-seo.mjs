@@ -64,6 +64,17 @@ for (const route of routes) {
   }
 }
 
+const webPage = read('creation-site-web-algerie.html');
+const webQuoteLink = 'href="/#/devis?service=site-web"';
+assert.match(webPage, /<body class="web-landing">/);
+assert.ok(webPage.includes('src="/images/project-fidali.webp"'), 'Aperçu réel manquant dans le hero web.');
+assert.equal([...webPage.matchAll(/class="project"/g)].length, 4, 'Quatre projets web doivent être présentés.');
+assert.ok([...webPage.matchAll(/href="\/#\/devis\?service=site-web"/g)].length >= 3, 'Les appels à l’action web doivent ouvrir le devis adapté.');
+assert.ok(homepage.includes(webQuoteLink), 'Le parcours web doit être lié depuis l’accueil.');
+assert.ok(homepage.includes('Découvrir l’offre sites web'), 'L’offre web doit être visible depuis les projets de l’accueil.');
+assert.doesNotMatch(webPage, /href="\/#\/devis"/, 'Ne pas envoyer un projet web vers le devis de pack mensuel.');
+assert.ok(webPage.includes('mailto:contact@ivision.agency?subject=Demande%20de%20site%20web'), 'Alternative de contact web manquante.');
+
 const guideRoute = 'choisir-seo-google-ads-meta-algerie.html';
 const guideUrl = `${base}/${guideRoute}`;
 const guide = read(guideRoute);

@@ -473,3 +473,47 @@
   .glass-card, .btn-ivision { transition: none; }
   .glass-card:hover, .btn-ivision:hover { translate: 0 0; }
 }
+
+/* Devis de création de site : parcours distinct du formulaire de pack mensuel. */
+.web-quote { min-height:100vh; padding:clamp(7rem,11vw,10rem) 4.8vw 6rem; background:var(--iv-black); color:var(--iv-white); }
+.web-quote-inner { width:min(100%,72rem); margin-inline:auto; }
+.web-quote-back { display:inline-block; margin-bottom:2.5rem; color:var(--iv-muted); font-size:.74rem; font-weight:700; text-decoration:underline; text-underline-offset:.3em; }
+.web-quote-back:hover, .web-quote-alternatives a:hover { color:var(--iv-white); }
+.web-quote-heading { display:grid; grid-template-columns:1.2fr .8fr; gap:clamp(1.5rem,5vw,5rem); align-items:end; border-bottom:1px solid var(--iv-line); padding-bottom:2.5rem; }
+.web-quote-eyebrow { grid-column:1/-1; margin:0; color:var(--iv-orange); font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+.web-quote-heading h1 { margin:0; max-width:13ch; font-size:clamp(3.4rem,6vw,6.7rem); line-height:.98; }
+.web-quote-heading > p:last-child { max-width:30rem; margin:0; color:var(--iv-muted); font-size:1.05rem; line-height:1.6; }
+.web-quote-card { position:relative; margin-top:2rem; padding:clamp(1.35rem,4.5vw,4rem); border:1px solid var(--iv-line); border-radius:.8rem; background:var(--iv-paper); }
+.web-quote-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.65rem 1.3rem; }
+.web-quote-wide { grid-column:1/-1; }
+.web-quote-grid label { display:block; margin-bottom:.65rem; font-size:.72rem; font-weight:700; letter-spacing:.08em; }
+.web-quote-grid label span { color:var(--iv-muted); font-weight:400; letter-spacing:0; }
+.web-quote-grid input, .web-quote-grid select, .web-quote-grid textarea { display:block; width:100%; min-height:3.25rem; border:1px solid var(--iv-line); border-radius:.35rem; padding:.75rem 1rem; background:var(--iv-black); color:var(--iv-white); font:inherit; font-size:.93rem; line-height:1.45; }
+.web-quote-grid textarea { min-height:9rem; resize:vertical; }
+.web-quote-grid input::placeholder, .web-quote-grid textarea::placeholder { color:var(--iv-muted); opacity:1; }
+.web-quote-grid input:focus-visible, .web-quote-grid select:focus-visible, .web-quote-grid textarea:focus-visible, .web-quote-consent input:focus-visible, .web-quote-consent button:focus-visible, .web-quote-submit:focus-visible { outline:3px solid var(--iv-orange); outline-offset:3px; }
+.web-quote-honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+.web-quote-consent { display:flex; flex-wrap:wrap; align-items:flex-start; gap:.7rem 1.8rem; margin:2rem 0; font-size:.8rem; line-height:1.5; }
+.web-quote-consent label { display:flex; align-items:flex-start; gap:.7rem; max-width:36rem; cursor:pointer; }
+.web-quote-consent input { flex:0 0 auto; width:1.1rem; height:1.1rem; margin:.12rem 0 0; accent-color:var(--iv-orange); }
+.web-quote-consent button { border:0; padding:0; background:none; color:var(--iv-white); font:inherit; text-decoration:underline; text-underline-offset:.25em; cursor:pointer; }
+.web-quote-submit { display:inline-flex; align-items:center; justify-content:space-between; gap:2rem; min-height:3.5rem; border:1px solid var(--iv-orange); border-radius:99px; padding:.9rem 1.4rem; background:var(--iv-orange); color:var(--iv-black); font:inherit; font-size:.75rem; font-weight:700; text-decoration:none; text-transform:uppercase; letter-spacing:.07em; cursor:pointer; }
+.web-quote-submit:hover { background:transparent; color:var(--iv-white); }
+.web-quote-submit:disabled { opacity:.6; cursor:wait; }
+.web-quote-note { max-width:46rem; margin:1.5rem 0 0; color:var(--iv-muted); font-size:.8rem; line-height:1.6; }
+.web-quote-error, .web-quote-field-error { color:#ff9a8b; font-size:.85rem; font-weight:600; }
+.web-quote-grid [aria-invalid="true"] { border-color:#ff9a8b; }
+.web-quote-error { margin:0 0 1.4rem; }
+.web-quote-field-error { margin:.5rem 0 0; }
+.web-quote-success { display:flex; flex-wrap:wrap; align-items:center; gap:1.5rem; }
+.web-quote-success > a:not(.web-quote-submit) { color:var(--iv-white); text-underline-offset:.25em; }
+.web-quote-alternatives { display:flex; flex-wrap:wrap; gap:1rem 2rem; margin-top:2rem; }
+.web-quote-alternatives a { color:var(--iv-muted); font-size:.85rem; text-underline-offset:.3em; }
+@media(max-width:760px) {
+  .web-quote { padding:7rem 1.15rem 4.5rem; }
+  .web-quote-heading, .web-quote-grid { grid-template-columns:1fr; }
+  .web-quote-heading h1 { font-size:clamp(3rem,12vw,5rem); }
+  .web-quote-wide { grid-column:auto; }
+  .web-quote-submit { width:100%; }
+}
+@media(prefers-reduced-motion:reduce) { .web-quote-submit { transition:none; } }

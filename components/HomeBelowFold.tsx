@@ -3,7 +3,7 @@ import PortfolioGallery from './PortfolioGallery';
 import Services from './Services';
 import type { Language } from '../lib/translations';
 
-type HomeBelowFoldProps = { language: Language; translations: any; onQuoteClick: () => void };
+type HomeBelowFoldProps = { language: Language; translations: any };
 
 const localCopy = {
   fr: {
@@ -26,7 +26,7 @@ const localCopy = {
   },
 };
 
-const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations, onQuoteClick }) => {
+const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations }) => {
   const t = localCopy[language];
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const faqs = translations.faq?.faqs || [];
@@ -36,7 +36,7 @@ const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations, o
 
   return (
     <div className="iv-home-sections">
-      <PortfolioGallery language={language} onQuoteClick={onQuoteClick} />
+      <PortfolioGallery language={language} />
 
       <section id="smm" className="iv-smm">
         <div className="iv-section-topline"><span>{t.smm.label}</span></div>

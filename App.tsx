@@ -7,6 +7,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import MobileConversionBar from './components/MobileConversionBar';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import QuoteForm from './components/QuoteForm';
+import WebProjectQuoteForm from './components/WebProjectQuoteForm';
 import TrainingCenterLanding from './components/TrainingCenterLanding';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
@@ -32,17 +33,40 @@ const PageLoader: React.FC = () => (
 );
 
 const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'privacy' | 'terms' }> = ({ isOpen, onClose, type }) => {
+  const closeButton = React.useRef<HTMLButtonElement>(null);
+  const onCloseRef = React.useRef(onClose);
+  onCloseRef.current = onClose;
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    closeButton.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onCloseRef.current();
+      if (event.key === 'Tab') {
+        const buttons = closeButton.current?.closest('[role="dialog"]')?.querySelectorAll<HTMLButtonElement>('button:not([disabled])');
+        if (!buttons?.length) return;
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => { window.removeEventListener('keydown', onKeyDown); previousFocus?.focus(); };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[150] flex items-center justify-center p-6 bg-black/60 backdrop-blur-md animate-fade-in">
-      <div className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 p-8 md:p-14 max-w-3xl w-full rounded-[2.5rem] shadow-2xl max-h-[80vh] overflow-y-auto scrollbar-none">
-        <button onClick={onClose} className="absolute top-8 right-8 text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors">
+      <div role="dialog" aria-modal="true" aria-labelledby="policy-title" className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 p-8 md:p-14 max-w-3xl w-full rounded-[2.5rem] shadow-2xl max-h-[80vh] overflow-y-auto scrollbar-none">
+        <button ref={closeButton} type="button" aria-label="Fermer la fenêtre" onClick={onClose} className="absolute top-8 right-8 text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         
         <div className="space-y-8">
-            <h2 className="text-3xl font-black text-navy dark:text-white uppercase tracking-tighter">
+            <h2 id="policy-title" className="text-3xl font-black text-navy dark:text-white uppercase tracking-tighter">
                 {type === 'privacy' ? 'Politique de Confidentialité' : 'Conditions Générales'}
             </h2>
             
@@ -96,13 +120,13 @@ type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service' | 'centres';
 // Source unique de routage : lib/router.ts (plus de parseHash dupliqué ici).
 const parseHash = (): { view: ViewType; slug?: string } => {
   const route = parseRoute();
-  return {
-    view: route.type,
-    slug: route.type === 'blog-post' || route.type === 'service' ? route.slug : undefined,
-  };
+  const slug = route.type === 'blog-post' || route.type === 'service'
+    ? route.slug
+    : route.type === 'quote' ? route.service : undefined;
+  return { view: route.type, slug };
 };
 
-type HomeSectionsProps = { language: Language; translations: typeof translations.fr; onQuoteClick: () => void };
+type HomeSectionsProps = { language: Language; translations: typeof translations.fr };
 
 // Le pré-rendu peut fournir la même section de manière synchrone ; le navigateur
 // conserve l'import lazy afin de ne télécharger le bas de page qu'à la demande.
@@ -219,7 +243,9 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
         return <TrainingCenterLanding language={language} />;
 
       case 'quote':
-return <QuoteForm translations={{ form: t.contact.form }} />;
+        return currentSlug === 'site-web'
+          ? <WebProjectQuoteForm language={language} onOpenPolicy={() => setPolicyType('privacy')} />
+          : <QuoteForm translations={{ form: t.contact.form }} />;
         
       case 'home':
       default:
@@ -231,7 +257,6 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
               <HomeSections
                 language={language}
                 translations={t}
-                onQuoteClick={handleOpenQuotePage}
               />
             </Suspense>
           </>

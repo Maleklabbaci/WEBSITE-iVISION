@@ -4,18 +4,23 @@ export type Route =
   | { type: 'blog' }
   | { type: 'blog-post'; slug: string }
   | { type: 'service'; slug: string }
-  | { type: 'quote' }
+  | { type: 'quote'; service?: 'site-web' }
   | { type: 'centres' };
 
 export const parseRoute = (): Route => {
   const hash = window.location.hash.slice(1) || '/';
+  const [path, query = ''] = hash.split('?');
 
-  if (hash === '/' || hash === '') return { type: 'home' };
-  if (hash === '/blog') return { type: 'blog' };
-  if (hash.startsWith('/blog/')) return { type: 'blog-post', slug: hash.replace('/blog/', '') };
-  if (hash.startsWith('/services/')) return { type: 'service', slug: hash.replace('/services/', '') };
-  if (hash === '/devis') return { type: 'quote' };       // était /quote → now /devis
-  if (hash === '/academiq') return { type: 'centres' };  // manquait
+  if (path === '/' || path === '') return { type: 'home' };
+  if (path === '/blog') return { type: 'blog' };
+  if (path.startsWith('/blog/')) return { type: 'blog-post', slug: path.replace('/blog/', '') };
+  if (path.startsWith('/services/')) return { type: 'service', slug: path.replace('/services/', '') };
+  if (path === '/devis') {
+    return new URLSearchParams(query).get('service') === 'site-web'
+      ? { type: 'quote', service: 'site-web' }
+      : { type: 'quote' };
+  }
+  if (path === '/academiq') return { type: 'centres' };
 
   return { type: 'home' };
 };

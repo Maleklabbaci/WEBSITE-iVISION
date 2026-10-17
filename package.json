@@ -11,7 +11,7 @@
     "dev:site": "vite --host 0.0.0.0",
     "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "build:site": "vite build && node --import tsx scripts/prerender-home.mjs",
-    "validate:site": "npm run lint && npm run build:site && node scripts/check-seo.mjs",
+    "validate:site": "npm run lint && npm run build:site && node scripts/check-seo.mjs && node --import tsx scripts/check-web-flow.mjs",
     "start": "node dist/server.cjs",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",

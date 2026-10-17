@@ -85,19 +85,19 @@ const textContent = {
       fr: [
         { title: 'META & GOOGLE ADS', description: 'Des campagnes reliées à un objectif mesurable.', details: 'Définir la cible, les créations, la page d’arrivée et les indicateurs avant de diffuser. Les dépenses publicitaires restent distinctes des honoraires.' },
         { title: 'CRÉATION DE CONTENU', description: 'Textes, visuels et formats adaptés à votre public.', details: 'Concevoir une ligne éditoriale et produire les formats prévus au brief, puis observer les réactions et les questions utiles.' },
-        { title: 'CRÉATION DE SITES WEB', description: 'Sites vitrines et boutiques pensés pour vos visiteurs.', details: 'Structurer les pages, clarifier les messages, soigner le mobile et préparer des bases techniques pour la visibilité naturelle.' },
+        { title: 'CRÉATION DE SITES WEB', description: 'Vitrine, boutique ou refonte : un parcours clair, pensé aussi pour le mobile.', details: 'Structurer les pages, clarifier les messages, soigner le mobile et préparer des bases techniques pour la visibilité naturelle.' },
         { title: 'STRATÉGIE DIGITALE', description: 'Un plan pour relier les différents canaux.', details: 'Choisir les actions utiles, définir les livrables et suivre les données disponibles pour décider des prochaines étapes.' },
       ],
       en: [
         { title: 'META & GOOGLE ADS', description: 'Campaigns tied to a clear objective.', details: 'Plan the audience, creative, landing page and measurement before launch. Media spend and agency fees are separate.' },
         { title: 'CONTENT CREATION', description: 'Words and visuals for your audience.', details: 'Define an editorial approach and produce the formats agreed in the brief.' },
-        { title: 'WEBSITE CREATION', description: 'Websites and shops designed for visitors.', details: 'Organize pages, clarify messages and prepare sound technical foundations.' },
+        { title: 'WEBSITE CREATION', description: 'Business sites, online shops or redesigns built around visitors and mobile use.', details: 'Organize pages, clarify messages and prepare sound technical foundations.' },
         { title: 'DIGITAL STRATEGY', description: 'Connect channels through a practical plan.', details: 'Prioritize actions, agree on deliverables and review available data.' },
       ],
       ar: [
         { title: 'إعلانات ميتا وجوجل', description: 'حملات مرتبطة بهدف واضح.', details: 'نحدد الجمهور والتصميم وصفحة الوصول وطريقة القياس قبل الإطلاق، مع فصل ميزانية الإعلانات عن أتعاب الخدمة.' },
         { title: 'صناعة المحتوى', description: 'نصوص وصور تناسب جمهورك.', details: 'نحدد خطة تحريرية وننتج المحتوى المتفق عليه حسب احتياجات المشروع.' },
-        { title: 'إنشاء مواقع الويب', description: 'مواقع ومتاجر واضحة للزوار.', details: 'ننظم الصفحات ونوضح الرسائل ونهتم بالتجربة على الهاتف والأسس التقنية.' },
+        { title: 'إنشاء مواقع الويب', description: 'مواقع تعريفية ومتاجر وتجديد مواقع تراعي الزائر والهاتف.', details: 'ننظم الصفحات ونوضح الرسائل ونهتم بالتجربة على الهاتف والأسس التقنية.' },
         { title: 'الاستراتيجية الرقمية', description: 'خطة تربط القنوات المختلفة.', details: 'نرتب الأولويات ونحدد المخرجات ونراجع البيانات المتاحة.' },
       ],
     },
