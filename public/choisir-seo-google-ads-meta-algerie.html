@@ -20,8 +20,9 @@
   <meta name="twitter:image" content="https://ivision.agency/images/ivision-hero-analytics.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cairo:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/seo/landing.css" />
+  <script src="/seo/page-ui.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,14 +50,50 @@
 </head>
 <body class="guide">
   <a class="skip" href="#contenu">Aller au contenu</a>
-  <header class="page-header"><div class="wrap header-inner">
-    <a class="brand" href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" width="118" height="37" /></a>
-    <nav class="header-nav" aria-label="Navigation de ce guide"><a href="#comparaison">Comparer</a><a href="#parcours">Décider</a><a href="#questions">Questions</a></nav>
-    <a class="header-cta" href="/#/devis">Parler de mon projet ↗</a>
+  <header class="page-header iv-header"><div class="header-inner iv-header-inner">
+    <a class="brand iv-logo" href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" width="118" height="37" /></a>
+    <nav class="header-nav iv-nav" aria-label="Navigation principale">
+      <a href="/" data-i18n="nav.home">Accueil</a>
+      <a href="/#about" data-i18n="nav.about">À propos</a>
+      <a href="/portfolio-sites-web-algerie.html" data-i18n="nav.work">Portfolio web</a>
+      <a href="/portfolio-social-media-algerie.html" data-i18n="nav.social">Portfolio social</a>
+      <a href="/#services" data-i18n="nav.services">Services</a>
+      <a href="/agence-marketing-digital-algerie.html" data-i18n="nav.marketing">Marketing digital</a>
+      <a href="/creation-contenu-algerie.html" data-i18n="nav.content">Contenu</a>
+      <a href="/publicite-meta-google-ads-algerie.html" data-i18n="nav.ads">Publicité Ads</a>
+      <a href="/creation-site-web-algerie.html" data-i18n="nav.web">Sites web</a>
+    </nav>
+    <div class="iv-header-actions">
+      <div class="iv-lang-switch" role="group" aria-label="Changer de langue">
+        <button type="button" class="iv-lang-btn is-active" data-lang-switch="fr" lang="fr" aria-pressed="true">FR</button>
+        <button type="button" class="iv-lang-btn" data-lang-switch="ar" lang="ar" aria-pressed="false">عربي</button>
+      </div>
+      <a class="header-cta iv-header-cta" href="/#/devis"><span data-i18n="cta.project">Parler de mon projet</span><b aria-hidden="true">↗</b></a>
+      <button type="button" class="iv-menu-button" aria-expanded="false" aria-label="Ouvrir le menu"><span></span><span></span></button>
+    </div>
   </div></header>
 
+  <div class="iv-mobile-menu" aria-hidden="true">
+    <div class="iv-mobile-lang" role="group" aria-label="Changer de langue">
+      <button type="button" class="iv-lang-btn is-active" data-lang-switch="fr" lang="fr" aria-pressed="true">Français</button>
+      <button type="button" class="iv-lang-btn" data-lang-switch="ar" lang="ar" aria-pressed="false">العربية</button>
+    </div>
+    <nav aria-label="Navigation mobile">
+      <a href="/" data-i18n="nav.home">Accueil</a>
+      <a href="/#about" data-i18n="nav.about">À propos</a>
+      <a href="/portfolio-sites-web-algerie.html" data-i18n="nav.work">Portfolio web</a>
+      <a href="/portfolio-social-media-algerie.html" data-i18n="nav.social">Portfolio social</a>
+      <a href="/#services" data-i18n="nav.services">Services</a>
+      <a href="/agence-marketing-digital-algerie.html" data-i18n="nav.marketing">Marketing digital</a>
+      <a href="/creation-contenu-algerie.html" data-i18n="nav.content">Contenu</a>
+      <a href="/publicite-meta-google-ads-algerie.html" data-i18n="nav.ads">Publicité Ads</a>
+      <a href="/creation-site-web-algerie.html" data-i18n="nav.web">Sites web</a>
+      <a href="/#/devis" class="iv-mobile-cta"><span data-i18n="cta.project">Parler de mon projet</span> ↗</a>
+    </nav>
+  </div>
+
   <main id="contenu">
-    <nav class="wrap crumb" aria-label="Fil d'Ariane"><a href="/">Accueil</a><span aria-hidden="true">/</span><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><span aria-hidden="true">/</span><span aria-current="page">Choisir SEO ou Ads</span></nav>
+    <nav class="wrap crumb" aria-label="Fil d'Ariane"><a href="/" data-i18n="crumb.home">← Accueil</a><span aria-hidden="true">/</span><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><span aria-hidden="true">/</span><span aria-current="page">Choisir SEO ou Ads</span><span class="crumb-anchors"><a href="#comparaison">Comparer</a><a href="#parcours">Décider</a><a href="#questions">Questions</a></span></nav>
     <article>
       <section class="hero" aria-labelledby="page-title"><div class="wrap hero-grid">
         <div class="hero-copy"><p class="eyebrow">Guide pratique / Entreprises en Algérie</p><h1 id="page-title"><em>SEO, Google Ads ou Meta Ads</em> : par quoi commencer ?</h1><p>« Être premier » peut vouloir dire deux choses différentes : apparaître dans les résultats naturels, ou acheter la diffusion d'une annonce. Voici comment choisir un levier en fonction de votre offre et de votre parcours client.</p><div class="hero-actions"><a class="btn btn-light" href="#comparaison">Comparer les leviers <span aria-hidden="true">↓</span></a><a class="btn btn-outline-light" href="/publicite-meta-google-ads-algerie.html">Découvrir l'accompagnement Ads <span aria-hidden="true">↗</span></a></div></div>
@@ -123,6 +160,6 @@
     </div></section>
     <section class="section" aria-labelledby="contact-title"><div class="wrap contact-panel"><div><p class="eyebrow">Votre situation, pas une formule miracle</p><h2 id="contact-title">Parlons de votre objectif.</h2><p>Expliquez votre offre, votre public et ce que vous souhaitez mesurer. Nous pourrons préciser les actions utiles avant tout lancement.</p></div><div class="actions"><a class="btn btn-light" href="/#/devis">Demander un devis <span aria-hidden="true">↗</span></a><a class="btn btn-outline-light" href="mailto:contact@ivision.agency">Écrire par e-mail <span aria-hidden="true">↗</span></a></div></div></section>
   </main>
-  <footer class="footer"><div class="wrap"><div class="footer-grid"><p>iVISION Agency<br /><span class="muted">Stratégie, création et expérience digitale pour vos projets en Algérie.</span></p><div class="footer-links"><a href="/">Accueil</a><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><a href="/creation-contenu-algerie.html">Création de contenu</a><a href="/publicite-meta-google-ads-algerie.html">Publicité Ads</a><a href="/creation-site-web-algerie.html">Sites web</a><a href="mailto:contact@ivision.agency">contact@ivision.agency</a><a href="tel:+213563839404">+213 563 83 94 04</a></div></div><div class="footer-base"><span>© iVISION Agency</span><span>Guide de visibilité en Algérie · SEO / Google Ads / Meta Ads</span></div></div></footer>
+  <footer class="footer"><div class="wrap"><div class="footer-grid"><div class="footer-brand"><a href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" class="footer-logo" width="118" height="37" loading="lazy" decoding="async" /></a><p>iVISION Agency<br /><span class="muted">Stratégie, création et expérience digitale pour vos projets en Algérie.</span></p></div><div class="footer-links"><a href="/">Accueil</a><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><a href="/creation-contenu-algerie.html">Création de contenu</a><a href="/publicite-meta-google-ads-algerie.html">Publicité Ads</a><a href="/creation-site-web-algerie.html">Sites web</a><a href="mailto:contact@ivision.agency">contact@ivision.agency</a><a href="tel:+213563839404">+213 563 83 94 04</a></div></div><div class="footer-base"><span>© iVISION Agency</span><span>Guide de visibilité en Algérie · SEO / Google Ads / Meta Ads</span></div></div></footer>
 </body>
 </html>

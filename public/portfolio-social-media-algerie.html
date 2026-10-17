@@ -21,25 +21,59 @@
   <meta name="twitter:image" content="https://ivision.agency/images/agency-card-content-studio.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cairo:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/seo/landing.css" />
   <link rel="stylesheet" href="/seo/portfolio.css" />
+  <script src="/seo/page-ui.js" defer></script>
 </head>
 <body class="portfolio-page social-portfolio">
   <a class="skip" href="#contenu">Aller au contenu</a>
-  <header class="page-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" width="118" height="37" /></a>
-      <nav class="header-nav" aria-label="Navigation de cette page">
-        <a href="/creation-contenu-algerie.html">Offre contenu</a>
-        <a href="#selection">La sélection</a>
-        <a href="/portfolio-sites-web-algerie.html">Portfolio sites web</a>
+  <header class="page-header iv-header">
+    <div class="header-inner iv-header-inner">
+      <a class="brand iv-logo" href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" width="118" height="37" /></a>
+      <nav class="header-nav iv-nav" aria-label="Navigation principale">
+        <a href="/" data-i18n="nav.home">Accueil</a>
+        <a href="/#about" data-i18n="nav.about">À propos</a>
+        <a href="/portfolio-sites-web-algerie.html" data-i18n="nav.work">Portfolio web</a>
+        <a href="/portfolio-social-media-algerie.html" aria-current="page" data-i18n="nav.social">Portfolio social</a>
+        <a href="/#services" data-i18n="nav.services">Services</a>
+        <a href="/agence-marketing-digital-algerie.html" data-i18n="nav.marketing">Marketing digital</a>
+        <a href="/creation-contenu-algerie.html" data-i18n="nav.content">Contenu</a>
+        <a href="/publicite-meta-google-ads-algerie.html" data-i18n="nav.ads">Publicité Ads</a>
+        <a href="/creation-site-web-algerie.html" data-i18n="nav.web">Sites web</a>
       </nav>
-      <a class="header-cta" href="mailto:contact@ivision.agency?subject=Projet%20social%20media">Parler de mon projet ↗</a>
+      <div class="iv-header-actions">
+        <div class="iv-lang-switch" role="group" aria-label="Changer de langue">
+          <button type="button" class="iv-lang-btn is-active" data-lang-switch="fr" lang="fr" aria-pressed="true">FR</button>
+          <button type="button" class="iv-lang-btn" data-lang-switch="ar" lang="ar" aria-pressed="false">عربي</button>
+        </div>
+        <a class="header-cta iv-header-cta" href="mailto:contact@ivision.agency?subject=Projet%20social%20media"><span data-i18n="cta.project">Parler de mon projet</span><b aria-hidden="true">↗</b></a>
+        <button type="button" class="iv-menu-button" aria-expanded="false" aria-label="Ouvrir le menu"><span></span><span></span></button>
+      </div>
     </div>
   </header>
+
+  <div class="iv-mobile-menu" aria-hidden="true">
+    <div class="iv-mobile-lang" role="group" aria-label="Changer de langue">
+      <button type="button" class="iv-lang-btn is-active" data-lang-switch="fr" lang="fr" aria-pressed="true">Français</button>
+      <button type="button" class="iv-lang-btn" data-lang-switch="ar" lang="ar" aria-pressed="false">العربية</button>
+    </div>
+    <nav aria-label="Navigation mobile">
+      <a href="/" data-i18n="nav.home">Accueil</a>
+      <a href="/#about" data-i18n="nav.about">À propos</a>
+      <a href="/portfolio-sites-web-algerie.html" data-i18n="nav.work">Portfolio web</a>
+      <a href="/portfolio-social-media-algerie.html" aria-current="page" data-i18n="nav.social">Portfolio social</a>
+      <a href="/#services" data-i18n="nav.services">Services</a>
+      <a href="/agence-marketing-digital-algerie.html" data-i18n="nav.marketing">Marketing digital</a>
+      <a href="/creation-contenu-algerie.html" data-i18n="nav.content">Contenu</a>
+      <a href="/publicite-meta-google-ads-algerie.html" data-i18n="nav.ads">Publicité Ads</a>
+      <a href="/creation-site-web-algerie.html" data-i18n="nav.web">Sites web</a>
+      <a href="/#/devis" class="iv-mobile-cta"><span data-i18n="cta.project">Parler de mon projet</span> ↗</a>
+    </nav>
+  </div>
+
   <main id="contenu">
-    <nav class="wrap crumb" aria-label="Fil d'Ariane"><a href="/">Accueil</a><span aria-hidden="true">/</span><a href="/creation-contenu-algerie.html">Contenu</a><span aria-hidden="true">/</span><span aria-current="page">Portfolio social media</span></nav>
+    <nav class="wrap crumb" aria-label="Fil d'Ariane"><a href="/" data-i18n="crumb.home">← Accueil</a><span aria-hidden="true">/</span><a href="/creation-contenu-algerie.html">Contenu</a><span aria-hidden="true">/</span><span aria-current="page">Portfolio social media</span><span class="crumb-anchors"><a href="#selection">La sélection</a><a href="#formats">Livrables</a><a href="#canaux">Canaux</a></span></nav>
     <section class="pf-hero" aria-labelledby="page-title"><div class="wrap pf-hero-grid">
       <div class="pf-hero-copy"><p class="pf-kicker">iVISION / Portfolio social media</p><h1 id="page-title">Portfolio <em>social media.</em></h1><p>Cette page est réservée aux créations social media qu'iVISION choisira de montrer. Les projets clients seront ajoutés ici seulement après validation des visuels et de leur présentation.</p><div class="pf-hero-actions"><a class="btn btn-light" href="#selection">Voir l'état du portfolio <span aria-hidden="true">↓</span></a><a class="btn btn-outline-light" href="/creation-contenu-algerie.html">Découvrir l'offre contenu <span aria-hidden="true">↗</span></a></div></div>
       <div class="pf-hero-art pf-social-art"><figure><img src="/images/agency-card-content-studio.webp" alt="" width="1200" height="800" fetchpriority="high" /><figcaption>Illustration de création / Pas une campagne client</figcaption></figure></div>
@@ -61,6 +95,6 @@
     <section class="pf-cross" aria-label="Explorer les autres pages"><div class="wrap pf-cross-grid"><a href="/creation-contenu-algerie.html"><small>Le service</small><strong>Comment préparer vos contenus ?</strong><span aria-hidden="true">↗</span></a><a href="/portfolio-sites-web-algerie.html"><small>L'autre portfolio</small><strong>Explorer les sites web présentés.</strong><span aria-hidden="true">↗</span></a></div></section>
     <section class="pf-contact" aria-labelledby="contact-title"><div class="wrap pf-contact-inner"><div><p class="eyebrow">Votre projet social media</p><h2 id="contact-title">Parlons de ce que vous voulez raconter.</h2><p>Indiquez votre activité, vos canaux et vos objectifs. Les formats et la gestion des comptes seront définis avec vous.</p></div><div class="pf-contact-actions"><a class="btn btn-light" href="mailto:contact@ivision.agency?subject=Projet%20social%20media">Écrire à iVISION <span aria-hidden="true">↗</span></a><a class="btn btn-outline-light" href="/#/devis">Faire une demande <span aria-hidden="true">↗</span></a></div></div></section>
   </main>
-  <footer class="footer"><div class="wrap"><div class="footer-grid"><p>iVISION Agency<br /><span class="muted">Stratégie, création et expérience digitale pour vos projets en Algérie.</span></p><div class="footer-links"><a href="/">Accueil</a><a href="/portfolio-sites-web-algerie.html">Portfolio sites web</a><a href="/creation-contenu-algerie.html">Création de contenu</a><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><a href="mailto:contact@ivision.agency">contact@ivision.agency</a></div></div><div class="footer-base"><span>© iVISION Agency</span><span>Portfolio social media · Sélection en préparation</span></div></div></footer>
+  <footer class="footer"><div class="wrap"><div class="footer-grid"><div class="footer-brand"><a href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" class="footer-logo" width="118" height="37" loading="lazy" decoding="async" /></a><p>iVISION Agency<br /><span class="muted">Stratégie, création et expérience digitale pour vos projets en Algérie.</span></p></div><div class="footer-links"><a href="/">Accueil</a><a href="/portfolio-sites-web-algerie.html">Portfolio sites web</a><a href="/creation-contenu-algerie.html">Création de contenu</a><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><a href="mailto:contact@ivision.agency">contact@ivision.agency</a></div></div><div class="footer-base"><span>© iVISION Agency</span><span>Portfolio social media · Sélection en préparation</span></div></div></footer>
 </body>
 </html>

@@ -78,6 +78,8 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     otherActivityLabel: t.otherActivityLabel || 'Précisez votre activité',
     otherSpecify: t.otherSpecify || 'Précisez votre activité...',
     otherProblemLabel: t.otherProblemLabel || 'Précisez votre blocage',
+    privacyConsentLabel: t.privacyConsentLabel || 'J’accepte que mes informations soient utilisées pour répondre à ma demande et être contacté par iVISION.',
+    privacyConsentError: t.privacyConsentError || 'Veuillez accepter l’utilisation de vos informations pour continuer.',
   };
 
   useEffect(() => {
@@ -92,7 +94,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
   }, []);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const digits = e.target.value.replace(/\D/g, '');
+    const digits = e.target.value
+      .replace(/[٠-٩]/g, (digit) => String(digit.charCodeAt(0) - 0x0660))
+      .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0))
+      .replace(/\D/g, '');
     setFormData({ ...formData, phone: digits });
     if (digits.length > 0 && digits.length !== 10) {
       setPhoneError(labels.phoneError);
@@ -612,12 +617,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
                     onChange={e => setFormData({ ...formData, privacyConsent: e.target.checked })}
                     className="mt-1 h-4 w-4 accent-brand-blue"
                   />
-                  <span>J’accepte que mes informations soient utilisées pour répondre à ma demande et être contacté par iVISION.</span>
+                  <span>{labels.privacyConsentLabel}</span>
                 </label>
 
                 {status === 'error' && (
                   <div role="alert" aria-live="polite" className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500 text-sm font-bold text-center">
-                    {formData.privacyConsent ? labels.networkError : 'Veuillez accepter l’utilisation de vos informations pour continuer.'}
+                    {formData.privacyConsent ? labels.networkError : labels.privacyConsentError}
                   </div>
                 )}
 

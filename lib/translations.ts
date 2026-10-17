@@ -71,6 +71,16 @@ const textContent = {
     }
   },
   services: {
+    topline: {
+      fr: 'SERVICES',
+      en: 'SERVICES',
+      ar: 'خدماتنا',
+    },
+    discover: {
+      fr: 'Découvrir',
+      en: 'Discover',
+      ar: 'اكتشف الخدمة',
+    },
     title: {
       fr: 'BOOSTEZ VOTRE MARQUE.',
       en: 'BOOST YOUR BRAND.',
@@ -261,7 +271,7 @@ const textContent = {
       blocagesOptions: {
         fr: ['Pas de visibilité en ligne', 'Génération de leads faible', 'Mauvaise conversion', 'Besoin de croissance', 'Concurrence forte', 'Autre'],
         en: ['No online visibility', 'Low lead generation', 'Poor conversion', 'Need growth', 'Strong competition', 'Other'],
-        ar: ['عدم وجود ظهور على الإنترنت', 'ضعف جيل العملاء المحتملين', 'تحويل ضعيف', 'الحاجة إلى النمو', 'منافسة قوية', 'أخرى']
+        ar: ['عدم وجود ظهور على الإنترنت', 'ضعف جذب العملاء المحتملين', 'تحويل ضعيف', 'الحاجة إلى النمو', 'منافسة قوية', 'أخرى']
       },
       projectDescriptionLabel: { fr: 'Description du projet', en: 'Project Description', ar: 'وصف المشروع' },
       projectDescriptionPlaceholder: { 
@@ -306,6 +316,16 @@ const textContent = {
       engagementLabel: { fr: 'Engagement', en: 'Engagement', ar: 'الالتزام' },
       projectDetailsLabel: { fr: 'Détails du projet', en: 'Project details', ar: 'تفاصيل المشروع' },
       submitButtonText: { fr: 'Envoyer mon devis', en: 'Send my quote', ar: 'أرسل عرضي' },
+      privacyConsentLabel: {
+        fr: 'J’accepte que mes informations soient utilisées pour répondre à ma demande et être contacté par iVISION.',
+        en: 'I agree that my information may be used to respond to my request and be contacted by iVISION.',
+        ar: 'أوافق على استخدام معلوماتي للرد على طلبي والتواصل معي من طرف iVISION.'
+      },
+      privacyConsentError: {
+        fr: 'Veuillez accepter l’utilisation de vos informations pour continuer.',
+        en: 'Please accept the use of your information to continue.',
+        ar: 'يرجى الموافقة على استخدام معلوماتك للمتابعة.'
+      },
     },
     modal: {
         cta: { fr: 'Discuter sur WhatsApp', en: 'Chat on WhatsApp', ar: 'تحدث عبر واتساب' },
@@ -314,12 +334,14 @@ const textContent = {
   },
   footer: {
     tagline: { fr: 'On vous aide à grandir en Algérie.', en: 'Helping you grow in Algeria.', ar: 'نساعدك على النمو في الجزائر.' },
-    copyright: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' },
+    copyright: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'وكالة iVISION.' },
     contactUs: { fr: 'AUDIT GRATUIT', en: 'FREE AUDIT', ar: 'تدقيق مجاني' },
-    marketingLink: { fr: 'Marketing digital en Algérie', en: 'Digital marketing in Algeria (FR)', ar: 'التسويق الرقمي في الجزائر (فرنسي)' },
-    contentLink: { fr: 'Création de contenu en Algérie', en: 'Content creation in Algeria (FR)', ar: 'صناعة المحتوى في الجزائر (فرنسي)' },
-    adsLink: { fr: 'Publicité Meta & Google Ads', en: 'Meta & Google Ads (FR)', ar: 'إعلانات ميتا وجوجل (فرنسي)' },
-    webLink: { fr: 'Création de sites web', en: 'Website creation (FR)', ar: 'إنشاء مواقع ويب (فرنسي)' },
+    marketingLink: { fr: 'Marketing digital en Algérie', en: 'Digital marketing in Algeria', ar: 'التسويق الرقمي في الجزائر' },
+    contentLink: { fr: 'Création de contenu en Algérie', en: 'Content creation in Algeria', ar: 'صناعة المحتوى في الجزائر' },
+    adsLink: { fr: 'Publicité Meta & Google Ads', en: 'Meta & Google Ads', ar: 'إعلانات ميتا وجوجل' },
+    webLink: { fr: 'Création de sites web', en: 'Website creation', ar: 'إنشاء مواقع الويب' },
+    privacyLink: { fr: 'Confidentialité', en: 'Privacy', ar: 'الخصوصية' },
+    termsLink: { fr: 'Conditions', en: 'Terms', ar: 'الشروط' },
     contact: {
       email: 'contact@ivision.agency',
       support: 'support@ivision.agency',
@@ -348,6 +370,8 @@ const processTranslations = (lang: Language) => {
       secondaryCta: b.hero.secondaryCta[lang],
     },
     services: {
+      topline: b.services.topline[lang],
+      discover: b.services.discover[lang],
       title: b.services.title[lang],
       subtitle: b.services.subtitle[lang],
       items: b.services.items[lang],
@@ -403,6 +427,34 @@ const processTranslations = (lang: Language) => {
         businessAgeOptions: b.contact.form.businessAgeOptions[lang],
         paidAdsLabel: b.contact.form.paidAdsLabel[lang],
         paidAdsOptions: b.contact.form.paidAdsOptions[lang],
+        emailLabel: b.contact.form.emailLabel[lang],
+        emailOptional: b.contact.form.emailOptional[lang],
+        companyLabel: b.contact.form.companyLabel[lang],
+        businessTypeLabel: b.contact.form.businessTypeLabel[lang],
+        businessTypeOptions: b.contact.form.businessTypeOptions[lang],
+        blocagesLabel: b.contact.form.blocagesLabel[lang],
+        blocagesOptions: b.contact.form.blocagesOptions[lang],
+        projectDescriptionLabel: b.contact.form.projectDescriptionLabel[lang],
+        projectDescriptionPlaceholder: b.contact.form.projectDescriptionPlaceholder[lang],
+        onlinePresenceNewLabel: b.contact.form.onlinePresenceNewLabel[lang],
+        onlinePresenceNewOptions: b.contact.form.onlinePresenceNewOptions[lang],
+        businessAgeNewLabel: b.contact.form.businessAgeNewLabel[lang],
+        businessAgeNewOptions: b.contact.form.businessAgeNewOptions[lang],
+        paidAdsNewLabel: b.contact.form.paidAdsNewLabel[lang],
+        paidAdsNewOptions: b.contact.form.paidAdsNewOptions[lang],
+        timelineLabel: b.contact.form.timelineLabel[lang],
+        timelineOptions: b.contact.form.timelineOptions[lang],
+        budgetMonthlyLabel: b.contact.form.budgetMonthlyLabel[lang],
+        budgetMonthlyOptions: b.contact.form.budgetMonthlyOptions[lang],
+        summaryLabel: b.contact.form.summaryLabel[lang],
+        contactInfoLabel: b.contact.form.contactInfoLabel[lang],
+        profileLabel: b.contact.form.profileLabel[lang],
+        needLabel: b.contact.form.needLabel[lang],
+        engagementLabel: b.contact.form.engagementLabel[lang],
+        projectDetailsLabel: b.contact.form.projectDetailsLabel[lang],
+        submitButtonText: b.contact.form.submitButtonText[lang],
+        privacyConsentLabel: b.contact.form.privacyConsentLabel[lang],
+        privacyConsentError: b.contact.form.privacyConsentError[lang],
       },
       modal: {
           cta: b.contact.modal.cta[lang],
@@ -418,6 +470,8 @@ const processTranslations = (lang: Language) => {
       contentLink: b.footer.contentLink[lang],
       adsLink: b.footer.adsLink[lang],
       webLink: b.footer.webLink[lang],
+      privacyLink: b.footer.privacyLink[lang],
+      termsLink: b.footer.termsLink[lang],
       contact: b.footer.contact
     },
     whatsapp: { message: b.whatsapp.message[lang] },

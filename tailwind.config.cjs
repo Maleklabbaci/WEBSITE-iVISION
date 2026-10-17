@@ -30,8 +30,9 @@ module.exports = {
         'brand-border': 'rgba(20,18,15,0.12)',
       },
       fontFamily: {
-        sans: ['Jost', 'system-ui', 'sans-serif'],
-        display: ['"Bodoni Moda"', 'Times New Roman', 'serif'],
+        sans: ['Jost', '"IBM Plex Sans Arabic"', '"Cairo"', 'system-ui', 'sans-serif'],
+        display: ['"Bodoni Moda"', '"Cairo"', '"IBM Plex Sans Arabic"', 'Times New Roman', 'serif'],
+        arabic: ['"IBM Plex Sans Arabic"', '"Cairo"', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',

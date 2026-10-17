@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 interface ServiceItem { title: string; description: string; details: string }
-interface ServicesProps { translations: { title: string; subtitle: string; items: ServiceItem[] } }
+interface ServicesProps { translations: { topline?: string; discover?: string; title: string; subtitle: string; items: ServiceItem[] } }
 
 const serviceLinks = [
   '/publicite-meta-google-ads-algerie.html',
@@ -24,7 +24,7 @@ const Services: React.FC<ServicesProps> = ({ translations }) => {
 
   return (
     <section ref={ref} id="services" className={`iv-services ${visible ? 'is-visible' : ''}`}>
-      <div className="iv-section-topline"><span>SERVICES</span></div>
+      <div className="iv-section-topline"><span>{translations.topline || 'SERVICES'}</span></div>
       <div className="iv-services-header">
         <h2>{translations.title}</h2>
         <p>{translations.subtitle}</p>
@@ -35,7 +35,7 @@ const Services: React.FC<ServicesProps> = ({ translations }) => {
             <div className="iv-service-card-head"><b aria-hidden="true">↗</b></div>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
-            <div className="iv-service-card-footer"><span>Découvrir</span></div>
+            <div className="iv-service-card-footer"><span>{translations.discover || 'Découvrir'}</span></div>
           </a>
         ))}
       </div>

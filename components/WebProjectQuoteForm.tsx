@@ -46,7 +46,7 @@ export const buildWebQuotePayload = (details: WebQuoteDetails) => ({
 const copy = {
   fr: {
     eyebrow: 'iVISION / Projet web en Algérie', title: 'Parlons de votre site.', intro: 'Un site vitrine, une boutique ou une refonte ? Décrivez votre besoin. Ici, pas de budget mensuel imposé pour demander un devis de création de site.',
-    returnLink: 'Retour à la création de sites web', name: 'Votre nom', phone: 'Téléphone / WhatsApp', email: 'Adresse e-mail', company: 'Entreprise ou projet', optional: '(facultatif)',
+    homeLink: 'Retour à l’accueil', returnLink: 'Retour à la création de sites web', name: 'Votre nom', phone: 'Téléphone / WhatsApp', email: 'Adresse e-mail', company: 'Entreprise ou projet', optional: '(facultatif)',
     siteType: 'Quel type de site ?', siteTypes: ['Site vitrine', 'Boutique en ligne', 'Page de campagne', 'Refonte de site', 'Je ne sais pas encore'],
     select: 'Choisir une option', currentSite: 'Site actuel, si vous en avez un', currentSitePlaceholder: 'exemple.dz',
     project: 'Que doit permettre votre site ?', projectPlaceholder: 'Présentez votre activité, les pages ou fonctions souhaitées et ce que les visiteurs doivent pouvoir faire.',
@@ -60,27 +60,27 @@ const copy = {
   },
   en: {
     eyebrow: 'iVISION / Website project in Algeria', title: 'Tell us about your website.', intro: 'A business site, online shop or redesign? Describe your project. A monthly advertising budget is not required to request a website quote.',
-    returnLink: 'Back to website creation (FR)', name: 'Your name', phone: 'Phone / WhatsApp', email: 'Email address', company: 'Company or project', optional: '(optional)',
+    homeLink: 'Back to home', returnLink: 'Back to website creation', name: 'Your name', phone: 'Phone / WhatsApp', email: 'Email address', company: 'Company or project', optional: '(optional)',
     siteType: 'What kind of site?', siteTypes: ['Business website', 'Online shop', 'Campaign page', 'Website redesign', 'Not sure yet'],
     select: 'Select an option', currentSite: 'Current website, if you have one', currentSitePlaceholder: 'example.com',
     project: 'What should your site help visitors do?', projectPlaceholder: 'Tell us about your business, the pages or features you need and your visitors’ goals.',
     timeline: 'When would you like to start?', timelines: ['As soon as possible', 'In the coming months', 'Let’s discuss'],
     budget: 'Estimated project budget', budgetPlaceholder: 'If you have one; otherwise leave blank',
-    consent: 'I agree that my contact details and message may be used to answer my request.', policy: 'Read the privacy policy (FR)',
+    consent: 'I agree that my contact details and message may be used to answer my request.', policy: 'Read the privacy policy',
     submit: 'Send my website request', sending: 'Sending…', nameError: 'Please enter your name.', phoneError: 'Enter a reachable phone number (8 to 15 digits).', projectError: 'Describe your project in at least 15 characters.',
     sendError: 'The request could not be sent. Please try again or contact us by email or WhatsApp.',
     successTitle: 'Your request has been sent.', successBody: 'Thank you! We received the details about your website project. You can return to the service page or contact us directly.',
     emailLink: 'Send an email', whatsappLink: 'Chat on WhatsApp', noPromise: 'The proposal defines the scope, schedule and any hosting or maintenance costs before you commit.',
   },
   ar: {
-    eyebrow: 'آيفيجن / مشروع موقع في الجزائر', title: 'لنتحدث عن موقعك.', intro: 'موقع تعريفي أو متجر إلكتروني أو تجديد موقع؟ اشرح مشروعك. لا نطلب ميزانية إعلانات شهرية لطلب عرض إنشاء موقع.',
-    returnLink: 'العودة إلى خدمة إنشاء المواقع (بالفرنسية)', name: 'الاسم', phone: 'الهاتف / واتساب', email: 'البريد الإلكتروني', company: 'الشركة أو المشروع', optional: '(اختياري)',
+    eyebrow: 'iVISION / مشروع موقع في الجزائر', title: 'لنتحدث عن موقعك.', intro: 'موقع تعريفي أو متجر إلكتروني أو تجديد موقع؟ اشرح مشروعك. لا نطلب ميزانية إعلانات شهرية لطلب عرض إنشاء موقع.',
+    homeLink: 'العودة إلى الرئيسية', returnLink: 'العودة إلى خدمة إنشاء المواقع', name: 'الاسم', phone: 'الهاتف / واتساب', email: 'البريد الإلكتروني', company: 'الشركة أو المشروع', optional: '(اختياري)',
     siteType: 'ما نوع الموقع؟', siteTypes: ['موقع تعريفي', 'متجر إلكتروني', 'صفحة حملة', 'تجديد موقع', 'لم أحدد بعد'],
     select: 'اختر نوع الموقع', currentSite: 'موقعك الحالي إن وجد', currentSitePlaceholder: 'example.dz',
     project: 'ماذا تريد أن يفعل الزائر في موقعك؟', projectPlaceholder: 'صف نشاطك والصفحات أو الوظائف التي تحتاجها وما الذي يجب أن يجده الزائر.',
     timeline: 'متى ترغب في البدء؟', timelines: ['في أقرب وقت', 'خلال الأشهر القادمة', 'نحدده معاً'],
     budget: 'الميزانية التقريبية للمشروع', budgetPlaceholder: 'إذا كانت لديك فكرة، أو اترك الخانة فارغة',
-    consent: 'أوافق على استخدام بيانات الاتصال ورسالتي للرد على طلبي.', policy: 'قراءة سياسة الخصوصية (بالفرنسية)',
+    consent: 'أوافق على استخدام بيانات الاتصال ورسالتي للرد على طلبي.', policy: 'قراءة سياسة الخصوصية',
     submit: 'إرسال طلب موقع', sending: 'جارٍ الإرسال…', nameError: 'أدخل اسمك.', phoneError: 'أدخل رقم هاتف صالحاً للتواصل (من 8 إلى 15 رقماً).', projectError: 'اشرح مشروعك في 15 حرفاً على الأقل.',
     sendError: 'تعذر إرسال الطلب. حاول مجدداً أو تواصل معنا بالبريد أو واتساب.',
     successTitle: 'تم إرسال طلبك.', successBody: 'شكراً! استلمنا معلومات مشروع موقعك. يمكنك العودة إلى صفحة الخدمة أو التواصل معنا مباشرة.',
@@ -135,10 +135,15 @@ const WebProjectQuoteForm: React.FC<{ language: Language; onOpenPolicy: () => vo
     }
   };
 
+  const backArrow = language === 'ar' ? '→' : '←';
+
   return (
-    <section className="web-quote" aria-labelledby="web-quote-title">
+    <section className="web-quote" aria-labelledby="web-quote-title" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <div className="web-quote-inner">
-        <a className="web-quote-back" href="/creation-site-web-algerie.html">← {t.returnLink}</a>
+        <div className="web-quote-back-links">
+          <a className="web-quote-back" href="/">{backArrow} {t.homeLink}</a>
+          <a className="web-quote-back" href="/creation-site-web-algerie.html">{backArrow} {t.returnLink}</a>
+        </div>
         <div className="web-quote-heading">
           <p className="web-quote-eyebrow">{t.eyebrow}</p>
           <h1 id="web-quote-title">{status === 'done' ? t.successTitle : t.title}</h1>

@@ -23,19 +23,80 @@ const ServicePage = lazy(() => import('./components/ServicePage'));
 const HomeBelowFold = lazy(() => import('./components/HomeBelowFold'));
 
 // ===== PAGE LOADER =====
-const PageLoader: React.FC = () => (
+const PageLoader: React.FC<{ language?: Language }> = ({ language = 'fr' }) => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="flex flex-col items-center gap-4">
       <div className="w-12 h-12 border-4 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin"></div>
-      <p className="text-brand-gray text-sm font-medium uppercase tracking-widest">Chargement...</p>
+      <p className="text-brand-gray text-sm font-medium uppercase tracking-widest">
+        {language === 'ar' ? 'جارٍ التحميل...' : 'Chargement...'}
+      </p>
     </div>
   </div>
 );
 
-const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'privacy' | 'terms' }> = ({ isOpen, onClose, type }) => {
+const policyCopy = {
+  fr: {
+    closeAria: 'Fermer la fenêtre',
+    understood: 'Compris',
+    privacyTitle: 'Politique de Confidentialité',
+    privacyIntro: 'Chez iVISION Agency, nous accordons une importance primordiale à la protection de vos données personnelles. Cette politique détaille comment nous collectons et utilisons vos informations.',
+    privacyItems: [
+      ['1. Collecte des données', 'Nous collectons les informations que vous nous fournissez via nos formulaires (nom, téléphone, e-mail, entreprise et informations de projet) uniquement pour traiter vos demandes de devis.'],
+      ['2. Utilisation', 'Vos données servent à répondre à votre demande et à vous contacter par WhatsApp ou e-mail. Les formulaires utilisent le service Formspark pour transmettre les demandes à iVISION ; ne saisissez jamais de données bancaires ou de mots de passe.'],
+      ['3. Sécurité', 'Nous limitons l’accès aux demandes reçues et appliquons des mesures raisonnables de sécurité. Les données peuvent être traitées par Formspark selon ses propres conditions et sa politique de confidentialité.'],
+    ],
+    termsTitle: 'Conditions Générales',
+    termsIntro: 'En utilisant les services d’iVISION Agency, vous acceptez les conditions suivantes :',
+    termsItems: [
+      ['1. Services', 'iVISION Agency fournit des services de marketing digital, de création de contenu et de développement web haute performance.'],
+      ['2. Engagement', 'Toute collaboration fait l’objet d’un contrat spécifique détaillant les objectifs, les délais et les modalités de paiement.'],
+      ['3. Propriété', 'Sauf mention contraire, tous les éléments créés restent la propriété intellectuelle de l’agence jusqu’au paiement intégral de la prestation.'],
+    ],
+  },
+  en: {
+    closeAria: 'Close window',
+    understood: 'Got it',
+    privacyTitle: 'Privacy Policy',
+    privacyIntro: 'At iVISION Agency, we attach primary importance to protecting your personal data. This policy details how we collect and use your information.',
+    privacyItems: [
+      ['1. Data collection', 'We collect the information you provide via our forms (name, phone, email, company and project details) solely to process your quote requests.'],
+      ['2. Use of data', 'Your data is used to answer your request and contact you via WhatsApp or email. Forms use Formspark to transmit requests to iVISION; never enter banking data or passwords.'],
+      ['3. Security', 'We limit access to received requests and apply reasonable security measures. Data may be processed by Formspark under its own terms and privacy policy.'],
+    ],
+    termsTitle: 'Terms & Conditions',
+    termsIntro: 'By using iVISION Agency services, you agree to the following conditions:',
+    termsItems: [
+      ['1. Services', 'iVISION Agency provides digital marketing, content creation and web development services.'],
+      ['2. Commitment', 'Every collaboration is covered by a specific agreement detailing goals, timelines and payment terms.'],
+      ['3. Ownership', 'Unless stated otherwise, created assets remain the intellectual property of the agency until full payment.'],
+    ],
+  },
+  ar: {
+    closeAria: 'إغلاق النافذة',
+    understood: 'مفهوم',
+    privacyTitle: 'سياسة الخصوصية',
+    privacyIntro: 'في وكالة iVISION، نولي أهمية قصوى لحماية بياناتك الشخصية. توضح هذه السياسة كيفية جمع معلوماتك واستخدامها.',
+    privacyItems: [
+      ['1. جمع البيانات', 'نجمع المعلومات التي تقدمها عبر نماذجنا (الاسم، الهاتف، البريد الإلكتروني، الشركة ومعلومات المشروع) فقط لمعالجة طلبات العروض الخاصة بك.'],
+      ['2. الاستخدام', 'تُستخدم بياناتك للرد على طلبك والتواصل معك عبر واتساب أو البريد الإلكتروني. تستخدم النماذج خدمة Formspark لإرسال الطلبات إلى iVISION؛ لا تُدخل أبداً بيانات بنكية أو كلمات مرور.'],
+      ['3. الأمان', 'نقيّد الوصول إلى الطلبات المستلمة ونطبق إجراءات أمان مناسبة. قد تتم معالجة البيانات بواسطة Formspark وفقاً لشروطها وسياسة الخصوصية الخاصة بها.'],
+    ],
+    termsTitle: 'الشروط العامة',
+    termsIntro: 'باستخدامك لخدمات وكالة iVISION، فإنك توافق على الشروط التالية:',
+    termsItems: [
+      ['1. الخدمات', 'تقدم وكالة iVISION خدمات التسويق الرقمي، وصناعة المحتوى، وتطوير مواقع الويب.'],
+      ['2. الالتزام', 'يخضع كل تعاون لاتفاق خاص يوضح الأهداف والآجال وشروط الدفع.'],
+      ['3. الملكية الفكرية', 'ما لم يُذكر خلاف ذلك، تظل جميع العناصر المنجزة ملكاً فكرياً للوكالة حتى سداد كامل مستحقات الخدمة.'],
+    ],
+  },
+} as const;
+
+const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'privacy' | 'terms'; language?: Language }> = ({ isOpen, onClose, type, language = 'fr' }) => {
   const closeButton = React.useRef<HTMLButtonElement>(null);
   const onCloseRef = React.useRef(onClose);
   onCloseRef.current = onClose;
+  const copy = policyCopy[language] || policyCopy.fr;
+  const items = type === 'privacy' ? copy.privacyItems : copy.termsItems;
 
   useEffect(() => {
     if (!isOpen) return;
@@ -59,54 +120,28 @@ const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'priva
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[150] flex items-center justify-center p-6 bg-black/60 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-[150] flex items-center justify-center p-6 bg-black/60 backdrop-blur-md animate-fade-in" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <div role="dialog" aria-modal="true" aria-labelledby="policy-title" className="relative bg-white dark:bg-navy border border-navy/10 dark:border-white/10 p-8 md:p-14 max-w-3xl w-full rounded-[2.5rem] shadow-2xl max-h-[80vh] overflow-y-auto scrollbar-none">
-        <button ref={closeButton} type="button" aria-label="Fermer la fenêtre" onClick={onClose} className="absolute top-8 right-8 text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors">
+        <button ref={closeButton} type="button" aria-label={copy.closeAria} onClick={onClose} className={`absolute top-8 ${language === 'ar' ? 'left-8' : 'right-8'} text-navy/40 dark:text-white/40 hover:text-brand-blue transition-colors`}>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         
         <div className="space-y-8">
             <h2 id="policy-title" className="text-3xl font-black text-navy dark:text-white uppercase tracking-tighter">
-                {type === 'privacy' ? 'Politique de Confidentialité' : 'Conditions Générales'}
+                {type === 'privacy' ? copy.privacyTitle : copy.termsTitle}
             </h2>
             
             <div className="space-y-6 text-brand-gray dark:text-brand-gray/80 font-medium leading-relaxed">
-                {type === 'privacy' ? (
-                    <>
-                        <p>Chez iVISION Agency, nous accordons une importance primordiale à la protection de vos données personnelles. Cette politique détaille comment nous collectons et utilisons vos informations.</p>
-                        <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">1. Collecte des données</h4>
-                            <p>Nous collectons les informations que vous nous fournissez via nos formulaires (nom, téléphone, e-mail, entreprise et informations de projet) uniquement pour traiter vos demandes de devis.</p>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">2. Utilisation</h4>
-                            <p>Vos données servent à répondre à votre demande et à vous contacter par WhatsApp ou e-mail. Les formulaires utilisent le service Formspark pour transmettre les demandes à iVISION ; ne saisissez jamais de données bancaires ou de mots de passe.</p>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">3. Sécurité</h4>
-                            <p>Nous limitons l’accès aux demandes reçues et appliquons des mesures raisonnables de sécurité. Les données peuvent être traitées par Formspark selon ses propres conditions et sa politique de confidentialité.</p>
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        <p>En utilisant les services d'iVISION Agency, vous acceptez les conditions suivantes :</p>
-                        <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">1. Services</h4>
-                            <p>iVISION Agency fournit des services de marketing digital, de création de contenu et de développement web haute performance.</p>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">2. Engagement</h4>
-                            <p>Toute collaboration fait l'objet d'un contrat spécifique détaillant les objectifs, les délais et les modalités de paiement.</p>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">3. Propriété</h4>
-                            <p>Sauf mention contraire, tous les éléments créés restent la propriété intellectuelle de l'agence jusqu'au paiement intégral de la prestation.</p>
-                        </div>
-                    </>
-                )}
+                <p>{type === 'privacy' ? copy.privacyIntro : copy.termsIntro}</p>
+                {items.map(([heading, body]) => (
+                  <div key={heading}>
+                    <h4 className="font-bold text-navy dark:text-white mb-2 uppercase text-xs tracking-widest">{heading}</h4>
+                    <p>{body}</p>
+                  </div>
+                ))}
             </div>
             
-            <button onClick={onClose} className="btn-ivision w-full py-4 mt-8">Compris</button>
+            <button onClick={onClose} className="btn-ivision w-full py-4 mt-8">{copy.understood}</button>
         </div>
       </div>
     </div>
@@ -220,21 +255,21 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
     switch (currentView) {
       case 'blog':
         return (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={<PageLoader language={language} />}>
             <BlogList />
           </Suspense>
         );
 
       case 'blog-post':
         return (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={<PageLoader language={language} />}>
             <BlogPostPage slug={currentSlug} />
           </Suspense>
         );
 
       case 'service':
         return (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={<PageLoader language={language} />}>
             <ServicePage slug={currentSlug} />
           </Suspense>
         );
@@ -251,7 +286,7 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
       default:
         return (
           <>
-            <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
+            <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} language={language} />
             <AboutVisual language={language} />
             <Suspense fallback={null}>
               <HomeSections
@@ -295,7 +330,7 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
         />
       )}
 
-      <PolicyModal isOpen={!!policyType} onClose={() => setPolicyType(null)} type={policyType || 'privacy'} />
+      <PolicyModal isOpen={!!policyType} onClose={() => setPolicyType(null)} type={policyType || 'privacy'} language={language} />
       
       <div 
         className={`relative z-10 flex flex-col min-h-screen transition-all duration-700 ${isLoading ? 'opacity-0' : 'opacity-100'} ${(showLangSelector || policyType) ? 'filter blur-md' : ''}`}
@@ -306,6 +341,7 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
           theme={theme}
           onToggleTheme={toggleTheme}
           language={language}
+          forceScrolled={currentView !== 'home'}
           onChangeLanguage={(lang) => {
             setLanguage(lang);
             localStorage.setItem('ivision-lang-selected', lang);

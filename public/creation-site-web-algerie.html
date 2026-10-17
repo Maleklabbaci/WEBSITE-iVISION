@@ -20,8 +20,9 @@
   <meta name="twitter:image" content="https://ivision.agency/images/project-fidali.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cairo:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/seo/landing.css" />
+  <script src="/seo/page-ui.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,14 +59,50 @@
 </head>
 <body class="web-landing">
   <a class="skip" href="#contenu">Aller au contenu</a>
-  <header class="page-header"><div class="wrap header-inner">
-    <a class="brand" href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" width="118" height="37" /></a>
-    <nav class="header-nav" aria-label="Navigation de cette page"><a href="#types">Types de sites</a><a href="#methode">Méthode</a><a href="/portfolio-sites-web-algerie.html">Portfolio</a><a href="#questions">Questions</a></nav>
-    <a class="header-cta" href="/#/devis?service=site-web">Parler de mon site ↗</a>
+  <header class="page-header iv-header"><div class="header-inner iv-header-inner">
+    <a class="brand iv-logo" href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" width="118" height="37" /></a>
+    <nav class="header-nav iv-nav" aria-label="Navigation principale">
+      <a href="/" data-i18n="nav.home">Accueil</a>
+      <a href="/#about" data-i18n="nav.about">À propos</a>
+      <a href="/portfolio-sites-web-algerie.html" data-i18n="nav.work">Portfolio web</a>
+      <a href="/portfolio-social-media-algerie.html" data-i18n="nav.social">Portfolio social</a>
+      <a href="/#services" data-i18n="nav.services">Services</a>
+      <a href="/agence-marketing-digital-algerie.html" data-i18n="nav.marketing">Marketing digital</a>
+      <a href="/creation-contenu-algerie.html" data-i18n="nav.content">Contenu</a>
+      <a href="/publicite-meta-google-ads-algerie.html" data-i18n="nav.ads">Publicité Ads</a>
+      <a href="/creation-site-web-algerie.html" aria-current="page" data-i18n="nav.web">Sites web</a>
+    </nav>
+    <div class="iv-header-actions">
+      <div class="iv-lang-switch" role="group" aria-label="Changer de langue">
+        <button type="button" class="iv-lang-btn is-active" data-lang-switch="fr" lang="fr" aria-pressed="true">FR</button>
+        <button type="button" class="iv-lang-btn" data-lang-switch="ar" lang="ar" aria-pressed="false">عربي</button>
+      </div>
+      <a class="header-cta iv-header-cta" href="/#/devis?service=site-web"><span data-i18n="cta.site">Parler de mon site</span><b aria-hidden="true">↗</b></a>
+      <button type="button" class="iv-menu-button" aria-expanded="false" aria-label="Ouvrir le menu"><span></span><span></span></button>
+    </div>
   </div></header>
 
+  <div class="iv-mobile-menu" aria-hidden="true">
+    <div class="iv-mobile-lang" role="group" aria-label="Changer de langue">
+      <button type="button" class="iv-lang-btn is-active" data-lang-switch="fr" lang="fr" aria-pressed="true">Français</button>
+      <button type="button" class="iv-lang-btn" data-lang-switch="ar" lang="ar" aria-pressed="false">العربية</button>
+    </div>
+    <nav aria-label="Navigation mobile">
+      <a href="/" data-i18n="nav.home">Accueil</a>
+      <a href="/#about" data-i18n="nav.about">À propos</a>
+      <a href="/portfolio-sites-web-algerie.html" data-i18n="nav.work">Portfolio web</a>
+      <a href="/portfolio-social-media-algerie.html" data-i18n="nav.social">Portfolio social</a>
+      <a href="/#services" data-i18n="nav.services">Services</a>
+      <a href="/agence-marketing-digital-algerie.html" data-i18n="nav.marketing">Marketing digital</a>
+      <a href="/creation-contenu-algerie.html" data-i18n="nav.content">Contenu</a>
+      <a href="/publicite-meta-google-ads-algerie.html" data-i18n="nav.ads">Publicité Ads</a>
+      <a href="/creation-site-web-algerie.html" aria-current="page" data-i18n="nav.web">Sites web</a>
+      <a href="/#/devis?service=site-web" class="iv-mobile-cta"><span data-i18n="cta.site">Parler de mon site</span> ↗</a>
+    </nav>
+  </div>
+
   <main id="contenu">
-    <nav class="wrap crumb" aria-label="Fil d'Ariane"><a href="/">Accueil</a><span aria-hidden="true">/</span><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><span aria-hidden="true">/</span><span aria-current="page">Création de sites web</span></nav>
+    <nav class="wrap crumb" aria-label="Fil d'Ariane"><a href="/" data-i18n="crumb.home">← Accueil</a><span aria-hidden="true">/</span><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><span aria-hidden="true">/</span><span aria-current="page">Création de sites web</span><span class="crumb-anchors"><a href="#types">Types de sites</a><a href="#methode">Méthode</a><a href="#projets">Projets</a><a href="#questions">Questions</a></span></nav>
     <section class="hero" aria-labelledby="page-title"><div class="wrap hero-grid">
       <div class="hero-copy"><p class="eyebrow">iVISION / Design &amp; développement</p><h1 id="page-title">Création de <em>sites web</em> en Algérie.</h1><p>Site vitrine, boutique ou refonte : nous organisons vos contenus et votre parcours de contact pour que vos visiteurs comprennent l'offre et sachent quoi faire ensuite, sur mobile comme sur ordinateur.</p><div class="hero-actions"><a class="btn btn-light" href="/#/devis?service=site-web">Décrire mon site <span aria-hidden="true">↗</span></a><a class="btn btn-outline-light" href="/portfolio-sites-web-algerie.html">Voir le portfolio <span aria-hidden="true">↗</span></a></div></div>
       <div class="hero-visual"><img src="/images/project-fidali.webp" alt="Aperçu de l'interface du site Fidali" width="1896" height="854" fetchpriority="high" /><span>Site présenté / Fidali</span></div>
@@ -138,6 +175,6 @@
 
     <section class="section" aria-labelledby="contact-title"><div class="wrap contact-panel"><div><p class="eyebrow">Votre prochain site</p><h2 id="contact-title">Parlons de votre projet web.</h2><p>Décrivez le type de site et ce que vos visiteurs doivent pouvoir faire. Le formulaire est adapté à un projet web : pas de budget publicitaire mensuel à sélectionner.</p></div><div class="actions"><a class="btn btn-light" href="/#/devis?service=site-web">Demander un devis site web <span aria-hidden="true">↗</span></a><a class="btn btn-outline-light" href="mailto:contact@ivision.agency?subject=Demande%20de%20site%20web">Écrire par e-mail <span aria-hidden="true">↗</span></a></div></div></section>
   </main>
-  <footer class="footer"><div class="wrap"><div class="footer-grid"><p>iVISION Agency<br /><span class="muted">Stratégie, création et expérience digitale pour vos projets en Algérie.</span></p><div class="footer-links"><a href="/">Accueil</a><a href="/portfolio-sites-web-algerie.html">Portfolio sites web</a><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><a href="/creation-contenu-algerie.html">Création de contenu</a><a href="/publicite-meta-google-ads-algerie.html">Publicité Ads</a><a href="mailto:contact@ivision.agency">contact@ivision.agency</a><a href="tel:+213563839404">+213 563 83 94 04</a></div></div><div class="footer-base"><span>© iVISION Agency</span><span>Création de sites web en Algérie · Vitrine / E-commerce / Refonte</span></div></div></footer>
+  <footer class="footer"><div class="wrap"><div class="footer-grid"><div class="footer-brand"><a href="/" aria-label="iVISION — retour à l'accueil"><img src="/images/ivision-logo-white.png" alt="iVISION" class="footer-logo" width="118" height="37" loading="lazy" decoding="async" /></a><p>iVISION Agency<br /><span class="muted">Stratégie, création et expérience digitale pour vos projets en Algérie.</span></p></div><div class="footer-links"><a href="/">Accueil</a><a href="/portfolio-sites-web-algerie.html">Portfolio sites web</a><a href="/agence-marketing-digital-algerie.html">Marketing digital</a><a href="/creation-contenu-algerie.html">Création de contenu</a><a href="/publicite-meta-google-ads-algerie.html">Publicité Ads</a><a href="mailto:contact@ivision.agency">contact@ivision.agency</a><a href="tel:+213563839404">+213 563 83 94 04</a></div></div><div class="footer-base"><span>© iVISION Agency</span><span>Création de sites web en Algérie · Vitrine / E-commerce / Refonte</span></div></div></footer>
 </body>
 </html>

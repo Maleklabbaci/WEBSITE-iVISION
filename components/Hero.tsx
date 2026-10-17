@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import type { Language } from '../lib/translations';
 
 interface HeroProps {
   translations: { badge: string; title: string; subtitle: string; middleCopy: string; cta: string; secondaryCta: string };
   onQuoteClick: () => void;
+  language?: Language;
 }
 
-const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
+const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick, language = 'fr' }) => {
   const [lineOne, lineTwo, lineThree, location] = translations.title.split('|');
   const [visible, setVisible] = useState(false);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const signature = language === 'ar'
+    ? { aria: 'خبرات iVISION', items: ['استراتيجية', 'محتوى', 'تجارب ويب'] }
+    : { aria: 'Expertises iVISION', items: ['STRATEGY', 'CONTENT', 'WEB EXPERIENCES'] };
 
   useEffect(() => {
     const timer = window.setTimeout(() => setVisible(true), 100);
@@ -40,7 +45,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
 
         <div className="iv-hero-footer">
           <div className="iv-hero-copy"><p>{translations.subtitle}</p><div className="iv-hero-actions"><button type="button" onClick={onQuoteClick} className="iv-hero-cta"><span>{translations.cta}</span><b aria-hidden="true">↗</b></button><a href="#services" className="iv-hero-scroll"><span>{translations.secondaryCta}</span><b aria-hidden="true">↓</b></a></div></div>
-          <div className="iv-hero-signature" aria-label="Expertises iVISION"><span>STRATEGY</span><i aria-hidden="true" /><span>CONTENT</span><i aria-hidden="true" /><span>WEB EXPERIENCES</span></div>
+          <div className="iv-hero-signature" aria-label={signature.aria}><span>{signature.items[0]}</span><i aria-hidden="true" /><span>{signature.items[1]}</span><i aria-hidden="true" /><span>{signature.items[2]}</span></div>
         </div>
       </div>
     </section>

@@ -90,6 +90,11 @@
     background: rgba(251, 248, 242, 0.55);
   }
 
+  html:not(.dark) .iv-header.is-scrolled .iv-lang-switch {
+    border-color: rgba(20, 18, 15, 0.2);
+    background: rgba(251, 248, 242, 0.72);
+  }
+
   html:not(.dark) .iv-mobile-menu {
     background: rgba(246, 246, 246, 0.96);
     border-color: rgba(15, 18, 19, 0.15);
@@ -97,9 +102,44 @@
 
   /* Titres : même personnalité éditoriale partout (maison, blog, services, formulaires) */
   h1, h2, h3, .iv-font-geist {
-    font-family: 'Bodoni Moda', 'Times New Roman', serif;
+    font-family: 'Bodoni Moda', 'Cairo', 'IBM Plex Sans Arabic', 'Times New Roman', serif;
     letter-spacing: -0.02em;
     font-weight: 500;
+  }
+
+  html[lang^="ar"] body,
+  [dir="rtl"] body,
+  :lang(ar) {
+    font-family: 'IBM Plex Sans Arabic', 'Cairo', 'Jost', sans-serif;
+  }
+
+  html[lang^="ar"] h1,
+  html[lang^="ar"] h2,
+  html[lang^="ar"] h3,
+  html[lang^="ar"] .iv-font-geist,
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] .iv-font-geist {
+    font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0 !important;
+    line-height: 1.22;
+  }
+
+  html[lang^="ar"],
+  html[lang^="ar"] *,
+  [dir="rtl"],
+  [dir="rtl"] *,
+  :lang(ar),
+  :lang(ar) * {
+    letter-spacing: 0 !important;
+  }
+
+  [dir="rtl"] h1 .text-brand-blue,
+  [dir="rtl"] h2 .text-brand-blue,
+  [dir="rtl"] em {
+    font-style: normal;
   }
 
   h1.font-black, h2.font-black, h3.font-black,
@@ -477,7 +517,8 @@
 /* Devis de création de site : parcours distinct du formulaire de pack mensuel. */
 .web-quote { min-height:100vh; padding:clamp(7rem,11vw,10rem) 4.8vw 6rem; background:var(--iv-black); color:var(--iv-white); }
 .web-quote-inner { width:min(100%,72rem); margin-inline:auto; }
-.web-quote-back { display:inline-block; margin-bottom:2.5rem; color:var(--iv-muted); font-size:.74rem; font-weight:700; text-decoration:underline; text-underline-offset:.3em; }
+.web-quote-back-links { display:flex; flex-wrap:wrap; align-items:center; gap:.8rem 1.8rem; margin-bottom:2.5rem; }
+.web-quote-back { display:inline-block; margin-bottom:0; color:var(--iv-muted); font-size:.74rem; font-weight:700; text-decoration:underline; text-underline-offset:.3em; }
 .web-quote-back:hover, .web-quote-alternatives a:hover { color:var(--iv-white); }
 .web-quote-heading { display:grid; grid-template-columns:1.2fr .8fr; gap:clamp(1.5rem,5vw,5rem); align-items:end; border-bottom:1px solid var(--iv-line); padding-bottom:2.5rem; }
 .web-quote-eyebrow { grid-column:1/-1; margin:0; color:var(--iv-orange); font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
