@@ -138,6 +138,18 @@
     }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .btn { transition:none; } }
 
+/* Guide de décision : titre long et tableau lisible au clavier / sur petit écran. */
+.guide .hero h1 { max-width:17ch; font-size:clamp(3.25rem,5vw,5.8rem); }
+.comparison-scroll { overflow-x:auto; border:1px solid var(--line); }
+.comparison-scroll:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
+.comparison { width:100%; min-width:50rem; border-collapse:collapse; text-align:left; }
+.comparison caption { text-align:left; padding:1rem 1.3rem; color:var(--quiet); font-size:.75rem; }
+.comparison th, .comparison td { padding:1.4rem 1.3rem; border-top:1px solid var(--line); border-right:1px solid var(--line); vertical-align:top; font-size:.91rem; line-height:1.55; }
+.comparison tr > :last-child { border-right:0; }
+.comparison thead th { background:var(--ink); color:var(--light); font-size:.72rem; letter-spacing:.05em; text-transform:uppercase; }
+.comparison tbody th { min-width:10rem; font-weight:700; }
+.comparison tbody td { color:var(--quiet); }
+
 /* Liens éditoriaux et exemples pratiques des pages d'expertise. */
 .text-link { text-decoration-thickness:1px; text-underline-offset:.18em; }
 .topic-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); }

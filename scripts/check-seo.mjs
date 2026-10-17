@@ -64,9 +64,36 @@ for (const route of routes) {
   }
 }
 
+const guideRoute = 'choisir-seo-google-ads-meta-algerie.html';
+const guideUrl = `${base}/${guideRoute}`;
+const guide = read(guideRoute);
+assert.match(guide, /<html lang="fr-DZ">/);
+assert.match(guide, /<main id="contenu">/);
+assert.equal([...guide.matchAll(/<h1\b/g)].length, 1, 'Un seul H1 attendu pour le guide.');
+assert.ok(guide.includes(`<link rel="canonical" href="${guideUrl}"`));
+assert.ok(guide.includes(`<meta property="og:url" content="${guideUrl}"`));
+assert.ok(guide.includes('href="/seo/landing.css"'));
+assert.ok(homepage.includes(`href="/${guideRoute}"`), 'Le guide doit être lié depuis l’accueil pré-rendu.');
+assert.ok(read(routes[0]).includes(`href="/${guideRoute}"`), 'Le guide doit être lié depuis la page marketing.');
+assert.ok(read(routes[2]).includes(`href="/${guideRoute}"`), 'Le guide doit être lié depuis la page Ads.');
+assert.doesNotMatch(guide, /<meta name="robots" content="noindex/i);
+assert.doesNotMatch(guide, /première place garantie|résultats garantis|"(aggregateRating|review|addressLocality)"/i);
+for (const route of routes) assert.ok(guide.includes(`href="/${route}"`), `Lien de service manquant dans le guide : ${route}`);
+for (const [, asset] of guide.matchAll(/(?:src|href)="(\/(?:seo\/|images\/|favicon)[^"]+)"/g)) {
+  assert.ok(existsSync(path.join(dist, asset.slice(1))), `Asset introuvable : ${asset} (guide)`);
+}
+const guideTitle = guide.match(/<title>([^<]+)<\/title>/)?.[1];
+const guideDescription = guide.match(/<meta name="description" content="([^"]+)"/)?.[1];
+assert.ok(guideTitle && guideDescription && !titles.has(guideTitle) && !descriptions.has(guideDescription), 'Métadonnées uniques requises pour le guide.');
+const guideSchemas = [...guide.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g)];
+assert.equal(guideSchemas.length, 1, 'Un seul JSON-LD pour le guide.');
+const guideGraph = JSON.parse(guideSchemas[0][1])['@graph'];
+assert.equal(guideGraph.find((item) => item['@type'] === 'WebPage')?.url, guideUrl);
+assert.equal(guideGraph.find((item) => item['@type'] === 'BreadcrumbList')?.itemListElement.at(-1)?.item, guideUrl);
+
 const listedUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert.deepEqual(listedUrls, [`${base}/`, ...routes.map((route) => `${base}/${route}`)]);
+assert.deepEqual(listedUrls, [`${base}/`, ...routes.map((route) => `${base}/${route}`), guideUrl]);
 assert.ok(listedUrls.every((url) => !url.includes('#')), 'Ne pas lister les routes à fragment dans le sitemap.');
 assert.ok(listedUrls.every((url) => existsSync(path.join(dist, new URL(url).pathname))), 'Chaque URL du sitemap doit avoir un fichier servi.');
 
-console.log(`SEO : accueil pré-rendu, ${routes.length} pages HTML, liens, schemas, assets et sitemap vérifiés.`);
+console.log(`SEO : accueil pré-rendu, ${routes.length} pages de service + guide, liens, schemas, assets et sitemap vérifiés.`);
