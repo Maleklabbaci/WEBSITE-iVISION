@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 interface ServiceItem { title: string; description: string; details: string }
-interface ServicesProps { translations: { title: string; subtitle: string; items: ServiceItem[] }; onQuoteClick: () => void }
+interface ServicesProps { translations: { title: string; subtitle: string; items: ServiceItem[] } }
 
-const serviceSlugMap: Record<number, string> = { 0: 'marketing-digital', 1: 'production-audiovisuelle', 2: 'creation-site-web', 3: 'marketing-digital' };
+const serviceLinks = [
+  '/publicite-meta-google-ads-algerie.html',
+  '/creation-contenu-algerie.html',
+  '/creation-site-web-algerie.html',
+  '/agence-marketing-digital-algerie.html',
+];
 
-const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
+const Services: React.FC<ServicesProps> = ({ translations }) => {
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
@@ -16,11 +21,6 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
   }, []);
 
   const items = translations.items || [];
-  const openService = (index: number) => {
-    const slug = serviceSlugMap[index];
-    if (slug) window.location.hash = `/services/${slug}`;
-    else onQuoteClick();
-  };
 
   return (
     <section ref={ref} id="services" className={`iv-services ${visible ? 'is-visible' : ''}`}>
@@ -31,14 +31,12 @@ const Services: React.FC<ServicesProps> = ({ translations, onQuoteClick }) => {
       </div>
       <div className="iv-services-grid iv-reveal-group">
         {items.map((item, index) => (
-          <button key={item.title} type="button" className="iv-service-card" onClick={() => openService(index)}>
-              <div className="iv-service-card-head">
-              <b aria-hidden="true">↗</b>
-            </div>
+          <a key={item.title} href={serviceLinks[index] || '/#/devis'} className="iv-service-card">
+            <div className="iv-service-card-head"><b aria-hidden="true">↗</b></div>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
             <div className="iv-service-card-footer"><span>Découvrir</span></div>
-          </button>
+          </a>
         ))}
       </div>
     </section>

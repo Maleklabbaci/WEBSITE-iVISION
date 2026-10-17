@@ -1,3 +1,26 @@
+# Vitrine iVISION
+
+Le site public iVISION est l'application React/Vite à la racine du dépôt (`App.tsx`, `components/`, `index.html`). Le build pré-rend l'accueil dans `dist/index.html` (via `scripts/prerender-home.mjs`) ; le navigateur l'hydrate ensuite. Les quatre pages de service en Algérie sont servies en HTML sans JavaScript depuis `public/` : `/agence-marketing-digital-algerie.html`, `/creation-contenu-algerie.html`, `/publicite-meta-google-ads-algerie.html` et `/creation-site-web-algerie.html`. Un guide de décision informatif est accessible à `/choisir-seo-google-ads-meta-algerie.html` : il distingue SEO, Google Ads et Meta Ads sans promettre de classement. Leurs styles communs sont dans `public/seo/landing.css`.
+
+Deux pages distinctes complètent les offres : `/portfolio-sites-web-algerie.html` présente actuellement huit sites avec captures, dont le site d'iVISION identifié comme **projet interne** ; trois sites déjà présents ont reçu une nouvelle capture, sans doublon. Les liens de visite ne figurent que lorsqu'une adresse est connue ; ceux de JawebFlow, eFOLIO et Sawtify restent à confirmer. L'accueil continue de montrer une sélection de quatre sites et n'a pas besoin de reprendre chaque carte du portfolio. Pour ajouter un autre site : optimiser sa capture en WebP dans `public/images/`, créer une carte dans la page portfolio, un lien dans la navigation des projets et une entrée `ItemList` dans le JSON-LD ; ne renseigner d'URL externe qu'après confirmation. Lorsqu'une adresse en attente est confirmée, remplacer son message d'attente par un lien de visite et mettre à jour l'entrée `ItemList` ainsi que la liste des URL attendues dans le test. Les tests dans `scripts/check-seo.mjs` vérifient les cartes, les images, la liste structurée et les liens, sans figer le nombre de futurs projets.
+
+`/portfolio-social-media-algerie.html` est une **préparation** qui attend les créations explicitement autorisées par l'utilisateur. Cette page porte `noindex,follow` et n'est pas dans le sitemap tant que la galerie n'a pas de projets réels validés ; ne pas publier de visuels privés de Drive par défaut, ni inventer des campagnes, chiffres ou clients. L'ancien `components/Portfolio.tsx` contient des chiffres non vérifiés et n'est pas utilisé sur ces pages. Lors de l'ajout de créations validées, mettre à jour la galerie, la description, le titre, le test SEO et le sitemap, puis retirer `noindex` après revue.
+
+Le parcours « sites web » relie l'accueil et le portfolio à la page d'offre puis à `/#/devis?service=site-web` : ce formulaire de projet est distinct du devis de pack mensuel, et propose aussi un contact par e-mail ou WhatsApp. Les notes internes de benchmark et de pilotage SEO ne sont **ni publiées sur le site, ni intégrées au dépôt public**.
+
+```bash
+npm ci --ignore-scripts
+npm run dev:site       # développement de la vitrine
+npm run validate:site  # TypeScript, build Vite et vérification SEO
+npm run preview -- --host 0.0.0.0
+```
+
+Le workflow GitHub Pages utilise `validate:site` sur `main` ; une branche de travail ou un PR ne déploie pas le domaine public. **Pour publier sur `ivision.agency`, fusionner la PR contenant les sources : le workflow construit puis déploie `dist/`. Ne pas extraire un ZIP de fichiers construits à la racine du dépôt GitHub.** Ces fichiers (`assets/`, pages HTML et `sitemap.xml` à la racine) ne remplacent ni `npm ci` ni le code source ; ils peuvent créer des conflits avec `index.html`. Le ZIP de fichiers construits est réservé à un autre hébergement statique où l'on dépose directement des fichiers web.
+
+Les fichiers `src/`, `tts/` et `server.ts` concernent Sawtify et ne sont pas nécessaires au build de la vitrine iVISION. Les anciens articles du blog et certaines anciennes fiches à fragment contiennent des affirmations non vérifiées : ne pas les ajouter au sitemap sans revue éditoriale.
+
+---
+
 # Sawtify
 
 ## Présentation

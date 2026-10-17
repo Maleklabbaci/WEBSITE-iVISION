@@ -3,14 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 interface AboutVisualProps { language: 'fr' | 'en' | 'ar' }
 
 const copy = {
-  fr: { eyebrow: 'À PROPOS', title: 'On transforme l’attention en croissance.', body: 'iVISION construit des systèmes digitaux clairs : une idée forte, une image juste et une acquisition qui se mesure.', principles: ['Une direction qui se remarque.', 'Un contenu qui donne confiance.', 'Une expérience qui convertit.'], link: 'Voir nos réalisations', trust: 'DES ÉQUIPES QUI NOUS FONT CONFIANCE' },
-  en: { eyebrow: 'ABOUT', title: 'We turn attention into growth.', body: 'iVISION builds clear digital systems: a strong idea, a precise image and acquisition you can measure.', principles: ['A direction people notice.', 'Content that earns trust.', 'An experience that converts.'], link: 'See our work', trust: 'TEAMS THAT TRUST OUR WORK' },
-  ar: { eyebrow: 'من نحن', title: 'نحوّل الانتباه إلى نمو.', body: 'نبني أنظمة رقمية واضحة: فكرة قوية، صورة دقيقة واكتساب يمكن قياسه.', principles: ['اتجاه يلفت الانتباه.', 'محتوى يبني الثقة.', 'تجربة تحقق النتائج.'], link: 'اكتشف أعمالنا', trust: 'فرق تثق في عملنا' },
+  fr: { eyebrow: 'À PROPOS', title: 'On relie les idées à vos objectifs.', body: 'iVISION construit des parcours digitaux clairs : une idée forte, une image juste et des actions dont on peut suivre les effets.', principles: ['Une direction qui se remarque.', 'Un contenu qui donne confiance.', 'Une expérience qui facilite le contact.'], link: 'Voir nos réalisations', trust: 'DES PROJETS WEB À EXPLORER' },
+  en: { eyebrow: 'ABOUT', title: 'We connect ideas to your goals.', body: 'iVISION builds clear digital journeys: a strong idea, a precise image and actions you can track.', principles: ['A direction people notice.', 'Content that earns trust.', 'An experience that makes contact easier.'], link: 'See our work', trust: 'EXPLORE WEB PROJECTS' },
+  ar: { eyebrow: 'من نحن', title: 'نربط الأفكار بأهدافك.', body: 'نبني مسارات رقمية واضحة: فكرة قوية، صورة دقيقة وخطوات يمكن قياس أثرها.', principles: ['اتجاه يلفت الانتباه.', 'محتوى يبني الثقة.', 'تجربة تسهل التواصل.'], link: 'اكتشف أعمالنا', trust: 'مشاريع ويب لاستكشافها' },
 };
 
-const clientLogos = [
-  { name: 'Centre Bissan', website: '#' },
-  { name: 'Eminora', website: '#' },
+const webProjects = [
   { name: 'DC16 X WYN', website: 'https://dc16.shop/' },
   { name: 'MOVESMART', website: 'https://movesmart-ecru.vercel.app/' },
   { name: 'FIDALI', website: 'https://fidali.vercel.app/' },
@@ -36,16 +34,16 @@ const AboutVisual: React.FC<AboutVisualProps> = ({ language }) => {
         <div className="iv-about-side"><ol>{t.principles.map((principle) => <li key={principle}><p>{principle}</p></li>)}</ol></div>
       </div>
       <div className="iv-about-trust">
-        <div className="iv-about-trust-heading"><span className="iv-label">TRUST &amp; LEGACY</span><h3>{t.trust}<b aria-hidden="true">↗</b></h3></div>
-        <div className="iv-trust-logo-window" aria-label="Marques accompagnées par iVISION">
+        <div className="iv-about-trust-heading"><span className="iv-label">SELECTED WEB WORK</span><h3>{t.trust}<b aria-hidden="true">↗</b></h3></div>
+        <div className="iv-trust-logo-window" aria-label="Liens vers les projets web présentés par iVISION">
           <div className="iv-trust-logo-track">
             {[0, 1].map((set) => <div className="iv-trust-logo-set" key={set} aria-hidden={set === 1}>
-              {clientLogos.map((logo) => <a key={`${set}-${logo.name}`} href={logo.website === '#' ? undefined : logo.website} target={logo.website === '#' ? undefined : '_blank'} rel={logo.website === '#' ? undefined : 'noopener noreferrer'} className="iv-trust-logo" tabIndex={set === 1 ? -1 : undefined}>{logo.name}<span aria-hidden="true">↗</span></a>)}
+              {webProjects.map((project) => <a key={`${set}-${project.name}`} href={project.website} target="_blank" rel="noopener noreferrer" className="iv-trust-logo" tabIndex={set === 1 ? -1 : undefined}>{project.name}<span aria-hidden="true">↗</span></a>)}
             </div>)}
           </div>
         </div>
       </div>
-      <div className="iv-about-mosaic" aria-label="Visuels de stratégie digitale"><figure className="iv-about-mosaic-small iv-reveal-img"><img src="/images/agency-card-ecommerce-new.webp" alt="Direction artistique pour une campagne e-commerce" width={960} height={1200} loading="lazy" decoding="async" /><figcaption>E-COMMERCE<br />DIRECTION</figcaption></figure><figure className="iv-about-mosaic-large iv-reveal-img" style={{ "--reveal-delay": "0.12s" } as React.CSSProperties}><img src="/images/agency-card-content-studio.webp" alt="Studio de création de contenu pour une campagne digitale" width={1200} height={800} loading="lazy" decoding="async" /><figcaption>CONTENT<br />CAMPAIGNS</figcaption></figure><figure className="iv-about-mosaic-medium iv-reveal-img" style={{ "--reveal-delay": "0.24s" } as React.CSSProperties}><img src="/images/agency-card-growth-new.webp" alt="Stratégie digitale et croissance mesurable" width={900} height={1200} loading="lazy" decoding="async" /><figcaption>GROWTH<br />SYSTEMS</figcaption></figure></div>
+      <div className="iv-about-mosaic" aria-label="Visuels de stratégie digitale"><figure className="iv-about-mosaic-small iv-reveal-img"><img src="/images/agency-card-ecommerce-new.webp" alt="Illustration d'une mise en scène de produits e-commerce" width={960} height={1200} loading="lazy" decoding="async" /><figcaption>E-COMMERCE<br />DIRECTION</figcaption></figure><figure className="iv-about-mosaic-large iv-reveal-img" style={{ "--reveal-delay": "0.12s" } as React.CSSProperties}><img src="/images/agency-card-content-studio.webp" alt="Illustration d'un studio de création de contenu" width={1200} height={800} loading="lazy" decoding="async" /><figcaption>CONTENT<br />CAMPAIGNS</figcaption></figure><figure className="iv-about-mosaic-medium iv-reveal-img" style={{ "--reveal-delay": "0.24s" } as React.CSSProperties}><img src="/images/agency-card-growth-new.webp" alt="Illustration d'une séance de travail sur une identité visuelle" width={900} height={1200} loading="lazy" decoding="async" /><figcaption>GROWTH<br />SYSTEMS</figcaption></figure></div>
     </section>
   );
 };

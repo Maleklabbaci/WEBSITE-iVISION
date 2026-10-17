@@ -10,9 +10,8 @@ const BlogList = () => {
 
   useEffect(() => {
     updateSEO({
-      title: 'Blog - Actualités Marketing Digital & Web',
-      description: 'Articles, guides et conseils sur le marketing digital, le web design, le SEO et le branding en Algérie.',
-      keywords: 'blog marketing digital algérie, conseils web design, guide SEO algérie',
+      title: 'Archives marketing et web',
+      description: 'Archives iVISION à vérifier avant de les utiliser comme conseils actuels. Découvrez nos pages de services mises à jour pour l’Algérie.',
       canonical: getCanonicalUrl({ type: 'blog' }),
     });
   }, []);
@@ -32,14 +31,21 @@ const BlogList = () => {
         {/* Header */}
         <div className="mb-14 iv-reveal">
           <div className="iv-section-topline" style={{ padding: '1.5rem 0', marginBottom: '1.8rem' }}><span>Blog</span></div>
-          <span className="iv-label">Selected insights</span>
+          <span className="iv-label">Archives éditoriales</span>
           <h1 className="text-[clamp(2.6rem,6vw,5.6rem)] font-medium text-navy dark:text-white mb-6 tracking-[-0.02em] leading-[.98]">
-            Insights & <span className="text-brand-blue">Stratégies</span>
+            Articles & <span className="text-brand-blue">archives</span>
           </h1>
           <p className="text-brand-gray dark:text-brand-gray/80 text-lg max-w-2xl">
-            Guides pratiques, analyses et conseils pour développer votre business en ligne en Algérie.
+            Archives éditoriales : certains tarifs, chiffres et délais mentionnés dans ces articles doivent encore être vérifiés. Pour nos offres actuelles, consultez les pages de service ci-dessous.
           </p>
         </div>
+
+        <nav aria-label="Pages de services actuelles" className="flex flex-wrap gap-4 border-y border-navy/15 dark:border-white/20 py-6 mb-12 text-navy dark:text-white">
+          <a href="/agence-marketing-digital-algerie.html">Marketing digital ↗</a>
+          <a href="/creation-contenu-algerie.html">Création de contenu ↗</a>
+          <a href="/publicite-meta-google-ads-algerie.html">Meta &amp; Google Ads ↗</a>
+          <a href="/creation-site-web-algerie.html">Création de sites web ↗</a>
+        </nav>
 
         {/* Search + Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-12">

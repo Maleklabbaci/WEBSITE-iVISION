@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getBlogPost, getRelatedPosts, type BlogPost } from '../data/blog-posts';
-import { updateSEO, generateBlogSchema } from '../lib/seo-utils';
+import { updateSEO } from '../lib/seo-utils';
 import { getCanonicalUrl } from '../lib/router';
 
 interface Props {
@@ -17,33 +17,17 @@ const BlogPostPage = ({ slug }: Props) => {
 
     if (foundPost) {
       updateSEO({
-        title: foundPost.title,
-        description: foundPost.metaDescription,
-        keywords: foundPost.tags.join(', '),
-        ogType: 'article',
-        ogImage: foundPost.image,
+        title: `Archive : ${foundPost.title}`,
+        description: 'Article historique iVISION : chiffres, tarifs et délais éventuels à vérifier avant toute décision. Consultez nos pages de services actualisées.',
         canonical: getCanonicalUrl({ type: 'blog-post', slug: foundPost.slug }),
       });
 
-      const schema = generateBlogSchema(foundPost);
-      let scriptTag = document.querySelector('#blog-schema');
-      if (!scriptTag) {
-        scriptTag = document.createElement('script');
-        scriptTag.id = 'blog-schema';
-        scriptTag.setAttribute('type', 'application/ld+json');
-        document.head.appendChild(scriptTag);
-      }
-      scriptTag.textContent = JSON.stringify(schema);
-
+      // Ces archives ne disposent ni d'URL HTML distincte, ni d'une vérification
+      // des données chiffrées : ne pas les promouvoir en BlogPosting JSON-LD.
       setRelatedPosts(getRelatedPosts(slug, 3));
     }
 
     window.scrollTo(0, 0);
-
-    return () => {
-      const s = document.querySelector('#blog-schema');
-      if (s) s.remove();
-    };
   }, [slug]);
 
   if (!post) {
@@ -100,7 +84,11 @@ const BlogPostPage = ({ slug }: Props) => {
           </div>
         </header>
 
-        {/* Hero Image Placeholder */}
+        <aside className="border border-navy/15 dark:border-white/20 p-5 mb-10 text-brand-gray text-sm leading-relaxed" aria-label="Statut de cet article">
+          Archive éditoriale : les statistiques, prix et délais cités ici n'ont pas tous été revus. Ne les utilisez pas comme tarifs ou garanties actuels. <a className="underline" href="/agence-marketing-digital-algerie.html">Consulter nos offres actualisées</a>.
+        </aside>
+
+        {/* Illustration de l'article historique */}
         <div className="w-full h-64 md:h-96 rounded-[.55rem] mb-12 overflow-hidden">
   <img 
     src={post.image} 
@@ -151,14 +139,14 @@ const BlogPostPage = ({ slug }: Props) => {
             Besoin d'aide pour votre projet ?
           </h3>
           <p className="text-brand-gray mb-6 max-w-xl">
-            iVISION vous accompagne dans votre stratégie digitale. Audit gratuit de 60 minutes, sans engagement.
+            Décrivez votre activité et votre projet : nous pourrons définir ensemble la prochaine étape utile.
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <button
               onClick={() => (window.location.hash = '/devis')}
               className="btn-ivision px-8 py-3"
             >
-              Demander mon audit gratuit
+              Parler de mon projet
             </button>
             <a
               href="https://wa.me/213563839404"

@@ -70,7 +70,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
     back: t.back || 'RETOUR',
     next: t.next || 'SUIVANT',
     successTitle: t.successTitle || 'DEMANDE VALIDÉE !',
-    successMessage: t.successMessage || 'Un expert vous contactera sur WhatsApp sous 2h.',
+    successMessage: t.successMessage || 'Votre demande a été reçue. Nous reviendrons vers vous avec les coordonnées fournies.',
     backToHome: t.backToHome || 'Retour à l\'accueil',
     phoneError: t.phoneError || 'Le numéro doit contenir exactement 10 chiffres',
     networkError: t.networkError || 'Une erreur est survenue. Vérifiez votre connexion et réessayez.',
@@ -295,7 +295,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ translations }) => {
 
                 <button
                   onClick={handleNext}
-                  disabled={!formData.name.trim() || !formData.phone.trim() || phoneError}
+                  disabled={!formData.name.trim() || !formData.phone.trim() || Boolean(phoneError)}
                   className="btn-ivision w-full py-6 disabled:opacity-30 disabled:pointer-events-none group"
                 >
                   <span>{labels.next}</span>

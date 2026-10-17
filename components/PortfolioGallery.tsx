@@ -11,14 +11,14 @@ const projects: Project[] = [
 ];
 
 const copy = {
-  fr: { label: 'NOS RÉALISATIONS', kicker: 'SELECTED DIGITAL WORK', title: ['DES SITES', 'QUI BOUGENT.'], body: 'Quatre univers. Une même exigence : donner aux marques une présence qui se remarque.', view: 'Ouvrir le site', quote: 'Parler de mon projet', scroll: 'NOS SITES' },
-  en: { label: 'OUR WORK', kicker: 'SELECTED DIGITAL WORK', title: ['WEBSITES', 'THAT MOVE.'], body: 'Four worlds. One standard: giving brands a presence people remember.', view: 'Open website', quote: 'Talk about my project', scroll: 'OUR SITES' },
-  ar: { label: 'أعمالنا', kicker: 'SELECTED DIGITAL WORK', title: ['مواقع', 'تتحرك.'], body: 'أربعة عوالم. هدف واحد: منح العلامات حضوراً لا يُنسى.', view: 'فتح الموقع', quote: 'تحدث عن مشروعي', scroll: 'مواقعنا' },
+  fr: { label: 'NOS RÉALISATIONS', kicker: 'SELECTED DIGITAL WORK', title: ['DES SITES', 'QUI BOUGENT.'], body: 'Vitrine, boutique ou produit digital : explorez quatre interfaces, puis choisissez le format adapté à votre activité.', view: 'Ouvrir le site', portfolio: 'Voir le portfolio sites web', offer: 'L’offre sites web', quote: 'Décrire mon site', scroll: 'NOS SITES' },
+  en: { label: 'OUR WORK', kicker: 'SELECTED DIGITAL WORK', title: ['WEBSITES', 'THAT MOVE.'], body: 'A business site, a shop or a digital product: explore four interfaces, then find the right format for your project.', view: 'Open website', portfolio: 'Web portfolio (FR)', offer: 'Website services (FR)', quote: 'Request a website', scroll: 'OUR SITES' },
+  ar: { label: 'أعمالنا', kicker: 'SELECTED DIGITAL WORK', title: ['مواقع', 'تتحرك.'], body: 'موقع تعريفي أو متجر أو منتج رقمي: تصفح أربع واجهات واختر الشكل المناسب لمشروعك.', view: 'فتح الموقع', portfolio: 'أعمال المواقع (بالفرنسية)', offer: 'خدمة المواقع (بالفرنسية)', quote: 'اطلب موقعاً', scroll: 'مواقعنا' },
 };
 
-interface PortfolioGalleryProps { language: Language; onQuoteClick: () => void }
+interface PortfolioGalleryProps { language: Language }
 
-const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteClick }) => {
+const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
   const t = copy[language];
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
@@ -35,7 +35,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language, onQuoteCl
     <section ref={ref} id="etudes-de-cas" className={`iv-work-scene ${visible ? 'is-visible' : ''}`}>
       <div className="iv-work-scene-sticky">
         <div className="iv-section-topline"><span>{t.label}</span></div>
-        <div className="iv-work-scene-heading iv-reveal"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{t.title[1]}</span></h2></div><div className="iv-work-scene-intro"><p>{t.body}</p><button type="button" className="iv-work-simple-cta" onClick={onQuoteClick}><span>{t.quote}</span><b aria-hidden="true">↗</b></button></div></div>
+        <div className="iv-work-scene-heading iv-reveal"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{t.title[1]}</span></h2></div><div className="iv-work-scene-intro"><p>{t.body}</p><div className="iv-work-actions"><a href="/portfolio-sites-web-algerie.html" className="iv-work-simple-cta"><span>{t.portfolio}</span><b aria-hidden="true">↗</b></a><a href="/creation-site-web-algerie.html" className="iv-work-secondary-cta">{t.offer} ↗</a><a href="/#/devis?service=site-web" className="iv-work-secondary-cta">{t.quote} ↗</a></div></div></div>
         <div className="iv-work-marquee" aria-label={t.scroll}>
           <div className="iv-work-marquee-track">
             {[0, 1].map((set) => <div className="iv-work-marquee-set" key={set} aria-hidden={set === 1}>
