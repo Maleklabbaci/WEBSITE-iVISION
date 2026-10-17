@@ -2,6 +2,12 @@
   const STORAGE_KEY = 'ivision-lang-selected';
   const originalHtml = new WeakMap();
   const originalAttrs = new WeakMap();
+  const trackedElements = new Set();
+
+  const track = (el) => {
+    if (el) trackedElements.add(el);
+    return el;
+  };
 
   const rememberAndSetHtml = (el, arHtml) => {
     if (!el || arHtml == null) return;
@@ -22,12 +28,6 @@
       map[attr] = el.getAttribute(attr);
     }
     el.setAttribute(attr, arValue);
-  };
-
-  const trackedElements = new Set();
-  const track = (el) => {
-    if (el) trackedElements.add(el);
-    return el;
   };
 
   const setHtml = (root, selector, arHtml) => {
@@ -63,8 +63,9 @@
   const sharedNavAr = {
     'nav.home': 'الرئيسية',
     'nav.about': 'من نحن',
-    'nav.work': 'أعمال المواقع',
-    'nav.social': 'أعمال التواصل',
+    'nav.portfolio': 'المعرض',
+    'nav.work': 'معرض المواقع',
+    'nav.social': 'معرض التواصل',
     'nav.services': 'خدماتنا',
     'nav.marketing': 'التسويق الرقمي',
     'nav.content': 'صناعة المحتوى',
@@ -233,7 +234,7 @@
       setHtml(doc, '#besoin-title', 'ماذا يجب أن يفهم جمهورك؟');
       setAllHtml(doc, '.intro-grid > div > p', [
         'الصورة الجميلة وحدها لا تروي القصة كاملة. تحتاج إلى <strong>وعد مفهوم</strong>، وعناصر ملموسة يمكنك إظهارها، ودعوة واضحة للتواصل تنسجم مع عرضك.',
-        'حسب نشاطك في الجزائر، يمكننا إعداد خط تحريري بالفرنسية أو بالعربية يتم تحديده في الملخص الأولي، مع توضيح الإنتاج وحقوق الاستخدام والمنصات قبل التنفيذ.',
+        'حسب نشاطك في الجزائر، يمكننا إعداد خط تحريري باللغتين العربية أو الفرنسية يتم تحديده في الملخص الأولي، مع توضيح الإنتاج وحقوق الاستخدام والمنصات قبل التنفيذ.',
       ]);
       setAllHtml(doc, '.inline-list li', [
         '<b>01</b> الرسالة والجمهور ذو الأولوية',
@@ -712,6 +713,374 @@
     });
   };
 
+  const renderDesktopNav = (lang) => {
+    const nav = document.querySelector('.header-nav.iv-nav, .iv-nav');
+    if (!nav) return;
+    const isAr = lang === 'ar';
+    nav.setAttribute('aria-label', isAr ? 'التنقل الرئيسي' : 'Navigation principale');
+
+    nav.innerHTML = isAr
+      ? `
+        <a href="/">الرئيسية</a>
+        <a href="/#about">من نحن</a>
+        <div class="iv-nav-item has-dropdown">
+          <button type="button" class="iv-nav-trigger" aria-expanded="false">
+            <span>خدماتنا</span><i class="iv-caret" aria-hidden="true">⌄</i>
+          </button>
+          <div class="iv-dropdown iv-dropdown-mega" role="region" aria-label="خدماتنا">
+            <div class="iv-mega-grid">
+              <div class="iv-mega-col">
+                <span class="iv-mega-heading">01 / الاستراتيجية والاستحواذ</span>
+                <div class="iv-mega-list">
+                  <a href="/agence-marketing-digital-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>التسويق الرقمي 360°</strong><em>STRATÉGIE</em></div>
+                    <span>استراتيجية الحضور، التموقع وخطة القنوات في الجزائر</span>
+                  </a>
+                  <a href="/publicite-meta-google-ads-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>إعلانات Meta &amp; Google Ads</strong><em>ADS</em></div>
+                    <span>حملات ممولة مرتبطة بصفحات هبوط وقياس الطلبات</span>
+                  </a>
+                  <a href="/choisir-seo-google-ads-meta-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>دليل SEO أو Google &amp; Meta Ads</strong><em>GUIDE SEO</em></div>
+                    <span>مقارنة عملية لاختيار القناة الأنسب لميزانيتك</span>
+                  </a>
+                </div>
+              </div>
+              <div class="iv-mega-col">
+                <span class="iv-mega-heading">02 / صناعة المحتوى والتواصل</span>
+                <div class="iv-mega-list">
+                  <a href="/creation-contenu-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>صناعة المحتوى والاستوديو</strong><em>STUDIO</em></div>
+                    <span>إخراج فني، فيديوهات Reels، تصوير ونصوص إعلانية</span>
+                  </a>
+                  <a href="/portfolio-social-media-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>معرض أعمال التواصل الاجتماعي</strong><em>SOCIAL</em></div>
+                    <span>صيغ النشر، التصاميم والفيديوهات القصيرة</span>
+                  </a>
+                  <a href="/#/centres" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>مرافقة مراكز التدريب والمدارس</strong><em>ACADÉMIQ</em></div>
+                    <span>حلول مخصصة لملء الأفواج واستقطاب المسجلين</span>
+                  </a>
+                </div>
+              </div>
+              <div class="iv-mega-col">
+                <span class="iv-mega-heading">03 / مواقع الويب والتحويل</span>
+                <div class="iv-mega-list">
+                  <a href="/creation-site-web-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>إنشاء وتطوير مواقع الويب</strong><em>SITES WEB</em></div>
+                    <span>مواقع تعريفية، متاجر إلكترونية وتجديد مواقع</span>
+                  </a>
+                  <a href="/portfolio-sites-web-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>معرض مواقع الويب المنجزة</strong><em>PORTFOLIO</em></div>
+                    <span>تصفح 8 مشاريع ويب ومتاجر إلكترونية مباشرة</span>
+                  </a>
+                  <a href="/#/devis?service=site-web" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>طلب عرض سعر خاص بموقع ويب</strong><em>DEVIS WEB</em></div>
+                    <span>استمارة مخصصة لمشاريع الويب بدون التزام إعلاني</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="iv-nav-item has-dropdown">
+          <button type="button" class="iv-nav-trigger" aria-expanded="false">
+            <span>المعرض</span><i class="iv-caret" aria-hidden="true">⌄</i>
+          </button>
+          <div class="iv-dropdown iv-dropdown-list" role="region" aria-label="المعرض">
+            <span class="iv-mega-heading">أعمالنا ومشاريعنا المعروضة</span>
+            <div class="iv-mega-list">
+              <a href="/portfolio-sites-web-algerie.html" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>معرض مواقع الويب</strong><em>01</em></div>
+                <span>متاجر إلكترونية، مواقع تعريفية ومنتجات رقمية (8 مشاريع)</span>
+              </a>
+              <a href="/portfolio-social-media-algerie.html" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>معرض التواصل الاجتماعي</strong><em>02</em></div>
+                <span>مختارات المحتوى البصري، Reels وإدارة العلامات</span>
+              </a>
+              <a href="/#work" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>مختارات الصفحة الرئيسية</strong><em>03</em></div>
+                <span>استعراض تفاعلي لأهم المشاريع على الرئيسية</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="iv-nav-item has-dropdown">
+          <button type="button" class="iv-nav-trigger" aria-expanded="false">
+            <span>الأدوات</span><i class="iv-caret" aria-hidden="true">⌄</i>
+          </button>
+          <div class="iv-dropdown iv-dropdown-list" role="region" aria-label="الأدوات">
+            <span class="iv-mega-heading">أدوات تفاعلية مجانية لاتخاذ القرار</span>
+            <div class="iv-mega-list">
+              <a href="/#/outils?tool=diagnostic" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>التشخيص الرقمي (Digital Score)</strong><em>01</em></div>
+                <span>قيّم نضج حضورك الرقمي من 100 في 60 ثانية</span>
+              </a>
+              <a href="/#/outils?tool=pertes" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>حاسبة الفرص الضائعة</strong><em>02</em></div>
+                <span>احسب الزوار والطلبات المهدرة بسبب بطء الموقع بالدينار</span>
+              </a>
+              <a href="/#/outils?tool=audit-seo" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>فحص SEO المجاني (الجزائر)</strong><em>03</em></div>
+                <span>قائمة فحص شاملة لجاهزية موقعك على محرك جوجل</span>
+              </a>
+              <a href="/#/outils?tool=simulateur-web" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>مصمم ومحاكي الموقع الإلكتروني</strong><em>04</em></div>
+                <span>اختر الصيغة والصفحات الأنسب لمشروعك القادم</span>
+              </a>
+              <a href="/#/outils?tool=calculateur" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>حاسبة عرض السعر الفورية</strong><em>05</em></div>
+                <span>كوّن أقطاب مشروعك وأرسل الملخص مباشرة للفريق</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <a href="/#contact">اتصل بنا</a>
+      `
+      : `
+        <a href="/">Accueil</a>
+        <a href="/#about">À propos</a>
+        <div class="iv-nav-item has-dropdown">
+          <button type="button" class="iv-nav-trigger" aria-expanded="false">
+            <span>Services</span><i class="iv-caret" aria-hidden="true">⌄</i>
+          </button>
+          <div class="iv-dropdown iv-dropdown-mega" role="region" aria-label="Services">
+            <div class="iv-mega-grid">
+              <div class="iv-mega-col">
+                <span class="iv-mega-heading">01 / STRATÉGIE &amp; ACQUISITION</span>
+                <div class="iv-mega-list">
+                  <a href="/agence-marketing-digital-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Marketing Digital 360°</strong><em>STRATÉGIE</em></div>
+                    <span>Positionnement, plan d’action multicanal &amp; suivi en Algérie</span>
+                  </a>
+                  <a href="/publicite-meta-google-ads-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Publicité Meta &amp; Google Ads</strong><em>ADS</em></div>
+                    <span>Campagnes sponsorisées, créas &amp; génération de demandes</span>
+                  </a>
+                  <a href="/choisir-seo-google-ads-meta-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Guide SEO vs Google &amp; Meta Ads</strong><em>GUIDE SEO</em></div>
+                    <span>Comparatif clair pour prioriser vos investissements</span>
+                  </a>
+                </div>
+              </div>
+              <div class="iv-mega-col">
+                <span class="iv-mega-heading">02 / CRÉATION &amp; SOCIAL MEDIA</span>
+                <div class="iv-mega-list">
+                  <a href="/creation-contenu-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Création de Contenu &amp; Studio</strong><em>STUDIO</em></div>
+                    <span>Direction artistique, Reels, visuels de marque &amp; copywriting</span>
+                  </a>
+                  <a href="/portfolio-social-media-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Portfolio Social Media</strong><em>SOCIAL</em></div>
+                    <span>Formats éditoriaux, vidéos courtes &amp; univers de marque</span>
+                  </a>
+                  <a href="/#/centres" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Offre Centres de Formation</strong><em>ACADÉMIQ</em></div>
+                    <span>Système d’acquisition dédié aux écoles &amp; instituts</span>
+                  </a>
+                </div>
+              </div>
+              <div class="iv-mega-col">
+                <span class="iv-mega-heading">03 / SITES WEB &amp; EXPÉRIENCE</span>
+                <div class="iv-mega-list">
+                  <a href="/creation-site-web-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Création de Sites Web</strong><em>SITES WEB</em></div>
+                    <span>Sites vitrines, boutiques e-commerce &amp; refonte SEO</span>
+                  </a>
+                  <a href="/portfolio-sites-web-algerie.html" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Portfolio Sites Web</strong><em>PORTFOLIO</em></div>
+                    <span>8 réalisations web, e-commerce et produits digitaux</span>
+                  </a>
+                  <a href="/#/devis?service=site-web" class="iv-dropdown-link">
+                    <div class="iv-dropdown-link-top"><strong>Devis Projet Site Web</strong><em>DEVIS WEB</em></div>
+                    <span>Formulaire dédié aux sites web sans budget pub imposé</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="iv-nav-item has-dropdown">
+          <button type="button" class="iv-nav-trigger" aria-expanded="false">
+            <span>Portfolio</span><i class="iv-caret" aria-hidden="true">⌄</i>
+          </button>
+          <div class="iv-dropdown iv-dropdown-list" role="region" aria-label="Portfolio">
+            <span class="iv-mega-heading">SÉLECTION DE RÉALISATIONS iVISION</span>
+            <div class="iv-mega-list">
+              <a href="/portfolio-sites-web-algerie.html" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>Portfolio Sites Web</strong><em>01</em></div>
+                <span>Boutiques e-commerce, sites vitrines &amp; produits digitaux (8 projets)</span>
+              </a>
+              <a href="/portfolio-social-media-algerie.html" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>Portfolio Social Media</strong><em>02</em></div>
+                <span>Créations visuelles, formats courts Reels &amp; direction artistique</span>
+              </a>
+              <a href="/#work" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>Études de cas (Accueil)</strong><em>03</em></div>
+                <span>Parcourir la galerie interactive sur la page d’accueil</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="iv-nav-item has-dropdown">
+          <button type="button" class="iv-nav-trigger" aria-expanded="false">
+            <span>Outils</span><i class="iv-caret" aria-hidden="true">⌄</i>
+          </button>
+          <div class="iv-dropdown iv-dropdown-list" role="region" aria-label="Outils">
+            <span class="iv-mega-heading">OUTILS &amp; SIMULATEURS INTERACTIFS</span>
+            <div class="iv-mega-list">
+              <a href="/#/outils?tool=diagnostic" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>Diagnostic Digital Score</strong><em>01</em></div>
+                <span>Évaluez votre maturité digitale sur 100 en 60 secondes</span>
+              </a>
+              <a href="/#/outils?tool=pertes" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>Compteur de Pertes &amp; Trafic</strong><em>02</em></div>
+                <span>Simulez les demandes et le CA manqués avec un site lent</span>
+              </a>
+              <a href="/#/outils?tool=audit-seo" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>Audit SEO Gratuit</strong><em>03</em></div>
+                <span>Vérifiez les 8 piliers de visibilité Google en Algérie</span>
+              </a>
+              <a href="/#/outils?tool=simulateur-web" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>Simulateur de Site Web</strong><em>04</em></div>
+                <span>Trouvez l’architecture et le format adaptés à votre cible</span>
+              </a>
+              <a href="/#/outils?tool=calculateur" class="iv-dropdown-link">
+                <div class="iv-dropdown-link-top"><strong>Calculateur de Devis</strong><em>05</em></div>
+                <span>Configurez vos pôles sur mesure avant chiffrage</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <a href="/#contact">Contact</a>
+      `;
+
+    const items = nav.querySelectorAll('.iv-nav-item.has-dropdown');
+    items.forEach((item) => {
+      const btn = item.querySelector('.iv-nav-trigger');
+      if (!btn) return;
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wasOpen = item.classList.contains('is-open');
+        items.forEach((other) => {
+          other.classList.remove('is-open');
+          const b = other.querySelector('.iv-nav-trigger');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        });
+        if (!wasOpen) {
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    const mobileNav = document.querySelector('.iv-mobile-menu nav');
+    if (mobileNav) {
+      mobileNav.className = 'iv-mobile-nav';
+      mobileNav.innerHTML = isAr
+        ? `
+          <a href="/" class="iv-mobile-row"><span>الرئيسية</span></a>
+          <a href="/#about" class="iv-mobile-row"><span>من نحن</span></a>
+          <div class="iv-mobile-group is-open">
+            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="true">
+              <span>خدماتنا</span><i class="iv-caret" aria-hidden="true">⌄</i>
+            </button>
+            <div class="iv-mobile-sublist">
+              <a href="/agence-marketing-digital-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>التسويق الرقمي 360°</strong><em>STRATÉGIE</em></div><small>استراتيجية الحضور والقنوات في الجزائر</small></a>
+              <a href="/creation-contenu-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>صناعة المحتوى والاستوديو</strong><em>STUDIO</em></div><small>إخراج فني، Reels وتصاميم</small></a>
+              <a href="/publicite-meta-google-ads-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>إعلانات Meta &amp; Google Ads</strong><em>ADS</em></div><small>حملات ممولة وقياس التحويلات</small></a>
+              <a href="/creation-site-web-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>إنشاء مواقع الويب</strong><em>SITES WEB</em></div><small>مواقع تعريفية ومتاجر إلكترونية</small></a>
+              <a href="/choisir-seo-google-ads-meta-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>دليل SEO أو Ads</strong><em>GUIDE</em></div><small>مقارنة لاختيار القناة الأنسب</small></a>
+            </div>
+          </div>
+          <div class="iv-mobile-group">
+            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="false">
+              <span>المعرض</span><i class="iv-caret" aria-hidden="true">⌄</i>
+            </button>
+            <div class="iv-mobile-sublist" hidden>
+              <a href="/portfolio-sites-web-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>معرض مواقع الويب</strong><em>01</em></div><small>8 مشاريع ويب ومتاجر إلكترونية</small></a>
+              <a href="/portfolio-social-media-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>معرض التواصل الاجتماعي</strong><em>02</em></div><small>مختارات المحتوى البصري وReels</small></a>
+            </div>
+          </div>
+          <div class="iv-mobile-group">
+            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="false">
+              <span>الأدوات التفاعلية</span><i class="iv-caret" aria-hidden="true">⌄</i>
+            </button>
+            <div class="iv-mobile-sublist" hidden>
+              <a href="/#/outils?tool=diagnostic" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>التشخيص الرقمي</strong><em>01</em></div><small>تقييم شامل من 100</small></a>
+              <a href="/#/outils?tool=pertes" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>حاسبة الفرص الضائعة</strong><em>02</em></div><small>محاكاة الزيارات والعائد بالدينار</small></a>
+              <a href="/#/outils?tool=audit-seo" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>فحص SEO المجاني</strong><em>03</em></div><small>قائمة فحص جوجل الجزائر</small></a>
+              <a href="/#/outils?tool=simulateur-web" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>مصمم الموقع الإلكتروني</strong><em>04</em></div><small>اختيار البنية والصفحات</small></a>
+              <a href="/#/outils?tool=calculateur" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>حاسبة عرض السعر</strong><em>05</em></div><small>تكوين أقطاب المشروع</small></a>
+            </div>
+          </div>
+          <a href="/#contact" class="iv-mobile-row"><span>اتصل بنا</span></a>
+          <a href="/#/devis" class="iv-mobile-cta-btn"><span>لنتحدث عن مشروعي</span><b aria-hidden="true">↗</b></a>
+        `
+        : `
+          <a href="/" class="iv-mobile-row"><span>Accueil</span></a>
+          <a href="/#about" class="iv-mobile-row"><span>À propos</span></a>
+          <div class="iv-mobile-group is-open">
+            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="true">
+              <span>Services</span><i class="iv-caret" aria-hidden="true">⌄</i>
+            </button>
+            <div class="iv-mobile-sublist">
+              <a href="/agence-marketing-digital-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Marketing Digital 360°</strong><em>STRATÉGIE</em></div><small>Positionnement, plan multicanal &amp; suivi</small></a>
+              <a href="/creation-contenu-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Création de Contenu &amp; Studio</strong><em>STUDIO</em></div><small>Direction artistique, Reels &amp; visuels</small></a>
+              <a href="/publicite-meta-google-ads-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Publicité Meta &amp; Google Ads</strong><em>ADS</em></div><small>Campagnes sponsorisées &amp; génération de leads</small></a>
+              <a href="/creation-site-web-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Création de Sites Web</strong><em>SITES WEB</em></div><small>Sites vitrines, e-commerce &amp; refonte</small></a>
+              <a href="/choisir-seo-google-ads-meta-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Guide SEO vs Ads</strong><em>GUIDE</em></div><small>Comparatif pour choisir le bon levier</small></a>
+            </div>
+          </div>
+          <div class="iv-mobile-group">
+            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="false">
+              <span>Portfolio</span><i class="iv-caret" aria-hidden="true">⌄</i>
+            </button>
+            <div class="iv-mobile-sublist" hidden>
+              <a href="/portfolio-sites-web-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Portfolio Sites Web</strong><em>01</em></div><small>8 projets web, e-commerce &amp; produits</small></a>
+              <a href="/portfolio-social-media-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Portfolio Social Media</strong><em>02</em></div><small>Sélection créative &amp; formats courts</small></a>
+            </div>
+          </div>
+          <div class="iv-mobile-group">
+            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="false">
+              <span>Outils &amp; Simulateurs</span><i class="iv-caret" aria-hidden="true">⌄</i>
+            </button>
+            <div class="iv-mobile-sublist" hidden>
+              <a href="/#/outils?tool=diagnostic" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Diagnostic Digital Score</strong><em>01</em></div><small>Score de maturité /100 en 60s</small></a>
+              <a href="/#/outils?tool=pertes" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Compteur de Pertes</strong><em>02</em></div><small>Simulateur trafic &amp; CA en DA</small></a>
+              <a href="/#/outils?tool=audit-seo" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Audit SEO Gratuit</strong><em>03</em></div><small>Checklist visibilité Google Algérie</small></a>
+              <a href="/#/outils?tool=simulateur-web" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Simulateur de Site Web</strong><em>04</em></div><small>Architecture &amp; format recommandés</small></a>
+              <a href="/#/outils?tool=calculateur" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Calculateur de Devis</strong><em>05</em></div><small>Configurateur sur-mesure</small></a>
+            </div>
+          </div>
+          <a href="/#contact" class="iv-mobile-row"><span>Contact</span></a>
+          <a href="/#/devis" class="iv-mobile-cta-btn"><span>Parler de mon projet</span><b aria-hidden="true">↗</b></a>
+        `;
+
+      mobileNav.querySelectorAll('.iv-mobile-accordion-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const group = btn.closest('.iv-mobile-group');
+          if (!group) return;
+          const sublist = group.querySelector('.iv-mobile-sublist');
+          const willOpen = !group.classList.contains('is-open');
+          mobileNav.querySelectorAll('.iv-mobile-group').forEach((g) => {
+            g.classList.remove('is-open');
+            const b = g.querySelector('.iv-mobile-accordion-btn');
+            const s = g.querySelector('.iv-mobile-sublist');
+            if (b) b.setAttribute('aria-expanded', 'false');
+            if (s) s.hidden = true;
+          });
+          if (willOpen) {
+            group.classList.add('is-open');
+            btn.setAttribute('aria-expanded', 'true');
+            if (sublist) sublist.hidden = false;
+          }
+        });
+      });
+    }
+  };
+
   const setLanguage = (lang) => {
     const normalized = lang === 'ar' ? 'ar' : 'fr';
     try {
@@ -729,6 +1098,8 @@
       btn.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
     });
 
+    renderDesktopNav(normalized);
+
     if (normalized === 'ar') {
       restoreFrench();
       applyArabicCommon(document);
@@ -740,7 +1111,76 @@
     }
   };
 
+  const ensureFontsAndDropdownStyles = () => {
+    if (!document.getElementById('iv-multi-arabic-fonts')) {
+      const link = document.createElement('link');
+      link.id = 'iv-multi-arabic-fonts';
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap';
+      document.head.appendChild(link);
+    }
+    if (!document.getElementById('iv-dropdown-runtime-style')) {
+      const style = document.createElement('style');
+      style.id = 'iv-dropdown-runtime-style';
+      style.textContent = `
+        .iv-nav > a, .iv-nav-trigger { color: var(--iv-muted, rgba(242,237,228,.62)); font-family: inherit; font-size: .58rem; font-weight: 600; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; white-space: nowrap; background: transparent; border: 0; padding: .4rem .15rem; cursor: pointer; display: inline-flex; align-items: center; gap: .28rem; }
+        .iv-nav > a:hover, .iv-nav-trigger:hover, .iv-nav-item.is-open .iv-nav-trigger { color: var(--iv-white, #f2ede4); }
+        .iv-caret { font-style: normal; font-size: .72rem; line-height: 1; display: inline-block; transition: transform .25s ease; transform: translateY(-.08rem); }
+        .iv-nav-item.is-open .iv-caret { transform: translateY(.05rem) rotate(180deg); color: #a69b8b; }
+        .iv-nav-item.has-dropdown { position: relative; display: inline-flex; align-items: center; }
+        .iv-dropdown { position: absolute; top: calc(100% + .85rem); left: 50%; transform: translateX(-50%) translateY(8px); opacity: 0; visibility: hidden; pointer-events: none; z-index: 140; background: #fbf8f2; color: #14120f; border: 1px solid rgba(20,18,15,.16); border-radius: 1.15rem; box-shadow: 0 24px 60px rgba(10,9,8,.24); padding: 1.35rem; transition: opacity .22s ease, transform .22s cubic-bezier(.23,1,.32,1), visibility .22s ease; }
+        .iv-nav-item.is-open .iv-dropdown, .iv-nav-item.has-dropdown:hover .iv-dropdown { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+        .iv-dropdown::before { content: ''; position: absolute; top: -1rem; left: 0; right: 0; height: 1rem; }
+        .iv-dropdown-mega { width: min(86vw, 58rem); left: 50%; transform: translateX(-52%) translateY(8px); }
+        .iv-nav-item.is-open .iv-dropdown-mega, .iv-nav-item.has-dropdown:hover .iv-dropdown-mega { transform: translateX(-52%) translateY(0); }
+        .iv-dropdown-list { width: min(86vw, 23rem); }
+        .iv-mega-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.1rem; }
+        .iv-mega-col { display: flex; flex-direction: column; padding-right: .8rem; border-right: 1px solid rgba(20,18,15,.1); }
+        .iv-mega-col:last-child { padding-right: 0; border-right: 0; }
+        .iv-mega-heading { display: block; padding-bottom: .6rem; margin-bottom: .65rem; border-bottom: 1px solid rgba(20,18,15,.1); color: #6f6559; font-size: .54rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+        .iv-mega-list { display: flex; flex-direction: column; gap: .35rem; }
+        .iv-dropdown-link { display: block !important; padding: .5rem .65rem !important; border-radius: .6rem; border: 1px solid transparent; text-decoration: none !important; color: #14120f !important; text-transform: none !important; letter-spacing: 0 !important; white-space: normal !important; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+        .iv-dropdown-link:hover { background: #f2ede4; border-color: rgba(20,18,15,.14); transform: translateY(-1px); }
+        .iv-dropdown-link-top { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .12rem; }
+        .iv-dropdown-link-top strong { color: #14120f; font-family: 'Jost', 'Readex Pro', sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: 0; line-height: 1.25; }
+        .iv-dropdown-link-top em { font-style: normal; padding: .14rem .42rem; border-radius: 999px; background: rgba(20,18,15,.07); color: #55504a; font-size: .44rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; }
+        .iv-dropdown-link > span { display: block; color: rgba(20,18,15,.62); font-size: .68rem; font-weight: 400; line-height: 1.35; }
+        .iv-mobile-menu { position: fixed !important; top: 5.5rem !important; right: .85rem !important; left: .85rem !important; bottom: auto !important; inset: auto .85rem auto .85rem !important; max-height: calc(100svh - 6.5rem) !important; padding: 1.1rem 1.15rem 1.25rem !important; border-radius: 1.15rem !important; background: #fbf8f2 !important; box-shadow: 0 24px 60px rgba(10,9,8,.28) !important; }
+        .iv-mobile-lang { margin-bottom: .9rem !important; padding-bottom: .85rem !important; }
+        .iv-mobile-lang .iv-lang-btn { padding: .52rem .75rem !important; font-size: .7rem !important; }
+        .iv-mobile-menu nav { display: flex !important; flex-direction: column !important; gap: .2rem !important; }
+        .iv-mobile-row, .iv-mobile-menu nav > a { width: 100% !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: .68rem .4rem !important; border: 0 !important; border-bottom: 1px solid rgba(20,18,15,.1) !important; background: transparent !important; color: #14120f !important; font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .84rem !important; font-weight: 600 !important; letter-spacing: .06em !important; line-height: 1.3 !important; text-transform: uppercase !important; text-decoration: none !important; cursor: pointer !important; box-sizing: border-box !important; }
+        .iv-mobile-group.is-open .iv-mobile-accordion-btn .iv-caret { transform: rotate(180deg); color: #a69b8b; }
+        .iv-mobile-sublist { display: flex; flex-direction: column; gap: .25rem; padding: .35rem .2rem .65rem; border-bottom: 1px solid rgba(20,18,15,.1); }
+        .iv-mobile-sublink { display: block !important; padding: .55rem .65rem !important; border-radius: .6rem !important; background: #f2ede4 !important; color: #14120f !important; text-decoration: none !important; text-transform: none !important; font-family: 'Jost', 'Tajawal', sans-serif !important; border: 0 !important; }
+        .iv-mobile-sublink-top { display: flex; align-items: center; justify-content: space-between; gap: .4rem; margin-bottom: .12rem; }
+        .iv-mobile-sublink-top strong { font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .82rem !important; font-weight: 600 !important; color: #14120f !important; line-height: 1.25 !important; }
+        .iv-mobile-sublink-top em { font-style: normal; padding: .12rem .4rem; border-radius: 999px; background: rgba(20,18,15,.08); color: #55504a; font-size: .46rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+        .iv-mobile-sublink small { display: block; font-size: .72rem !important; color: rgba(20,18,15,.65); line-height: 1.35; font-weight: 400; }
+        .iv-mobile-cta-btn, .iv-mobile-menu nav a.iv-mobile-cta { width: 100% !important; margin-top: .75rem !important; padding: .82rem 1rem !important; border: 0 !important; border-radius: 999px !important; background: #14120f !important; color: #f2ede4 !important; font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .72rem !important; font-weight: 700 !important; letter-spacing: .1em !important; text-transform: uppercase !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: .45rem !important; text-decoration: none !important; }
+        [dir="rtl"] .iv-mega-col { padding-right: 0; padding-left: .8rem; border-right: 0; border-left: 1px solid rgba(20,18,15,.1); }
+        [dir="rtl"] .iv-mega-col:last-child { padding-left: 0; border-left: 0; }
+        [dir="rtl"] .iv-dropdown-link { text-align: right; }
+        html[lang^="ar"] body, [dir="rtl"] body, [dir="rtl"] p, [dir="rtl"] li { font-family: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif !important; }
+        html[lang^="ar"] h1, html[lang^="ar"] h2, [dir="rtl"] h1, [dir="rtl"] h2 { font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif !important; font-weight: 700 !important; }
+        html[lang^="ar"] h1 em, html[lang^="ar"] h2 em, [dir="rtl"] h1 em, [dir="rtl"] h2 em { font-family: 'Amiri', serif !important; font-style: italic !important; font-weight: 700 !important; }
+        html[lang^="ar"] h3, html[lang^="ar"] .iv-header, html[lang^="ar"] .eyebrow, html[lang^="ar"] .btn, [dir="rtl"] h3, [dir="rtl"] .iv-header, [dir="rtl"] .eyebrow, [dir="rtl"] .btn { font-family: 'Readex Pro', 'Cairo', sans-serif !important; }
+      `;
+      document.head.appendChild(style);
+    }
+  };
+
   const initHeaderAndFloating = () => {
+    ensureFontsAndDropdownStyles();
+    renderDesktopNav('fr');
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.iv-nav-item.has-dropdown.is-open').forEach((item) => {
+        item.classList.remove('is-open');
+        const btn = item.querySelector('.iv-nav-trigger');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
     const header = document.querySelector('.page-header, .iv-header');
     const menuBtn = document.querySelector('.iv-menu-button');
     const mobileMenu = document.querySelector('.iv-mobile-menu');
@@ -760,12 +1200,14 @@
       menuBtn.classList.toggle('is-open', open);
       menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       mobileMenu.classList.toggle('is-open', open);
+      mobileMenu.hidden = !open;
       mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
       document.body.style.overflow = open ? 'hidden' : '';
       updateScroll();
     };
 
     if (menuBtn && mobileMenu) {
+      mobileMenu.hidden = true;
       menuBtn.addEventListener('click', () => {
         const isOpen = mobileMenu.classList.contains('is-open');
         setMenuOpen(!isOpen);

@@ -20,6 +20,7 @@ import { initReveal } from './lib/reveal';
 const BlogList = lazy(() => import('./components/BlogList'));
 const BlogPostPage = lazy(() => import('./components/BlogPostPage'));
 const ServicePage = lazy(() => import('./components/ServicePage'));
+const InteractiveToolsPage = lazy(() => import('./components/InteractiveToolsPage'));
 const HomeBelowFold = lazy(() => import('./components/HomeBelowFold'));
 
 // ===== PAGE LOADER =====
@@ -150,14 +151,18 @@ const PolicyModal: React.FC<{ isOpen: boolean; onClose: () => void; type: 'priva
 
 const StaticBackground: React.FC = () => <div className="source-page-background" aria-hidden="true" />;
 
-type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service' | 'centres';
+type ViewType = 'home' | 'quote' | 'blog' | 'blog-post' | 'service' | 'tools' | 'centres';
 
 // Source unique de routage : lib/router.ts (plus de parseHash dupliqué ici).
 const parseHash = (): { view: ViewType; slug?: string } => {
   const route = parseRoute();
   const slug = route.type === 'blog-post' || route.type === 'service'
     ? route.slug
-    : route.type === 'quote' ? route.service : undefined;
+    : route.type === 'quote'
+      ? route.service
+      : route.type === 'tools'
+        ? route.tool
+        : undefined;
   return { view: route.type, slug };
 };
 
@@ -256,21 +261,28 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
       case 'blog':
         return (
           <Suspense fallback={<PageLoader language={language} />}>
-            <BlogList />
+            <BlogList language={language} />
           </Suspense>
         );
 
       case 'blog-post':
         return (
           <Suspense fallback={<PageLoader language={language} />}>
-            <BlogPostPage slug={currentSlug} />
+            <BlogPostPage slug={currentSlug} language={language} />
           </Suspense>
         );
 
       case 'service':
         return (
           <Suspense fallback={<PageLoader language={language} />}>
-            <ServicePage slug={currentSlug} />
+            <ServicePage slug={currentSlug} language={language} />
+          </Suspense>
+        );
+
+      case 'tools':
+        return (
+          <Suspense fallback={<PageLoader language={language} />}>
+            <InteractiveToolsPage initialTool={currentSlug || 'diagnostic'} language={language} />
           </Suspense>
         );
 

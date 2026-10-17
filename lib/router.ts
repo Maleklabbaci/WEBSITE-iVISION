@@ -5,6 +5,7 @@ export type Route =
   | { type: 'blog-post'; slug: string }
   | { type: 'service'; slug: string }
   | { type: 'quote'; service?: 'site-web' }
+  | { type: 'tools'; tool?: string }
   | { type: 'centres' };
 
 export const parseRoute = (): Route => {
@@ -20,7 +21,11 @@ export const parseRoute = (): Route => {
       ? { type: 'quote', service: 'site-web' }
       : { type: 'quote' };
   }
-  if (path === '/academiq') return { type: 'centres' };
+  if (path === '/outils') {
+    const tool = new URLSearchParams(query).get('tool') || 'diagnostic';
+    return { type: 'tools', tool };
+  }
+  if (path === '/academiq' || path === '/centres') return { type: 'centres' };
 
   return { type: 'home' };
 };

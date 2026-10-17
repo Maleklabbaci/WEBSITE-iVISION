@@ -3,7 +3,8 @@ import { blogPosts, getBlogCategories, type BlogPost } from '../data/blog-posts'
 import { updateSEO } from '../lib/seo-utils';
 import { getCanonicalUrl } from '../lib/router';
 
-const BlogList = () => {
+const BlogList = ({ language = 'fr' }: { language?: string }) => {
+  void language;
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const categories = getBlogCategories();

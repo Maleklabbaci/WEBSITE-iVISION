@@ -5,6 +5,7 @@ import { getCanonicalUrl } from '../lib/router';
 
 interface Props {
   slug: string;
+  language?: string;
 }
 
 const ServicePage = ({ slug }: Props) => {

@@ -102,29 +102,86 @@
 
   /* Titres : même personnalité éditoriale partout (maison, blog, services, formulaires) */
   h1, h2, h3, .iv-font-geist {
-    font-family: 'Bodoni Moda', 'Cairo', 'IBM Plex Sans Arabic', 'Times New Roman', serif;
+    font-family: 'Bodoni Moda', 'Noto Kufi Arabic', 'Times New Roman', serif;
     letter-spacing: -0.02em;
     font-weight: 500;
   }
 
+  /* ===== HIÉRARCHIE MULTI-POLICES ARABE (Display Kufi + Accent Amiri Serif + UI Readex Pro + Corps Tajawal) ===== */
   html[lang^="ar"] body,
   [dir="rtl"] body,
+  html[lang^="ar"] p,
+  [dir="rtl"] p,
+  html[lang^="ar"] li,
+  [dir="rtl"] li,
   :lang(ar) {
-    font-family: 'IBM Plex Sans Arabic', 'Cairo', 'Jost', sans-serif;
+    font-family: 'Tajawal', 'IBM Plex Sans Arabic', 'Jost', sans-serif;
   }
 
   html[lang^="ar"] h1,
   html[lang^="ar"] h2,
-  html[lang^="ar"] h3,
   html[lang^="ar"] .iv-font-geist,
+  html[lang^="ar"] .site-footer-talk,
+  html[lang^="ar"] .iv-mobile-menu a,
   [dir="rtl"] h1,
   [dir="rtl"] h2,
-  [dir="rtl"] h3,
-  [dir="rtl"] .iv-font-geist {
-    font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
-    font-weight: 600;
+  [dir="rtl"] .iv-font-geist,
+  [dir="rtl"] .site-footer-talk,
+  [dir="rtl"] .iv-mobile-menu a {
+    font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+    font-weight: 700;
     letter-spacing: 0 !important;
-    line-height: 1.22;
+    line-height: 1.24;
+  }
+
+  html[lang^="ar"] h1 em,
+  html[lang^="ar"] h2 em,
+  html[lang^="ar"] h1 .text-brand-blue,
+  html[lang^="ar"] h2 .text-brand-blue,
+  html[lang^="ar"] .iv-work-changing-word,
+  html[lang^="ar"] .iv-work-simple-heading h2 span:last-child,
+  html[lang^="ar"] .iv-smm-grid h2 span:last-child,
+  html[lang^="ar"] .iv-proof-grid h2 span:last-child,
+  html[lang^="ar"] .iv-faq-grid h2 span:last-child,
+  html[lang^="ar"] .iv-contact-heading h2 span:last-child,
+  [dir="rtl"] h1 em,
+  [dir="rtl"] h2 em,
+  [dir="rtl"] h1 .text-brand-blue,
+  [dir="rtl"] h2 .text-brand-blue,
+  [dir="rtl"] .iv-work-changing-word,
+  [dir="rtl"] .iv-work-simple-heading h2 span:last-child,
+  [dir="rtl"] .iv-smm-grid h2 span:last-child,
+  [dir="rtl"] .iv-proof-grid h2 span:last-child,
+  [dir="rtl"] .iv-faq-grid h2 span:last-child,
+  [dir="rtl"] .iv-contact-heading h2 span:last-child {
+    font-family: 'Amiri', 'Noto Kufi Arabic', serif;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.18;
+  }
+
+  html[lang^="ar"] h3,
+  html[lang^="ar"] h4,
+  html[lang^="ar"] .iv-header,
+  html[lang^="ar"] .iv-nav,
+  html[lang^="ar"] .iv-label,
+  html[lang^="ar"] .iv-section-topline,
+  html[lang^="ar"] .iv-header-cta,
+  html[lang^="ar"] .btn-ivision,
+  html[lang^="ar"] .sketch-badge,
+  html[lang^="ar"] .iv-dropdown-link-top strong,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] .iv-header,
+  [dir="rtl"] .iv-nav,
+  [dir="rtl"] .iv-label,
+  [dir="rtl"] .iv-section-topline,
+  [dir="rtl"] .iv-header-cta,
+  [dir="rtl"] .btn-ivision,
+  [dir="rtl"] .sketch-badge,
+  [dir="rtl"] .iv-dropdown-link-top strong {
+    font-family: 'Readex Pro', 'Cairo', sans-serif;
+    letter-spacing: 0 !important;
   }
 
   html[lang^="ar"],
@@ -134,12 +191,6 @@
   :lang(ar),
   :lang(ar) * {
     letter-spacing: 0 !important;
-  }
-
-  [dir="rtl"] h1 .text-brand-blue,
-  [dir="rtl"] h2 .text-brand-blue,
-  [dir="rtl"] em {
-    font-style: normal;
   }
 
   h1.font-black, h2.font-black, h3.font-black,
@@ -550,9 +601,21 @@
 .web-quote-success > a:not(.web-quote-submit) { color:var(--iv-white); text-underline-offset:.25em; }
 .web-quote-alternatives { display:flex; flex-wrap:wrap; gap:1rem 2rem; margin-top:2rem; }
 .web-quote-alternatives a { color:var(--iv-muted); font-size:.85rem; text-underline-offset:.3em; }
+.web-quote-shell { width:min(100%,76rem); margin-inline:auto; }
+.web-quote-topline { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; padding-bottom:1.2rem; margin-bottom:2rem; border-bottom:1px solid var(--iv-line); color:var(--iv-muted); font-size:.66rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.web-quote-topline a { color:var(--iv-white); text-decoration:none; }
+.web-quote-lead { margin:0; color:var(--iv-muted); font-size:1.02rem; line-height:1.65; }
+.web-quote-form { padding:clamp(1.25rem,3vw,2.2rem); border:1px solid var(--iv-line); border-radius:1.05rem; background:var(--iv-paper); color:var(--iv-white); }
+.web-quote-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.web-quote-form label > span { display:block; margin-bottom:.45rem; font-size:.75rem; font-weight:700; color:var(--iv-white); }
+.web-quote-form input[type="text"], .web-quote-form input[type="url"], .web-quote-form select { width:100%; min-height:3rem; padding:.65rem .9rem; border:1px solid var(--iv-line); border-radius:.55rem; background:var(--iv-black); color:var(--iv-white); font:inherit; }
+.web-quote-form input[type="range"] { width:100%; accent-color:#14120f; cursor:pointer; }
+[dir="rtl"] .iv-mega-col { padding-right:0; padding-left:.8rem; border-right:0; border-left:1px solid rgba(20,18,15,.1); }
+[dir="rtl"] .iv-mega-col:last-child { padding-left:0; border-left:0; }
+[dir="rtl"] .iv-dropdown-link { text-align:right; }
 @media(max-width:760px) {
   .web-quote { padding:7rem 1.15rem 4.5rem; }
-  .web-quote-heading, .web-quote-grid { grid-template-columns:1fr; }
+  .web-quote-heading, .web-quote-grid, .web-quote-row { grid-template-columns:1fr; }
   .web-quote-heading h1 { font-size:clamp(3rem,12vw,5rem); }
   .web-quote-wide { grid-column:auto; }
   .web-quote-submit { width:100%; }
