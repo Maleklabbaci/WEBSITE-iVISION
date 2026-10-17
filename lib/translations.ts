@@ -45,14 +45,19 @@ const textContent = {
       ar: 'شريكك في النمو',
     },
     title: {
-      fr: 'PLUS DE CLIENTS PLUS DE VENTES',
-      en: 'MORE CLIENTS MORE SALES',
-      ar: 'المزيد من العملاء المزيد من المبيعات',
+      fr: 'AGENCE DE|MARKETING|DIGITAL|EN ALGÉRIE',
+      en: 'DIGITAL|MARKETING|AGENCY|IN ALGERIA',
+      ar: 'وكالة|تسويق|رقمي|في الجزائر',
     },
     subtitle: {
-      fr: 'Nous aidons les entreprises algériennes à dominer leur marché grâce à notre agence digitale spécialisée en acquisition massive.',
-      en: 'We help Algerian businesses dominate their market thanks to our digital agency specialized in massive acquisition.',
-      ar: 'نساعد الشركات الجزائرية على السيطرة على سوقها بفضل وكالتنا الرقمية المتخصصة في الاستحواذ المكثف.',
+      fr: 'Stratégie, campagnes Meta & Google, contenu et sites web : un plan adapté à votre activité, avec des résultats suivis ensemble.',
+      en: 'Strategy, Meta & Google campaigns, content and websites: a plan tailored to your business, with results we track together.',
+      ar: 'استراتيجية وحملات ميتا وجوجل ومحتوى ومواقع إلكترونية: خطة تناسب نشاطك ونتابع نتائجها معًا.',
+    },
+    middleCopy: {
+      fr: 'STRATÉGIE · CONTENU · CROISSANCE',
+      en: 'STRATEGY · CONTENT · GROWTH',
+      ar: 'استراتيجية · محتوى · نمو',
     },
     cta: {
       fr: 'AUDIT GRATUIT',
@@ -72,28 +77,28 @@ const textContent = {
       ar: 'عزز علامتك التجارية.',
     },
     subtitle: {
-      fr: 'Tout ce dont vous avez besoin pour réussir sur internet et dominer votre marché local avec une stratégie sur-mesure.',
-      en: 'Everything you need to succeed online and dominate your local market with a tailor-made strategy.',
-      ar: 'كل ما تحتاجه للنجاح عبر الإنترنت والسيطرة على سوقك المحلي باستراتيجية مخصصة.',
+      fr: 'Marketing digital en Algérie : stratégie, publicité, contenu et expérience web, selon les besoins réels de votre activité.',
+      en: 'Digital marketing in Algeria: strategy, advertising, content and web experiences tailored to your business.',
+      ar: 'التسويق الرقمي في الجزائر: استراتيجية وإعلانات ومحتوى ومواقع إلكترونية تناسب احتياجات نشاطك.',
     },
     items: {
       fr: [
-        { title: 'META & GOOGLE ADS', description: 'Omniprésence et capture d\'intention.', details: 'Nous déployons des campagnes publicitaires agressives sur Meta et Google pour capter vos futurs clients là où ils se trouvent. Une stratégie omnicanale conçue pour maximiser votre ROAS et dominer vos concurrents sur tous les fronts.' },
-        { title: 'CRÉATION DE CONTENU', description: 'Photos et Vidéos professionnelles.', details: 'Nous produisons des visuels haut de gamme et des vidéos publicitaires modernes (UGC, Reels). Un contenu esthétique et engageant est la clé pour capturer l\'attention immédiate et transformer vos simples prospects en clients fidèles.' },
-        { title: 'CRÉATION DE SITES WEB', description: 'Écosystèmes digitaux haute performance.', details: 'Nous concevons des sites web et des boutiques e-commerce optimisés pour la conversion et le SEO. Plus qu\'une simple vitrine, nous bâtissons un véritable moteur de vente automatique qui travaille pour vous 24h/24.' },
-        { title: 'SUIVI & RÉSULTATS', description: 'Analyse précise de vos performances.', details: 'Le marketing n\'est pas un jeu de hasard. Nous suivons méticuleusement chaque métrique (ROAS, CPA) pour ajuster vos campagnes en temps réel et garantir une croissance saine, prévisible et scalable de votre activité.' },
+        { title: 'META & GOOGLE ADS', description: 'Des campagnes reliées à un objectif mesurable.', details: 'Définir la cible, les créations, la page d’arrivée et les indicateurs avant de diffuser. Les dépenses publicitaires restent distinctes des honoraires.' },
+        { title: 'CRÉATION DE CONTENU', description: 'Textes, visuels et formats adaptés à votre public.', details: 'Concevoir une ligne éditoriale et produire les formats prévus au brief, puis observer les réactions et les questions utiles.' },
+        { title: 'CRÉATION DE SITES WEB', description: 'Sites vitrines et boutiques pensés pour vos visiteurs.', details: 'Structurer les pages, clarifier les messages, soigner le mobile et préparer des bases techniques pour la visibilité naturelle.' },
+        { title: 'STRATÉGIE DIGITALE', description: 'Un plan pour relier les différents canaux.', details: 'Choisir les actions utiles, définir les livrables et suivre les données disponibles pour décider des prochaines étapes.' },
       ],
       en: [
-        { title: 'META & GOOGLE ADS', description: 'Omnipresence and intent capture.', details: 'We deploy aggressive ad campaigns across Meta and Google to capture future customers wherever they are. A strategy designed to maximize ROI and dominate competitors.' },
-        { title: 'CONTENT CREATION', description: 'Pro Photos & Videos.', details: 'We produce high-end visuals and modern ad videos (UGC, Reels). Aesthetic content is key to capturing attention and building lasting trust.' },
-        { title: 'WEBSITE CREATION', description: 'High-performance digital ecosystems.', details: 'We design websites and e-commerce stores optimized for conversion and SEO. We build a true automatic sales engine that works for you 24/7.' },
-        { title: 'TRACKING & RESULTS', description: 'Precise performance analysis.', details: 'Marketing isn\'t a game of luck. We track every metric meticulously to adjust your campaigns and guarantee healthy, predictable growth.' },
+        { title: 'META & GOOGLE ADS', description: 'Campaigns tied to a clear objective.', details: 'Plan the audience, creative, landing page and measurement before launch. Media spend and agency fees are separate.' },
+        { title: 'CONTENT CREATION', description: 'Words and visuals for your audience.', details: 'Define an editorial approach and produce the formats agreed in the brief.' },
+        { title: 'WEBSITE CREATION', description: 'Websites and shops designed for visitors.', details: 'Organize pages, clarify messages and prepare sound technical foundations.' },
+        { title: 'DIGITAL STRATEGY', description: 'Connect channels through a practical plan.', details: 'Prioritize actions, agree on deliverables and review available data.' },
       ],
       ar: [
-        { title: 'إعلانات ميتا وجوجل', description: 'الحضور الشامل واقتناص الفرص.', details: 'ننشر حملات إعلانية قوية على ميتا وجوجل لجذب عملائك أينما كانوا. استراتيجية مصممة لزيادة عائد الاستثمار والسيطرة على المنافسين.' },
-        { title: 'صناعة المحتوى', description: 'صور وفيديو احترافي.', details: 'ننتج مرئيات راقية وفيديوهات إعلانية حديثة. المحتوى الجمالي والجذاب هو المفتاح لجذب الانتباه وتحويل العملاء المحتملين إلى عملاء دائمين.' },
-        { title: 'إنشاء مواقع الويب', description: 'أنظمة رقمية عالية الأداء.', details: 'نصمم مواقع إلكترونية ومتاجر تجارة إلكترونية محسنة للتحويل. نحن نبني محرك مبيعات تلقائي حقيقي يعمل لصالحك على مدار الساعة.' },
-        { title: 'المتابعة والنتائج', description: 'تحليل دقيق لأدائك.', details: 'التسويق ليس لعبة حظ. نحن نتبع كل مقياس بدقة لتعديل حملاتك وضمان نمو صحي ومتوقع لنشاطك.' },
+        { title: 'إعلانات ميتا وجوجل', description: 'حملات مرتبطة بهدف واضح.', details: 'نحدد الجمهور والتصميم وصفحة الوصول وطريقة القياس قبل الإطلاق، مع فصل ميزانية الإعلانات عن أتعاب الخدمة.' },
+        { title: 'صناعة المحتوى', description: 'نصوص وصور تناسب جمهورك.', details: 'نحدد خطة تحريرية وننتج المحتوى المتفق عليه حسب احتياجات المشروع.' },
+        { title: 'إنشاء مواقع الويب', description: 'مواقع ومتاجر واضحة للزوار.', details: 'ننظم الصفحات ونوضح الرسائل ونهتم بالتجربة على الهاتف والأسس التقنية.' },
+        { title: 'الاستراتيجية الرقمية', description: 'خطة تربط القنوات المختلفة.', details: 'نرتب الأولويات ونحدد المخرجات ونراجع البيانات المتاحة.' },
       ],
     },
   },
@@ -160,25 +165,25 @@ const textContent = {
     subtitle: { fr: 'Toutes les réponses à vos questions techniques et stratégiques pour lever vos derniers doutes avant de propulser votre business.', en: 'All the answers to your technical and strategic questions before boosting your business.', ar: 'كل الإجابات على أسئلتك التقنية والاستراتيجية قبل تعزيز عملك.' }, 
     faqs: { 
       fr: [
-        { question: "Combien de temps pour voir des résultats ?", answer: "Les premières ventes arrivent généralement dès la première semaine de diffusion. Cependant, la phase d'optimisation complète prend environ 14 à 21 jours pour stabiliser votre rentabilité." },
-        { question: "Quel budget publicitaire minimum faut-il ?", answer: "Nous recommandons de commencer avec un budget qui permet de tester efficacement vos offres. Lors de notre audit, nous définirirons ensemble l'allocation idéale pour votre domaine spécifique." },
-        { question: "Pourquoi iVISION et pas une autre agence ?", answer: "Parce que nous ne sommes pas juste des techniciens. Nous maîtrisons toute la chaîne : stratégie, création vidéo pro, et écosystèmes web. On s'occupe de tout." }
+        { question: "Combien de temps pour voir des résultats ?", answer: "Cela dépend de l'offre, du budget, du canal et de la qualité du parcours. On choisit des indicateurs pertinents dès le départ, puis on analyse les données disponibles ; aucun délai de vente n'est garanti." },
+        { question: "Quel budget publicitaire minimum faut-il ?", answer: "Le montant dépend de votre objectif et du marché. Nous distinguons les dépenses versées aux plateformes et les honoraires, puis établissons un budget à tester avec vous." },
+        { question: "Pourquoi travailler avec iVISION ?", answer: "Nous pouvons relier stratégie, contenu, publicité et sites web dans un périmètre défini ensemble, avec des livrables et une méthode de suivi expliqués avant le lancement." }
       ], 
       en: [
-        { question: "How long to see results?", answer: "First sales usually arrive within the first week. However, the full optimization phase takes about 14 to 21 days to stabilize your profitability." },
-        { question: "What minimum ad budget is needed?", answer: "We recommend starting with a budget that allows for effective offer testing. We will define the ideal allocation during our audit." },
-        { question: "Why iVISION and not another agency?", answer: "Because we are not just technicians. We master the whole chain: strategy, pro video creation, and web ecosystems." }
+        { question: "How long to see results?", answer: "It depends on the offer, budget, channel and customer journey. We agree on useful indicators and review the available data; no sales timeframe is guaranteed." },
+        { question: "What minimum ad budget is needed?", answer: "The amount depends on your goal and market. We separate platform spend from fees and agree on a testing budget together." },
+        { question: "Why work with iVISION?", answer: "We can connect strategy, content, advertising and websites within an agreed scope, with clear deliverables and a review process." }
       ], 
       ar: [
-        { question: "كم من الوقت لرؤية النتائج؟", answer: "عادة ما تصل المبيعات الأولى خلال الأسبوع الأول. ومع ذلك، تستغرق مرحلة التحسين الكاملة حوالي 14 إلى 21 يوماً لاستقرار ربحيتك." },
-        { question: "ما هو الحد الندنى للميزانية الإعلانية المطلوبة؟", answer: "نوصي بالبدء بميزانية تسمح باختبار عروضك بفعالية. سنحدد التخصيص المثالي خلال تدقيقنا." },
-        { question: "لماذا iVISION وليس وكالة أخرى؟", answer: "لأننا لسنا مجرد تقنيين. نحن نتقن السلسلة بأكملها: الاستراتيجية، صناعة الفيديو الاحترافي، والأنظمة الرقمية." }
+        { question: "متى تظهر النتائج؟", answer: "يعتمد ذلك على العرض والميزانية والقناة وتجربة الزوار. نتفق على مؤشرات مناسبة ثم نراجع البيانات المتاحة دون ضمان موعد محدد للمبيعات." },
+        { question: "ما الميزانية الإعلانية المناسبة؟", answer: "تختلف حسب هدفك والسوق. نفصل تكلفة المنصات عن أتعاب الخدمة ونحدد ميزانية الاختبار معك." },
+        { question: "لماذا العمل مع iVISION؟", answer: "يمكننا الجمع بين الاستراتيجية والمحتوى والإعلانات والمواقع ضمن نطاق واضح مع مخرجات وخطة متابعة متفق عليها." }
       ] 
     } 
   },
   contactSection: {
     title: { fr: 'REJOIGNEZ-NOUS.', en: 'JOIN US.', ar: 'انضم إلينا.' },
-    subtitle: { fr: 'Prêt à dominer votre marché ? Nos experts sont là pour répondre à toutes vos questions et lancer votre croissance.', en: 'Ready to dominate your market? Our experts are here to answer your questions.', ar: 'مستعد للسيطرة على سوقك؟ خبراؤنا هنا للإجابة على جميع أسئلتك وبدء نموك.' },
+    subtitle: { fr: 'Un projet pour votre activité en Algérie ? Décrivez-nous votre besoin, nous pourrons définir les premières étapes ensemble.', en: 'Working on a project in Algeria? Tell us what you need so we can discuss the next steps.', ar: 'هل لديك مشروع في الجزائر؟ صف احتياجاتك لنتناقش حول الخطوات التالية.' },
     labels: {
         contact: { fr: 'Contact Direct', en: 'Direct Contact', ar: 'اتصال مباشر' },
         follow: { fr: 'Suivez l\'Empire', en: 'Follow the Empire', ar: 'تابع الإمبراطورية' }
@@ -213,7 +218,7 @@ const textContent = {
       stepLabel: { fr: 'Étape {step} sur {total}', en: 'Step {step} of {total}', ar: 'خطوة {step} من {total}' },
       next: { fr: 'SUIVANT', en: 'NEXT', ar: 'التالي' },
       successTitle: { fr: 'DEMANDE VALIDÉE !', en: 'REQUEST VALIDATED!', ar: 'تم تأكيد الطلب!' },
-      successMessage: { fr: 'Un expert vous contactera sur WhatsApp sous 2h.', en: 'An expert will contact you on WhatsApp within 2h.', ar: 'سيتصل بك خبير عبر الواتساب خلال ساعتين.' },
+      successMessage: { fr: 'Votre demande a été reçue. Nous reviendrons vers vous avec les coordonnées fournies.', en: 'We received your request. We will get back to you using the contact details you provided.', ar: 'تلقينا طلبك. سنرد عليك باستخدام بيانات التواصل التي قدمتها.' },
       backToHome: { fr: 'Retour à l\'accueil', en: 'Back to Home', ar: 'العودة للرئيسية' },
       packSelected: { fr: 'Sélection validée', en: 'Selection confirmed', ar: 'تم التأكيد' },
       phoneError: { fr: 'Le numéro doit contenir exactement 10 chiffres', en: 'Number must be exactly 10 digits', ar: 'يجب أن يحتوي الرقم على 10 أرقام بالضبط' },
@@ -311,6 +316,10 @@ const textContent = {
     tagline: { fr: 'On vous aide à grandir en Algérie.', en: 'Helping you grow in Algeria.', ar: 'نساعدك على النمو في الجزائر.' },
     copyright: { fr: 'iVISION Agency.', en: 'iVISION Agency.', ar: 'iVISION للخدمات.' },
     contactUs: { fr: 'AUDIT GRATUIT', en: 'FREE AUDIT', ar: 'تدقيق مجاني' },
+    marketingLink: { fr: 'Marketing digital en Algérie', en: 'Digital marketing in Algeria (FR)', ar: 'التسويق الرقمي في الجزائر (فرنسي)' },
+    contentLink: { fr: 'Création de contenu en Algérie', en: 'Content creation in Algeria (FR)', ar: 'صناعة المحتوى في الجزائر (فرنسي)' },
+    adsLink: { fr: 'Publicité Meta & Google Ads', en: 'Meta & Google Ads (FR)', ar: 'إعلانات ميتا وجوجل (فرنسي)' },
+    webLink: { fr: 'Création de sites web', en: 'Website creation (FR)', ar: 'إنشاء مواقع ويب (فرنسي)' },
     contact: {
       email: 'contact@ivision.agency',
       support: 'support@ivision.agency',
@@ -334,6 +343,7 @@ const processTranslations = (lang: Language) => {
       badge: b.hero.badge[lang],
       title: b.hero.title[lang],
       subtitle: b.hero.subtitle[lang],
+      middleCopy: b.hero.middleCopy[lang],
       cta: b.hero.cta[lang],
       secondaryCta: b.hero.secondaryCta[lang],
     },
@@ -404,6 +414,10 @@ const processTranslations = (lang: Language) => {
       links: b.header.links[lang],
       copyright: b.footer.copyright[lang],
       contactUs: b.footer.contactUs[lang],
+      marketingLink: b.footer.marketingLink[lang],
+      contentLink: b.footer.contentLink[lang],
+      adsLink: b.footer.adsLink[lang],
+      webLink: b.footer.webLink[lang],
       contact: b.footer.contact
     },
     whatsapp: { message: b.whatsapp.message[lang] },

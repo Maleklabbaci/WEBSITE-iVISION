@@ -1,0 +1,22 @@
+name: Validate iVISION website
+
+on:
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies without TTS binary postinstall
+        run: npm ci --ignore-scripts
+      - name: Check TypeScript, pages and sitemap
+        run: npm run validate:site

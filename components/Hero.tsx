@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 interface HeroProps {
-  translations: { badge: string; title: string; subtitle: string; cta: string; secondaryCta: string };
+  translations: { badge: string; title: string; subtitle: string; middleCopy: string; cta: string; secondaryCta: string };
   onQuoteClick: () => void;
 }
 
 const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
+  const [lineOne, lineTwo, lineThree, location] = translations.title.split('|');
   const [visible, setVisible] = useState(false);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
@@ -32,10 +33,10 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick }) => {
 
       <div className="iv-hero-main">
         <div className="iv-hero-title-wrap" style={{ transform: `translate3d(${pointer.x * 0.05}px, ${pointer.y * 0.05}px, 0)` }}>
-          <h1><span>CREATIVE</span><span className="iv-hero-title-indent">DIGITAL <b>✦</b></span><span>AGENCY</span></h1>
+          <h1 aria-label={translations.title.replaceAll('|', ' ')}><span>{lineOne} </span><span className="iv-hero-title-indent">{lineTwo} <b aria-hidden="true">✦</b></span><span>{lineThree} </span><span className="iv-hero-location">{location}</span></h1>
         </div>
 
-        <div className="iv-hero-middle-copy"><span>WE TURN IDEAS<br />INTO BRANDS<br />PEOPLE CHOOSE.</span></div>
+        <div className="iv-hero-middle-copy"><span>{translations.middleCopy}</span></div>
 
         <div className="iv-hero-footer">
           <div className="iv-hero-copy"><p>{translations.subtitle}</p><div className="iv-hero-actions"><button type="button" onClick={onQuoteClick} className="iv-hero-cta"><span>{translations.cta}</span><b aria-hidden="true">↗</b></button><a href="#services" className="iv-hero-scroll"><span>{translations.secondaryCta}</span><b aria-hidden="true">↓</b></a></div></div>

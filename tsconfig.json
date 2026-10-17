@@ -25,5 +25,7 @@
     },
     "allowImportingTsExtensions": true,
     "noEmit": true
-  }
+  },
+  "include": ["App.tsx", "index.tsx", "components/**/*.tsx", "data/**/*.ts", "lib/**/*.ts", "vite.config.ts"],
+  "exclude": ["src", "server.ts", "tts"]
 }

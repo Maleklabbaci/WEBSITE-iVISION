@@ -1,3 +1,18 @@
+# Vitrine iVISION
+
+Le site public iVISION est l'application React/Vite à la racine du dépôt (`App.tsx`, `components/`, `index.html`). Le build pré-rend l'accueil dans `dist/index.html` (via `scripts/prerender-home.mjs`) ; le navigateur l'hydrate ensuite. Les quatre pages de service en Algérie sont servies en HTML sans JavaScript depuis `public/` : `/agence-marketing-digital-algerie.html`, `/creation-contenu-algerie.html`, `/publicite-meta-google-ads-algerie.html` et `/creation-site-web-algerie.html`. Leurs styles communs sont dans `public/seo/landing.css`. Les notes internes de benchmark et de pilotage SEO ne sont **ni publiées sur le site, ni intégrées au dépôt public**.
+
+```bash
+npm ci --ignore-scripts
+npm run dev:site       # développement de la vitrine
+npm run validate:site  # TypeScript, build Vite et vérification SEO
+npm run preview -- --host 0.0.0.0
+```
+
+Le workflow GitHub Pages utilise `validate:site` sur `main` ; une branche de travail ou un PR ne déploie pas le domaine public. Les fichiers `src/`, `tts/` et `server.ts` concernent Sawtify et ne sont pas nécessaires au build de la vitrine iVISION. Les anciens articles du blog et certaines anciennes fiches à fragment contiennent des affirmations non vérifiées : ne pas les ajouter au sitemap sans revue éditoriale.
+
+---
+
 # Sawtify
 
 ## Présentation

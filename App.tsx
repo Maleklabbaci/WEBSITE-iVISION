@@ -11,7 +11,8 @@ import TrainingCenterLanding from './components/TrainingCenterLanding';
 import LanguageSelector from './components/LanguageSelector';
 import GuideOverlay from './components/GuideOverlay';
 import { translations, Language } from './lib/translations';
-import { parseRoute } from './lib/router';
+import { getLegacyServicePage, parseRoute } from './lib/router';
+import { updateSEO } from './lib/seo-utils';
 import { initReveal } from './lib/reveal';
 
 // ===== LAZY LOADING (Performance) =====
@@ -101,7 +102,11 @@ const parseHash = (): { view: ViewType; slug?: string } => {
   };
 };
 
-const App: React.FC = () => {
+type HomeSectionsProps = { language: Language; translations: typeof translations.fr; onQuoteClick: () => void };
+
+// Le pré-rendu peut fournir la même section de manière synchrone ; le navigateur
+// conserve l'import lazy afin de ne télécharger le bas de page qu'à la demande.
+const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> = ({ homeSections: HomeSections = HomeBelowFold }) => {
   const [isLoading] = useState(false);
   const [language, setLanguage] = useState<Language>('fr');
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
@@ -127,6 +132,13 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleHashChange = () => {
       const { view, slug } = parseHash();
+      if (view === 'service' && slug) {
+        const destination = getLegacyServicePage(slug);
+        if (destination) {
+          window.location.replace(destination);
+          return;
+        }
+      }
       setCurrentView(view);
       setCurrentSlug(slug || '');
       if (view !== 'home') {
@@ -143,6 +155,17 @@ const App: React.FC = () => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   }, [language]);
+
+  useEffect(() => {
+    if (currentView !== 'home') return;
+    updateSEO({
+      title: 'iVISION Agency | Agence digitale & marketing en Algérie',
+      fullTitle: true,
+      description: 'iVISION accompagne les entreprises en Algérie : stratégie digitale, campagnes Meta et Google, création de contenu, réseaux sociaux et sites web.',
+      ogImage: 'https://ivision.agency/images/ivision-hero-analytics.webp',
+      canonical: 'https://ivision.agency/',
+    });
+  }, [currentView]);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -205,7 +228,7 @@ return <QuoteForm translations={{ form: t.contact.form }} />;
             <Hero translations={t.hero} onQuoteClick={handleOpenQuotePage} />
             <AboutVisual language={language} />
             <Suspense fallback={null}>
-              <HomeBelowFold
+              <HomeSections
                 language={language}
                 translations={t}
                 onQuoteClick={handleOpenQuotePage}

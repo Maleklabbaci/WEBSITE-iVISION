@@ -5,11 +5,12 @@ export interface SEOData {
   ogImage?: string;
   ogType?: string;
   canonical?: string;
+  fullTitle?: boolean;
 }
 
 export const updateSEO = (data: SEOData) => {
-  // Title
-  document.title = `${data.title} | iVISION Agency`;
+  // La home utilise son propre titre complet, les pages secondaires ajoutent la marque.
+  document.title = data.fullTitle ? data.title : `${data.title} | iVISION Agency`;
   
   // Meta description
   let metaDesc = document.querySelector('meta[name="description"]');
@@ -29,6 +30,8 @@ export const updateSEO = (data: SEOData) => {
       document.head.appendChild(metaKeywords);
     }
     metaKeywords.setAttribute('content', data.keywords);
+  } else {
+    document.querySelector('meta[name="keywords"]')?.remove();
   }
   
   // OG Tags
@@ -57,10 +60,11 @@ export const updateSEO = (data: SEOData) => {
 };
 
 const updateOGTag = (property: string, content: string) => {
-  let tag = document.querySelector(`meta[property="${property}"]`);
+  const attribute = property.startsWith('twitter:') ? 'name' : 'property';
+  let tag = document.querySelector(`meta[${attribute}="${property}"]`);
   if (!tag) {
     tag = document.createElement('meta');
-    tag.setAttribute('property', property);
+    tag.setAttribute(attribute, property);
     document.head.appendChild(tag);
   }
   tag.setAttribute('content', content);
