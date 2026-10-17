@@ -549,44 +549,67 @@
     },
 
     '/portfolio-social-media-algerie.html': (doc) => {
-      setHtml(doc, '.pf-kicker', 'iVISION / معرض التواصل الاجتماعي');
-      setHtml(doc, '#page-title', 'معرض <em>التواصل الاجتماعي.</em>');
-      setHtml(doc, '.pf-hero-copy > p:not(.pf-kicker)', 'هذه الصفحة مخصصة لإبداعات التواصل الاجتماعي التي تختار iVISION عرضها. ستُضاف مشاريع العملاء هنا بعد اعتماد التصاميم وطريقة تقديمها.');
+      setHtml(doc, '.pf-kicker', 'iVISION / معرض التواصل الاجتماعي، التصميم والفيديو');
+      setHtml(doc, '#page-title', 'إبداعات <em>التواصل والفيديو.</em>');
+      setHtml(doc, '.pf-hero-copy > p:not(.pf-kicker)', 'إخراج فني، تصاميم منتجات، ملصقات إعلانية وفيديوهات Reels عمودية (9:16) من إنتاج استوديو iVISION. تصفح تصاميمنا وشغّل الفيديوهات مباشرة من المعرض.');
       setAllHtml(doc, '.pf-hero-actions .btn', [
-        'حالة المعرض <span aria-hidden="true">↓</span>',
-        'اكتشف خدمة المحتوى <span aria-hidden="true">↗</span>',
+        'تصفح التصاميم <span aria-hidden="true">↓</span>',
+        'مشاهدة فيديوهات Reels <span aria-hidden="true">▶</span>',
+        'خدمة صناعة المحتوى <span aria-hidden="true">↗</span>',
       ]);
-      setHtml(doc, '.pf-hero-art figcaption', 'صورة توضيحية للإنتاج / ليست حملة عميل');
+      setHtml(doc, '.pf-hero-art figcaption', 'استوديو iVISION الإبداعي · تصميم جرافيك وإنتاج Reels');
 
-      setHtml(doc, '#selection-title', 'مختارات نبنيها معاً.');
-      setHtml(doc, '.pf-awaiting-intro p', 'ستأخذ التصاميم والفيديوهات المعتمدة مكانها هنا. حالياً، لا تعرض هذه الصفحة أي حملة عميل كعمل مكتمل: إنها مساحة معرض قيد التحضير.');
-      setHtml(doc, '.pf-awaiting-mark strong', 'قريباً.');
-      setHtml(doc, '.pf-awaiting-copy .eyebrow', 'مشاريع قادمة');
-      setHtml(doc, '.pf-awaiting-copy h3', 'بدون حالات عملاء وهمية.');
-      setHtml(doc, '.pf-awaiting-copy p:not(.eyebrow)', 'ننتظر الأعمال المرخصة لعرض الصور وسياق المشروع والروابط العامة عند توفرها، دون اختلاق أرقام وصول أو مبيعات.');
-      setHtml(doc, '.pf-awaiting-copy .pf-project-link', 'تصفح الحسابات الرسمية للوكالة <span aria-hidden="true">↓</span>');
+      setAllHtml(doc, '.pf-filter-tabs .pf-filter-btn', [
+        'عرض الكل (40)',
+        'الهوية وسلسلة Eminora (7)',
+        'تصاميم المنتجات والإعلانات (12)',
+        'ملصقات رياضية (5)',
+        'فيديوهات وReels 9:16 (16)',
+      ]);
+      setHtml(doc, '#pf-filter-status', '40 إبداعاً معروضاً');
 
-      setHtml(doc, '#formats .eyebrow', 'صيغ ممكنة / ليست مشاريع عملاء');
-      setHtml(doc, '#formats-title', 'ما سنتمكن من تصفحه هنا.');
+      setHtml(doc, '#selection .pf-section-head .eyebrow', '01 / تصميم التواصل الاجتماعي والإخراج الجرافيكي');
+      setHtml(doc, '#selection-title', 'تصاميم الشبكات، منشورات المنتجات والملصقات.');
+      setHtml(doc, '#selection .pf-section-head p:last-child', 'اضغط على أي تصميم لتكبيره بجودة عالية. كل عمل مصمم لجذب الانتباه في خلاصة إنستغرام، فيسبوك وتيك توك.');
+
+      setHtml(doc, '#videos .pf-section-head .eyebrow', '02 / إنتاج الفيديو، Reels 9:16 وإعلانات الأداء');
+      setHtml(doc, '#videos-title', 'فيديوهات قصيرة مصممة لشد الانتباه.');
+      setHtml(doc, '#videos .pf-section-head p:last-child', 'اضغط على «تشغيل الفيديو ▶» لفتح المشغل مباشرة داخل البطاقة. صيغ عمودية 9:16 مصورة ومنتجة لـ Reels وتيك توك وإعلانات Meta.');
+
+      doc.querySelectorAll('.pf-card-zoom-pill').forEach((el) => {
+        track(el);
+        rememberAndSetHtml(el, 'تكبير ↗');
+      });
+      doc.querySelectorAll('.pf-reel-play-label').forEach((el) => {
+        track(el);
+        rememberAndSetHtml(el, 'تشغيل الفيديو');
+      });
+      doc.querySelectorAll('.pf-reel-ext').forEach((el) => {
+        track(el);
+        rememberAndSetHtml(el, 'فتح ↗');
+      });
+
+      setHtml(doc, '#formats .eyebrow', '03 / الصيغ المنفذة في الاستوديو');
+      setHtml(doc, '#formats-title', 'ما ننتجه لحساباتك الرقمية.');
       setAllHtml(doc, '.pf-formats article', [
-        '<span>01 / منشورات</span><h3>منشورات وكاروسيل.</h3><p>رسالة واضحة، تسلسل بصري وتصاميم ملائمة لشبكات التواصل.</p>',
-        '<span>02 / فيديو قصير</span><h3>ريلز وصيغ عمودية.</h3><p>مقاطع مصممة لسرد قصة، إظهار استخدام أو شرح عرض.</p>',
-        '<span>03 / تناسق</span><h3>إخراج بصري.</h3><p>عناصر تربط الحملة والحساب ومختلف صيغ النشر بهوية واحدة.</p>',
+        '<span>01 / التصميم الجرافيكي</span><h3>منشورات، كاروسيل وملصقات.</h3><p>تصاميم منتجات، مطويات وسلاسل بصرية مصممة لإيقاف التمرير وبناء هوية علامتك.</p>',
+        '<span>02 / فيديو قصير 9:16</span><h3>Reels، تيك توك وإعلانات ممولة.</h3><p>كتابة الخطاف (Hook)، التصوير، المونتاج الإيقاعي، الترجمة النصية والمؤثرات الصوتية.</p>',
+        '<span>03 / تناسق العلامة</span><h3>إخراج فني متكامل.</h3><p>خط بصري موحد يربط منشوراتك وإعلانات Meta/TikTok وموقعك الإلكتروني.</p>',
       ]);
 
       setHtml(doc, '#canaux .eyebrow', 'قنوات الوكالة');
       setHtml(doc, '#canaux-title', 'تابع iVISION حيث ننشر.');
-      setHtml(doc, '#canaux .pf-public-grid > div:last-child > p', 'تقود هذه الروابط إلى الحسابات العامة للوكالة. سيتم إثراء المعرض بالأعمال المعتمدة تباعاً.');
+      setHtml(doc, '#canaux .pf-public-grid > div:last-child > p', 'تابع أيضاً أحدث أعمالنا، كواليس التصوير ونصائح التسويق مباشرة على الحسابات الرسمية لوكالة iVISION.');
       setAllHtml(doc, '.pf-cross-grid a', [
         '<small>الخدمة</small><strong>كيف نحضّر محتواك؟</strong><span aria-hidden="true">↗</span>',
         '<small>المعرض الآخر</small><strong>تصفح مواقع الويب المعروضة.</strong><span aria-hidden="true">↗</span>',
       ]);
-      setHtml(doc, '.pf-contact .eyebrow', 'مشروعك على شبكات التواصل');
-      setHtml(doc, '#contact-title', 'لنتحدث عما تريد روايته.');
-      setHtml(doc, '.pf-contact p:not(.eyebrow)', 'اذكر نشاطك وقنواتك وأهدافك. سنحدد الصيغ وإدارة الحسابات معك.');
+      setHtml(doc, '.pf-contact .eyebrow', 'مشروعك في المحتوى والفيديو');
+      setHtml(doc, '#contact-title', 'لنتحدث عن محتواك القادم.');
+      setHtml(doc, '.pf-contact p:not(.eyebrow)', 'اذكر نشاطك وقنواتك وأهدافك: تصميم منشورات، تصوير Reels أو إدارة شاملة لحساباتك.');
       setAllHtml(doc, '.pf-contact-actions .btn', [
+        'اطلب عرض سعر للمحتوى <span aria-hidden="true">↗</span>',
         'راسل iVISION <span aria-hidden="true">↗</span>',
-        'اطلب عرض سعر <span aria-hidden="true">↗</span>',
       ]);
     },
 
@@ -1248,6 +1271,89 @@
 
     window.addEventListener('scroll', updateScroll, { passive: true });
     updateScroll();
+
+    // Interactions Portfolio Social Media & Vidéo (filtres, lecteur Reel inline, Lightbox HD)
+    const filterButtons = document.querySelectorAll('[data-pf-filter]');
+    const allPortfolioCards = document.querySelectorAll('[data-pf-cat]');
+    const filterStatus = document.getElementById('pf-filter-status');
+    if (filterButtons.length && allPortfolioCards.length) {
+      filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const cat = btn.getAttribute('data-pf-filter') || 'all';
+          filterButtons.forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle('is-active', active);
+            b.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          let visibleCount = 0;
+          allPortfolioCards.forEach((card) => {
+            const cardCat = card.getAttribute('data-pf-cat');
+            const show = cat === 'all' || cardCat === cat;
+            card.hidden = !show;
+            if (show) visibleCount += 1;
+          });
+          document.querySelectorAll('.pf-showcase-section').forEach((sec) => {
+            const visibleInSec = sec.querySelectorAll('[data-pf-cat]:not([hidden])').length;
+            sec.hidden = visibleInSec === 0;
+          });
+          if (filterStatus) {
+            const isAr = document.documentElement.lang === 'ar';
+            filterStatus.textContent = isAr
+              ? `${visibleCount} إبداعاً معروضاً`
+              : `${visibleCount} création${visibleCount > 1 ? 's' : ''} affichée${visibleCount > 1 ? 's' : ''}`;
+          }
+        });
+      });
+    }
+
+    document.querySelectorAll('.pf-reel-stage[data-drive-video]').forEach((stage) => {
+      const playBtn = stage.querySelector('.pf-reel-play');
+      const videoId = stage.getAttribute('data-drive-video');
+      if (!playBtn || !videoId) return;
+      playBtn.addEventListener('click', () => {
+        document.querySelectorAll('.pf-reel-stage iframe').forEach((oldIframe) => oldIframe.remove());
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://drive.google.com/file/d/${videoId}/preview`;
+        iframe.allow = 'autoplay; fullscreen';
+        iframe.allowFullscreen = true;
+        iframe.title = playBtn.getAttribute('aria-label') || 'Vidéo iVISION';
+        stage.appendChild(iframe);
+      });
+    });
+
+    const lightbox = document.getElementById('pf-lightbox');
+    const lightboxImg = document.getElementById('pf-lightbox-img');
+    const lightboxTitle = document.getElementById('pf-lightbox-title');
+    const lightboxOpen = document.getElementById('pf-lightbox-open');
+    const lightboxClose = document.getElementById('pf-lightbox-close');
+    if (lightbox && lightboxImg) {
+      const closeLightbox = () => {
+        lightbox.hidden = true;
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      };
+      document.querySelectorAll('.pf-design-thumb[data-lightbox-src]').forEach((thumb) => {
+        thumb.addEventListener('click', () => {
+          const src = thumb.getAttribute('data-lightbox-src');
+          const link = thumb.getAttribute('data-lightbox-link');
+          const title = thumb.getAttribute('data-lightbox-title') || 'Création iVISION';
+          if (src) lightboxImg.src = src;
+          lightboxImg.alt = title;
+          if (lightboxTitle) lightboxTitle.textContent = title;
+          if (lightboxOpen && link) lightboxOpen.href = link;
+          lightbox.hidden = false;
+          lightbox.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+      });
+    }
 
     let saved = 'fr';
     try {
