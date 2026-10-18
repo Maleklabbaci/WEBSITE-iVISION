@@ -23,7 +23,19 @@
     a { color:inherit; }
     a:focus-visible, button:focus-visible, summary:focus-visible { outline:3px solid currentColor; outline-offset:4px; }
     h1,h2,h3,p { margin-top:0; }
-    h1,h2,h3 { font-family:'Bodoni Moda','Cairo','IBM Plex Sans Arabic',Georgia,serif; font-weight:400; letter-spacing:-.02em; text-transform:uppercase; }
+    h1,h2,h3 { font-family:'Cormorant Garamond','Noto Kufi Arabic','Cairo','IBM Plex Sans Arabic',Georgia,serif; font-weight:500; letter-spacing:-.02em; text-transform:uppercase; }
+    html:not([dir="rtl"]) h1 em,
+    html:not([dir="rtl"]) h2 em,
+    html:not([dir="rtl"]) h3 em {
+      font-family:'Caveat',cursive;
+      font-style:normal;
+      font-weight:500;
+      text-transform:capitalize;
+      letter-spacing:.01em;
+      font-size:1.12em;
+      line-height:.94;
+      color:#a69b8b;
+    }
     p { line-height:1.65; }
     .skip { position:absolute; top:-5rem; left:1rem; z-index:200; padding:.8rem 1.2rem; background:var(--paper); color:var(--ink); border-radius:.4rem; }
     .skip:focus { top:1rem; }
@@ -350,8 +362,8 @@
     .hero-grid { display:grid; grid-template-columns:1.08fr .92fr; align-items:center; gap:clamp(2rem, 5vw, 5rem); min-height:calc(92svh - 8.5rem); padding:clamp(2.5rem, 5vh, 4.5rem) 0 clamp(3.5rem, 6vh, 5.5rem); }
     .hero-copy { padding:0; position:relative; z-index:1; display:flex; flex-direction:column; justify-content:center; }
     .hero-copy .eyebrow { color:#a69b8b; margin-bottom:1.4rem; }
-    .hero h1 { max-width:15ch; font-size:clamp(3.2rem, 5.6vw, 6.6rem); line-height:.96; letter-spacing:-.02em; font-weight:400; text-transform:uppercase; margin-bottom:1.6rem; }
-    .hero h1 em { font-style:italic; font-weight:400; color:#a69b8b; }
+    .hero h1 { max-width:15ch; font-size:clamp(3.2rem, 5.6vw, 6.6rem); line-height:.96; letter-spacing:-.02em; font-weight:500; text-transform:uppercase; margin-bottom:1.6rem; }
+    .hero h1 em { font-family:'Caveat',cursive; font-style:normal; font-weight:500; text-transform:capitalize; letter-spacing:.01em; font-size:1.12em; line-height:.94; color:#a69b8b; }
     .hero-copy > p:not(.eyebrow) { max-width:34rem; font-size:clamp(.95rem,1.2vw,1.08rem); color:rgba(242,237,228,.78); margin-bottom:0; }
     .hero-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2.2rem; }
     .hero-visual { min-width:0; position:relative; border:1px solid rgba(242,237,228,.18); border-radius:.65rem; overflow:hidden; background:#1c1a17; box-shadow:0 2rem 5rem rgba(0,0,0,.38); }

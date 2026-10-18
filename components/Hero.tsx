@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick, language = 'fr'
 
       <div className="iv-hero-main">
         <div className="iv-hero-title-wrap" style={{ transform: `translate3d(${pointer.x * 0.05}px, ${pointer.y * 0.05}px, 0)` }}>
-          <h1 aria-label={translations.title.replaceAll('|', ' ')}><span>{lineOne} </span><span className="iv-hero-title-indent">{lineTwo} <b aria-hidden="true">✦</b></span><span>{lineThree} </span><span className="iv-hero-location">{location}</span></h1>
+          <h1 aria-label={translations.title.replaceAll('|', ' ')}><span>{lineOne} </span><span className="iv-hero-title-indent">{language === 'ar' ? lineTwo : lineTwo.toLowerCase()} <b aria-hidden="true">✦</b></span><span>{lineThree} </span><span className="iv-hero-location">{location}</span></h1>
         </div>
 
         <div className="iv-hero-middle-copy"><span>{translations.middleCopy}</span></div>

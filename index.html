@@ -53,25 +53,87 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Cairo:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Jost:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cairo:wght@400;500;600;700&family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Jost:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
 
     <style>
       :root {
-        /* Palette éditoriale monochrome (mode sombre) — ivoire profond + noir d'encre */
+        /* Palette éditoriale monochrome — crème chaud + noir d'encre par défaut */
+        --iv-display-font: 'Cormorant Garamond', Georgia, serif;
+        --iv-script-font: 'Caveat', cursive;
+        --iv-black: #f2ede4;
+        --iv-white: #14120f;
+        --iv-paper: #fbf8f2;
+        --iv-magenta: #55504a;
+        --iv-orange: #14120f;
+        --iv-green: #00674f;
+        --iv-line: rgba(20, 18, 15, 0.14);
+        --iv-muted: rgba(20, 18, 15, 0.55);
+      }
+
+      html.dark {
         --iv-black: #14120f;
         --iv-white: #f2ede4;
         --iv-paper: #1e1b17;
         --iv-magenta: #a69b8b;
         --iv-orange: #f2ede4;
-        --iv-green: #00674f;
-        --iv-line: rgba(242,237,228,0.14);
-        --iv-muted: rgba(242,237,228,0.55);
+        --iv-line: rgba(242, 237, 228, 0.14);
+        --iv-muted: rgba(242, 237, 228, 0.55);
+      }
+
+      .iv-hero, .site-footer {
+        --iv-black: #14120f;
+        --iv-white: #f2ede4;
+        --iv-paper: #1e1b17;
+        --iv-magenta: #a69b8b;
+        --iv-orange: #f2ede4;
+        --iv-line: rgba(242, 237, 228, 0.14);
+        --iv-muted: rgba(242, 237, 228, 0.55);
+      }
+
+      html:not(.dark) .iv-header:not(.is-scrolled) {
+        --iv-black: #14120f;
+        --iv-white: #f2ede4;
+        --iv-line: rgba(242, 237, 228, 0.14);
+        --iv-muted: rgba(242, 237, 228, 0.55);
+        --iv-orange: #f2ede4;
+        --iv-magenta: #a69b8b;
+        background: rgba(20, 18, 15, 0.38);
+        border-color: rgba(242, 237, 228, 0.28);
+      }
+
+      html:not(.dark) .iv-header.is-scrolled {
+        background: rgba(242, 237, 228, 0.92);
+        border-color: rgba(20, 18, 15, 0.14);
+      }
+
+      html:not(.dark) .iv-header.is-scrolled .iv-logo img {
+        filter: brightness(0);
       }
 
       html, body { background: var(--iv-black); color: var(--iv-white); margin: 0; padding: 0; }
       [hidden] { display: none !important; }
       body { font-family: 'Jost', 'Open Sans', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip; }
-      h1, h2, h3, .iv-font-geist { font-family: 'Bodoni Moda', 'Times New Roman', serif; font-weight: 500; letter-spacing: -0.02em; }
+      h1, h2, h3, .iv-font-geist { font-family: var(--iv-display-font); font-weight: 500; letter-spacing: -0.02em; }
+      html:not([dir="rtl"]) h1 em,
+      html:not([dir="rtl"]) h2 em,
+      html:not([dir="rtl"]) h3 em {
+        font-family: var(--iv-script-font);
+        font-style: normal;
+        font-weight: 500;
+        text-transform: capitalize;
+        letter-spacing: 0.01em;
+        font-size: 1.12em;
+        line-height: 0.94;
+        color: #6f6253;
+      }
+      html.dark:not([dir="rtl"]) h1 em,
+      html.dark:not([dir="rtl"]) h2 em,
+      html.dark:not([dir="rtl"]) h3 em,
+      html:not([dir="rtl"]) .iv-hero h1 em,
+      html:not([dir="rtl"]) .iv-hero h2 em,
+      html:not([dir="rtl"]) .site-footer h2 em {
+        color: #a69b8b;
+      }
 
       /* ===== LAYOUT PRIMITIVES ===== */
       .iv-section-topline { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4.8vw; margin-bottom: 1.8rem; border-bottom: 1px solid var(--iv-line); color: var(--iv-muted); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
@@ -92,12 +154,12 @@
       .iv-hero-date { color: rgba(246,246,246,.76); font-size: 0.62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
       .iv-hero-index { color: rgba(246,246,246,.7); font-size: 0.6rem; font-weight: 700; }
       .iv-hero-main { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; padding: clamp(1.5rem, 5vh, 4rem) 4.8vw 2rem; }
-      .iv-hero-title-wrap h1 { margin: 0; max-width: 90rem; font-size: clamp(3.3rem, 5.6vw, 7.2rem); line-height: .98; letter-spacing: -.015em; font-weight: 500; text-transform: uppercase; }
+      .iv-hero-title-wrap h1 { margin: 0; max-width: 90rem; font-size: clamp(3.3rem, 5.6vw, 7.2rem); line-height: .96; letter-spacing: -.02em; font-weight: 500; text-transform: uppercase; }
       .iv-hero-title-wrap h1 span { display: block; color: var(--iv-white); }
-      .iv-hero-title-wrap h1 span:nth-child(2) { margin-left: 12vw; }
+      .iv-hero-title-wrap h1 span:nth-child(2) { margin-left: 12vw; font-family: var(--iv-script-font); font-style: normal; font-weight: 500; text-transform: capitalize; letter-spacing: 0.01em; font-size: 1.12em; color: #a69b8b; }
       .iv-hero-title-wrap h1 .iv-hero-location { margin: 1.2rem 0 0 .3rem; font-family: 'Jost', Arial, sans-serif; font-size: clamp(.85rem, 1.4vw, 1.2rem); font-weight: 600; letter-spacing: .19em; line-height: 1.4; }
-      [dir="rtl"] .iv-hero-title-wrap h1 span:nth-child(2) { margin-left: 0; margin-right: 12vw; }
-      .iv-hero-title-wrap h1 b { color: var(--iv-orange); font-size: .6em; vertical-align: .1em; font-weight: 400; }
+      [dir="rtl"] .iv-hero-title-wrap h1 span:nth-child(2) { margin-left: 0; margin-right: 12vw; font-family: 'Amiri', 'Noto Kufi Arabic', serif; font-style: normal; text-transform: none; font-size: 1.04em; }
+      .iv-hero-title-wrap h1 b { color: var(--iv-orange); font-size: .55em; vertical-align: .1em; font-weight: 400; font-style: normal; font-family: var(--iv-display-font); }
       .iv-hero-middle-copy { position: absolute; left: 4.8vw; bottom: 31%; max-width: 8rem; color: rgba(246,246,246,.9); font-size: .48rem; font-weight: 700; letter-spacing: .04em; line-height: 1.2; text-transform: uppercase; }
       .iv-hero-footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-top: auto; padding-top: clamp(3rem, 8vh, 7rem); }
       .iv-hero-copy { max-width: 20rem; }

@@ -31,9 +31,10 @@ const Header: React.FC<HeaderProps> = ({
   const closeTimeoutRef = useRef<number | null>(null);
   const isAr = language === 'ar';
   const navLabels = {
-    home: translations.links[0] || (isAr ? 'الرئيسية' : 'Accueil'),
-    about: translations.links[1] || (isAr ? 'من نحن' : 'À propos'),
-    services: translations.links[3] || (isAr ? 'خدماتنا' : 'Services'),
+    home: isAr ? 'الرئيسية' : 'Accueil',
+    about: isAr ? 'من نحن' : 'À propos',
+    services: isAr ? 'خدماتنا' : 'Services',
+    blog: isAr ? 'المدونة' : 'Blog',
     contact: isAr ? 'اتصل بنا' : 'Contact',
   };
 
@@ -538,6 +539,16 @@ const Header: React.FC<HeaderProps> = ({
             </div>
 
             <a
+              href="/#/blog"
+              onClick={() => {
+                setOpen(false);
+                setActiveDropdown(null);
+              }}
+            >
+              {navLabels.blog}
+            </a>
+
+            <a
               href="#contact"
               onClick={(e) => {
                 e.preventDefault();
@@ -748,6 +759,14 @@ const Header: React.FC<HeaderProps> = ({
               </div>
             )}
           </div>
+
+          <a
+            href="/#/blog"
+            className="iv-mobile-row"
+            onClick={() => setOpen(false)}
+          >
+            <span>{navLabels.blog}</span>
+          </a>
 
           <a
             href="#contact"

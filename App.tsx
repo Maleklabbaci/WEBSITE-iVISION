@@ -353,7 +353,7 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
           theme={theme}
           onToggleTheme={toggleTheme}
           language={language}
-          forceScrolled={currentView !== 'home'}
+          forceScrolled={currentView !== 'home' && currentView !== 'tools'}
           onChangeLanguage={(lang) => {
             setLanguage(lang);
             localStorage.setItem('ivision-lang-selected', lang);

@@ -858,6 +858,7 @@
             </div>
           </div>
         </div>
+        <a href="/#/blog">المدونة</a>
         <a href="/#contact">اتصل بنا</a>
       `
       : `
@@ -975,6 +976,7 @@
             </div>
           </div>
         </div>
+        <a href="/#/blog">Blog</a>
         <a href="/#contact">Contact</a>
       `;
 
@@ -1037,6 +1039,7 @@
               <a href="/#/outils?tool=calculateur" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>حاسبة عرض السعر</strong><em>05</em></div><small>تكوين أقطاب المشروع</small></a>
             </div>
           </div>
+          <a href="/#/blog" class="iv-mobile-row"><span>المدونة</span></a>
           <a href="/#contact" class="iv-mobile-row"><span>اتصل بنا</span></a>
           <a href="/#/devis" class="iv-mobile-cta-btn"><span>لنتحدث عن مشروعي</span><b aria-hidden="true">↗</b></a>
         `
@@ -1076,6 +1079,7 @@
               <a href="/#/outils?tool=calculateur" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Calculateur de Devis</strong><em>05</em></div><small>Configurateur sur-mesure</small></a>
             </div>
           </div>
+          <a href="/#/blog" class="iv-mobile-row"><span>Blog</span></a>
           <a href="/#contact" class="iv-mobile-row"><span>Contact</span></a>
           <a href="/#/devis" class="iv-mobile-cta-btn"><span>Parler de mon projet</span><b aria-hidden="true">↗</b></a>
         `;

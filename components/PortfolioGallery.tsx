@@ -35,7 +35,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
     <section ref={ref} id="etudes-de-cas" className={`iv-work-scene ${visible ? 'is-visible' : ''}`}>
       <div className="iv-work-scene-sticky">
         <div className="iv-section-topline"><span>{t.label}</span></div>
-        <div className="iv-work-scene-heading iv-reveal"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{t.title[1]}</span></h2></div><div className="iv-work-scene-intro"><p>{t.body}</p><div className="iv-work-actions"><a href="/portfolio-sites-web-algerie.html" className="iv-work-simple-cta"><span>{t.portfolio}</span><b aria-hidden="true">↗</b></a><a href="/creation-site-web-algerie.html" className="iv-work-secondary-cta">{t.offer} ↗</a><a href="/#/devis?service=site-web" className="iv-work-secondary-cta">{t.quote} ↗</a></div></div></div>
+        <div className="iv-work-scene-heading iv-reveal"><div><span className="iv-label">{t.kicker}</span><h2><span>{t.title[0]}</span><span>{language === 'ar' ? t.title[1] : <em>{t.title[1].toLowerCase()}</em>}</span></h2></div><div className="iv-work-scene-intro"><p>{t.body}</p><div className="iv-work-actions"><a href="/portfolio-sites-web-algerie.html" className="iv-work-simple-cta"><span>{t.portfolio}</span><b aria-hidden="true">↗</b></a><a href="/creation-site-web-algerie.html" className="iv-work-secondary-cta">{t.offer} ↗</a><a href="/#/devis?service=site-web" className="iv-work-secondary-cta">{t.quote} ↗</a></div></div></div>
         <div className="iv-work-marquee" dir="ltr" aria-label={t.scroll}>
           <div className="iv-work-marquee-track">
             {[0, 1].map((set) => <div className="iv-work-marquee-set" key={set} aria-hidden={set === 1}>

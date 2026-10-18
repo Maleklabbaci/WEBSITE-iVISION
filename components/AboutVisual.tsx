@@ -60,7 +60,27 @@ const AboutVisual: React.FC<AboutVisualProps> = ({ language }) => {
     <section ref={ref} id="about" className={`iv-about ${visible ? 'is-visible' : ''}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <div className="iv-section-topline"><span>{t.eyebrow}</span></div>
       <div className="iv-about-grid">
-        <div className="iv-about-lead"><span className="iv-label">{t.kicker}</span><h2>{t.title}</h2><p>{t.body}</p><a className="iv-arrow-link" href="#etudes-de-cas"><span>{t.link}</span><b aria-hidden="true">↗</b></a></div>
+        <div className="iv-about-lead">
+          <span className="iv-label">{t.kicker}</span>
+          <h2>
+            {language === 'fr' ? (
+              <>
+                On relie les idées à <em>vos objectifs.</em>
+              </>
+            ) : language === 'en' ? (
+              <>
+                We connect ideas to <em>your goals.</em>
+              </>
+            ) : (
+              t.title
+            )}
+          </h2>
+          <p>{t.body}</p>
+          <a className="iv-arrow-link" href="#etudes-de-cas">
+            <span>{t.link}</span>
+            <b aria-hidden="true">↗</b>
+          </a>
+        </div>
         <div className="iv-about-side"><ol>{t.principles.map((principle) => <li key={principle}><p>{principle}</p></li>)}</ol></div>
       </div>
       <div className="iv-about-trust">

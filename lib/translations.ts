@@ -3,14 +3,14 @@ export type Language = 'fr' | 'en' | 'ar';
 const textContent = {
   header: {
     links: {
-      fr: ['Services', 'Résultats', 'Méthode', 'Contact'],
-      en: ['Services', 'Results', 'Method', 'Contact'],
-      ar: ['الخدمات', 'النتائج', 'طريقتنا', 'اتصل بنا'],
+      fr: ['Accueil', 'À propos', 'Services', 'Portfolio', 'Outils', 'Blog', 'Contact'],
+      en: ['Home', 'About', 'Services', 'Portfolio', 'Tools', 'Blog', 'Contact'],
+      ar: ['الرئيسية', 'من نحن', 'خدماتنا', 'المعرض', 'الأدوات', 'المدونة', 'اتصل بنا'],
     },
     cta: {
-      fr: 'AUDIT GRATUIT',
-      en: 'FREE AUDIT',
-      ar: 'تدقيق مجاني',
+      fr: 'PARLER DE MON PROJET',
+      en: 'START A PROJECT',
+      ar: 'لنتحدث عن مشروعي',
     },
   },
   guide: {

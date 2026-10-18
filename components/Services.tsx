@@ -26,7 +26,19 @@ const Services: React.FC<ServicesProps> = ({ translations }) => {
     <section ref={ref} id="services" className={`iv-services ${visible ? 'is-visible' : ''}`}>
       <div className="iv-section-topline"><span>{translations.topline || 'SERVICES'}</span></div>
       <div className="iv-services-header">
-        <h2>{translations.title}</h2>
+        <h2>
+          {translations.title === 'BOOSTEZ VOTRE MARQUE.' ? (
+            <>
+              BOOSTEZ <em>votre marque.</em>
+            </>
+          ) : translations.title === 'BOOST YOUR BRAND.' ? (
+            <>
+              BOOST <em>your brand.</em>
+            </>
+          ) : (
+            translations.title
+          )}
+        </h2>
         <p>{translations.subtitle}</p>
       </div>
       <div className="iv-services-grid iv-reveal-group">

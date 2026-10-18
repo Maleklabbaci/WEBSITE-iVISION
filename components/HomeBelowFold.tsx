@@ -7,7 +7,7 @@ type HomeBelowFoldProps = { language: Language; translations: any };
 
 const localCopy = {
   fr: {
-    smm: { label: 'L’OFFRE QUI SUIT', title: 'SOCIAL MEDIA\nMANAGER', orbit: ['social', 'systems'], body: 'Une présence sociale qui attire, rassure et transforme l’attention en demandes.', points: ['Stratégie éditoriale', 'Direction artistique', 'Publication & optimisation'], cta: 'Portfolio social media (en préparation)', offer: 'Découvrir l’offre contenu', deliverables: [['Calendrier éditorial', 'Une ligne claire et un planning mensuel prêt à publier.'], ['Templates de marque', 'Des visuels réutilisables qui gardent votre feed cohérent.'], ['Community management', 'Réponses, modération et veille au quotidien.'], ['Rapport mensuel', 'Des résultats lisibles et les décisions du mois suivant.']] },
+    smm: { label: 'L’OFFRE QUI SUIT', title: 'SOCIAL MEDIA\nMANAGER', orbit: ['social', 'systems'], body: 'Une présence sociale qui attire, rassure et transforme l’attention en demandes.', points: ['Stratégie éditoriale', 'Direction artistique', 'Publication & optimisation'], cta: 'Voir le portfolio social & vidéo', offer: 'Découvrir l’offre contenu', deliverables: [['Calendrier éditorial', 'Une ligne claire et un planning mensuel prêt à publier.'], ['Templates de marque', 'Des visuels réutilisables qui gardent votre feed cohérent.'], ['Community management', 'Réponses, modération et veille au quotidien.'], ['Rapport mensuel', 'Des résultats lisibles et les décisions du mois suivant.']] },
     proof: { label: 'DÉMARCHE', title: 'Une méthode\nà partager.', body: 'Découvrez les projets web présentés ici et la façon dont nous cadrons les objectifs, les livrables et le suivi de chaque nouveau projet.', stats: [['Clarifier', 'l’objectif et le public'], ['Créer', 'des contenus et des parcours utiles'], ['Mesurer', 'les signaux disponibles']] },
     faq: { label: 'QUESTIONS', title: 'Les réponses\nclaires.', body: 'Les informations essentielles avant de lancer votre prochaine étape.', guide: 'SEO ou Ads : lire le guide' },
     contact: { label: 'CONTACT', title: 'On parle de\nvotre prochaine étape.', body: 'Un projet, une idée ou simplement besoin d’un regard extérieur ? Écrivez-nous.' },
@@ -19,7 +19,7 @@ const localCopy = {
     contact: { label: 'CONTACT', title: 'Let’s talk about\nwhat comes next.', body: 'A project, an idea or simply need an outside perspective? Write to us.' },
   },
   ar: {
-    smm: { label: 'العرض التالي', title: 'إدارة حسابات\nالتواصل', orbit: ['أنظمة', 'التواصل'], body: 'حضور اجتماعي يجذب ويطمئن ويحوّل الانتباه إلى طلبات.', points: ['استراتيجية تحريرية', 'إخراج فني', 'نشر وتحسين'], cta: 'أعمال التواصل (قيد الإعداد)', offer: 'اكتشف خدمة المحتوى', deliverables: [['تقويم تحريري', 'خط واضح وخطة شهرية جاهزة للنشر.'], ['قوالب العلامة', 'تصاميم قابلة لإعادة الاستخدام لتجانس الحساب.'], ['إدارة المجتمع', 'الردود والإشراف والمتابعة اليومية.'], ['تقرير شهري', 'نتائج واضحة وقرارات الشهر التالي.']] },
+    smm: { label: 'العرض التالي', title: 'إدارة حسابات\nالتواصل', orbit: ['أنظمة', 'التواصل'], body: 'حضور اجتماعي يجذب ويطمئن ويحوّل الانتباه إلى طلبات.', points: ['استراتيجية تحريرية', 'إخراج فني', 'نشر وتحسين'], cta: 'تصفح معرض التواصل والفيديو', offer: 'اكتشف خدمة المحتوى', deliverables: [['تقويم تحريري', 'خط واضح وخطة شهرية جاهزة للنشر.'], ['قوالب العلامة', 'تصاميم قابلة لإعادة الاستخدام لتجانس الحساب.'], ['إدارة المجتمع', 'الردود والإشراف والمتابعة اليومية.'], ['تقرير شهري', 'نتائج واضحة وقرارات الشهر التالي.']] },
     proof: { label: 'المنهجية', title: 'طريقة\nواضحة.', body: 'استكشف مشاريع الويب المعروضة هنا وكيف نحدد الأهداف والمخرجات والمتابعة لكل مشروع جديد.', stats: [['نحدد', 'الهدف والجمهور'], ['ننتج', 'محتوى ومسارات مفيدة'], ['نقيس', 'ما تسمح به البيانات']] },
     faq: { label: 'أسئلة', title: 'إجابات\nواضحة.', body: 'المعلومات الأساسية قبل خطوتك القادمة.', guide: 'دليل SEO والإعلانات' },
     contact: { label: 'تواصل', title: 'لنتحدث عن\nخطوتك القادمة.', body: 'مشروع أو فكرة أو تحتاج إلى رأي خارجي؟ اكتب لنا.' },
@@ -32,7 +32,12 @@ const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations })
   const faqs = translations.faq?.faqs || [];
   const contact = translations.footer?.contact || {};
   const contactSection = translations.contactSection || {};
-  const splitLines = (value: string) => value.split('\n').map((line) => <span key={line}>{line}</span>);
+  const splitLines = (value: string) =>
+    value.split('\n').map((line, idx) => (
+      <span key={line}>
+        {idx === 1 && language !== 'ar' ? <em>{line.toLowerCase()}</em> : line}
+      </span>
+    ));
 
   return (
     <div className="iv-home-sections">

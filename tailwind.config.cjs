@@ -31,7 +31,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Jost', '"IBM Plex Sans Arabic"', '"Cairo"', 'system-ui', 'sans-serif'],
-        display: ['"Bodoni Moda"', '"Cairo"', '"IBM Plex Sans Arabic"', 'Times New Roman', 'serif'],
+        display: ['"Cormorant Garamond"', '"Noto Kufi Arabic"', '"Cairo"', '"IBM Plex Sans Arabic"', 'Georgia', 'serif'],
         arabic: ['"IBM Plex Sans Arabic"', '"Cairo"', 'system-ui', 'sans-serif'],
       },
       animation: {

@@ -1,432 +1,346 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Language } from '../lib/translations';
-import { updateSEO } from '../lib/seo-utils';
+import React, { useEffect, useMemo, useState } from 'react';
+import type { Language } from '../lib/translations';
 
 export type ToolKey = 'diagnostic' | 'pertes' | 'audit-seo' | 'simulateur-web' | 'calculateur';
 
 interface InteractiveToolsPageProps {
+  language: Language;
   initialTool?: string;
-  language?: Language;
 }
 
 const VALID_TOOLS: ToolKey[] = ['diagnostic', 'pertes', 'audit-seo', 'simulateur-web', 'calculateur'];
 
-const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({
-  initialTool = 'diagnostic',
-  language = 'fr',
-}) => {
+function resolveTool(raw?: string): ToolKey {
+  if (raw && (VALID_TOOLS as string[]).includes(raw)) {
+    return raw as ToolKey;
+  }
+  return 'diagnostic';
+}
+
+const FONT_COMPARATOR_OPTIONS = [
+  {
+    id: 'pinyon',
+    name: 'Cormorant Garamond 500 + Pinyon Script',
+    tag: 'CALLIGRAPHIE HAUTE-COUTURE · ACTIF',
+    family: "'Cormorant Garamond', Georgia, serif",
+    scriptFamily: "'Pinyon Script', cursive",
+    weight: 500,
+    noteFr: 'Calligraphie éditoriale française très chic : contraste spectaculaire avec les majuscules de Cormorant Garamond 500.',
+    noteAr: 'خط كاليغرافي فرنسي فاخر يمنح تبايناً راقياً مع عناوين Cormorant Garamond.',
+  },
+  {
+    id: 'allura',
+    name: 'Cormorant Garamond 500 + Allura',
+    tag: 'SIGNATURE FLUIDE & MODERNE',
+    family: "'Cormorant Garamond', Georgia, serif",
+    scriptFamily: "'Allura', cursive",
+    weight: 500,
+    noteFr: 'Script manuscrit très lisible, aérien et naturel : parfait pour une lecture rapide sur mobile et desktop.',
+    noteAr: 'خط يدوي انسيابي وواضح جداً للقراءة السريعة على الهاتف والحاسوب.',
+  },
+  {
+    id: 'parisienne',
+    name: 'Cormorant Garamond 500 + Parisienne',
+    tag: 'ÉLÉGANCE PARISIENNE',
+    family: "'Cormorant Garamond', Georgia, serif",
+    scriptFamily: "'Parisienne', cursive",
+    weight: 500,
+    noteFr: 'Inspirée des publicités vintage parisiennes : courbes souples et rebondies très chaleureuses.',
+    noteAr: 'مستوحى من الإعلانات الباريسية الكلاسيكية بانحناءات ناعمة ودافئة.',
+  },
+  {
+    id: 'greatvibes',
+    name: 'Cormorant Garamond 500 + Great Vibes',
+    tag: 'PLUME EXPRESSIVE DE LUXE',
+    family: "'Cormorant Garamond', Georgia, serif",
+    scriptFamily: "'Great Vibes', cursive",
+    weight: 500,
+    noteFr: 'Pleins et déliés très marqués avec de belles majuscules calligraphiées.',
+    noteAr: 'حروف يدوية بارزة بتفاصيل غنية في البدايات والنهايات.',
+  },
+  {
+    id: 'alexbrush',
+    name: 'Cormorant Garamond 500 + Alex Brush',
+    tag: 'PINCEAU CALLIGRAPHIQUE',
+    family: "'Cormorant Garamond', Georgia, serif",
+    scriptFamily: "'Alex Brush', cursive",
+    weight: 500,
+    noteFr: 'Script fluide aux liaisons courtes et très nettes, proche d’une signature à l’encre.',
+    noteAr: 'خط فرشاة متوازن وواضح قريب من التوقيع اليدوي بالحبر.',
+  },
+  {
+    id: 'caveat',
+    name: 'Cormorant Garamond 500 + Caveat',
+    tag: 'NOTE MANUSCRITE STUDIO CRÉATIF',
+    family: "'Cormorant Garamond', Georgia, serif",
+    scriptFamily: "'Caveat', cursive",
+    weight: 500,
+    noteFr: 'Style écriture main levée / carnet de directeur artistique (moins calligraphique, plus spontané).',
+    noteAr: 'أسلوب كتابة يدوية عفوية تشبه ملاحظات المدير الفني في الاستوديو.',
+  },
+];
+
+const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, initialTool }) => {
   const isAr = language === 'ar';
-  const normalizedInitial = (VALID_TOOLS.includes(initialTool as ToolKey) ? initialTool : 'diagnostic') as ToolKey;
-  const [activeTool, setActiveTool] = useState<ToolKey>(normalizedInitial);
+  const [activeTool, setActiveTool] = useState<ToolKey>(() => resolveTool(initialTool));
+  const [previewFontId, setPreviewFontId] = useState<string>('caveat');
 
   useEffect(() => {
-    const nextTool = (VALID_TOOLS.includes(initialTool as ToolKey) ? initialTool : 'diagnostic') as ToolKey;
-    setActiveTool(nextTool);
+    setActiveTool(resolveTool(initialTool));
   }, [initialTool]);
 
-  useEffect(() => {
-    updateSEO({
-      title: isAr
-        ? 'الأدوات التفاعلية والحاسبات الرقمية | iVISION'
-        : 'Outils digitaux, Diagnostic & Simulateurs | iVISION Agency',
-      description: isAr
-        ? 'قيم حضورك الرقمي، احسب الفرص الضائعة، افحص جاهزية SEO، وصمم موقعك أو عرض السعر مباشرة مع iVISION.'
-        : 'Évaluez votre score digital, estimez vos opportunités manquées, auditez vos bases SEO et configurez votre site web ou devis avec iVISION.',
-      canonical: 'https://ivision.agency/',
-    });
-  }, [isAr]);
+  const activeFontObj = useMemo(
+    () => FONT_COMPARATOR_OPTIONS.find((f) => f.id === previewFontId) || FONT_COMPARATOR_OPTIONS[0],
+    [previewFontId]
+  );
 
-  const selectTool = (tool: ToolKey) => {
-    setActiveTool(tool);
-    window.history.replaceState(null, '', `/#/outils?tool=${tool}`);
+  const handleApplyPreviewFont = (fontId: string) => {
+    setPreviewFontId(fontId);
+    const chosen = FONT_COMPARATOR_OPTIONS.find((f) => f.id === fontId);
+    if (chosen && typeof document !== 'undefined') {
+      document.documentElement.style.setProperty('--iv-display-font', chosen.family);
+      document.documentElement.style.setProperty('--iv-script-font', chosen.scriptFamily);
+    }
   };
 
-  // --- TOOL 1: DIAGNOSTIC DIGITAL SCORE ---
+  const selectTool = (tool: ToolKey, scrollToWorkspace = false) => {
+    setActiveTool(tool);
+    if (typeof window !== 'undefined') {
+      const nextHash = `/#/outils?tool=${tool}`;
+      if (window.location.hash !== `#/outils?tool=${tool}`) {
+        window.history.replaceState(null, '', nextHash);
+      }
+      if (scrollToWorkspace) {
+        document.getElementById('tools-workspace')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  // --- 1. DIAGNOSTIC DIGITAL SCORE ---
   const [diagAnswers, setDiagAnswers] = useState<Record<string, number>>({
-    website: 15,
-    speed: 10,
-    social: 10,
-    ads: 5,
-    tracking: 5,
-    branding: 15,
+    site: 10,
+    seo: 5,
+    social: 15,
+    ads: 10,
+    crm: 5,
   });
 
-  const diagQuestions = isAr
-    ? [
-        {
-          id: 'website',
-          label: '01 / الموقع الإلكتروني',
-          q: 'ما هي وضعية موقعكم الإلكتروني حالياً؟',
-          options: [
-            { label: 'لا يوجد موقع حالياً (صفحات تواصل فقط)', score: 0 },
-            { label: 'موقع قديم أو غير متوافق جيداً مع الهاتف', score: 10 },
-            { label: 'موقع واضح وسريع مع مسار تواصل مباشر', score: 20 },
-          ],
-        },
-        {
-          id: 'speed',
-          label: '02 / تجربة الهاتف والسرعة',
-          q: 'كيف يقيم الزوار سهولة التصفح وطلب الخدمة من الهاتف؟',
-          options: [
-            { label: 'صعب أو يتطلب خطوات كثيرة', score: 0 },
-            { label: 'مقبول لكن يحتاج لتوضيح العرض', score: 10 },
-            { label: 'سريع جداً وزر التواصل واضح من أول ثانية', score: 16 },
-          ],
-        },
-        {
-          id: 'social',
-          label: '03 / صناعة المحتوى والشبكات',
-          q: 'ما هي وتيرة وجودة النشر على إنستغرام، فيسبوك أو تيك توك؟',
-          options: [
-            { label: 'نشر غير منتظم بدون خط تحريري', score: 0 },
-            { label: 'نشر منتظم بتصاميم أساسية', score: 10 },
-            { label: 'هوية بصرية قوية، فيديوهات Reels ومحتوى يقنع العميل', score: 18 },
-          ],
-        },
-        {
-          id: 'ads',
-          label: '04 / الحملات الإعلانية (Meta & Google Ads)',
-          q: 'كيف تديرون الإعلانات الممولة لجلب العملاء؟',
-          options: [
-            { label: 'لا نطلق حملات أو نكتفي بـ Boost عشوائي', score: 0 },
-            { label: 'حملات موسمية عند الحاجة', score: 10 },
-            { label: 'حملات مهيكلة مرتبطة بصفحة هبوط وهدف واضح', score: 16 },
-          ],
-        },
-        {
-          id: 'tracking',
-          label: '05 / قياس التحويلات والطلبات',
-          q: 'هل تعرفون بدقة أي قناة تجلب لكم أفضل الطلبات والمبيعات؟',
-          options: [
-            { label: 'لا يوجد تتبع واضح للمصادر', score: 0 },
-            { label: 'نتابع الرسائل يدوياً فقط', score: 7 },
-            { label: 'Pixel وتتبع واضح للطلبات وتكلفة كل عميل', score: 15 },
-          ],
-        },
-        {
-          id: 'branding',
-          label: '06 / وضوح العرض والهوية',
-          q: 'هل يفهم الزائر الجديد ما يميزكم في أقل من 5 ثوانٍ؟',
-          options: [
-            { label: 'العرض عام ويحتاج إلى شرح طويل', score: 3 },
-            { label: 'واضح نسبياً لعملائنا المعتادين', score: 9 },
-            { label: 'تموقع قوي وهوية احترافية تمنح الثقة فوراً', score: 15 },
-          ],
-        },
-      ]
-    : [
-        {
-          id: 'website',
-          label: '01 / PRÉSENCE WEB',
-          q: 'Quel est l’état actuel de votre site internet ?',
-          options: [
-            { label: 'Aucun site web (réseaux sociaux uniquement)', score: 0 },
-            { label: 'Site ancien ou peu adapté au mobile', score: 10 },
-            { label: 'Site moderne, rapide avec parcours de contact clair', score: 20 },
-          ],
-        },
-        {
-          id: 'speed',
-          label: '02 / EXPÉRIENCE MOBILE',
-          q: 'Un prospect sur smartphone comprend-il votre offre en 5 secondes ?',
-          options: [
-            { label: 'Non, parcours lent ou confus', score: 0 },
-            { label: 'Correct mais manque d’appels à l’action clairs', score: 10 },
-            { label: 'Fluide, lisible et orienté prise de contact immédiate', score: 16 },
-          ],
-        },
-        {
-          id: 'social',
-          label: '03 / CONTENU & SOCIAL MEDIA',
-          q: 'Quelle est la régularité et la qualité de vos contenus (Reels, posts) ?',
-          options: [
-            { label: 'Publications irrégulières sans ligne éditoriale', score: 0 },
-            { label: 'Présence régulière mais visuels standards', score: 10 },
-            { label: 'Direction artistique forte, vidéos courtes et preuves concrètes', score: 18 },
-          ],
-        },
-        {
-          id: 'ads',
-          label: '04 / ACQUISITION META & GOOGLE ADS',
-          q: 'Comment gérez-vous vos campagnes publicitaires en Algérie ?',
-          options: [
-            { label: 'Aucune campagne ou simples boosts de publications', score: 0 },
-            { label: 'Campagnes ponctuelles selon la saison', score: 10 },
-            { label: 'Campagnes structurées reliées à une page d’atterrissage dédiée', score: 16 },
-          ],
-        },
-        {
-          id: 'tracking',
-          label: '05 / SUIVI & MESURE',
-          q: 'Savez-vous exactement quel canal génère vos demandes qualifiées ?',
-          options: [
-            { label: 'Aucun suivi précis (Pixel / Analytics absents)', score: 0 },
-            { label: 'Suivi manuel des messages WhatsApp / DM', score: 7 },
-            { label: 'Tracking configuré et lecture claire du coût par demande', score: 15 },
-          ],
-        },
-        {
-          id: 'branding',
-          label: '06 / POSITIONNEMENT & MARQUE',
-          q: 'Votre image de marque reflète-t-elle le vrai niveau de votre entreprise ?',
-          options: [
-            { label: 'Identité vieillissante ou incohérente selon les supports', score: 3 },
-            { label: 'Propre mais ressemble aux concurrents du secteur', score: 9 },
-            { label: 'Identité distinctive qui inspire confiance immédiatement', score: 15 },
-          ],
-        },
-      ];
-
   const diagScore = useMemo(
-    () => (Object.values(diagAnswers) as number[]).reduce((sum, val) => sum + val, 0),
+    () => (Object.values(diagAnswers) as number[]).reduce((acc, v) => acc + v, 0),
     [diagAnswers]
   );
 
-  const diagLevel = useMemo(() => {
-    if (diagScore < 40) {
-      return isAr
-        ? {
-            badge: 'أولوية قصوى للتحسين',
-            title: 'حضور رقمي غير مستغل بالكامل',
-            desc: 'تفقدون حالياً جزءاً كبيراً من العملاء لصالح المنافسين. الأولوية هي بناء صفحة ويب واضحة وهيكلة رسائلكم الأساسية.',
-          }
-        : {
-            badge: 'Fondations à bâtir',
-            title: 'Potentiel digital sous-exploité',
-            desc: 'Vos prospects peinent à comprendre votre offre ou à vous trouver sur Google. Priorité : poser un site clair et une ligne éditoriale crédible.',
-          };
-    }
-    if (diagScore < 75) {
-      return isAr
-        ? {
-            badge: 'أساس جيد قابل للتسريع',
-            title: 'حضور نشط يحتاج إلى ربط القنوات',
-            desc: 'لديكم تواجد أولي، لكن ربط المحتوى بصفحات هبوط وحملات ميتا/جوجل مدروسة سيضاعف عدد الطلبات المؤهلة.',
-          }
-        : {
-            badge: 'Socle en place · Accélération',
-            title: 'Présence active mais conversion perfectible',
-            desc: 'Vous avez déjà une base. En reliant vos contenus, vos publicités et un parcours web plus net, vous pouvez capter beaucoup plus de demandes qualifiées.',
-          };
-    }
-    return isAr
-      ? {
-          badge: 'نضج رقمي متقدم',
-          title: 'بنية رقمية قوية جاهزة للتوسع',
-          desc: 'أساسكم متين. الخطوة القادمة هي تحسين تكلفة الاستحواذ، تطوير محتوى إبداعي عالي التأثير وتوسيع حصتكم في السوق.',
-        }
-      : {
-          badge: 'Maturité avancée',
-          title: 'Écosystème solide prêt à passer à l’échelle',
-          desc: 'Vos fondamentaux sont bons. L’enjeu maintenant : affiner le coût par acquisition, élever la direction artistique et dominer vos requêtes clés.',
-        };
-  }, [diagScore, isAr]);
-
-  // --- TOOL 2: COMPTEUR / SIMULATEUR DE PERTES ---
-  const [monthlyVisitors, setMonthlyVisitors] = useState<number>(1500);
+  // --- 2. COMPTEUR DE PERTES ---
+  const [monthlyVisitors, setMonthlyVisitors] = useState<number>(3000);
   const [avgDealValue, setAvgDealValue] = useState<number>(25000);
-  const [loadSeconds, setLoadSeconds] = useState<number>(6);
+  const [loadSeconds, setLoadSeconds] = useState<number>(5);
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
 
   useEffect(() => {
+    if (activeTool !== 'pertes') return;
+    setElapsedSeconds(0);
     const timer = window.setInterval(() => {
-      setElapsedSeconds((prev) => prev + 1);
+      setElapsedSeconds((s) => s + 1);
     }, 1000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [activeTool]);
 
   const lossStats = useMemo(() => {
-    // Plus le chargement dépasse 2s, plus la perte de visiteurs grimpe (jusqu'à 58%)
-    const dropRate = Math.min(0.62, Math.max(0.12, (loadSeconds - 1.5) * 0.095));
+    const extraSeconds = Math.max(0, loadSeconds - 2);
+    const dropRate = Math.min(0.68, 0.12 + extraSeconds * 0.09);
     const lostVisitors = Math.round(monthlyVisitors * dropRate);
-    // Taux de conversion réaliste de 3.2% sur les visiteurs retenus avec un bon parcours
-    const missedLeads = Math.max(1, Math.round(lostVisitors * 0.032));
-    // Taux de closing moyen de 25% sur les leads qualifiés
-    const missedClients = Math.max(1, Math.round(missedLeads * 0.25));
-    const missedRevenueMonth = missedClients * avgDealValue;
-    const realtimeLostDA = Math.round((missedRevenueMonth / (30 * 24 * 3600)) * elapsedSeconds * 120);
+    const missedLeads = Math.max(1, Math.round(lostVisitors * 0.025));
+    const missedDeals = Math.max(1, Math.round(missedLeads * 0.25));
+    const missedRevenueMonth = missedDeals * avgDealValue;
+    const perSecondLoss = missedRevenueMonth / (30 * 24 * 3600);
+    const realtimeLostDA = Math.round(elapsedSeconds * perSecondLoss * 360);
     return {
       dropPercent: Math.round(dropRate * 100),
       lostVisitors,
       missedLeads,
-      missedClients,
       missedRevenueMonth,
       realtimeLostDA,
     };
   }, [monthlyVisitors, avgDealValue, loadSeconds, elapsedSeconds]);
 
-  // --- TOOL 3: AUDIT SEO GRATUIT ---
-  const [seoUrl, setSeoUrl] = useState('');
-  const [seoSector, setSeoSector] = useState('');
+  // --- 3. AUDIT SEO GRATUIT ---
+  const [seoUrl, setSeoUrl] = useState<string>('');
+  const [seoSector, setSeoSector] = useState<string>('');
   const [seoChecks, setSeoChecks] = useState<Record<string, boolean>>({
     https: true,
     mobile: true,
-    servicePages: false,
-    gmb: true,
     speed: false,
-    bilingual: false,
+    gmb: true,
+    keywords: false,
     schema: false,
+    bilingual: false,
     cta: true,
   });
 
-  const seoItems = isAr
-    ? [
-        { id: 'https', title: 'اتصال آمن HTTPS ونطاق احترافي', weight: 12 },
-        { id: 'mobile', title: 'توافق كامل وسريع مع شاشات الهاتف', weight: 15 },
-        { id: 'servicePages', title: 'صفحات مستقلة لكل خدمة (وليس صفحة واحدة فقط)', weight: 16 },
-        { id: 'gmb', title: 'بطاقة Google Maps (Google Business) مفعلة ومحدثة', weight: 12 },
-        { id: 'speed', title: 'سرعة فتح الصفحة أقل من 3 ثوانٍ', weight: 13 },
-        { id: 'bilingual', title: 'محتوى واضح يغطي البحث بالفرنسية والعربية في الجزائر', weight: 12 },
-        { id: 'schema', title: 'عناوين H1 ووصف Meta وبيانات منظمة لمحركات البحث', weight: 10 },
-        { id: 'cta', title: 'استمارة طلب عرض سعر أو واتساب واضح في كل صفحة', weight: 10 },
-      ]
-    : [
-        { id: 'https', title: 'Certificat HTTPS actif & nom de domaine propre', weight: 12 },
-        { id: 'mobile', title: 'Affichage mobile-first irréprochable sur smartphone', weight: 15 },
-        { id: 'servicePages', title: 'Pages HTML dédiées par service (et non une seule page vague)', weight: 16 },
-        { id: 'gmb', title: 'Fiche Google Business Profile (Maps) active et renseignée', weight: 12 },
-        { id: 'speed', title: 'Temps de chargement initial inférieur à 3 secondes', weight: 13 },
-        { id: 'bilingual', title: 'Contenu adapté aux recherches locales en Algérie (FR / AR)', weight: 12 },
-        { id: 'schema', title: 'Balises Title, H1 uniques et données structurées JSON-LD', weight: 10 },
-        { id: 'cta', title: 'Parcours de conversion clair (Devis / WhatsApp) sur chaque page', weight: 10 },
-      ];
+  const seoItems = useMemo(
+    () =>
+      isAr
+        ? [
+            { id: 'https', weight: 12, title: 'شهادة أمان HTTPS نشطة وسريعة' },
+            { id: 'mobile', weight: 15, title: 'تصميم متجاوب 100% مع الهواتف في الجزائر' },
+            { id: 'speed', weight: 15, title: 'سرعة تحميل أقل من 2.5 ثانية على شبكة 4G' },
+            { id: 'gmb', weight: 12, title: 'ملف Google Maps (Google Business) موثق ومرتبط' },
+            { id: 'keywords', weight: 14, title: 'صفحات مستقلة لكل خدمة مع كلمات مفتاحية محلية' },
+            { id: 'schema', weight: 10, title: 'بيانات منظمة Schema.org وفهرسة Sitemap.xml' },
+            { id: 'bilingual', weight: 10, title: 'محتوى مهيأ بالعربية والفرنسية (FR / AR)' },
+            { id: 'cta', weight: 12, title: 'مسار تحويل واضح (واتساب + استمارة سريعة)' },
+          ]
+        : [
+            { id: 'https', weight: 12, title: 'Certificat HTTPS actif & sécurité navigateur' },
+            { id: 'mobile', weight: 15, title: 'Affichage mobile irréprochable (80%+ du trafic DZ)' },
+            { id: 'speed', weight: 15, title: 'Chargement rapide (< 2,5 s sur réseau 4G Algérie)' },
+            { id: 'gmb', weight: 12, title: 'Fiche Google Maps / Business Profile reliée au site' },
+            { id: 'keywords', weight: 14, title: 'Une page dédiée par service (ciblage requêtes Algérie)' },
+            { id: 'schema', weight: 10, title: 'Données structurées Schema.org & Sitemap soumis' },
+            { id: 'bilingual', weight: 10, title: 'Architecture bilingue Français / Arabe (RTL propre)' },
+            { id: 'cta', weight: 12, title: 'Parcours de conversion direct (WhatsApp & Devis)' },
+          ],
+    [isAr]
+  );
 
   const seoScore = useMemo(
-    () => seoItems.reduce((acc, item) => acc + (seoChecks[item.id] ? item.weight : 0), 0),
+    () => seoItems.reduce((sum, item) => sum + (seoChecks[item.id] ? item.weight : 0), 0),
     [seoChecks, seoItems]
   );
 
-  // --- TOOL 4: SIMULATEUR DE SITE WEB ---
+  // --- 4. SIMULATEUR DE SITE WEB ---
   const [webGoal, setWebGoal] = useState<'vitrine' | 'ecommerce' | 'landing' | 'refonte'>('vitrine');
   const [webPages, setWebPages] = useState<'1-3' | '4-7' | '8+'>('4-7');
   const [webBilingual, setWebBilingual] = useState<boolean>(true);
   const [webFeatures, setWebFeatures] = useState<string[]>(['whatsapp', 'seo']);
 
   const toggleWebFeature = (feat: string) => {
-    setWebFeatures((prev) => (prev.includes(feat) ? prev.filter((item) => item !== feat) : [...prev, feat]));
+    setWebFeatures((prev) =>
+      prev.includes(feat) ? prev.filter((item) => item !== feat) : [...prev, feat]
+    );
   };
 
   const webRecommendation = useMemo(() => {
-    const map = {
-      vitrine: {
-        fr: {
-          title: 'Site Vitrine Éditorial & Acquisition',
-          subtitle: 'Idéal pour présenter votre entreprise, asseoir votre crédibilité et recevoir des demandes qualifiées.',
-          pages: ['Accueil impactant', 'Pages Services dédiées', 'Réalisations / Preuves', 'À propos', 'Formulaire Devis & WhatsApp'],
-          timeline: '2 à 4 semaines selon contenus',
-        },
-        ar: {
-          title: 'موقع تعريفي احترافي لجلب العملاء',
-          subtitle: 'مثالي لتقديم مؤسستك، بناء الثقة وتحويل الزوار إلى طلبات تواصل مؤهلة.',
-          pages: ['صفحة رئيسية قوية', 'صفحات مستقلة للخدمات', 'معرض الأعمال والخبرات', 'من نحن', 'استمارة عرض سعر وواتساب'],
-          timeline: 'من أسبوعين إلى 4 أسابيع حسب المحتوى',
-        },
-      },
-      ecommerce: {
-        fr: {
-          title: 'Boutique E-Commerce Algérie',
-          subtitle: 'Conçue pour présenter vos collections, gérer le catalogue et fluidifier les commandes sur mobile.',
-          pages: ['Accueil & Collections', 'Catalogue filtrable', 'Fiches produits détaillées', 'Panier & Commande rapide (COD / Livraison)', 'Suivi & WhatsApp'],
-          timeline: '3 à 6 semaines selon catalogue',
-        },
-        ar: {
-          title: 'متجر إلكتروني متكامل للسوق الجزائري',
-          subtitle: 'مصمم لعرض منتجاتك بوضوح وتسهيل الطلب عبر الهاتف مع خيارات التوصيل والدفع.',
-          pages: ['الرئيسية والمجموعات', 'كتالوج المنتجات مع الفلترة', 'صفحات تفاصيل المنتج', 'سلة ومسار طلب سريع', 'ربط واتساب والطلبيات'],
-          timeline: 'من 3 إلى 6 أسابيع حسب حجم الكتالوج',
-        },
-      },
-      landing: {
-        fr: {
-          title: 'Landing Page Haute Conversion (Meta & Google Ads)',
-          subtitle: 'Une page ultra-ciblée pensée pour rentabiliser immédiatement vos campagnes sponsorisées.',
-          pages: ['Promesse & Hero direct', 'Arguments & Preuves visuelles', 'FAQ anti-objections', 'Formulaire court & Tracking Pixel'],
-          timeline: '7 à 12 jours ouvrés',
-        },
-        ar: {
-          title: 'صفحة هبوط عالية التحويل لحملات الإعلانات',
-          subtitle: 'صفحة مركزة على عرض واحد لتحويل زيارات إعلانات ميتا وجوجل إلى طلبات فعلية.',
-          pages: ['عنوان وعرض مباشر', 'مزايا وإثباتات بصرية', 'أسئلة شائعة لإزالة التردد', 'استمارة سريعة مع تتبع Pixel'],
-          timeline: 'من 7 إلى 12 يوم عمل',
-        },
-      },
-      refonte: {
-        fr: {
-          title: 'Refonte Complète & Modernisation SEO',
-          subtitle: 'Repensez l’image, la vitesse mobile et la structure Google de votre site actuel sans perdre votre historique.',
-          pages: ['Audit de l’existant', 'Nouvelle direction artistique', 'Réécriture & Architecture SEO', 'Redirections & Mise en ligne propre'],
-          timeline: '3 à 5 semaines selon périmètre',
-        },
-        ar: {
-          title: 'تجديد شامل وتحديث تقني وSEO للموقع',
-          subtitle: 'إعادة تصميم موقعك الحالي لتسريعه على الهاتف وتحسين ظهوره في جوجل مع الحفاظ على روابطك.',
-          pages: ['فحص الموقع الحالي', 'هوية بصرية وتجربة مستخدم جديدة', 'إعادة هيكلة الصفحات لـ SEO', 'نشر آمن وتحويل الروابط'],
-          timeline: 'من 3 إلى 5 أسابيع حسب النطاق',
-        },
-      },
-    };
-    return isAr ? map[webGoal].ar : map[webGoal].fr;
-  }, [webGoal, isAr]);
+    if (webGoal === 'ecommerce') {
+      return isAr
+        ? {
+            title: 'متجر إلكتروني متكامل للسوق الجزائري',
+            subtitle: 'مصمم للبيع المباشر مع الدفع عند الاستلام (COD)، إدارة الطلبيات وربط التوصيل.',
+            timeline: '3 إلى 5 أسابيع',
+            pages: ['الرئيسية + الكتالوج', 'صفحات المنتجات المحسنة', 'سلة طلب سريع (COD)', 'تتبع Meta Pixel & TikTok'],
+          }
+        : {
+            title: 'Site E-commerce & Catalogue COD Algérie',
+            subtitle: 'Conçu pour la vente directe avec commande rapide, paiement à la livraison (COD) et suivi publicitaire.',
+            timeline: '3 à 5 semaines',
+            pages: ['Accueil & univers de marque', 'Fiches produits orientées conversion', 'Tunnel de commande directe COD', 'Intégration Meta Pixel & Google Tag'],
+          };
+    }
+    if (webGoal === 'landing') {
+      return isAr
+        ? {
+            title: 'صفحة هبوط عالية التحويل (Landing Page)',
+            subtitle: 'مهيكلة خصيصاً لتحويل زوار إعلانات Meta وGoogle إلى اتصالات وطلبات فعلية.',
+            timeline: '7 إلى 12 يوماً',
+            pages: ['عرض القيمة المباشر (Hero)', 'براهين الثقة والنتائج', 'استمارة طلب سريع + واتساب'],
+          }
+        : {
+            title: 'Landing Page Haute Conversion (Ads & Lancement)',
+            subtitle: 'Taillée pour transformer le trafic issu de Meta Ads et Google Ads en demandes qualifiées.',
+            timeline: '7 à 12 jours',
+            pages: ['Proposition de valeur immédiate', 'Preuves sociales & arguments clés', 'Formulaire qualifié + WhatsApp direct'],
+          };
+    }
+    return isAr
+      ? {
+          title: 'موقع شركة احترافي مهيأ لمحركات البحث (SEO)',
+          subtitle: 'يبني مصداقية علامتك، يعرض خدماتك بوضوح، ويجذب العملاء الباحثين في جوجل بالجزائر.',
+          timeline: '2 إلى 4 أسابيع',
+          pages: [
+            'الصفحة الرئيسية الإستراتيجية',
+            webPages === '8+' ? 'صفحات مفصلة لكل خدمة وقطاع' : 'صفحات الخدمات والأعمال السابقة',
+            'صفحة من نحن ومعايير الثقة',
+            'صفحة تواصل وطلب عرض سعر',
+          ],
+        }
+      : {
+          title: 'Site Vitrine Éditorial & Acquisition SEO',
+          subtitle: 'Asseoit votre crédibilité, présente vos offres clairement et capte les recherches Google en Algérie.',
+          timeline: '2 à 4 semaines',
+          pages: [
+            'Accueil éditorial & positionnement',
+            webPages === '8+' ? 'Pages dédiées par service & secteur' : 'Pages services & réalisations',
+            'À propos & preuves de réassurance',
+            'Parcours de contact & demande de devis',
+          ],
+        };
+  }, [webGoal, webPages, isAr]);
 
-  // --- TOOL 5: CALCULATEUR DE DEVIS & PÉRIMÈTRE ---
+  // --- 5. CALCULATEUR DE DEVIS (CONFIGURATEUR SUR-MESURE) ---
   const [selectedPoles, setSelectedPoles] = useState<string[]>(['web', 'ads']);
   const [cadence, setCadence] = useState<'launch' | 'growth' | 'scale'>('growth');
 
   const togglePole = (poleId: string) => {
-    setSelectedPoles((prev) => (prev.includes(poleId) ? (prev.length > 1 ? prev.filter((p) => p !== poleId) : prev) : [...prev, poleId]));
+    setSelectedPoles((prev) =>
+      prev.includes(poleId)
+        ? prev.length > 1
+          ? prev.filter((id) => id !== poleId)
+          : prev
+        : [...prev, poleId]
+    );
   };
 
   const polesCatalog = isAr
     ? [
         {
           id: 'web',
-          title: 'إنشاء أو تجديد موقع ويب',
-          tag: 'WEB & CONVERSION',
-          deliverables: ['تصميم متجاوب للهاتف والحاسوب', 'هيكلة صفحات واضحة ومسار تواصل', 'تهيئة SEO تقنية أولية'],
-        },
-        {
-          id: 'social',
-          title: 'صناعة المحتوى وشبكات التواصل',
-          tag: 'CONTENT & SOCIAL',
-          deliverables: ['خط تحريري ورزنامة نشر', 'تصاميم احترافية وفيديوهات Reels', 'توجيه فني منسجم مع العلامة'],
+          title: 'تصميم وتطوير موقع ويب',
+          tag: 'WEB & SEO',
+          deliverables: ['تصميم UI/UX مخصص للعلامة', 'برمجة سريعة متوافقة مع الهواتف', 'تهيئة SEO تقنية لمحركات البحث'],
         },
         {
           id: 'ads',
-          title: 'حملات الإعلانات Meta & Google Ads',
-          tag: 'ACQUISITION & LEADS',
-          deliverables: ['إعداد وهيكلة الحملات الإعلانية', 'تصاميم ونصوص مخصصة للإعلانات', 'تتبع التحويلات وتقارير الأداء'],
+          title: 'إدارة الإعلانات الممولة (Meta & Google Ads)',
+          tag: 'ACQUISITION',
+          deliverables: ['هيكلة الحملات والاستهداف في الجزائر', 'إعداد Pixel وتتبع التحويلات', 'تحسين مستمر لتكلفة العميل المحتمل'],
+        },
+        {
+          id: 'content',
+          title: 'صناعة المحتوى وإنتاج الفيديو (Reels / Spot)',
+          tag: 'STUDIO & SOCIAL',
+          deliverables: ['كتابة السيناريو والإخراج الفني', 'تصوير ومونتاج فيديوهات قصيرة', 'تصاميم منشورات احترافية للشبكات'],
         },
         {
           id: 'branding',
-          title: 'الهوية البصرية والتموقع',
-          tag: 'BRANDING & DESIGN',
-          deliverables: ['الشعار والخطوط والألوان', 'دليل استخدام الهوية البصرية', 'قوالب جاهزة للعرض والتواصل'],
+          title: 'الهوية البصرية والتموقع الإستراتيجي',
+          tag: 'BRANDING',
+          deliverables: ['تصميم الشعار والخطوط والألوان', 'دليل الهوية البصرية الكامل', 'توحيد صورة العلامة الرقمية'],
         },
       ]
     : [
         {
           id: 'web',
           title: 'Création ou refonte de site web',
-          tag: 'WEB & CONVERSION',
-          deliverables: ['Design éditorial mobile-first', 'Architecture de pages & formulaire devis', 'Fondations techniques SEO & vitesse'],
-        },
-        {
-          id: 'social',
-          title: 'Création de contenu & Social Media',
-          tag: 'CONTENT & SOCIAL',
-          deliverables: ['Ligne éditoriale & planning de publication', 'Visuels de marque & vidéos courtes (Reels)', 'Direction artistique cohérente'],
+          tag: 'WEB & SEO',
+          deliverables: ['Direction artistique & UX sur-mesure', 'Développement rapide pensé mobile', 'Socle SEO technique & pages services'],
         },
         {
           id: 'ads',
-          title: 'Publicité Meta Ads & Google Ads',
-          tag: 'ACQUISITION & LEADS',
-          deliverables: ['Cadrage des audiences & structure de campagne', 'Créas publicitaires & copywriting', 'Suivi des conversions & bilan de performance'],
+          title: 'Campagnes Meta Ads & Google Ads',
+          tag: 'ACQUISITION',
+          deliverables: ['Ciblage marché algérien & cadrage', 'Tracking des conversions (Pixel / Tag)', 'Optimisation continue du coût par contact'],
+        },
+        {
+          id: 'content',
+          title: 'Création de contenu & Production Reels',
+          tag: 'STUDIO & SOCIAL',
+          deliverables: ['Scénarisation & direction créative', 'Tournage / montage formats 9:16', 'Design éditorial & carrousels réseaux'],
         },
         {
           id: 'branding',
-          title: 'Identité visuelle & Branding',
-          tag: 'BRANDING & DESIGN',
-          deliverables: ['Logotype, typographies & palette', 'Charte graphique & univers visuel', 'Déclinaisons réseaux sociaux & supports'],
+          title: 'Identité visuelle & Positionnement',
+          tag: 'BRANDING',
+          deliverables: ['Logotype, typographies & palette', 'Charte graphique déclinable', 'Harmonisation des supports digitaux'],
         },
       ];
 
@@ -451,738 +365,1096 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({
         { id: 'calculateur', num: '05', label: 'Calculateur de Devis', short: 'Configurateur sur-mesure' },
       ];
 
-  return (
-    <section className="web-quote" aria-labelledby="tools-page-title">
-      <div className="web-quote-shell">
-        <div className="web-quote-topline">
-          <span>{isAr ? 'iVISION / الأدوات التفاعلية' : 'iVISION / Outils & Simulateurs'}</span>
-          <a href="/">{isAr ? '→ العودة إلى الرئيسية' : '← Retour à l’accueil'}</a>
-        </div>
+  const diagQuestions = isAr
+    ? [
+        {
+          id: 'site',
+          label: '01 · الموقع الإلكتروني وسرعة التحميل',
+          q: 'كيف تقيّم موقعك الإلكتروني الحالي؟',
+          options: [
+            { score: 0, label: 'لا يوجد موقع حالياً (نعتمد فقط على الصفحات الاجتماعية)' },
+            { score: 10, label: 'موقع قديم أو بطيء على الهاتف ولا يجلب طلبات' },
+            { score: 20, label: 'موقع حديث، سريع ومرتبط بواتساب واستمارة واضحة' },
+          ],
+        },
+        {
+          id: 'seo',
+          label: '02 · الظهور في محرك البحث جوجل (SEO)',
+          q: 'هل يظهر نشاطك عندما يبحث العملاء عن خدماتك في الجزائر؟',
+          options: [
+            { score: 0, label: 'لا نظهر في نتائج البحث الأولى إطلاقاً' },
+            { score: 10, label: 'نظهر فقط عند كتابة اسم علامتنا التجارية' },
+            { score: 20, label: 'لدينا صفحات مهيأة تتصدر كلمات مفتاحية محلية' },
+          ],
+        },
+        {
+          id: 'social',
+          label: '03 · المحتوى والفيديو على الشبكات الاجتماعية',
+          q: 'ما هو مستوى إنتاج المحتوى (Reels / تصاميم) لديكم؟',
+          options: [
+            { score: 5, label: 'نشر غير منتظم وبدون هوية بصرية واضحة' },
+            { score: 12, label: 'تصاميم مقبولة لكن ينقصنا الفيديو القصير المقنع' },
+            { score: 20, label: 'محتوى احترافي منتظم يعكس قيمة العلامة التجارية' },
+          ],
+        },
+        {
+          id: 'ads',
+          label: '04 · الإعلانات الممولة (Meta Ads & Google Ads)',
+          q: 'كيف تديرون حملاتكم الإعلانية حالياً؟',
+          options: [
+            { score: 5, label: 'نعتمد على الترويج المباشر (Boost) بدون تتبع دقيق' },
+            { score: 12, label: 'نطلق حملات متقطعة بدون صفحات هبوط مخصصة' },
+            { score: 20, label: 'حملات مهيكلة مع تتبع التحويلات وحساب العائد' },
+          ],
+        },
+        {
+          id: 'crm',
+          label: '05 · معالجة الطلبات والعملاء المحتملين',
+          q: 'كيف يتم استقبال ومتابعة رسائل وطلبات العملاء؟',
+          options: [
+            { score: 5, label: 'الرسائل تتشتت بين إنستغرام وفيسبوك ويتأخر الرد' },
+            { score: 12, label: 'نرد يدوياً عبر الهاتف أو واتساب بدون تصنيف' },
+            { score: 20, label: 'مسار واضح يفرز الطلبات الجادة بسرعة' },
+          ],
+        },
+      ]
+    : [
+        {
+          id: 'site',
+          label: '01 · Site web & expérience mobile',
+          q: 'Quel est l’état actuel de votre site internet ?',
+          options: [
+            { score: 0, label: 'Aucun site web (présence uniquement sur les réseaux sociaux)' },
+            { score: 10, label: 'Site vieillissant, lent sur mobile ou peu orienté conversion' },
+            { score: 20, label: 'Site rapide, rassurant, avec parcours devis & WhatsApp clair' },
+          ],
+        },
+        {
+          id: 'seo',
+          label: '02 · Visibilité Google en Algérie (SEO)',
+          q: 'Comment ressortez-vous sur Google quand un client cherche votre activité ?',
+          options: [
+            { score: 0, label: 'Invisible sur nos mots-clés métiers en Algérie' },
+            { score: 10, label: 'Visible uniquement lorsqu’on tape le nom exact de notre entreprise' },
+            { score: 20, label: 'Pages services positionnées sur des requêtes locales qualifiées' },
+          ],
+        },
+        {
+          id: 'social',
+          label: '03 · Contenu Social Media & Reels',
+          q: 'Quelle est la régularité et la qualité de vos contenus (visuels, vidéos) ?',
+          options: [
+            { score: 5, label: 'Publications irrégulières, sans véritable direction artistique' },
+            { score: 12, label: 'Visuels propres mais manque de vidéos incarnées (Reels / TikTok)' },
+            { score: 20, label: 'Ligne éditoriale forte + vidéos régulières qui retiennent l’attention' },
+          ],
+        },
+        {
+          id: 'ads',
+          label: '04 · Acquisition payante (Meta Ads & Google Ads)',
+          q: 'Comment pilotez-vous vos campagnes publicitaires ?',
+          options: [
+            { score: 5, label: 'Simples « Boosts » de publications sans suivi des conversions' },
+            { score: 12, label: 'Campagnes ponctuelles mais sans page d’atterrissage dédiée' },
+            { score: 20, label: 'Campagnes structurées avec tracking Pixel / Tag et suivi des leads' },
+          ],
+        },
+        {
+          id: 'crm',
+          label: '05 · Traitement commercial des demandes',
+          q: 'Que se passe-t-il lorsqu’un prospect vous contacte ?',
+          options: [
+            { score: 5, label: 'Messages dispersés en DM avec délais de réponse variables' },
+            { score: 12, label: 'Traitement manuel sur WhatsApp / téléphone sans pré-qualification' },
+            { score: 20, label: 'Demandes qualifiées centralisées avec rappel rapide' },
+          ],
+        },
+      ];
 
-        <div style={{ marginBottom: '2.4rem' }}>
-          <p className="web-quote-eyebrow">
-            {isAr ? 'أدوات مجانية لاتخاذ القرار' : 'Atelier digital interactif · Algérie'}
-          </p>
-          <h1
-            id="tools-page-title"
+  const diagLevel = useMemo(() => {
+    if (diagScore < 45) {
+      return isAr
+        ? {
+            badge: 'المرحلة 1 · أساسيات تحتاج إلى بناء',
+            title: 'حضورك الرقمي يفقد الكثير من الفرص الجاهزة',
+            advice:
+              'الأولوية الآن هي تأسيس قاعدة تحويل واضحة (موقع سريع أو صفحة هبوط مهيكلة + هوية محتوى متناسقة) قبل رفع ميزانية الإعلانات.',
+          }
+        : {
+            badge: 'Palier 1 · Fondations à structurer',
+            title: 'Votre écosystème laisse échapper des demandes qualifiées',
+            advice:
+              'Priorité recommandée : poser un socle de conversion crédible (site rapide ou page dédiée + contenus rassurants) avant d’intensifier le budget publicitaire.',
+          };
+    }
+    if (diagScore < 75) {
+      return isAr
+        ? {
+            badge: 'المرحلة 2 · حضور نشط قابل للتسريع',
+            title: 'لديكم قاعدة جيدة ينقصها الربط بين المحتوى والإعلانات والموقع',
+            advice:
+              'الخطوة التالية هي تحسين صفحات الهبوط، هيكلة SEO محلي في الجزائر، وربط الإعلانات الممولة بمسار تحويل قابل للقياس.',
+          }
+        : {
+            badge: 'Palier 2 · Croissance à accélérer',
+            title: 'Les bases existent, mais vos leviers travaillent encore séparément',
+            advice:
+              'Priorité recommandée : relier vos campagnes Meta / Google Ads et votre création de contenu à un site optimisé pour la conversion et le SEO local.',
+          };
+    }
+    return isAr
+      ? {
+          badge: 'المرحلة 3 · نضج رقمي متقدم',
+          title: 'منظومتكم الرقمية جاهزة للتوسع وزيادة الحصة السوقية',
+          advice:
+            'يمكنكم التركيز على إنتاج فيديو إبداعي عالي التأثير، أتمتة مسار المبيعات، وتوسيع الكلمات المفتاحية التنافسية في جوجل.',
+        }
+      : {
+          badge: 'Palier 3 · Maturité avancée',
+          title: 'Votre socle digital est prêt pour passer à l’échelle',
+          advice:
+            'Priorité recommandée : intensifier la production créative (Reels, spots), affiner le coût d’acquisition et dominer les requêtes SEO de votre secteur.',
+        };
+  }, [diagScore, isAr]);
+
+  const activeTabInfo = toolsTabs.find((t) => t.id === activeTool) || toolsTabs[0];
+
+  return (
+    <div style={{ background: '#f2ede4', color: '#14120f', minHeight: '100vh' }}>
+      {/* ===== 1. HERO SOMBRE ÉDITORIAL (100% aligné sur creation-site-web-algerie.html) ===== */}
+      <header
+        style={{
+          position: 'relative',
+          padding: '7.6rem 0 4.6rem',
+          background: '#14120f',
+          color: '#f2ede4',
+          borderBottom: '1px solid rgba(242, 237, 228, 0.14)',
+          overflow: 'hidden',
+        }}
+      >
+        <div style={{ width: 'min(100% - 9.6vw, 84rem)', marginInline: 'auto' }}>
+          {/* Barre de fil d'Ariane identique aux pages SEO */}
+          <div
             style={{
-              margin: '0 0 1rem',
-              fontSize: 'clamp(2.4rem, 5.2vw, 5.2rem)',
-              lineHeight: 0.96,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '1rem',
+              flexWrap: 'wrap',
+              paddingBottom: '1.35rem',
+              marginBottom: '2.4rem',
+              borderBottom: '1px solid rgba(242, 237, 228, 0.14)',
+              color: 'rgba(242, 237, 228, 0.62)',
+              fontSize: '0.62rem',
+              fontWeight: 700,
+              letterSpacing: '0.15em',
               textTransform: 'uppercase',
             }}
           >
-            {isAr ? (
-              <>
-                شخّص حضورك الرقمي <span style={{ color: '#a69b8b' }}>بدقة.</span>
-              </>
-            ) : (
-              <>
-                Pilotez votre projet <span style={{ color: '#a69b8b' }}>en données réelles.</span>
-              </>
-            )}
-          </h1>
-          <p className="web-quote-lead" style={{ maxWidth: '46rem' }}>
-            {isAr
-              ? 'خمس أدوات تفاعلية صممتها iVISION لمساعدة المؤسسات في الجزائر على تقييم حضورها الرقمي، تقدير الفرص الضائعة، وتحديد نطاق موقعها أو حملاتها قبل الانطلاق.'
-              : 'Cinq outils interactifs conçus par iVISION pour évaluer votre maturité digitale, mesurer l’impact d’un site lent, vérifier vos fondamentaux SEO et cadrer votre projet avant de demander un devis.'}
-          </p>
-        </div>
-
-        {/* BARRE DE SÉLECTION DES 5 OUTILS */}
-        <div
-          role="tablist"
-          aria-label={isAr ? 'الأدوات التفاعلية' : 'Outils interactifs'}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(12.5rem, 1fr))',
-            gap: '0.65rem',
-            marginBottom: '2.5rem',
-          }}
-        >
-          {toolsTabs.map((tab) => {
-            const active = activeTool === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                onClick={() => selectTool(tab.id)}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.55rem', flexWrap: 'wrap' }}>
+              <span
+                aria-hidden="true"
                 style={{
-                  textAlign: isAr ? 'right' : 'left',
-                  padding: '1rem 1.15rem',
-                  borderRadius: '0.85rem',
-                  border: active ? '1px solid #14120f' : '1px solid rgba(20, 18, 15, 0.14)',
-                  background: active ? '#14120f' : '#fbf8f2',
-                  color: active ? '#f2ede4' : '#14120f',
-                  cursor: 'pointer',
-                  transition: 'all 0.25s ease',
+                  width: '0.45rem',
+                  height: '0.45rem',
+                  borderRadius: '50%',
+                  background: '#f2ede4',
+                  boxShadow: '0 0 12px rgba(242, 237, 228, 0.7)',
                 }}
-              >
-                <span
-                  style={{
-                    display: 'block',
-                    fontSize: '0.62rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.14em',
-                    color: active ? '#a69b8b' : 'rgba(20, 18, 15, 0.5)',
-                    marginBottom: '0.35rem',
-                  }}
-                >
-                  {tab.num} / OUTIL
-                </span>
-                <strong style={{ display: 'block', fontSize: '0.92rem', fontWeight: 700 }}>
-                  {tab.label}
-                </strong>
-                <small
-                  style={{
-                    display: 'block',
-                    marginTop: '0.2rem',
-                    fontSize: '0.74rem',
-                    color: active ? 'rgba(242, 237, 228, 0.72)' : 'rgba(20, 18, 15, 0.6)',
-                  }}
-                >
-                  {tab.short}
-                </small>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* CONTENU DE L'OUTIL ACTIF */}
-        {activeTool === 'diagnostic' && (
-          <div className="web-quote-grid" role="tabpanel">
-            <div className="web-quote-form" style={{ display: 'grid', gap: '1.35rem' }}>
-              {diagQuestions.map((item) => (
-                <div
-                  key={item.id}
-                  style={{
-                    paddingBottom: '1.25rem',
-                    borderBottom: '1px solid rgba(20, 18, 15, 0.1)',
-                  }}
-                >
-                  <span
-                    style={{
-                      display: 'block',
-                      fontSize: '0.65rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.14em',
-                      color: '#6f6559',
-                      marginBottom: '0.35rem',
-                    }}
-                  >
-                    {item.label}
-                  </span>
-                  <p style={{ margin: '0 0 0.75rem', fontWeight: 700, fontSize: '1rem' }}>
-                    {item.q}
-                  </p>
-                  <div style={{ display: 'grid', gap: '0.5rem' }}>
-                    {item.options.map((opt) => {
-                      const selected = diagAnswers[item.id] === opt.score;
-                      return (
-                        <button
-                          key={opt.label}
-                          type="button"
-                          onClick={() =>
-                            setDiagAnswers((prev) => ({ ...prev, [item.id]: opt.score }))
-                          }
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            gap: '0.75rem',
-                            padding: '0.75rem 0.95rem',
-                            borderRadius: '0.65rem',
-                            border: selected
-                              ? '1px solid #14120f'
-                              : '1px solid rgba(20, 18, 15, 0.14)',
-                            background: selected ? '#14120f' : '#f2ede4',
-                            color: selected ? '#f2ede4' : '#14120f',
-                            fontSize: '0.88rem',
-                            fontWeight: selected ? 600 : 500,
-                            textAlign: isAr ? 'right' : 'left',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          <span>{opt.label}</span>
-                          <b style={{ fontSize: '0.75rem', color: selected ? '#a69b8b' : '#6f6559' }}>
-                            +{opt.score} pts
-                          </b>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
+              />
+              <a href="/" style={{ color: '#f2ede4', textDecoration: 'none' }}>
+                {isAr ? '← الرئيسية' : '← Accueil'}
+              </a>
+              <span>/</span>
+              <a href="/agence-marketing-digital-algerie.html" style={{ color: 'rgba(242, 237, 228, 0.72)', textDecoration: 'none' }}>
+                {isAr ? 'التسويق الرقمي' : 'Marketing digital'}
+              </a>
+              <span>/</span>
+              <span style={{ color: '#f2ede4' }}>{isAr ? 'الأدوات التفاعلية' : 'Outils & Simulateurs'}</span>
             </div>
 
-            <aside
-              style={{
-                position: 'sticky',
-                top: '6.5rem',
-                padding: '2rem',
-                borderRadius: '1.1rem',
-                background: '#14120f',
-                color: '#f2ede4',
-                border: '1px solid rgba(242, 237, 228, 0.16)',
-              }}
-            >
-              <span
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem', flexWrap: 'wrap' }}>
+              {toolsTabs.map((tab, idx) => (
+                <React.Fragment key={tab.id}>
+                  {idx > 0 && <span aria-hidden="true">·</span>}
+                  <button
+                    type="button"
+                    onClick={() => selectTool(tab.id, true)}
+                    style={{
+                      background: 'none',
+                      border: 0,
+                      padding: 0,
+                      color: activeTool === tab.id ? '#f2ede4' : 'rgba(242, 237, 228, 0.62)',
+                      fontSize: '0.6rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.14em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      textDecoration: activeTool === tab.id ? 'underline' : 'none',
+                      textUnderlineOffset: '0.28rem',
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+
+          {/* Grille Hero 2 colonnes comme creation-site-web-algerie.html */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 22rem), 1fr))',
+              gap: 'clamp(1.8rem, 3.6vw, 4rem)',
+              alignItems: 'end',
+            }}
+          >
+            <div>
+              <p
                 style={{
-                  display: 'inline-block',
-                  padding: '0.3rem 0.7rem',
-                  borderRadius: '999px',
-                  border: '1px solid rgba(242, 237, 228, 0.25)',
+                  margin: '0 0 1rem',
+                  color: '#a69b8b',
                   fontSize: '0.62rem',
                   fontWeight: 700,
-                  letterSpacing: '0.12em',
+                  letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  color: '#a69b8b',
                 }}
               >
-                {diagLevel.badge}
-              </span>
-              <div
+                {isAr ? 'iVISION / مختبر القرار الرقمي · الجزائر' : 'iVISION / Atelier digital interactif'}
+              </p>
+              <h1
+                id="tools-page-title"
                 style={{
-                  fontFamily: "'Bodoni Moda', Georgia, serif",
-                  fontSize: 'clamp(3.4rem, 6vw, 5.2rem)',
-                  lineHeight: 1,
-                  margin: '1.1rem 0 0.4rem',
+                  margin: '0 0 1.4rem',
+                  fontFamily: activeFontObj.family,
+                  fontWeight: activeFontObj.weight,
+                  fontSize: 'clamp(2.55rem, 5.3vw, 5.5rem)',
+                  lineHeight: 0.94,
+                  letterSpacing: '-0.025em',
+                  textTransform: 'uppercase',
+                  color: '#f2ede4',
                 }}
               >
-                {diagScore}
-                <span style={{ fontSize: '1.4rem', color: '#a69b8b' }}>/100</span>
-              </div>
-              <h2 style={{ margin: '0 0 0.75rem', fontSize: '1.45rem', color: '#f2ede4' }}>
-                {diagLevel.title}
-              </h2>
-              <p style={{ margin: '0 0 1.5rem', color: 'rgba(242, 237, 228, 0.75)', lineHeight: 1.65, fontSize: '0.92rem' }}>
-                {diagLevel.desc}
+                {isAr ? (
+                  <>
+                    شخّص حضورك <em style={{ fontStyle: 'normal', color: '#a69b8b' }}>الرقمي</em> بدقة.
+                  </>
+                ) : (
+                  <>
+                    Outils &amp;{' '}
+                    <em
+                      style={{
+                        fontFamily: activeFontObj.scriptFamily,
+                        fontStyle: 'normal',
+                        fontWeight: 400,
+                        textTransform: 'capitalize',
+                        fontSize: '1.14em',
+                        color: '#a69b8b',
+                      }}
+                    >
+                      simulateurs
+                    </em>{' '}
+                    digitaux.
+                  </>
+                )}
+              </h1>
+              <p
+                style={{
+                  maxWidth: '42rem',
+                  margin: '0 0 1.9rem',
+                  color: 'rgba(242, 237, 228, 0.82)',
+                  fontSize: 'clamp(0.98rem, 1.15vw, 1.12rem)',
+                  lineHeight: 1.68,
+                }}
+              >
+                {isAr
+                  ? 'خمس أدوات مجانية صممتها وكالة iVISION لمساعدة المؤسسات في الجزائر على تقييم نضجها الرقمي، حساب الفرص الضائعة، فحص جاهزية SEO وتحديد نطاق مشروعها قبل طلب عرض السعر.'
+                  : 'Cinq outils interactifs gratuits conçus par iVISION pour évaluer votre maturité digitale, mesurer l’impact d’un site lent, vérifier vos fondamentaux SEO et cadrer votre projet avant de demander un devis.'}
               </p>
 
-              <div style={{ display: 'grid', gap: '0.65rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <a
-                  href="/#/devis"
-                  className="web-quote-submit"
-                  style={{
-                    background: '#f2ede4',
-                    color: '#14120f',
-                    textDecoration: 'none',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {isAr ? 'اطلب خطة عمل مخصصة ↗' : 'Demander mon plan d’action ↗'}
-                </a>
-                <a
-                  href={buildWhatsAppLink(
-                    isAr
-                      ? `مرحباً iVISION، أجريت التشخيص الرقمي وحصلت على ${diagScore}/100. أود مناقشة خطة تطوير لمشروعي.`
-                      : `Bonjour iVISION, j'ai réalisé le Diagnostic Digital Score (${diagScore}/100) et je souhaite discuter des priorités pour mon entreprise.`
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#tools-workspace"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: '3.1rem',
+                    justifyContent: 'space-between',
+                    gap: '1.2rem',
+                    minHeight: '2.95rem',
+                    padding: '0.78rem 1.35rem',
                     borderRadius: '999px',
-                    border: '1px solid rgba(242, 237, 228, 0.28)',
-                    color: '#f2ede4',
-                    textDecoration: 'none',
-                    fontSize: '0.72rem',
+                    background: '#f2ede4',
+                    color: '#14120f',
+                    border: '1px solid #f2ede4',
+                    fontSize: '0.62rem',
                     fontWeight: 700,
-                    letterSpacing: '0.1em',
+                    letterSpacing: '0.09em',
                     textTransform: 'uppercase',
+                    textDecoration: 'none',
                   }}
                 >
-                  {isAr ? 'إرسال النتيجة عبر واتساب ↗' : 'Envoyer mon score sur WhatsApp ↗'}
+                  <span>{isAr ? 'استخدم الأدوات التفاعلية' : 'Utiliser les 5 outils'}</span>
+                  <b aria-hidden="true">↓</b>
                 </a>
-              </div>
-            </aside>
-          </div>
-        )}
-
-        {activeTool === 'pertes' && (
-          <div className="web-quote-grid" role="tabpanel">
-            <div className="web-quote-form" style={{ display: 'grid', gap: '1.5rem' }}>
-              <div>
-                <span className="web-quote-eyebrow">
-                  {isAr ? 'محاكاة الأثر التجاري' : 'Simulateur de friction & vitesse'}
-                </span>
-                <h2 style={{ margin: '0.3rem 0 0.6rem', fontSize: '1.75rem' }}>
-                  {isAr
-                    ? 'كم يكلفك الموقع البطيء أو غياب مسار التحويل؟'
-                    : 'Combien vous coûte un site lent ou absent chaque mois ?'}
-                </h2>
-                <p style={{ margin: 0, color: 'rgba(20, 18, 15, 0.68)', fontSize: '0.92rem' }}>
-                  {isAr
-                    ? 'حرك المؤشرات الثلاثة لتقدير عدد الزوار والطلبات التي تضيع قبل أن يتواصل العميل معك.'
-                    : 'Ajustez les 3 curseurs selon votre activité en Algérie pour estimer les visiteurs et demandes perdus avant même le premier contact.'}
-                </p>
-              </div>
-
-              <label>
-                <span>
-                  {isAr
-                    ? `عدد الزوار أو المهتمين شهرياً : ${monthlyVisitors.toLocaleString('fr-DZ')}`
-                    : `Visiteurs / prospects mensuels estimés : ${monthlyVisitors.toLocaleString('fr-DZ')}`}
-                </span>
-                <input
-                  type="range"
-                  min={300}
-                  max={15000}
-                  step={100}
-                  value={monthlyVisitors}
-                  onChange={(e) => setMonthlyVisitors(Number(e.target.value))}
-                />
-              </label>
-
-              <label>
-                <span>
-                  {isAr
-                    ? `متوسط قيمة العميل أو الطلبية (د.ج) : ${avgDealValue.toLocaleString('fr-DZ')} DA`
-                    : `Panier moyen / valeur d’un client (DA) : ${avgDealValue.toLocaleString('fr-DZ')} DA`}
-                </span>
-                <input
-                  type="range"
-                  min={3000}
-                  max={250000}
-                  step={1000}
-                  value={avgDealValue}
-                  onChange={(e) => setAvgDealValue(Number(e.target.value))}
-                />
-              </label>
-
-              <label>
-                <span>
-                  {isAr
-                    ? `مدة تحميل الموقع أو صعوبة الوصول للعرض : ${loadSeconds} ثوانٍ`
-                    : `Temps de chargement / friction actuelle : ${loadSeconds} secondes`}
-                </span>
-                <input
-                  type="range"
-                  min={2}
-                  max={12}
-                  step={1}
-                  value={loadSeconds}
-                  onChange={(e) => setLoadSeconds(Number(e.target.value))}
-                />
-              </label>
-
-              <div
-                style={{
-                  padding: '1.15rem',
-                  borderRadius: '0.85rem',
-                  background: '#f2ede4',
-                  border: '1px solid rgba(20, 18, 15, 0.12)',
-                  fontSize: '0.86rem',
-                  lineHeight: 1.6,
-                }}
-              >
-                <strong>{isAr ? 'ملاحظة منهجية :' : 'Note méthodologique :'}</strong>{' '}
-                {isAr
-                  ? 'وفق دراسات تجربة المستخدم على الهاتف، يغادر أكثر من 53% من الزوار الصفحة إذا تجاوز التحميل 3 ثوانٍ أو غابت وسيلة التواصل المباشرة.'
-                  : 'Selon les études UX mobile, plus de 53 % des visiteurs quittent une page qui met plus de 3 secondes à charger ou ne présente pas d’action claire.'}
+                <a
+                  href="/#/devis"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '1.2rem',
+                    minHeight: '2.95rem',
+                    padding: '0.78rem 1.35rem',
+                    borderRadius: '999px',
+                    background: 'transparent',
+                    color: '#f2ede4',
+                    border: '1px solid rgba(242, 237, 228, 0.45)',
+                    fontSize: '0.62rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.09em',
+                    textTransform: 'uppercase',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <span>{isAr ? 'اطلب عرض سعر مخصص' : 'Parler de mon projet'}</span>
+                  <b aria-hidden="true">↗</b>
+                </a>
               </div>
             </div>
 
+            {/* Cadre tablette éditorial (identique au cadre Fidali de creation-site-web-algerie.html) */}
             <aside
+              aria-label={isAr ? 'قائمة الأدوات' : 'Sélecteur rapide des 5 outils'}
               style={{
-                padding: '2rem',
-                borderRadius: '1.1rem',
-                background: '#14120f',
-                color: '#f2ede4',
-                display: 'grid',
-                gap: '1.2rem',
+                position: 'relative',
+                padding: 'clamp(0.85rem, 1.5vw, 1.2rem)',
+                border: '1px solid rgba(242, 237, 228, 0.18)',
+                borderRadius: '1.35rem',
+                background: '#1c1a17',
+                boxShadow: '0 26px 70px rgba(0, 0, 0, 0.28)',
               }}
             >
-              <div>
-                <span style={{ fontSize: '0.64rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a69b8b', fontWeight: 700 }}>
-                  {isAr ? 'تقدير الفرص الضائعة شهرياً' : 'Estimation mensuelle des pertes'}
-                </span>
+              <div
+                style={{
+                  borderRadius: '0.95rem',
+                  background: '#fbf8f2',
+                  color: '#14120f',
+                  padding: '1.25rem',
+                  display: 'grid',
+                  gap: '0.55rem',
+                }}
+              >
                 <div
                   style={{
-                    fontFamily: "'Bodoni Moda', Georgia, serif",
-                    fontSize: 'clamp(2.2rem, 4.2vw, 3.4rem)',
-                    lineHeight: 1.05,
-                    marginTop: '0.45rem',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingBottom: '0.65rem',
+                    borderBottom: '1px solid rgba(20, 18, 15, 0.12)',
+                    fontSize: '0.62rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    color: '#6b6259',
                   }}
                 >
-                  {lossStats.missedRevenueMonth.toLocaleString('fr-DZ')} DA
-                  <small style={{ display: 'block', fontSize: '0.78rem', color: 'rgba(242, 237, 228, 0.65)', fontFamily: 'Jost, sans-serif', marginTop: '0.3rem' }}>
-                    {isAr ? 'فرص مبيعات غير مستغلة شهرياً (تقديري)' : 'Potentiel de chiffre d’affaires non capté / mois'}
-                  </small>
+                  <span>{isAr ? 'اختر الأداة التفاعلية' : 'Sélectionner un simulateur'}</span>
+                  <span>05 OUTILS</span>
                 </div>
-              </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                <div style={{ padding: '0.9rem', borderRadius: '0.75rem', border: '1px solid rgba(242,237,228,0.14)' }}>
-                  <strong style={{ display: 'block', fontSize: '1.4rem', color: '#f2ede4' }}>
-                    -{lossStats.dropPercent}%
-                  </strong>
-                  <small style={{ color: 'rgba(242,237,228,0.68)', fontSize: '0.75rem' }}>
-                    {isAr ? `(${lossStats.lostVisitors} زائر يغادر مبكراً)` : `(${lossStats.lostVisitors} visiteurs perdus / mois)`}
-                  </small>
-                </div>
-                <div style={{ padding: '0.9rem', borderRadius: '0.75rem', border: '1px solid rgba(242,237,228,0.14)' }}>
-                  <strong style={{ display: 'block', fontSize: '1.4rem', color: '#f2ede4' }}>
-                    ~{lossStats.missedLeads}
-                  </strong>
-                  <small style={{ color: 'rgba(242,237,228,0.68)', fontSize: '0.75rem' }}>
-                    {isAr ? 'طلبات تواصل ضائعة شهرياً' : 'Demandes de devis manquées / mois'}
-                  </small>
-                </div>
-              </div>
-
-              <div style={{ padding: '0.9rem 1rem', borderRadius: '0.75rem', background: 'rgba(242,237,228,0.06)', fontSize: '0.82rem' }}>
-                ⏱ {isAr ? `منذ فتحك لهذه الصفحة (${elapsedSeconds} ثانية)، يقدر الهدر التراكمي بنحو ` : `Depuis votre arrivée sur cette page (${elapsedSeconds}s), l’écart cumulé simulé représente `}
-                <strong style={{ color: '#a69b8b' }}>{lossStats.realtimeLostDA.toLocaleString('fr-DZ')} DA</strong>.
-              </div>
-
-              <a
-                href="/#/devis?service=site-web"
-                className="web-quote-submit"
-                style={{ background: '#f2ede4', color: '#14120f', textDecoration: 'none', justifyContent: 'center' }}
-              >
-                {isAr ? 'أصلح مسار موقعي الآن ↗' : 'Optimiser mon site & ma conversion ↗'}
-              </a>
-            </aside>
-          </div>
-        )}
-
-        {activeTool === 'audit-seo' && (
-          <div className="web-quote-grid" role="tabpanel">
-            <div className="web-quote-form" style={{ display: 'grid', gap: '1.25rem' }}>
-              <div className="web-quote-row">
-                <label>
-                  <span>{isAr ? 'رابط موقعك الحالي (اختياري)' : 'URL de votre site web (optionnel)'}</span>
-                  <input
-                    type="url"
-                    placeholder="https://..."
-                    value={seoUrl}
-                    onChange={(e) => setSeoUrl(e.target.value)}
-                  />
-                </label>
-                <label>
-                  <span>{isAr ? 'مجال النشاط والولايات المستهدفة' : 'Secteur & wilayas ciblées'}</span>
-                  <input
-                    type="text"
-                    placeholder={isAr ? 'مثال: عيادة، عقارات، تجارة في الجزائر...' : 'Ex : Immobilier Alger, E-commerce Algérie...'}
-                    value={seoSector}
-                    onChange={(e) => setSeoSector(e.target.value)}
-                  />
-                </label>
-              </div>
-
-              <p style={{ margin: '0.2rem 0', fontWeight: 700, fontSize: '0.95rem' }}>
-                {isAr
-                  ? 'حدد العناصر المتوفرة حالياً في موقعك لحساب جاهزية SEO :'
-                  : 'Cochez les éléments déjà en place sur votre site pour calculer votre score SEO :'}
-              </p>
-
-              <div style={{ display: 'grid', gap: '0.55rem' }}>
-                {seoItems.map((item) => {
-                  const checked = Boolean(seoChecks[item.id]);
+                {toolsTabs.map((tab) => {
+                  const active = activeTool === tab.id;
                   return (
-                    <label
-                      key={item.id}
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => selectTool(tab.id, true)}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: '0.8rem',
-                        padding: '0.8rem 1rem',
+                        padding: '0.7rem 0.9rem',
                         borderRadius: '0.7rem',
-                        border: checked ? '1px solid #14120f' : '1px solid rgba(20, 18, 15, 0.14)',
-                        background: checked ? '#f2ede4' : '#ffffff',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', margin: 0, fontWeight: 600 }}>
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={() =>
-                            setSeoChecks((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
-                          }
-                          style={{ width: '1.05rem', height: '1.05rem' }}
-                        />
-                        {item.title}
-                      </span>
-                      <small style={{ fontWeight: 700, color: '#6f6559' }}>+{item.weight}%</small>
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            <aside
-              style={{
-                padding: '2rem',
-                borderRadius: '1.1rem',
-                background: '#14120f',
-                color: '#f2ede4',
-                display: 'grid',
-                gap: '1.1rem',
-                alignContent: 'start',
-              }}
-            >
-              <span style={{ fontSize: '0.64rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a69b8b', fontWeight: 700 }}>
-                {isAr ? 'مؤشر جاهزية الظهور في جوجل' : 'Indice de visibilité SEO Algérie'}
-              </span>
-              <div style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: '4.2rem', lineHeight: 1 }}>
-                {seoScore}%
-              </div>
-              <p style={{ margin: 0, color: 'rgba(242,237,228,0.76)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                {seoScore < 60
-                  ? isAr
-                    ? 'موقعك يفتقد لركائز أساسية تمنعه من الظهور في الصفحات الأولى على جوجل في الجزائر.'
-                    : 'Il manque des fondations critiques (pages dédiées par service, balisage ou vitesse mobile) pour ressortir sur Google en Algérie.'
-                  : isAr
-                    ? 'القاعدة التقنية جيدة! يمكنك الآن التركيز على صفحات الخدمات الكاملة وبناء الثقة لتصدر نتائج البحث.'
-                    : 'Vos bases techniques sont saines. L’étape suivante consiste à enrichir vos pages de services et votre maillage local.'}
-              </p>
-
-              <a
-                href={buildWhatsAppLink(
-                  isAr
-                    ? `مرحباً iVISION، أود طلب فحص SEO لموقعي (${seoUrl || 'بدون رابط بعد'}) في مجال (${seoSector || 'غير محدد'}). النتيجة الأولية: ${seoScore}%.`
-                    : `Bonjour iVISION, je souhaite demander un audit SEO gratuit pour mon site (${seoUrl || 'à créer'}) dans le secteur (${seoSector || 'à préciser'}). Score checklist : ${seoScore}%.`
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="web-quote-submit"
-                style={{ background: '#f2ede4', color: '#14120f', textDecoration: 'none', justifyContent: 'center' }}
-              >
-                {isAr ? 'اطلب تدقيق SEO مجاني من الفريق ↗' : 'Recevoir mon audit SEO par WhatsApp ↗'}
-              </a>
-              <a
-                href="/choisir-seo-google-ads-meta-algerie.html"
-                style={{ color: '#a69b8b', fontSize: '0.8rem', textDecoration: 'underline' }}
-              >
-                {isAr ? 'اقرأ الدليل: كيف تختار بين SEO وGoogle Ads؟ ↗' : 'Lire notre guide : choisir entre SEO, Google Ads et Meta Ads ↗'}
-              </a>
-            </aside>
-          </div>
-        )}
-
-        {activeTool === 'simulateur-web' && (
-          <div className="web-quote-grid" role="tabpanel">
-            <div className="web-quote-form" style={{ display: 'grid', gap: '1.35rem' }}>
-              <div>
-                <span className="web-quote-eyebrow">
-                  {isAr ? 'مصمم بنية الموقع' : 'Configurateur d’architecture web'}
-                </span>
-                <h2 style={{ margin: '0.3rem 0 0', fontSize: '1.65rem' }}>
-                  {isAr ? 'ما هو الهدف الأساسي لموقعك القادم؟' : 'Quel est l’objectif principal de votre futur site ?'}
-                </h2>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(11rem, 1fr))', gap: '0.6rem' }}>
-                {[
-                  { id: 'vitrine', label: isAr ? 'موقع تعريفي للشركة' : 'Site vitrine & crédibilité' },
-                  { id: 'ecommerce', label: isAr ? 'متجر إلكتروني (بيع)' : 'Boutique E-commerce' },
-                  { id: 'landing', label: isAr ? 'صفحة هبوط للإعلانات' : 'Landing page Ads' },
-                  { id: 'refonte', label: isAr ? 'تجديد موقع حالي' : 'Refonte de site existant' },
-                ].map((item) => {
-                  const active = webGoal === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setWebGoal(item.id as typeof webGoal)}
-                      style={{
-                        padding: '0.85rem 1rem',
-                        borderRadius: '0.7rem',
-                        border: active ? '1px solid #14120f' : '1px solid rgba(20,18,15,0.15)',
+                        border: active ? '1px solid #14120f' : '1px solid rgba(20, 18, 15, 0.12)',
                         background: active ? '#14120f' : '#f2ede4',
                         color: active ? '#f2ede4' : '#14120f',
-                        fontWeight: 700,
-                        fontSize: '0.86rem',
+                        textAlign: isAr ? 'right' : 'left',
                         cursor: 'pointer',
+                        transition: 'all 0.2s ease',
                       }}
                     >
-                      {item.label}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <span
+                          style={{
+                            fontSize: '0.64rem',
+                            fontWeight: 700,
+                            letterSpacing: '0.12em',
+                            color: active ? '#a69b8b' : '#6b6259',
+                          }}
+                        >
+                          {tab.num}
+                        </span>
+                        <div>
+                          <strong style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700 }}>
+                            {tab.label}
+                          </strong>
+                          <small
+                            style={{
+                              display: 'block',
+                              fontSize: '0.7rem',
+                              color: active ? 'rgba(242, 237, 228, 0.7)' : '#6b6259',
+                            }}
+                          >
+                            {tab.short}
+                          </small>
+                        </div>
+                      </div>
+                      <span style={{ fontSize: '0.8rem', color: active ? '#a69b8b' : '#6b6259' }}>
+                        {active ? '●' : '↗'}
+                      </span>
                     </button>
                   );
                 })}
               </div>
+            </aside>
+          </div>
+        </div>
+      </header>
 
-              <div className="web-quote-row">
-                <label>
-                  <span>{isAr ? 'الحجم التقديري للصفحات' : 'Volume de pages estimé'}</span>
-                  <select value={webPages} onChange={(e) => setWebPages(e.target.value as typeof webPages)}>
-                    <option value="1-3">{isAr ? '1 إلى 3 صفحات مركزة' : '1 à 3 pages ciblées'}</option>
-                    <option value="4-7">{isAr ? '4 إلى 7 صفحات متكاملة' : '4 à 7 pages structurées'}</option>
-                    <option value="8+">{isAr ? '8 صفحات فأكثر / كتالوج' : '8+ pages ou catalogue complet'}</option>
-                  </select>
-                </label>
-                <label>
-                  <span>{isAr ? 'اللغات المطلوبة' : 'Langues du site'}</span>
-                  <select
-                    value={webBilingual ? 'fr-ar' : 'fr'}
-                    onChange={(e) => setWebBilingual(e.target.value === 'fr-ar')}
+      {/* ===== 2. SECTION OUTILS SUR FOND CRÈME CHAUD (#f2ede4) & CARTES PAPIER (#fbf8f2) ===== */}
+      <section
+        id="tools-workspace"
+        aria-labelledby="active-tool-heading"
+        style={{
+          padding: 'clamp(3.2rem, 6vw, 5.4rem) 0',
+          background: '#f2ede4',
+          color: '#14120f',
+          borderBottom: '1px solid rgba(20, 18, 15, 0.14)',
+        }}
+      >
+        <div style={{ width: 'min(100% - 9.6vw, 84rem)', marginInline: 'auto' }}>
+          {/* En-tête de section éditorial */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'end',
+              gap: '1.5rem',
+              flexWrap: 'wrap',
+              paddingBottom: '1.4rem',
+              marginBottom: '2rem',
+              borderBottom: '1px solid rgba(20, 18, 15, 0.14)',
+            }}
+          >
+            <div>
+              <span
+                style={{
+                  display: 'block',
+                  fontSize: '0.62rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  color: '#6b6259',
+                  marginBottom: '0.45rem',
+                }}
+              >
+                {activeTabInfo.num} / {activeTabInfo.short}
+              </span>
+              <h2
+                id="active-tool-heading"
+                style={{
+                  margin: 0,
+                  fontFamily: activeFontObj.family,
+                  fontWeight: activeFontObj.weight,
+                  fontSize: 'clamp(1.85rem, 3.4vw, 3.1rem)',
+                  lineHeight: 0.98,
+                  textTransform: 'uppercase',
+                  color: '#14120f',
+                }}
+              >
+                {activeTabInfo.label}
+              </h2>
+            </div>
+
+            {/* Onglets pilules sur fond papier #fbf8f2 */}
+            <div
+              role="tablist"
+              aria-label={isAr ? 'الأدوات التفاعلية' : 'Outils interactifs'}
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.45rem',
+                padding: '0.38rem',
+                borderRadius: '999px',
+                background: '#fbf8f2',
+                border: '1px solid rgba(20, 18, 15, 0.14)',
+              }}
+            >
+              {toolsTabs.map((tab) => {
+                const active = activeTool === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => selectTool(tab.id)}
+                    style={{
+                      padding: '0.58rem 1rem',
+                      borderRadius: '999px',
+                      border: active ? '1px solid #14120f' : '1px solid transparent',
+                      background: active ? '#14120f' : 'transparent',
+                      color: active ? '#f2ede4' : '#14120f',
+                      fontSize: '0.64rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                    }}
                   >
-                    <option value="fr-ar">{isAr ? 'ثنائي اللغة (فرنسي + عربي RTL)' : 'Bilingue Français + Arabe (RTL)'}</option>
-                    <option value="fr">{isAr ? 'لغة واحدة فقط' : 'Une seule langue (FR)'}</option>
-                  </select>
-                </label>
+                    <span style={{ color: active ? '#a69b8b' : '#6b6259', marginInlineEnd: '0.35rem' }}>
+                      {tab.num}
+                    </span>
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* CONTENU DE L'OUTIL 01 : DIAGNOSTIC */}
+          {activeTool === 'diagnostic' && (
+            <div className="web-quote-grid" role="tabpanel">
+              <div
+                style={{
+                  padding: 'clamp(1.35rem, 2.5vw, 2.2rem)',
+                  borderRadius: '1.15rem',
+                  background: '#fbf8f2',
+                  color: '#14120f',
+                  border: '1px solid rgba(20, 18, 15, 0.14)',
+                  display: 'grid',
+                  gap: '1.35rem',
+                }}
+              >
+                {diagQuestions.map((item) => (
+                  <div
+                    key={item.id}
+                    style={{
+                      paddingBottom: '1.25rem',
+                      borderBottom: '1px solid rgba(20, 18, 15, 0.1)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: 'block',
+                        fontSize: '0.65rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.14em',
+                        color: '#6b6259',
+                        textTransform: 'uppercase',
+                        marginBottom: '0.35rem',
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                    <p style={{ margin: '0 0 0.75rem', fontWeight: 700, fontSize: '1rem', color: '#14120f' }}>
+                      {item.q}
+                    </p>
+                    <div style={{ display: 'grid', gap: '0.5rem' }}>
+                      {item.options.map((opt) => {
+                        const selected = diagAnswers[item.id] === opt.score;
+                        return (
+                          <button
+                            key={opt.label}
+                            type="button"
+                            onClick={() =>
+                              setDiagAnswers((prev) => ({ ...prev, [item.id]: opt.score }))
+                            }
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              gap: '0.75rem',
+                              padding: '0.8rem 1rem',
+                              borderRadius: '0.7rem',
+                              border: selected
+                                ? '1px solid #14120f'
+                                : '1px solid rgba(20, 18, 15, 0.14)',
+                              background: selected ? '#14120f' : '#f2ede4',
+                              color: selected ? '#f2ede4' : '#14120f',
+                              fontSize: '0.88rem',
+                              fontWeight: selected ? 600 : 500,
+                              textAlign: isAr ? 'right' : 'left',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <span>{opt.label}</span>
+                            <b style={{ fontSize: '0.75rem', color: selected ? '#a69b8b' : '#6b6259' }}>
+                              +{opt.score} pts
+                            </b>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              <div>
-                <span style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.55rem' }}>
-                  {isAr ? 'الوظائف المطلوبة في الموقع :' : 'Fonctionnalités souhaitées :'}
+              <aside
+                style={{
+                  position: 'sticky',
+                  top: '6.5rem',
+                  padding: '2rem',
+                  borderRadius: '1.15rem',
+                  background: '#14120f',
+                  color: '#f2ede4',
+                  border: '1px solid rgba(242, 237, 228, 0.16)',
+                }}
+              >
+                <span
+                  style={{
+                    display: 'inline-block',
+                    padding: '0.3rem 0.7rem',
+                    borderRadius: '999px',
+                    border: '1px solid rgba(242, 237, 228, 0.25)',
+                    fontSize: '0.62rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: '#a69b8b',
+                  }}
+                >
+                  {diagLevel.badge}
                 </span>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  {[
-                    { id: 'whatsapp', label: isAr ? 'ربط واتساب واستمارة ذكية' : 'Conversion WhatsApp & Devis' },
-                    { id: 'seo', label: isAr ? 'تهيئة SEO لمحركات البحث' : 'Optimisation SEO Google Algérie' },
-                    { id: 'catalog', label: isAr ? 'كتالوج منتجات / طلب سريع' : 'Catalogue produits / Commande COD' },
-                    { id: 'pixel', label: isAr ? 'تتبع Meta Pixel & Google Tag' : 'Tracking Meta Pixel & Google Ads' },
-                  ].map((feat) => {
-                    const active = webFeatures.includes(feat.id);
+                <div
+                  style={{
+                    fontFamily: activeFontObj.family,
+                    fontSize: 'clamp(3.4rem, 6vw, 5.2rem)',
+                    lineHeight: 0.95,
+                    margin: '1rem 0 0.5rem',
+                    color: '#f2ede4',
+                  }}
+                >
+                  {diagScore}
+                  <span style={{ fontSize: '1.5rem', color: '#a69b8b' }}>/100</span>
+                </div>
+                <h3 style={{ margin: '0 0 0.75rem', fontSize: '1.35rem', color: '#f2ede4' }}>
+                  {diagLevel.title}
+                </h3>
+                <p style={{ margin: '0 0 1.5rem', color: 'rgba(242, 237, 228, 0.76)', fontSize: '0.9rem', lineHeight: 1.6 }}>
+                  {diagLevel.advice}
+                </p>
+
+                <div style={{ display: 'grid', gap: '0.65rem' }}>
+                  <a
+                    href="/#/devis"
+                    className="web-quote-submit"
+                    style={{ background: '#f2ede4', color: '#14120f', textDecoration: 'none', justifyContent: 'center' }}
+                  >
+                    {isAr ? 'اطلب خطة عمل مخصصة ↗' : 'Demander mon plan d’action ↗'}
+                  </a>
+                  <a
+                    href={buildWhatsAppLink(
+                      isAr
+                        ? `مرحباً iVISION، أجريت التشخيص الرقمي وحصلت على ${diagScore}/100. أرغب في مناقشة خطة تحسين حضوري الرقمي.`
+                        : `Bonjour iVISION, j'ai réalisé le Diagnostic Digital Score (${diagScore}/100) et je souhaite échanger sur les priorités de mon projet.`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: '3.1rem',
+                      padding: '0.75rem 1.2rem',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(242, 237, 228, 0.28)',
+                      color: '#f2ede4',
+                      textDecoration: 'none',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {isAr ? 'إرسال النتيجة عبر واتساب ↗' : 'Discuter de mon score sur WhatsApp ↗'}
+                  </a>
+                </div>
+              </aside>
+            </div>
+          )}
+
+          {/* CONTENU DE L'OUTIL 02 : COMPTEUR DE PERTES */}
+          {activeTool === 'pertes' && (
+            <div className="web-quote-grid" role="tabpanel">
+              <div
+                style={{
+                  padding: 'clamp(1.35rem, 2.5vw, 2.2rem)',
+                  borderRadius: '1.15rem',
+                  background: '#fbf8f2',
+                  color: '#14120f',
+                  border: '1px solid rgba(20, 18, 15, 0.14)',
+                  display: 'grid',
+                  gap: '1.4rem',
+                }}
+              >
+                <div>
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      color: '#6b6259',
+                    }}
+                  >
+                    {isAr ? 'محاكاة تأثير البطء وغياب التحويل' : 'Impact de la lenteur & du parcours client'}
+                  </span>
+                  <h3 style={{ margin: '0.35rem 0 0.5rem', fontSize: '1.6rem', color: '#14120f' }}>
+                    {isAr ? 'كم يكلفك موقع بطيء أو غير مقنع؟' : 'Combien vous coûte un site lent ou absent ?'}
+                  </h3>
+                  <p style={{ margin: 0, color: '#554d44', fontSize: '0.92rem', lineHeight: 1.65 }}>
+                    {isAr
+                      ? 'حرك المؤشرات الثلاثة لتقدير عدد الزوار والطلبات التي تضيع شهرياً عندما يتجاوز وقت تحميل الصفحة ثانيتين على الهاتف.'
+                      : 'Ajustez les 3 curseurs pour estimer le volume de visiteurs et de demandes perdues chaque mois lorsque votre page met trop de temps à charger sur mobile.'}
+                  </p>
+                </div>
+
+                <label style={{ display: 'grid', gap: '0.45rem', fontWeight: 700, fontSize: '0.88rem', color: '#14120f' }}>
+                  <span>
+                    {isAr
+                      ? `عدد الزوار أو النقرات شهرياً : ${monthlyVisitors.toLocaleString('fr-DZ')}`
+                      : `Visiteurs / clics mensuels estimés : ${monthlyVisitors.toLocaleString('fr-DZ')}`}
+                  </span>
+                  <input
+                    type="range"
+                    min={500}
+                    max={30000}
+                    step={500}
+                    value={monthlyVisitors}
+                    onChange={(e) => setMonthlyVisitors(Number(e.target.value))}
+                    style={{ accentColor: '#14120f', cursor: 'pointer' }}
+                  />
+                </label>
+
+                <label style={{ display: 'grid', gap: '0.45rem', fontWeight: 700, fontSize: '0.88rem', color: '#14120f' }}>
+                  <span>
+                    {isAr
+                      ? `متوسط قيمة العميل أو الطلبية (د.ج) : ${avgDealValue.toLocaleString('fr-DZ')} DA`
+                      : `Panier moyen / valeur d’un client (DA) : ${avgDealValue.toLocaleString('fr-DZ')} DA`}
+                  </span>
+                  <input
+                    type="range"
+                    min={3000}
+                    max={250000}
+                    step={1000}
+                    value={avgDealValue}
+                    onChange={(e) => setAvgDealValue(Number(e.target.value))}
+                    style={{ accentColor: '#14120f', cursor: 'pointer' }}
+                  />
+                </label>
+
+                <label style={{ display: 'grid', gap: '0.45rem', fontWeight: 700, fontSize: '0.88rem', color: '#14120f' }}>
+                  <span>
+                    {isAr
+                      ? `مدة تحميل الموقع أو صعوبة الوصول للعرض : ${loadSeconds} ثوانٍ`
+                      : `Temps de chargement / friction actuelle : ${loadSeconds} secondes`}
+                  </span>
+                  <input
+                    type="range"
+                    min={2}
+                    max={12}
+                    step={1}
+                    value={loadSeconds}
+                    onChange={(e) => setLoadSeconds(Number(e.target.value))}
+                    style={{ accentColor: '#14120f', cursor: 'pointer' }}
+                  />
+                </label>
+
+                <div
+                  style={{
+                    padding: '1.15rem',
+                    borderRadius: '0.85rem',
+                    background: '#f2ede4',
+                    color: '#14120f',
+                    border: '1px solid rgba(20, 18, 15, 0.14)',
+                    fontSize: '0.86rem',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  <strong>{isAr ? 'ملاحظة منهجية :' : 'Note méthodologique :'}</strong>{' '}
+                  {isAr
+                    ? 'وفق دراسات تجربة المستخدم على الهاتف، يغادر أكثر من 53% من الزوار الصفحة إذا تجاوز التحميل 3 ثوانٍ أو غابت وسيلة التواصل المباشرة.'
+                    : 'Selon les études UX mobile, plus de 53 % des visiteurs quittent une page qui met plus de 3 secondes à charger ou ne présente pas d’action claire.'}
+                </div>
+              </div>
+
+              <aside
+                style={{
+                  padding: '2rem',
+                  borderRadius: '1.15rem',
+                  background: '#14120f',
+                  color: '#f2ede4',
+                  display: 'grid',
+                  gap: '1.2rem',
+                }}
+              >
+                <div>
+                  <span style={{ fontSize: '0.64rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a69b8b', fontWeight: 700 }}>
+                    {isAr ? 'تقدير الفرص الضائعة شهرياً' : 'Estimation mensuelle des pertes'}
+                  </span>
+                  <div
+                    style={{
+                      fontFamily: activeFontObj.family,
+                      fontSize: 'clamp(2.2rem, 4.2vw, 3.4rem)',
+                      lineHeight: 1.05,
+                      marginTop: '0.45rem',
+                      color: '#f2ede4',
+                    }}
+                  >
+                    {lossStats.missedRevenueMonth.toLocaleString('fr-DZ')} DA
+                    <small style={{ display: 'block', fontSize: '0.78rem', color: 'rgba(242, 237, 228, 0.65)', fontFamily: 'Jost, sans-serif', marginTop: '0.3rem' }}>
+                      {isAr ? 'فرص مبيعات غير مستغلة شهرياً (تقديري)' : 'Potentiel de chiffre d’affaires non capté / mois'}
+                    </small>
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                  <div style={{ padding: '0.9rem', borderRadius: '0.75rem', border: '1px solid rgba(242,237,228,0.14)' }}>
+                    <strong style={{ display: 'block', fontSize: '1.4rem', color: '#f2ede4' }}>
+                      -{lossStats.dropPercent}%
+                    </strong>
+                    <small style={{ color: 'rgba(242,237,228,0.68)', fontSize: '0.75rem' }}>
+                      {isAr ? `(${lossStats.lostVisitors} زائر يغادر مبكراً)` : `(${lossStats.lostVisitors} visiteurs perdus / mois)`}
+                    </small>
+                  </div>
+                  <div style={{ padding: '0.9rem', borderRadius: '0.75rem', border: '1px solid rgba(242,237,228,0.14)' }}>
+                    <strong style={{ display: 'block', fontSize: '1.4rem', color: '#f2ede4' }}>
+                      ~{lossStats.missedLeads}
+                    </strong>
+                    <small style={{ color: 'rgba(242,237,228,0.68)', fontSize: '0.75rem' }}>
+                      {isAr ? 'طلبات تواصل ضائعة شهرياً' : 'Demandes de devis manquées / mois'}
+                    </small>
+                  </div>
+                </div>
+
+                <div style={{ padding: '0.9rem 1rem', borderRadius: '0.75rem', background: 'rgba(242,237,228,0.06)', fontSize: '0.82rem' }}>
+                  ⏱ {isAr ? `منذ فتحك لهذه الصفحة (${elapsedSeconds} ثانية)، يقدر الهدر التراكمي بنحو ` : `Depuis votre arrivée sur cette page (${elapsedSeconds}s), l’écart cumulé simulé représente `}
+                  <strong style={{ color: '#a69b8b' }}>{lossStats.realtimeLostDA.toLocaleString('fr-DZ')} DA</strong>.
+                </div>
+
+                <a
+                  href="/#/devis?service=site-web"
+                  className="web-quote-submit"
+                  style={{ background: '#f2ede4', color: '#14120f', textDecoration: 'none', justifyContent: 'center' }}
+                >
+                  {isAr ? 'أصلح مسار موقعي الآن ↗' : 'Optimiser mon site & ma conversion ↗'}
+                </a>
+              </aside>
+            </div>
+          )}
+
+          {/* CONTENU DE L'OUTIL 03 : AUDIT SEO */}
+          {activeTool === 'audit-seo' && (
+            <div className="web-quote-grid" role="tabpanel">
+              <div
+                style={{
+                  padding: 'clamp(1.35rem, 2.5vw, 2.2rem)',
+                  borderRadius: '1.15rem',
+                  background: '#fbf8f2',
+                  color: '#14120f',
+                  border: '1px solid rgba(20, 18, 15, 0.14)',
+                  display: 'grid',
+                  gap: '1.25rem',
+                }}
+              >
+                <div className="web-quote-row">
+                  <label style={{ display: 'grid', gap: '0.45rem', fontWeight: 700, fontSize: '0.84rem', color: '#14120f' }}>
+                    <span>{isAr ? 'رابط موقعك الحالي (اختياري)' : 'URL de votre site web (optionnel)'}</span>
+                    <input
+                      type="url"
+                      placeholder="https://..."
+                      value={seoUrl}
+                      onChange={(e) => setSeoUrl(e.target.value)}
+                      style={{
+                        minHeight: '3rem',
+                        padding: '0.75rem 0.9rem',
+                        borderRadius: '0.75rem',
+                        border: '1px solid rgba(20, 18, 15, 0.16)',
+                        background: '#ffffff',
+                        color: '#14120f',
+                      }}
+                    />
+                  </label>
+                  <label style={{ display: 'grid', gap: '0.45rem', fontWeight: 700, fontSize: '0.84rem', color: '#14120f' }}>
+                    <span>{isAr ? 'مجال النشاط والولايات المستهدفة' : 'Secteur & wilayas ciblées'}</span>
+                    <input
+                      type="text"
+                      placeholder={isAr ? 'مثال: عيادة، عقارات، تجارة في الجزائر...' : 'Ex : Immobilier Alger, E-commerce Algérie...'}
+                      value={seoSector}
+                      onChange={(e) => setSeoSector(e.target.value)}
+                      style={{
+                        minHeight: '3rem',
+                        padding: '0.75rem 0.9rem',
+                        borderRadius: '0.75rem',
+                        border: '1px solid rgba(20, 18, 15, 0.16)',
+                        background: '#ffffff',
+                        color: '#14120f',
+                      }}
+                    />
+                  </label>
+                </div>
+
+                <p style={{ margin: '0.2rem 0', fontWeight: 700, fontSize: '0.95rem', color: '#14120f' }}>
+                  {isAr
+                    ? 'حدد العناصر المتوفرة حالياً في موقعك لحساب جاهزية SEO :'
+                    : 'Cochez les éléments déjà en place sur votre site pour calculer votre score SEO :'}
+                </p>
+
+                <div style={{ display: 'grid', gap: '0.55rem' }}>
+                  {seoItems.map((item) => {
+                    const checked = Boolean(seoChecks[item.id]);
                     return (
-                      <button
-                        key={feat.id}
-                        type="button"
-                        onClick={() => toggleWebFeature(feat.id)}
+                      <label
+                        key={item.id}
                         style={{
-                          padding: '0.55rem 0.9rem',
-                          borderRadius: '999px',
-                          border: active ? '1px solid #14120f' : '1px solid rgba(20,18,15,0.18)',
-                          background: active ? '#14120f' : 'transparent',
-                          color: active ? '#f2ede4' : '#14120f',
-                          fontSize: '0.8rem',
-                          fontWeight: 600,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '0.8rem',
+                          padding: '0.8rem 1rem',
+                          borderRadius: '0.7rem',
+                          border: checked ? '1px solid #14120f' : '1px solid rgba(20, 18, 15, 0.14)',
+                          background: checked ? '#14120f' : '#f2ede4',
+                          color: checked ? '#f2ede4' : '#14120f',
                           cursor: 'pointer',
                         }}
                       >
-                        {active ? '✓ ' : '+ '}
-                        {feat.label}
-                      </button>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', margin: 0, fontWeight: 600 }}>
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() =>
+                              setSeoChecks((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                            }
+                            style={{ width: '1.05rem', height: '1.05rem', accentColor: '#a69b8b' }}
+                          />
+                          {item.title}
+                        </span>
+                        <small style={{ fontWeight: 700, color: checked ? '#a69b8b' : '#6b6259' }}>+{item.weight}%</small>
+                      </label>
                     );
                   })}
                 </div>
               </div>
-            </div>
 
-            <aside
-              style={{
-                padding: '2rem',
-                borderRadius: '1.1rem',
-                background: '#14120f',
-                color: '#f2ede4',
-                display: 'grid',
-                gap: '1rem',
-              }}
-            >
-              <span style={{ fontSize: '0.64rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a69b8b', fontWeight: 700 }}>
-                {isAr ? 'التوصية المناسبة لمشروعك' : 'Architecture recommandée'}
-              </span>
-              <h3 style={{ margin: 0, fontSize: '1.5rem', color: '#f2ede4' }}>{webRecommendation.title}</h3>
-              <p style={{ margin: 0, color: 'rgba(242,237,228,0.75)', fontSize: '0.88rem', lineHeight: 1.6 }}>
-                {webRecommendation.subtitle}
-              </p>
-
-              <div style={{ borderTop: '1px solid rgba(242,237,228,0.14)', paddingTop: '0.9rem' }}>
-                <strong style={{ display: 'block', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#a69b8b', marginBottom: '0.5rem' }}>
-                  {isAr ? 'الهيكلة المقترحة :' : 'Structure conseillée :'}
-                </strong>
-                <ul style={{ margin: 0, paddingInlineStart: '1.1rem', display: 'grid', gap: '0.35rem', fontSize: '0.85rem' }}>
-                  {webRecommendation.pages.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                  <li>{webBilingual ? (isAr ? 'دعم كامل للغتين FR / AR' : 'Interface bilingue FR / AR (RTL)') : 'Interface FR'}</li>
-                </ul>
-              </div>
-
-              <div style={{ fontSize: '0.82rem', color: 'rgba(242,237,228,0.75)' }}>
-                <strong>{isAr ? 'المدة التقديرية :' : 'Délai indicatif :'}</strong> {webRecommendation.timeline}
-              </div>
-
-              <a
-                href="/#/devis?service=site-web"
-                className="web-quote-submit"
-                style={{ background: '#f2ede4', color: '#14120f', textDecoration: 'none', justifyContent: 'center' }}
+              <aside
+                style={{
+                  padding: '2rem',
+                  borderRadius: '1.15rem',
+                  background: '#14120f',
+                  color: '#f2ede4',
+                  display: 'grid',
+                  gap: '1.1rem',
+                  alignContent: 'start',
+                }}
               >
-                {isAr ? 'أرسل هذا التصور لطلب عرض سعر ↗' : 'Demander un devis pour ce site ↗'}
-              </a>
-            </aside>
-          </div>
-        )}
-
-        {activeTool === 'calculateur' && (
-          <div className="web-quote-grid" role="tabpanel">
-            <div className="web-quote-form" style={{ display: 'grid', gap: '1.35rem' }}>
-              <div>
-                <span className="web-quote-eyebrow">
-                  {isAr ? 'مُجمّع نطاق المشروع' : 'Configurateur de périmètre'}
+                <span style={{ fontSize: '0.64rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a69b8b', fontWeight: 700 }}>
+                  {isAr ? 'مؤشر جاهزية الظهور في جوجل' : 'Indice de visibilité SEO Algérie'}
                 </span>
-                <h2 style={{ margin: '0.3rem 0 0', fontSize: '1.65rem' }}>
-                  {isAr ? 'اختر الأقطاب التي يحتاجها مشروعك' : 'Sélectionnez les pôles à activer pour votre marque'}
-                </h2>
-              </div>
+                <div style={{ fontFamily: activeFontObj.family, fontSize: '4.2rem', lineHeight: 1, color: '#f2ede4' }}>
+                  {seoScore}%
+                </div>
+                <p style={{ margin: 0, color: 'rgba(242,237,228,0.76)', fontSize: '0.9rem', lineHeight: 1.6 }}>
+                  {seoScore < 60
+                    ? isAr
+                      ? 'موقعك يفتقد لركائز أساسية تمنعه من الظهور في الصفحات الأولى على جوجل في الجزائر.'
+                      : 'Il manque des fondations critiques (pages dédiées par service, balisage ou vitesse mobile) pour ressortir sur Google en Algérie.'
+                    : isAr
+                      ? 'القاعدة التقنية جيدة! يمكنك الآن التركيز على صفحات الخدمات الكاملة وبناء الثقة لتصدر نتائج البحث.'
+                      : 'Vos bases techniques sont saines. L’étape suivante consiste à enrichir vos pages de services et votre maillage local.'}
+                </p>
 
-              <div style={{ display: 'grid', gap: '0.7rem' }}>
-                {polesCatalog.map((pole) => {
-                  const selected = selectedPoles.includes(pole.id);
-                  return (
-                    <div
-                      key={pole.id}
-                      onClick={() => togglePole(pole.id)}
-                      style={{
-                        padding: '1rem 1.15rem',
-                        borderRadius: '0.85rem',
-                        border: selected ? '1px solid #14120f' : '1px solid rgba(20,18,15,0.14)',
-                        background: selected ? '#f2ede4' : '#ffffff',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.14em', color: '#6f6559' }}>
-                          {pole.tag}
-                        </span>
-                        <strong style={{ fontSize: '0.78rem', color: selected ? '#14120f' : '#6f6559' }}>
-                          {selected ? (isAr ? '✓ مضاف' : '✓ Inclus') : isAr ? '+ إضافة' : '+ Ajouter'}
-                        </strong>
-                      </div>
-                      <h3 style={{ margin: '0.25rem 0 0.45rem', fontSize: '1.15rem' }}>{pole.title}</h3>
-                      <ul style={{ margin: 0, paddingInlineStart: '1.1rem', fontSize: '0.82rem', color: 'rgba(20,18,15,0.72)' }}>
-                        {pole.deliverables.map((d) => (
-                          <li key={d}>{d}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                })}
-              </div>
+                <a
+                  href={buildWhatsAppLink(
+                    isAr
+                      ? `مرحباً iVISION، أود طلب فحص SEO لموقعي (${seoUrl || 'بدون رابط بعد'}) في مجال (${seoSector || 'غير محدد'}). النتيجة الأولية: ${seoScore}%.`
+                      : `Bonjour iVISION, je souhaite demander un audit SEO gratuit pour mon site (${seoUrl || 'à créer'}) dans le secteur (${seoSector || 'à préciser'}). Score checklist : ${seoScore}%.`
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="web-quote-submit"
+                  style={{ background: '#f2ede4', color: '#14120f', textDecoration: 'none', justifyContent: 'center' }}
+                >
+                  {isAr ? 'اطلب تدقيق SEO مجاني من الفريق ↗' : 'Recevoir mon audit SEO par WhatsApp ↗'}
+                </a>
+                <a
+                  href="/choisir-seo-google-ads-meta-algerie.html"
+                  style={{ color: '#a69b8b', fontSize: '0.8rem', textDecoration: 'underline' }}
+                >
+                  {isAr ? 'اقرأ الدليل: كيف تختار بين SEO وGoogle Ads؟ ↗' : 'Lire notre guide : choisir entre SEO, Google Ads et Meta Ads ↗'}
+                </a>
+              </aside>
+            </div>
+          )}
 
-              <div>
-                <span style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
-                  {isAr ? 'وتيرة المرافقة المطلوبة :' : 'Rythme d’accompagnement souhaité :'}
-                </span>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.55rem' }}>
+          {/* CONTENU DE L'OUTIL 04 : SIMULATEUR DE SITE WEB */}
+          {activeTool === 'simulateur-web' && (
+            <div className="web-quote-grid" role="tabpanel">
+              <div
+                style={{
+                  padding: 'clamp(1.35rem, 2.5vw, 2.2rem)',
+                  borderRadius: '1.15rem',
+                  background: '#fbf8f2',
+                  color: '#14120f',
+                  border: '1px solid rgba(20, 18, 15, 0.14)',
+                  display: 'grid',
+                  gap: '1.35rem',
+                }}
+              >
+                <div>
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      color: '#6b6259',
+                    }}
+                  >
+                    {isAr ? 'مصمم بنية الموقع' : 'Configurateur d’architecture web'}
+                  </span>
+                  <h3 style={{ margin: '0.3rem 0 0', fontSize: '1.65rem', color: '#14120f' }}>
+                    {isAr ? 'ما هو الهدف الأساسي لموقعك القادم؟' : 'Quel est l’objectif principal de votre futur site ?'}
+                  </h3>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(11rem, 1fr))', gap: '0.6rem' }}>
                   {[
-                    { id: 'launch', label: isAr ? 'إطلاق أولي مركز' : 'Lancement ciblé' },
-                    { id: 'growth', label: isAr ? 'نمو شهري مستمر' : 'Croissance mensuelle' },
-                    { id: 'scale', label: isAr ? 'مرافقة شاملة 360°' : 'Dispositif 360° intensif' },
+                    { id: 'vitrine', label: isAr ? 'موقع تعريفي للشركة' : 'Site vitrine & crédibilité' },
+                    { id: 'ecommerce', label: isAr ? 'متجر إلكتروني (بيع)' : 'Boutique E-commerce' },
+                    { id: 'landing', label: isAr ? 'صفحة هبوط للإعلانات' : 'Landing page Ads' },
+                    { id: 'refonte', label: isAr ? 'تجديد موقع حالي' : 'Refonte de site existant' },
                   ].map((item) => {
-                    const active = cadence === item.id;
+                    const active = webGoal === item.id;
                     return (
                       <button
                         key={item.id}
                         type="button"
-                        onClick={() => setCadence(item.id as typeof cadence)}
+                        onClick={() => setWebGoal(item.id as typeof webGoal)}
                         style={{
-                          padding: '0.75rem 0.6rem',
-                          borderRadius: '0.65rem',
-                          border: active ? '1px solid #14120f' : '1px solid rgba(20,18,15,0.14)',
+                          padding: '0.85rem 1rem',
+                          borderRadius: '0.7rem',
+                          border: active ? '1px solid #14120f' : '1px solid rgba(20,18,15,0.15)',
                           background: active ? '#14120f' : '#f2ede4',
                           color: active ? '#f2ede4' : '#14120f',
-                          fontSize: '0.8rem',
                           fontWeight: 700,
+                          fontSize: '0.86rem',
                           cursor: 'pointer',
                         }}
                       >
@@ -1191,87 +1463,313 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({
                     );
                   })}
                 </div>
-              </div>
-            </div>
 
-            <aside
-              style={{
-                padding: '2rem',
-                borderRadius: '1.1rem',
-                background: '#14120f',
-                color: '#f2ede4',
-                display: 'grid',
-                gap: '1.1rem',
-                alignContent: 'start',
-              }}
-            >
-              <span style={{ fontSize: '0.64rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a69b8b', fontWeight: 700 }}>
-                {isAr ? 'ملخص نطاق مشروعك' : 'Synthèse de votre configuration'}
-              </span>
-              <h3 style={{ margin: 0, fontSize: '1.45rem', color: '#f2ede4' }}>
-                {isAr
-                  ? `${activePolesDetails.length} أقطاب مفعلة لمشروعك`
-                  : `${activePolesDetails.length} pôle(s) sélectionné(s)`}
-              </h3>
+                <div className="web-quote-row">
+                  <label style={{ display: 'grid', gap: '0.45rem', fontWeight: 700, fontSize: '0.84rem', color: '#14120f' }}>
+                    <span>{isAr ? 'الحجم التقديري للصفحات' : 'Volume de pages estimé'}</span>
+                    <select
+                      value={webPages}
+                      onChange={(e) => setWebPages(e.target.value as typeof webPages)}
+                      style={{
+                        minHeight: '3rem',
+                        padding: '0.75rem 0.9rem',
+                        borderRadius: '0.75rem',
+                        border: '1px solid rgba(20, 18, 15, 0.16)',
+                        background: '#ffffff',
+                        color: '#14120f',
+                      }}
+                    >
+                      <option value="1-3">{isAr ? '1 إلى 3 صفحات مركزة' : '1 à 3 pages ciblées'}</option>
+                      <option value="4-7">{isAr ? '4 إلى 7 صفحات متكاملة' : '4 à 7 pages structurées'}</option>
+                      <option value="8+">{isAr ? '8 صفحات فأكثر / كتالوج' : '8+ pages ou catalogue complet'}</option>
+                    </select>
+                  </label>
+                  <label style={{ display: 'grid', gap: '0.45rem', fontWeight: 700, fontSize: '0.84rem', color: '#14120f' }}>
+                    <span>{isAr ? 'اللغات المطلوبة' : 'Langues du site'}</span>
+                    <select
+                      value={webBilingual ? 'fr-ar' : 'fr'}
+                      onChange={(e) => setWebBilingual(e.target.value === 'fr-ar')}
+                      style={{
+                        minHeight: '3rem',
+                        padding: '0.75rem 0.9rem',
+                        borderRadius: '0.75rem',
+                        border: '1px solid rgba(20, 18, 15, 0.16)',
+                        background: '#ffffff',
+                        color: '#14120f',
+                      }}
+                    >
+                      <option value="fr-ar">{isAr ? 'ثنائي اللغة (فرنسي + عربي RTL)' : 'Bilingue Français + Arabe (RTL)'}</option>
+                      <option value="fr">{isAr ? 'لغة واحدة فقط' : 'Une seule langue (FR)'}</option>
+                    </select>
+                  </label>
+                </div>
 
-              <div style={{ display: 'grid', gap: '0.75rem', borderTop: '1px solid rgba(242,237,228,0.14)', paddingTop: '0.9rem' }}>
-                {activePolesDetails.map((p) => (
-                  <div key={p.id}>
-                    <strong style={{ display: 'block', fontSize: '0.92rem', color: '#f2ede4' }}>
-                      • {p.title}
-                    </strong>
-                    <small style={{ color: 'rgba(242,237,228,0.68)', fontSize: '0.78rem' }}>
-                      {p.deliverables.join(' · ')}
-                    </small>
+                <div>
+                  <span style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.55rem', color: '#14120f' }}>
+                    {isAr ? 'الوظائف المطلوبة في الموقع :' : 'Fonctionnalités souhaitées :'}
+                  </span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    {[
+                      { id: 'whatsapp', label: isAr ? 'ربط واتساب واستمارة ذكية' : 'Conversion WhatsApp & Devis' },
+                      { id: 'seo', label: isAr ? 'تهيئة SEO لمحركات البحث' : 'Optimisation SEO Google Algérie' },
+                      { id: 'catalog', label: isAr ? 'كتالوج منتجات / طلب سريع' : 'Catalogue produits / Commande COD' },
+                      { id: 'pixel', label: isAr ? 'تتبع Meta Pixel & Google Tag' : 'Tracking Meta Pixel & Google Ads' },
+                    ].map((feat) => {
+                      const active = webFeatures.includes(feat.id);
+                      return (
+                        <button
+                          key={feat.id}
+                          type="button"
+                          onClick={() => toggleWebFeature(feat.id)}
+                          style={{
+                            padding: '0.55rem 0.9rem',
+                            borderRadius: '999px',
+                            border: active ? '1px solid #14120f' : '1px solid rgba(20,18,15,0.18)',
+                            background: active ? '#14120f' : '#f2ede4',
+                            color: active ? '#f2ede4' : '#14120f',
+                            fontSize: '0.8rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          {active ? '✓ ' : '+ '}
+                          {feat.label}
+                        </button>
+                      );
+                    })}
                   </div>
-                ))}
+                </div>
               </div>
 
-              <p style={{ margin: 0, fontSize: '0.82rem', color: 'rgba(242,237,228,0.72)', lineHeight: 1.55 }}>
-                {isAr
-                  ? 'يتم تسعير كل مشروع بدقة بعد مراجعة أهدافك مع فريقنا، مع فصل واضح بين أتعاب الوكالة وميزانية الإعلانات الممولة.'
-                  : 'Chaque devis est chiffré sur mesure selon votre volume de livrables, en séparant clairement les honoraires d’agence et le budget média payé aux plateformes.'}
-              </p>
+              <aside
+                style={{
+                  padding: '2rem',
+                  borderRadius: '1.15rem',
+                  background: '#14120f',
+                  color: '#f2ede4',
+                  display: 'grid',
+                  gap: '1rem',
+                }}
+              >
+                <span style={{ fontSize: '0.64rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a69b8b', fontWeight: 700 }}>
+                  {isAr ? 'التوصية المناسبة لمشروعك' : 'Architecture recommandée'}
+                </span>
+                <h3 style={{ margin: 0, fontSize: '1.5rem', color: '#f2ede4' }}>{webRecommendation.title}</h3>
+                <p style={{ margin: 0, color: 'rgba(242,237,228,0.75)', fontSize: '0.88rem', lineHeight: 1.6 }}>
+                  {webRecommendation.subtitle}
+                </p>
 
-              <div style={{ display: 'grid', gap: '0.65rem' }}>
+                <div style={{ borderTop: '1px solid rgba(242,237,228,0.14)', paddingTop: '0.9rem' }}>
+                  <strong style={{ display: 'block', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#a69b8b', marginBottom: '0.5rem' }}>
+                    {isAr ? 'الهيكلة المقترحة :' : 'Structure conseillée :'}
+                  </strong>
+                  <ul style={{ margin: 0, paddingInlineStart: '1.1rem', display: 'grid', gap: '0.35rem', fontSize: '0.85rem' }}>
+                    {webRecommendation.pages.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
+                    <li>{webBilingual ? (isAr ? 'دعم كامل للغتين FR / AR' : 'Interface bilingue FR / AR (RTL)') : 'Interface FR'}</li>
+                  </ul>
+                </div>
+
+                <div style={{ fontSize: '0.82rem', color: 'rgba(242,237,228,0.75)' }}>
+                  <strong>{isAr ? 'المدة التقديرية :' : 'Délai indicatif :'}</strong> {webRecommendation.timeline}
+                </div>
+
                 <a
-                  href={selectedPoles.length === 1 && selectedPoles[0] === 'web' ? '/#/devis?service=site-web' : '/#/devis'}
+                  href="/#/devis?service=site-web"
                   className="web-quote-submit"
                   style={{ background: '#f2ede4', color: '#14120f', textDecoration: 'none', justifyContent: 'center' }}
                 >
-                  {isAr ? 'أكمل طلب عرض السعر ↗' : 'Valider et chiffrer mon devis ↗'}
+                  {isAr ? 'أرسل هذا التصور لطلب عرض سعر ↗' : 'Demander un devis pour ce site ↗'}
                 </a>
-                <a
-                  href={buildWhatsAppLink(
-                    isAr
-                      ? `مرحباً iVISION، قمت بتكوين مشروعي عبر الحاسبة (${activePolesDetails.map((p) => p.title).join(' + ')}) وأرغب في الحصول على عرض سعر مفصل.`
-                      : `Bonjour iVISION, j'ai configuré mon projet (${activePolesDetails.map((p) => p.title).join(' + ')}) et je souhaite recevoir un devis détaillé.`
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: '3.1rem',
-                    borderRadius: '999px',
-                    border: '1px solid rgba(242, 237, 228, 0.28)',
-                    color: '#f2ede4',
-                    textDecoration: 'none',
-                    fontSize: '0.72rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {isAr ? 'إرسال التكوين عبر واتساب ↗' : 'Envoyer cette configuration sur WhatsApp ↗'}
-                </a>
+              </aside>
+            </div>
+          )}
+
+          {/* CONTENU DE L'OUTIL 05 : CALCULATEUR DE DEVIS */}
+          {activeTool === 'calculateur' && (
+            <div className="web-quote-grid" role="tabpanel">
+              <div
+                style={{
+                  padding: 'clamp(1.35rem, 2.5vw, 2.2rem)',
+                  borderRadius: '1.15rem',
+                  background: '#fbf8f2',
+                  color: '#14120f',
+                  border: '1px solid rgba(20, 18, 15, 0.14)',
+                  display: 'grid',
+                  gap: '1.35rem',
+                }}
+              >
+                <div>
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      color: '#6b6259',
+                    }}
+                  >
+                    {isAr ? 'مُجمّع نطاق المشروع' : 'Configurateur de périmètre'}
+                  </span>
+                  <h3 style={{ margin: '0.3rem 0 0', fontSize: '1.65rem', color: '#14120f' }}>
+                    {isAr ? 'اختر الأقطاب التي يحتاجها مشروعك' : 'Sélectionnez les pôles à activer pour votre marque'}
+                  </h3>
+                </div>
+
+                <div style={{ display: 'grid', gap: '0.7rem' }}>
+                  {polesCatalog.map((pole) => {
+                    const selected = selectedPoles.includes(pole.id);
+                    return (
+                      <div
+                        key={pole.id}
+                        onClick={() => togglePole(pole.id)}
+                        style={{
+                          padding: '1rem 1.15rem',
+                          borderRadius: '0.85rem',
+                          border: selected ? '1px solid #14120f' : '1px solid rgba(20,18,15,0.14)',
+                          background: selected ? '#14120f' : '#f2ede4',
+                          color: selected ? '#f2ede4' : '#14120f',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
+                          <span style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.14em', color: selected ? '#a69b8b' : '#6b6259' }}>
+                            {pole.tag}
+                          </span>
+                          <strong style={{ fontSize: '0.78rem', color: selected ? '#a69b8b' : '#6b6259' }}>
+                            {selected ? (isAr ? '✓ مضاف' : '✓ Inclus') : isAr ? '+ إضافة' : '+ Ajouter'}
+                          </strong>
+                        </div>
+                        <h4 style={{ margin: '0.25rem 0 0.45rem', fontSize: '1.15rem', color: selected ? '#f2ede4' : '#14120f' }}>
+                          {pole.title}
+                        </h4>
+                        <ul style={{ margin: 0, paddingInlineStart: '1.1rem', fontSize: '0.82rem', color: selected ? 'rgba(242,237,228,0.78)' : '#554d44' }}>
+                          {pole.deliverables.map((d) => (
+                            <li key={d}>{d}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div>
+                  <span style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem', color: '#14120f' }}>
+                    {isAr ? 'وتيرة المرافقة المطلوبة :' : 'Rythme d’accompagnement souhaité :'}
+                  </span>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.55rem' }}>
+                    {[
+                      { id: 'launch', label: isAr ? 'إطلاق أولي مركز' : 'Lancement ciblé' },
+                      { id: 'growth', label: isAr ? 'نمو شهري مستمر' : 'Croissance mensuelle' },
+                      { id: 'scale', label: isAr ? 'مرافقة شاملة 360°' : 'Dispositif 360° intensif' },
+                    ].map((item) => {
+                      const active = cadence === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => setCadence(item.id as typeof cadence)}
+                          style={{
+                            padding: '0.75rem 0.6rem',
+                            borderRadius: '0.65rem',
+                            border: active ? '1px solid #14120f' : '1px solid rgba(20,18,15,0.14)',
+                            background: active ? '#14120f' : '#f2ede4',
+                            color: active ? '#f2ede4' : '#14120f',
+                            fontSize: '0.8rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          {item.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-            </aside>
-          </div>
-        )}
-      </div>
-    </section>
+
+              <aside
+                style={{
+                  padding: '2rem',
+                  borderRadius: '1.15rem',
+                  background: '#14120f',
+                  color: '#f2ede4',
+                  display: 'grid',
+                  gap: '1.1rem',
+                  alignContent: 'start',
+                }}
+              >
+                <span style={{ fontSize: '0.64rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#a69b8b', fontWeight: 700 }}>
+                  {isAr ? 'ملخص نطاق مشروعك' : 'Synthèse de votre configuration'}
+                </span>
+                <h3 style={{ margin: 0, fontSize: '1.45rem', color: '#f2ede4' }}>
+                  {isAr
+                    ? `${activePolesDetails.length} أقطاب مفعلة لمشروعك`
+                    : `${activePolesDetails.length} pôle(s) sélectionné(s)`}
+                </h3>
+
+                <div style={{ display: 'grid', gap: '0.75rem', borderTop: '1px solid rgba(242,237,228,0.14)', paddingTop: '0.9rem' }}>
+                  {activePolesDetails.map((p) => (
+                    <div key={p.id}>
+                      <strong style={{ display: 'block', fontSize: '0.92rem', color: '#f2ede4' }}>
+                        • {p.title}
+                      </strong>
+                      <small style={{ color: 'rgba(242,237,228,0.68)', fontSize: '0.78rem' }}>
+                        {p.deliverables.join(' · ')}
+                      </small>
+                    </div>
+                  ))}
+                </div>
+
+                <p style={{ margin: 0, fontSize: '0.82rem', color: 'rgba(242,237,228,0.72)', lineHeight: 1.55 }}>
+                  {isAr
+                    ? 'يتم تسعير كل مشروع بدقة بعد مراجعة أهدافك مع فريقنا، مع فصل واضح بين أتعاب الوكالة وميزانية الإعلانات الممولة.'
+                    : 'Chaque devis est chiffré sur mesure selon votre volume de livrables, en séparant clairement les honoraires d’agence et le budget média payé aux plateformes.'}
+                </p>
+
+                <div style={{ display: 'grid', gap: '0.65rem' }}>
+                  <a
+                    href={selectedPoles.length === 1 && selectedPoles[0] === 'web' ? '/#/devis?service=site-web' : '/#/devis'}
+                    className="web-quote-submit"
+                    style={{ background: '#f2ede4', color: '#14120f', textDecoration: 'none', justifyContent: 'center' }}
+                  >
+                    {isAr ? 'أكمل طلب عرض السعر ↗' : 'Valider et chiffrer mon devis ↗'}
+                  </a>
+                  <a
+                    href={buildWhatsAppLink(
+                      isAr
+                        ? `مرحباً iVISION، قمت بتكوين مشروعي عبر الحاسبة (${activePolesDetails.map((p) => p.title).join(' + ')}) وأرغب في الحصول على عرض سعر مفصل.`
+                        : `Bonjour iVISION, j'ai configuré mon projet (${activePolesDetails.map((p) => p.title).join(' + ')}) et je souhaite recevoir un devis détaillé.`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: '3.1rem',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(242, 237, 228, 0.28)',
+                      color: '#f2ede4',
+                      textDecoration: 'none',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {isAr ? 'إرسال التكوين عبر واتساب ↗' : 'Envoyer cette configuration sur WhatsApp ↗'}
+                  </a>
+                </div>
+              </aside>
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
   );
 };
 
