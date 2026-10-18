@@ -126,17 +126,46 @@
 .pf-reel-ext { color:#f2ede4; font-size:.56rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; text-decoration:none; opacity:.78; }
 .pf-reel-ext:hover { opacity:1; text-decoration:underline; }
 
-/* Lightbox Zoom Modal pour les designs Social Media */
-.pf-lightbox { position:fixed; inset:0; z-index:220; display:flex; align-items:center; justify-content:center; padding:clamp(1rem,3vw,2.5rem); background:rgba(14,13,11,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+/* Contrôles Slide & Mode Carrousel dans les sections Portfolio */
+.pf-section-slider-bar { display:flex; align-items:center; justify-content:space-between; gap:.75rem; flex-wrap:wrap; margin-bottom:1.35rem; padding:.65rem .9rem; border:1px solid var(--line); border-radius:.8rem; background:var(--paper); }
+.pf-section-slider-left { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+.pf-section-slider-right { display:flex; align-items:center; gap:.45rem; }
+.pf-view-toggle-btn, .pf-slide-step-btn, .pf-open-diaporama-btn { display:inline-flex; align-items:center; justify-content:center; gap:.38rem; border:1px solid var(--line); border-radius:999px; padding:.46rem .88rem; background:var(--surface); color:var(--ink); font-family:'Jost','Readex Pro',sans-serif; font-size:.6rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .2s ease; }
+.pf-view-toggle-btn.is-active, .pf-open-diaporama-btn { background:var(--ink); color:var(--light); border-color:var(--ink); }
+.pf-slide-step-btn:hover, .pf-view-toggle-btn:hover { border-color:var(--ink); }
+.pf-design-grid.is-slider, .pf-reel-grid.is-slider { display:flex !important; flex-wrap:nowrap !important; overflow-x:auto; scroll-snap-type:x mandatory; gap:1rem; padding-bottom:.6rem; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+.pf-design-grid.is-slider::-webkit-scrollbar, .pf-reel-grid.is-slider::-webkit-scrollbar { display:none; }
+.pf-design-grid.is-slider .pf-design-card { flex:0 0 clamp(16.5rem,76vw,21rem); scroll-snap-align:start; }
+.pf-reel-grid.is-slider .pf-reel-card { flex:0 0 clamp(15.5rem,72vw,19.5rem); scroll-snap-align:start; }
+
+/* Lightbox & Slider Modal pour les designs Social Media, Reels & Sites Web */
+.pf-lightbox { position:fixed; inset:0; z-index:240; display:flex; align-items:center; justify-content:center; padding:clamp(.6rem,2.5vw,2rem); background:rgba(12,11,9,.92); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
 .pf-lightbox[hidden] { display:none !important; }
-.pf-lightbox-dialog { position:relative; display:flex; flex-direction:column; max-width:min(92vw,68rem); max-height:90svh; border:1px solid rgba(242,237,228,.22); border-radius:1rem; overflow:hidden; background:#181613; color:#f2ede4; box-shadow:0 2rem 5rem rgba(0,0,0,.6); }
-.pf-lightbox-top { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.8rem 1.15rem; border-bottom:1px solid rgba(242,237,228,.14); }
-.pf-lightbox-top strong { font-family:'Jost','Readex Pro',sans-serif; font-size:.82rem; font-weight:600; letter-spacing:.04em; }
-.pf-lightbox-actions { display:flex; align-items:center; gap:.5rem; }
-.pf-lightbox-btn { border:1px solid rgba(242,237,228,.25); border-radius:999px; padding:.4rem .8rem; background:rgba(242,237,228,.08); color:#f2ede4; font-family:'Jost','Readex Pro',sans-serif; font-size:.6rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; text-decoration:none; cursor:pointer; }
+.pf-lightbox-dialog { position:relative; display:flex; flex-direction:column; width:min(96vw,72rem); max-height:94svh; border:1px solid rgba(242,237,228,.2); border-radius:1.1rem; overflow:hidden; background:#161411; color:#f2ede4; box-shadow:0 2rem 5rem rgba(0,0,0,.68); }
+.pf-lightbox-top { display:flex; align-items:center; justify-content:space-between; gap:.75rem; padding:.75rem 1.1rem; border-bottom:1px solid rgba(242,237,228,.12); background:#1c1916; }
+.pf-lightbox-head-meta { display:flex; align-items:center; gap:.6rem; min-width:0; }
+.pf-lightbox-badge { flex-shrink:0; padding:.22rem .58rem; border-radius:999px; background:rgba(166,155,139,.2); border:1px solid rgba(166,155,139,.4); color:#d8cfc2; font-family:'Jost','Readex Pro',sans-serif; font-size:.52rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.pf-lightbox-top strong { font-family:'Jost','Readex Pro',sans-serif; font-size:.82rem; font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pf-lightbox-actions { display:flex; align-items:center; gap:.45rem; flex-shrink:0; }
+.pf-lightbox-btn { border:1px solid rgba(242,237,228,.24); border-radius:999px; padding:.42rem .82rem; background:rgba(242,237,228,.08); color:#f2ede4; font-family:'Jost','Readex Pro',sans-serif; font-size:.58rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background .2s ease, color .2s ease; white-space:nowrap; }
 .pf-lightbox-btn:hover { background:#f2ede4; color:#14120f; }
-.pf-lightbox-body { display:flex; align-items:center; justify-content:center; overflow:auto; max-height:calc(90svh - 3.6rem); background:#0f0e0c; }
-.pf-lightbox-body img { max-width:100%; max-height:calc(90svh - 4rem); width:auto; height:auto; object-fit:contain; display:block; }
+.pf-lightbox-btn.is-close { background:rgba(242,237,228,.14); }
+.pf-lightbox-body { position:relative; flex:1 1 auto; display:flex; align-items:center; justify-content:center; min-height:18rem; max-height:calc(94svh - 7.8rem); padding:.75rem 3.8rem; background:#0d0c0a; overflow:hidden; user-select:none; }
+.pf-lightbox-media { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.pf-lightbox-body img { max-width:100%; max-height:calc(94svh - 9.2rem); width:auto; height:auto; object-fit:contain; display:block; border-radius:.5rem; transition:opacity .2s ease, transform .22s ease; }
+.pf-lightbox-video-wrap { width:min(100%,25rem); aspect-ratio:9/16; max-height:calc(94svh - 9.2rem); border-radius:.75rem; overflow:hidden; border:1px solid rgba(242,237,228,.18); background:#000; box-shadow:0 1.2rem 3rem rgba(0,0,0,.55); }
+.pf-lightbox-video-wrap iframe { width:100%; height:100%; border:0; display:block; }
+.pf-lightbox-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:5; width:2.85rem; height:2.85rem; border-radius:50%; border:1px solid rgba(242,237,228,.28); background:rgba(24,22,19,.84); backdrop-filter:blur(8px); color:#f2ede4; font-size:1.05rem; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; transition:background .2s ease, color .2s ease, transform .2s ease; }
+.pf-lightbox-arrow:hover { background:#f2ede4; color:#14120f; transform:translateY(-50%) scale(1.06); }
+.pf-lightbox-arrow.is-prev { left:.85rem; }
+.pf-lightbox-arrow.is-next { right:.85rem; }
+.pf-lightbox-bottom { display:flex; align-items:center; justify-content:space-between; gap:.75rem; padding:.7rem 1.1rem; border-top:1px solid rgba(242,237,228,.12); background:#1c1916; }
+.pf-lightbox-nav-btn { display:inline-flex; align-items:center; justify-content:center; gap:.45rem; border:1px solid rgba(242,237,228,.24); border-radius:999px; padding:.55rem 1.05rem; background:rgba(242,237,228,.08); color:#f2ede4; font-family:'Jost','Readex Pro',sans-serif; font-size:.64rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .2s ease; }
+.pf-lightbox-nav-btn.is-primary { background:#f2ede4; color:#14120f; border-color:#f2ede4; }
+.pf-lightbox-nav-btn:hover { background:#f2ede4; color:#14120f; }
+.pf-lightbox-status { display:flex; flex-direction:column; align-items:center; gap:.1rem; text-align:center; }
+.pf-lightbox-counter { font-family:'Jost','Readex Pro',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:.14em; color:#f2ede4; }
+.pf-lightbox-hint { font-size:.56rem; color:rgba(242,237,228,.55); }
 
 .pf-awaiting { padding:clamp(5rem,9vw,9rem) 0; }
 .pf-awaiting-intro { display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,7vw,8rem); align-items:end; padding-bottom:clamp(2.5rem,5vw,5rem); }
@@ -216,8 +245,19 @@
   .pf-awaiting-mark { min-height:11rem; }
   .pf-formats article { min-height:0; padding:1.3rem; }
   .pf-formats h3 { margin:1.4rem 0 .55rem; }
-  .pf-lightbox { padding:.6rem; }
-  .pf-lightbox-dialog { width:100%; max-width:100%; max-height:92svh; }
-  .pf-lightbox-top { flex-wrap:wrap; gap:.45rem; padding:.65rem .85rem; }
+  .pf-lightbox { padding:.45rem; }
+  .pf-lightbox-dialog { width:100%; max-width:100%; max-height:94svh; border-radius:.95rem; }
+  .pf-lightbox-top { flex-wrap:wrap; gap:.4rem; padding:.6rem .75rem; }
+  .pf-lightbox-top strong { font-size:.74rem; max-width:52vw; }
+  .pf-lightbox-btn { padding:.36rem .65rem; font-size:.52rem; }
+  .pf-lightbox-body { padding:.5rem .45rem; min-height:15rem; max-height:calc(94svh - 7.4rem); }
+  .pf-lightbox-arrow { width:2.35rem; height:2.35rem; font-size:.9rem; background:rgba(20,18,15,.76); }
+  .pf-lightbox-arrow.is-prev { left:.4rem; }
+  .pf-lightbox-arrow.is-next { right:.4rem; }
+  .pf-lightbox-bottom { padding:.6rem .75rem; gap:.45rem; }
+  .pf-lightbox-nav-btn { padding:.5rem .82rem; font-size:.58rem; gap:.3rem; }
+  .pf-lightbox-hint { display:none; }
+  .pf-section-slider-bar { padding:.55rem .7rem; gap:.5rem; }
+  .pf-view-toggle-btn, .pf-slide-step-btn, .pf-open-diaporama-btn { padding:.4rem .68rem; font-size:.54rem; }
 }
 @media(prefers-reduced-motion:reduce) { .pf-project-link, .pf-project-media, .pf-cross a, .pf-design-card, .pf-reel-card { transition:none; } }

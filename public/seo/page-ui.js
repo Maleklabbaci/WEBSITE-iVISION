@@ -1006,11 +1006,11 @@
         ? `
           <a href="/" class="iv-mobile-row"><span>الرئيسية</span></a>
           <a href="/#about" class="iv-mobile-row"><span>من نحن</span></a>
-          <div class="iv-mobile-group is-open">
-            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="true">
+          <div class="iv-mobile-group">
+            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="false">
               <span>خدماتنا</span><i class="iv-caret" aria-hidden="true">⌄</i>
             </button>
-            <div class="iv-mobile-sublist">
+            <div class="iv-mobile-sublist" hidden>
               <a href="/agence-marketing-digital-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>التسويق الرقمي 360°</strong><em>STRATÉGIE</em></div><small>استراتيجية الحضور والقنوات في الجزائر</small></a>
               <a href="/creation-contenu-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>صناعة المحتوى والاستوديو</strong><em>STUDIO</em></div><small>إخراج فني، Reels وتصاميم</small></a>
               <a href="/publicite-meta-google-ads-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>إعلانات Meta &amp; Google Ads</strong><em>ADS</em></div><small>حملات ممولة وقياس التحويلات</small></a>
@@ -1046,11 +1046,11 @@
         : `
           <a href="/" class="iv-mobile-row"><span>Accueil</span></a>
           <a href="/#about" class="iv-mobile-row"><span>À propos</span></a>
-          <div class="iv-mobile-group is-open">
-            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="true">
+          <div class="iv-mobile-group">
+            <button type="button" class="iv-mobile-row iv-mobile-accordion-btn" aria-expanded="false">
               <span>Services</span><i class="iv-caret" aria-hidden="true">⌄</i>
             </button>
-            <div class="iv-mobile-sublist">
+            <div class="iv-mobile-sublist" hidden>
               <a href="/agence-marketing-digital-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Marketing Digital 360°</strong><em>STRATÉGIE</em></div><small>Positionnement, plan multicanal &amp; suivi</small></a>
               <a href="/creation-contenu-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Création de Contenu &amp; Studio</strong><em>STUDIO</em></div><small>Direction artistique, Reels &amp; visuels</small></a>
               <a href="/publicite-meta-google-ads-algerie.html" class="iv-mobile-sublink"><div class="iv-mobile-sublink-top"><strong>Publicité Meta &amp; Google Ads</strong><em>ADS</em></div><small>Campagnes sponsorisées &amp; génération de leads</small></a>
@@ -1103,6 +1103,12 @@
             btn.setAttribute('aria-expanded', 'true');
             if (sublist) sublist.hidden = false;
           }
+        });
+      });
+
+      mobileNav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          document.dispatchEvent(new CustomEvent('iv-close-mobile-menu'));
         });
       });
     }
@@ -1172,19 +1178,28 @@
         .iv-dropdown-link-top strong { color: #14120f; font-family: 'Jost', 'Readex Pro', sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: 0; line-height: 1.25; }
         .iv-dropdown-link-top em { font-style: normal; padding: .14rem .42rem; border-radius: 999px; background: rgba(20,18,15,.07); color: #55504a; font-size: .44rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; }
         .iv-dropdown-link > span { display: block; color: rgba(20,18,15,.62); font-size: .68rem; font-weight: 400; line-height: 1.35; }
-        .iv-mobile-menu { position: fixed !important; top: 5.5rem !important; right: .85rem !important; left: .85rem !important; bottom: auto !important; inset: auto .85rem auto .85rem !important; max-height: calc(100svh - 6.5rem) !important; padding: 1.1rem 1.15rem 1.25rem !important; border-radius: 1.15rem !important; background: #fbf8f2 !important; box-shadow: 0 24px 60px rgba(10,9,8,.28) !important; }
-        .iv-mobile-lang { margin-bottom: .9rem !important; padding-bottom: .85rem !important; }
-        .iv-mobile-lang .iv-lang-btn { padding: .52rem .75rem !important; font-size: .7rem !important; }
-        .iv-mobile-menu nav { display: flex !important; flex-direction: column !important; gap: .2rem !important; }
-        .iv-mobile-row, .iv-mobile-menu nav > a { width: 100% !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: .68rem .4rem !important; border: 0 !important; border-bottom: 1px solid rgba(20,18,15,.1) !important; background: transparent !important; color: #14120f !important; font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .84rem !important; font-weight: 600 !important; letter-spacing: .06em !important; line-height: 1.3 !important; text-transform: uppercase !important; text-decoration: none !important; cursor: pointer !important; box-sizing: border-box !important; }
+        .iv-mobile-backdrop { position: fixed; inset: 0; z-index: 130; background: rgba(14,13,11,.55); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .26s ease, visibility .26s ease; }
+        .iv-mobile-backdrop.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+        .iv-mobile-menu { position: fixed !important; top: 5.1rem !important; right: .85rem !important; left: .85rem !important; bottom: auto !important; z-index: 135 !important; max-height: calc(100svh - 6rem) !important; padding: 1rem 1.05rem 1.15rem !important; border-radius: 1.15rem !important; background: #fbf8f2 !important; box-shadow: 0 24px 60px rgba(10,9,8,.34) !important; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+        @media (max-width: 650px) {
+          .iv-mobile-menu { top: 4.8rem !important; right: .75rem !important; left: .75rem !important; max-height: calc(100svh - 5.6rem) !important; padding: .95rem 1rem 1.1rem !important; }
+        }
+        .iv-mobile-lang { margin-bottom: .75rem !important; padding-bottom: .75rem !important; }
+        .iv-mobile-lang .iv-lang-btn { padding: .48rem .75rem !important; font-size: .7rem !important; }
+        .iv-mobile-menu nav { display: flex !important; flex-direction: column !important; gap: .12rem !important; }
+        .iv-mobile-row, .iv-mobile-menu nav > a:not(.iv-mobile-cta):not(.iv-mobile-cta-btn) { width: 100% !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: .66rem .35rem !important; border: 0 !important; border-bottom: 1px solid rgba(20,18,15,.1) !important; background: transparent !important; color: #14120f !important; font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .82rem !important; font-weight: 600 !important; letter-spacing: .06em !important; line-height: 1.3 !important; text-transform: uppercase !important; text-decoration: none !important; cursor: pointer !important; box-sizing: border-box !important; }
         .iv-mobile-group.is-open .iv-mobile-accordion-btn .iv-caret { transform: rotate(180deg); color: #a69b8b; }
-        .iv-mobile-sublist { display: flex; flex-direction: column; gap: .25rem; padding: .35rem .2rem .65rem; border-bottom: 1px solid rgba(20,18,15,.1); }
-        .iv-mobile-sublink { display: block !important; padding: .55rem .65rem !important; border-radius: .6rem !important; background: #f2ede4 !important; color: #14120f !important; text-decoration: none !important; text-transform: none !important; font-family: 'Jost', 'Tajawal', sans-serif !important; border: 0 !important; }
-        .iv-mobile-sublink-top { display: flex; align-items: center; justify-content: space-between; gap: .4rem; margin-bottom: .12rem; }
-        .iv-mobile-sublink-top strong { font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .82rem !important; font-weight: 600 !important; color: #14120f !important; line-height: 1.25 !important; }
-        .iv-mobile-sublink-top em { font-style: normal; padding: .12rem .4rem; border-radius: 999px; background: rgba(20,18,15,.08); color: #55504a; font-size: .46rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-        .iv-mobile-sublink small { display: block; font-size: .72rem !important; color: rgba(20,18,15,.65); line-height: 1.35; font-weight: 400; }
-        .iv-mobile-cta-btn, .iv-mobile-menu nav a.iv-mobile-cta { width: 100% !important; margin-top: .75rem !important; padding: .82rem 1rem !important; border: 0 !important; border-radius: 999px !important; background: #14120f !important; color: #f2ede4 !important; font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .72rem !important; font-weight: 700 !important; letter-spacing: .1em !important; text-transform: uppercase !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: .45rem !important; text-decoration: none !important; }
+        .iv-mobile-sublist { display: flex; flex-direction: column; gap: .28rem; margin-left: .2rem; padding: .35rem 0 .6rem .6rem; border-left: 2px solid #a69b8b; border-bottom: 1px solid rgba(20,18,15,.1); animation: iv-sublist-in .22s cubic-bezier(.23,1,.32,1) both; }
+        [dir="rtl"] .iv-mobile-sublist { margin-left: 0; margin-right: .2rem; padding: .35rem .6rem .6rem 0; border-left: 0; border-right: 2px solid #a69b8b; }
+        @keyframes iv-sublist-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+        .iv-mobile-sublink { display: block !important; padding: .5rem .65rem !important; border-radius: .6rem !important; background: #f2ede4 !important; color: #14120f !important; text-decoration: none !important; text-transform: none !important; font-family: 'Jost', 'Tajawal', sans-serif !important; border: 1px solid rgba(20,18,15,.08) !important; }
+        .iv-mobile-sublink-top { display: flex; align-items: center; justify-content: space-between; gap: .4rem; margin-bottom: .1rem; }
+        .iv-mobile-sublink-top strong { font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .8rem !important; font-weight: 600 !important; color: #14120f !important; line-height: 1.22 !important; }
+        .iv-mobile-sublink-top em { font-style: normal; padding: .12rem .4rem; border-radius: 999px; background: rgba(20,18,15,.08); color: #55504a; font-size: .45rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+        .iv-mobile-sublink small { display: block; font-size: .7rem !important; color: rgba(20,18,15,.65); line-height: 1.3; font-weight: 400; }
+        .iv-mobile-cta-btn, .iv-mobile-menu nav a.iv-mobile-cta { width: 100% !important; margin-top: .7rem !important; padding: .82rem 1rem !important; border: 0 !important; border-radius: 999px !important; background: #14120f !important; color: #f2ede4 !important; font-family: 'Jost', 'Readex Pro', sans-serif !important; font-size: .72rem !important; font-weight: 700 !important; letter-spacing: .1em !important; text-transform: uppercase !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: .45rem !important; text-decoration: none !important; box-sizing: border-box !important; }
+        .seo-reveal { opacity: 0; transform: translateY(18px); transition: opacity .58s cubic-bezier(.23,1,.32,1), transform .58s cubic-bezier(.23,1,.32,1); }
+        .seo-reveal.is-visible { opacity: 1; transform: translateY(0); }
         [dir="rtl"] .iv-mega-col { padding-right: 0; padding-left: .8rem; border-right: 0; border-left: 1px solid rgba(20,18,15,.1); }
         [dir="rtl"] .iv-mega-col:last-child { padding-left: 0; border-left: 0; }
         [dir="rtl"] .iv-dropdown-link { text-align: right; }
@@ -1211,6 +1226,13 @@
     const header = document.querySelector('.page-header, .iv-header');
     const menuBtn = document.querySelector('.iv-menu-button');
     const mobileMenu = document.querySelector('.iv-mobile-menu');
+    let mobileBackdrop = document.querySelector('.iv-mobile-backdrop');
+    if (!mobileBackdrop && mobileMenu && mobileMenu.parentNode) {
+      mobileBackdrop = document.createElement('div');
+      mobileBackdrop.className = 'iv-mobile-backdrop';
+      mobileBackdrop.setAttribute('aria-hidden', 'true');
+      mobileMenu.parentNode.insertBefore(mobileBackdrop, mobileMenu);
+    }
 
     const updateScroll = () => {
       const scrolled = window.scrollY > 24;
@@ -1229,6 +1251,10 @@
       mobileMenu.classList.toggle('is-open', open);
       mobileMenu.hidden = !open;
       mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (mobileBackdrop) {
+        mobileBackdrop.classList.toggle('is-open', open);
+      }
+      document.body.classList.toggle('iv-menu-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
       updateScroll();
     };
@@ -1239,6 +1265,10 @@
         const isOpen = mobileMenu.classList.contains('is-open');
         setMenuOpen(!isOpen);
       });
+      if (mobileBackdrop) {
+        mobileBackdrop.addEventListener('click', () => setMenuOpen(false));
+      }
+      document.addEventListener('iv-close-mobile-menu', () => setMenuOpen(false));
       mobileMenu.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => setMenuOpen(false));
       });
@@ -1276,7 +1306,29 @@
     window.addEventListener('scroll', updateScroll, { passive: true });
     updateScroll();
 
-    // Interactions Portfolio Social Media & Vidéo (filtres, lecteur Reel inline, Lightbox HD)
+    // Animations fluides au scroll sur mobile et desktop pour toutes les pages statiques
+    if ('IntersectionObserver' in window) {
+      const revealCandidates = document.querySelectorAll(
+        '.service-grid article, .project, .steps article, .topic-grid a, .pf-project, .pf-design-card, .pf-reel-card, .pf-formats article'
+      );
+      const seoObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              seoObs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.02, rootMargin: '0px 0px -20px 0px' }
+      );
+      revealCandidates.forEach((el) => {
+        el.classList.add('seo-reveal');
+        seoObs.observe(el);
+      });
+    }
+
+    // Interactions Portfolio (filtres, mode Slide / Grille, et Lightbox Diaporama avec boutons Précédent / Suivant + Swipe)
     const filterButtons = document.querySelectorAll('[data-pf-filter]');
     const allPortfolioCards = document.querySelectorAll('[data-pf-cat]');
     const filterStatus = document.getElementById('pf-filter-status');
@@ -1310,52 +1362,325 @@
       });
     }
 
-    document.querySelectorAll('.pf-reel-stage[data-drive-video]').forEach((stage) => {
-      const playBtn = stage.querySelector('.pf-reel-play');
-      const videoId = stage.getAttribute('data-drive-video');
-      if (!playBtn || !videoId) return;
-      playBtn.addEventListener('click', () => {
-        document.querySelectorAll('.pf-reel-stage iframe').forEach((oldIframe) => oldIframe.remove());
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://drive.google.com/file/d/${videoId}/preview`;
-        iframe.allow = 'autoplay; fullscreen';
-        iframe.allowFullscreen = true;
-        iframe.title = playBtn.getAttribute('aria-label') || 'Vidéo iVISION';
-        stage.appendChild(iframe);
-      });
-    });
+    // Ensure Lightbox Slider Modal exists on both portfolio pages
+    let lightbox = document.getElementById('pf-lightbox');
+    if (!lightbox && document.querySelector('.pf-project-zoom')) {
+      lightbox = document.createElement('div');
+      lightbox.className = 'pf-lightbox';
+      lightbox.id = 'pf-lightbox';
+      lightbox.hidden = true;
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightbox.setAttribute('role', 'dialog');
+      lightbox.setAttribute('aria-modal', 'true');
+      lightbox.setAttribute('aria-label', "Aperçu agrandi du projet");
+      lightbox.innerHTML = `
+        <div class="pf-lightbox-dialog">
+          <div class="pf-lightbox-top">
+            <div class="pf-lightbox-head-meta">
+              <span class="pf-lightbox-badge" id="pf-lightbox-badge">SITE WEB</span>
+              <strong id="pf-lightbox-title">Aperçu du projet</strong>
+            </div>
+            <div class="pf-lightbox-actions">
+              <a class="pf-lightbox-btn" id="pf-lightbox-open" href="/" target="_blank" rel="noopener noreferrer">Visiter le site ↗</a>
+              <button type="button" class="pf-lightbox-btn is-close" id="pf-lightbox-close" aria-label="Fermer l'aperçu">Fermer ✕</button>
+            </div>
+          </div>
+          <div class="pf-lightbox-body" id="pf-lightbox-stage">
+            <button type="button" class="pf-lightbox-arrow is-prev" id="pf-lightbox-prev" aria-label="Projet précédent">←</button>
+            <div class="pf-lightbox-media">
+              <img id="pf-lightbox-img" src="/images/project-dc16.webp" alt="" />
+              <div id="pf-lightbox-video-wrap" class="pf-lightbox-video-wrap" hidden></div>
+            </div>
+            <button type="button" class="pf-lightbox-arrow is-next" id="pf-lightbox-next" aria-label="Projet suivant">→</button>
+          </div>
+          <div class="pf-lightbox-bottom">
+            <button type="button" class="pf-lightbox-nav-btn" id="pf-lightbox-prev-mobile" aria-label="Précédent">
+              <span aria-hidden="true">←</span>
+              <span data-pf-lb-prev-text>Précédent</span>
+            </button>
+            <div class="pf-lightbox-status">
+              <span class="pf-lightbox-counter" id="pf-lightbox-counter">01 / 08</span>
+              <small class="pf-lightbox-hint" id="pf-lightbox-hint">Glissez ou cliquez pour naviguer</small>
+            </div>
+            <button type="button" class="pf-lightbox-nav-btn is-primary" id="pf-lightbox-next-mobile" aria-label="Suivant">
+              <span data-pf-lb-next-text>Suivant</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(lightbox);
+    }
 
-    const lightbox = document.getElementById('pf-lightbox');
     const lightboxImg = document.getElementById('pf-lightbox-img');
+    const lightboxVideoWrap = document.getElementById('pf-lightbox-video-wrap');
+    const lightboxBadge = document.getElementById('pf-lightbox-badge');
     const lightboxTitle = document.getElementById('pf-lightbox-title');
     const lightboxOpen = document.getElementById('pf-lightbox-open');
     const lightboxClose = document.getElementById('pf-lightbox-close');
+    const lightboxPrev = document.getElementById('pf-lightbox-prev');
+    const lightboxNext = document.getElementById('pf-lightbox-next');
+    const lightboxPrevMobile = document.getElementById('pf-lightbox-prev-mobile');
+    const lightboxNextMobile = document.getElementById('pf-lightbox-next-mobile');
+    const lightboxCounter = document.getElementById('pf-lightbox-counter');
+    const lightboxStage = document.getElementById('pf-lightbox-stage');
+
     if (lightbox && lightboxImg) {
+      let currentPlaylist = [];
+      let currentSlideIndex = 0;
+
+      const buildPortfolioPlaylist = (scopeSelector) => {
+        const items = [];
+        const root = scopeSelector ? document.querySelector(scopeSelector) || document : document;
+        // 1. Social Media Design cards + Video Reel cards in DOM order
+        const cards = root.querySelectorAll('.pf-design-card:not([hidden]), .pf-reel-card:not([hidden])');
+        if (cards.length > 0) {
+          cards.forEach((card) => {
+            if (card.classList.contains('pf-design-card')) {
+              const thumb = card.querySelector('.pf-design-thumb[data-lightbox-src]');
+              const badgeEl = card.querySelector('.pf-card-badge');
+              if (thumb) {
+                items.push({
+                  el: thumb,
+                  type: 'image',
+                  src: thumb.getAttribute('data-lightbox-src') || '',
+                  link: thumb.getAttribute('data-lightbox-link') || '#',
+                  title: thumb.getAttribute('data-lightbox-title') || 'Création iVISION',
+                  badge: badgeEl ? badgeEl.textContent.trim() : 'DESIGN',
+                  openLabel: document.documentElement.lang === 'ar' ? 'الجودة الأصلية ↗' : 'Qualité originale ↗',
+                });
+              }
+            } else if (card.classList.contains('pf-reel-card')) {
+              const stage = card.querySelector('.pf-reel-stage[data-drive-video]');
+              const titleEl = card.querySelector('h3');
+              const badgeEl = card.querySelector('.pf-card-badge');
+              const extEl = card.querySelector('.pf-reel-ext');
+              if (stage) {
+                const videoId = stage.getAttribute('data-drive-video') || '';
+                items.push({
+                  el: stage,
+                  type: 'video',
+                  videoId,
+                  link: extEl ? extEl.href : `https://drive.google.com/file/d/${videoId}/view`,
+                  title: titleEl ? titleEl.textContent.trim() : 'Reel iVISION',
+                  badge: badgeEl ? badgeEl.textContent.trim() : 'REEL 9:16',
+                  openLabel: document.documentElement.lang === 'ar' ? 'فتح الفيديو ↗' : 'Ouvrir sur Drive ↗',
+                });
+              }
+            }
+          });
+          return items;
+        }
+
+        // 2. Website Portfolio projects (.pf-project)
+        const webProjects = root.querySelectorAll('.pf-project');
+        webProjects.forEach((proj) => {
+          const zoom = proj.querySelector('.pf-project-zoom');
+          const titleEl = proj.querySelector('h2');
+          const catEl = proj.querySelector('.pf-project-meta span:nth-child(2)');
+          const visitLink = proj.querySelector('.pf-project-actions a[href^="http"]');
+          if (zoom) {
+            items.push({
+              el: zoom,
+              type: 'image',
+              src: zoom.getAttribute('href') || '',
+              link: visitLink ? visitLink.href : zoom.getAttribute('href') || '#',
+              title: titleEl ? titleEl.textContent.trim() : 'Projet Web iVISION',
+              badge: catEl ? catEl.textContent.trim() : 'SITE WEB',
+              openLabel: document.documentElement.lang === 'ar' ? 'زيارة الموقع ↗' : 'Visiter le site ↗',
+            });
+          }
+        });
+        return items;
+      };
+
+      const renderLightboxSlide = (index) => {
+        if (!currentPlaylist.length) return;
+        const total = currentPlaylist.length;
+        currentSlideIndex = ((index % total) + total) % total;
+        const item = currentPlaylist[currentSlideIndex];
+
+        if (lightboxBadge) lightboxBadge.textContent = item.badge || 'PORTFOLIO';
+        if (lightboxTitle) lightboxTitle.textContent = item.title || 'Création iVISION';
+        if (lightboxOpen) {
+          lightboxOpen.href = item.link || '#';
+          if (item.openLabel) lightboxOpen.textContent = item.openLabel;
+        }
+        if (lightboxCounter) {
+          lightboxCounter.textContent = `${String(currentSlideIndex + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+        }
+
+        const isAr = document.documentElement.lang === 'ar';
+        const prevText = lightbox.querySelector('[data-pf-lb-prev-text]');
+        const nextText = lightbox.querySelector('[data-pf-lb-next-text]');
+        if (prevText) prevText.textContent = isAr ? 'السابق' : 'Précédent';
+        if (nextText) nextText.textContent = isAr ? 'التالي' : 'Suivant';
+
+        if (item.type === 'video' && lightboxVideoWrap) {
+          lightboxImg.hidden = true;
+          lightboxVideoWrap.hidden = false;
+          lightboxVideoWrap.innerHTML = `<iframe src="https://drive.google.com/file/d/${item.videoId}/preview" allow="autoplay; fullscreen" allowfullscreen title="${item.title.replace(/"/g, '&quot;')}"></iframe>`;
+        } else {
+          if (lightboxVideoWrap) {
+            lightboxVideoWrap.hidden = true;
+            lightboxVideoWrap.innerHTML = '';
+          }
+          lightboxImg.hidden = false;
+          lightboxImg.src = item.src;
+          lightboxImg.alt = item.title;
+        }
+      };
+
+      const openLightboxWithElement = (triggerEl, scopeSelector) => {
+        currentPlaylist = buildPortfolioPlaylist(scopeSelector);
+        if (!currentPlaylist.length) {
+          currentPlaylist = buildPortfolioPlaylist();
+        }
+        const foundIdx = currentPlaylist.findIndex((item) => item.el === triggerEl);
+        renderLightboxSlide(foundIdx >= 0 ? foundIdx : 0);
+        lightbox.hidden = false;
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
       const closeLightbox = () => {
         lightbox.hidden = true;
         lightbox.setAttribute('aria-hidden', 'true');
+        if (lightboxVideoWrap) {
+          lightboxVideoWrap.innerHTML = '';
+          lightboxVideoWrap.hidden = true;
+        }
         document.body.style.overflow = '';
       };
+
+      const stepSlide = (delta) => {
+        if (lightbox.hidden || !currentPlaylist.length) return;
+        renderLightboxSlide(currentSlideIndex + delta);
+      };
+
+      // Click on Social Media Design visuals
       document.querySelectorAll('.pf-design-thumb[data-lightbox-src]').forEach((thumb) => {
         thumb.addEventListener('click', () => {
-          const src = thumb.getAttribute('data-lightbox-src');
-          const link = thumb.getAttribute('data-lightbox-link');
-          const title = thumb.getAttribute('data-lightbox-title') || 'Création iVISION';
-          if (src) lightboxImg.src = src;
-          lightboxImg.alt = title;
-          if (lightboxTitle) lightboxTitle.textContent = title;
-          if (lightboxOpen && link) lightboxOpen.href = link;
-          lightbox.hidden = false;
-          lightbox.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
+          openLightboxWithElement(thumb);
         });
       });
+
+      // Click on Video Reels (opens in Lightbox Slider so user can go to next/prev Reel or photo without exiting!)
+      document.querySelectorAll('.pf-reel-stage[data-drive-video]').forEach((stage) => {
+        const playBtn = stage.querySelector('.pf-reel-play');
+        const target = playBtn || stage;
+        target.addEventListener('click', (e) => {
+          e.preventDefault();
+          openLightboxWithElement(stage);
+        });
+      });
+
+      // Click on Website Portfolio zoom links
+      document.querySelectorAll('.pf-project-zoom').forEach((zoomLink) => {
+        zoomLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          openLightboxWithElement(zoomLink);
+        });
+      });
+
+      if (lightboxPrev) lightboxPrev.addEventListener('click', () => stepSlide(-1));
+      if (lightboxNext) lightboxNext.addEventListener('click', () => stepSlide(1));
+      if (lightboxPrevMobile) lightboxPrevMobile.addEventListener('click', () => stepSlide(-1));
+      if (lightboxNextMobile) lightboxNextMobile.addEventListener('click', () => stepSlide(1));
       if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+
       lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
       });
+
       window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+        if (lightbox.hidden) return;
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowLeft') stepSlide(-1);
+        else if (e.key === 'ArrowRight') stepSlide(1);
+      });
+
+      // Touch swipe left / right inside Lightbox
+      let touchStartX = 0;
+      let touchStartY = 0;
+      const swipeTarget = lightboxStage || lightbox;
+      swipeTarget.addEventListener(
+        'touchstart',
+        (e) => {
+          if (!e.touches || !e.touches[0]) return;
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        },
+        { passive: true }
+      );
+      swipeTarget.addEventListener(
+        'touchend',
+        (e) => {
+          if (!e.changedTouches || !e.changedTouches[0]) return;
+          const dx = e.changedTouches[0].clientX - touchStartX;
+          const dy = e.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) stepSlide(1);
+            else stepSlide(-1);
+          }
+        },
+        { passive: true }
+      );
+
+      // Inject inline section Slider / Grille controls above .pf-design-grid and .pf-reel-grid
+      document.querySelectorAll('.pf-design-grid, .pf-reel-grid').forEach((grid) => {
+        const section = grid.closest('.pf-showcase-section');
+        if (!section || section.querySelector('.pf-section-slider-bar')) return;
+        const bar = document.createElement('div');
+        bar.className = 'pf-section-slider-bar';
+        bar.innerHTML = `
+          <div class="pf-section-slider-left">
+            <button type="button" class="pf-view-toggle-btn is-active" data-pf-view="grid">Vue Grille</button>
+            <button type="button" class="pf-view-toggle-btn" data-pf-view="slider">Mode Slide ↔</button>
+            <button type="button" class="pf-open-diaporama-btn" data-pf-open-diaporama>Diaporama plein écran ▶</button>
+          </div>
+          <div class="pf-section-slider-right">
+            <button type="button" class="pf-slide-step-btn" data-pf-scroll="-1" aria-label="Faire défiler vers la gauche">← Précédent</button>
+            <button type="button" class="pf-slide-step-btn" data-pf-scroll="1" aria-label="Faire défiler vers la droite">Suivant →</button>
+          </div>
+        `;
+        grid.parentNode.insertBefore(bar, grid);
+
+        const viewBtns = bar.querySelectorAll('[data-pf-view]');
+        const setGridMode = (mode) => {
+          const isSlider = mode === 'slider';
+          grid.classList.toggle('is-slider', isSlider);
+          viewBtns.forEach((b) => {
+            b.classList.toggle('is-active', b.getAttribute('data-pf-view') === mode);
+          });
+        };
+        viewBtns.forEach((b) => {
+          b.addEventListener('click', () => setGridMode(b.getAttribute('data-pf-view') || 'grid'));
+        });
+
+        bar.querySelectorAll('[data-pf-scroll]').forEach((scrollBtn) => {
+          scrollBtn.addEventListener('click', () => {
+            const dir = Number(scrollBtn.getAttribute('data-pf-scroll')) || 1;
+            if (!grid.classList.contains('is-slider')) {
+              setGridMode('slider');
+            }
+            const firstVisibleCard = grid.querySelector('[data-pf-cat]:not([hidden])');
+            const stepWidth = firstVisibleCard ? firstVisibleCard.getBoundingClientRect().width + 16 : 300;
+            grid.scrollBy({ left: dir * stepWidth, behavior: 'smooth' });
+          });
+        });
+
+        const diaporamaBtn = bar.querySelector('[data-pf-open-diaporama]');
+        if (diaporamaBtn) {
+          diaporamaBtn.addEventListener('click', () => {
+            const firstTrigger = grid.querySelector(
+              '.pf-design-card:not([hidden]) .pf-design-thumb[data-lightbox-src], .pf-reel-card:not([hidden]) .pf-reel-stage[data-drive-video]'
+            );
+            if (firstTrigger) {
+              openLightboxWithElement(firstTrigger, `#${section.id}`);
+            }
+          });
+        }
       });
     }
 

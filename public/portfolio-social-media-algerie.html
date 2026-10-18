@@ -27,9 +27,9 @@
   <script src="/seo/page-ui.js" defer></script>
   <style>
     [hidden]{display:none!important}
-    .page-header,.iv-header{position:fixed!important;top:1rem!important;right:clamp(1rem,4vw,4.5rem)!important;left:clamp(1rem,4vw,4.5rem)!important;z-index:100!important;max-width:118rem!important;margin:0 auto!important;border:1px solid rgba(242,237,228,.28)!important;border-radius:999px!important;background:rgba(20,18,15,.42)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;padding:0!important}
-    .page-header.is-scrolled,.iv-header.is-scrolled{--iv-black:#f2ede4;--iv-white:#14120f;--iv-line:rgba(20,18,15,.14);--iv-muted:rgba(20,18,15,.62);background:rgba(242,237,228,.92)!important;border-color:rgba(20,18,15,.14)!important;box-shadow:0 10px 30px rgba(20,18,15,.06)!important}
-    .header-inner,.iv-header-inner{width:100%!important;max-width:none!important;height:4rem!important;min-height:4rem!important;display:flex!important;align-items:center!important;gap:1rem!important;padding:.35rem .55rem .35rem .75rem!important;margin:0!important}
+    .page-header,.iv-header{position:fixed;top:1rem;right:clamp(1rem,4vw,4.5rem);left:clamp(1rem,4vw,4.5rem);z-index:140;max-width:118rem;margin:0 auto;border:1px solid rgba(242,237,228,.28);border-radius:999px;background:rgba(20,18,15,.42);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:0}
+    .page-header.is-scrolled,.iv-header.is-scrolled{--iv-black:#f2ede4;--iv-white:#14120f;--iv-line:rgba(20,18,15,.14);--iv-muted:rgba(20,18,15,.62);background:rgba(242,237,228,.94);border-color:rgba(20,18,15,.14);box-shadow:0 10px 30px rgba(20,18,15,.07)}
+    .header-inner,.iv-header-inner{width:100%;max-width:none;height:4rem;min-height:4rem;display:flex;align-items:center;gap:1rem;padding:.35rem .55rem .35rem .75rem;margin:0}
     .brand,.iv-logo{flex:0 0 auto;display:inline-flex;align-items:center;padding:.5rem .65rem}
     .brand img,.iv-logo img{width:5.6rem;height:auto;transition:filter .3s ease}
     .page-header.is-scrolled .brand img,.iv-header.is-scrolled .iv-logo img{filter:brightness(0)}
@@ -42,16 +42,18 @@
     .iv-lang-btn{border:0;border-radius:999px;padding:.42rem .62rem;background:transparent;color:var(--iv-muted,rgba(242,237,228,.62));font-family:'Jost','IBM Plex Sans Arabic','Cairo',sans-serif;font-size:.56rem;font-weight:700;letter-spacing:.08em;line-height:1;cursor:pointer}
     .iv-lang-btn.is-active{background:var(--iv-white,#f2ede4);color:var(--iv-black,#14120f)}
     .header-cta,.iv-header-cta{display:inline-flex;align-items:center;gap:.45rem;flex:0 0 auto;border:0;border-radius:999px;padding:.72rem 1.05rem;background:var(--iv-white,#f2ede4);color:var(--iv-black,#14120f);font-size:.56rem;font-weight:700;letter-spacing:.08em;text-decoration:none;text-transform:uppercase;white-space:nowrap}
-    .iv-menu-button{display:none;width:2.7rem;height:2.7rem;border:1px solid rgba(246,246,246,.45);border-radius:50%;background:rgba(15,18,19,.3);cursor:pointer}
-    .iv-menu-button span{display:block;width:1rem;height:1px;margin:.25rem auto;background:var(--iv-white,#f2ede4)}
-    .iv-mobile-menu{position:fixed;top:5.5rem;right:1rem;left:1rem;bottom:auto;z-index:90;display:none;max-height:calc(100svh - 6.6rem);overflow-y:auto;padding:1rem 1.1rem 1.2rem;border:1px solid rgba(20,18,15,.16);border-radius:1.25rem;background:rgba(251,248,242,.98);color:#14120f}
+    .iv-menu-button{display:none;width:2.7rem;height:2.7rem;border:1px solid rgba(246,246,246,.45);border-radius:50%;background:rgba(15,18,19,.3);cursor:pointer;padding:0}
+    .page-header.is-scrolled .iv-menu-button,.iv-header.is-scrolled .iv-menu-button{border-color:rgba(20,18,15,.35);background:rgba(251,248,242,.65)}
+    .iv-menu-button span{display:block;width:1rem;height:1.5px;margin:.25rem auto;background:var(--iv-white,#f2ede4)}
+    .iv-mobile-menu{position:fixed;top:5.1rem;right:.85rem;left:.85rem;bottom:auto;z-index:135;display:none;max-height:calc(100svh - 6rem);overflow-y:auto;padding:1rem 1.05rem 1.15rem;border:1px solid rgba(20,18,15,.16);border-radius:1.15rem;background:#fbf8f2;color:#14120f}
     .iv-mobile-menu.is-open{display:block!important}
     .crumb,nav.wrap.crumb{width:100%!important;max-width:none!important;margin:0!important;padding:7.2rem max(4.8vw,calc((100% - 84rem)/2)) 0!important;background:#14120f!important;color:rgba(242,237,228,.76)!important;border:0!important}
     .crumb-anchors{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.2rem;margin-left:auto}
     .footer{background:#14120f!important;color:#f2ede4!important;padding:4rem 0 2rem!important}
     .footer-logo{height:1.4rem!important;width:auto!important;margin:.25rem 0 1.4rem!important}
     @media(max-width:1120px){.header-nav,.iv-nav{display:none!important}.iv-menu-button{display:block!important}.iv-header-actions{margin-left:auto!important}}
-    @media(max-width:650px){.crumb,nav.wrap.crumb{padding:5.8rem 1.15rem 0!important}.crumb-anchors{display:none!important}}
+    @media(max-width:768px){.header-cta,.iv-header-cta{display:none!important}}
+    @media(max-width:650px){.page-header,.iv-header{top:.65rem;left:.75rem;right:.75rem}.header-inner,.iv-header-inner{height:3.7rem;min-height:3.7rem;padding:0 .45rem 0 .6rem;gap:.35rem}.brand,.iv-logo{padding:.3rem .4rem}.brand img,.iv-logo img{width:4.5rem}.iv-menu-button{width:2.45rem;height:2.45rem}.iv-mobile-menu{top:4.8rem;left:.75rem;right:.75rem;max-height:calc(100svh - 5.6rem)}.crumb,nav.wrap.crumb{padding:5.6rem 1.15rem 0!important}.crumb-anchors{display:none!important}}
   </style>
 </head>
 <body class="portfolio-page social-portfolio">
@@ -793,18 +795,40 @@
     <section class="pf-contact" aria-labelledby="contact-title"><div class="wrap pf-contact-inner"><div><p class="eyebrow">Votre projet social media &amp; vidéo</p><h2 id="contact-title">Parlons de vos prochains contenus.</h2><p>Indiquez votre activité, vos canaux et vos objectifs : création de visuels, tournage de Reels ou gestion complète de vos réseaux.</p></div><div class="pf-contact-actions"><a class="btn btn-light" href="/#/devis">Demander un devis contenu <span aria-hidden="true">↗</span></a><a class="btn btn-outline-light" href="mailto:contact@ivision.agency?subject=Projet%20social%20media">Écrire à iVISION <span aria-hidden="true">↗</span></a></div></div></section>
   </main>
 
-  <!-- Lightbox Modal pour agrandir les créations Social Media Design -->
+  <!-- Lightbox & Slider Modal pour parcourir les créations Social Media Design & Vidéos Reels -->
   <div class="pf-lightbox" id="pf-lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Aperçu agrandi de la création">
     <div class="pf-lightbox-dialog">
       <div class="pf-lightbox-top">
-        <strong id="pf-lightbox-title">Aperçu de la création</strong>
+        <div class="pf-lightbox-head-meta">
+          <span class="pf-lightbox-badge" id="pf-lightbox-badge">DESIGN</span>
+          <strong id="pf-lightbox-title">Aperçu de la création</strong>
+        </div>
         <div class="pf-lightbox-actions">
           <a class="pf-lightbox-btn" id="pf-lightbox-open" href="https://drive.google.com/drive/folders/1Jw6feJMIECj1sXn6qFQ16GZatV6-zpgI" target="_blank" rel="noopener noreferrer">Qualité originale ↗</a>
-          <button type="button" class="pf-lightbox-btn" id="pf-lightbox-close" aria-label="Fermer l'aperçu">Fermer ✕</button>
+          <button type="button" class="pf-lightbox-btn is-close" id="pf-lightbox-close" aria-label="Fermer l'aperçu">Fermer ✕</button>
         </div>
       </div>
-      <div class="pf-lightbox-body">
-        <img id="pf-lightbox-img" src="/images/agency-card-content-studio.webp" alt="" />
+      <div class="pf-lightbox-body" id="pf-lightbox-stage">
+        <button type="button" class="pf-lightbox-arrow is-prev" id="pf-lightbox-prev" aria-label="Création précédente">←</button>
+        <div class="pf-lightbox-media">
+          <img id="pf-lightbox-img" src="/images/agency-card-content-studio.webp" alt="" />
+          <div id="pf-lightbox-video-wrap" class="pf-lightbox-video-wrap" hidden></div>
+        </div>
+        <button type="button" class="pf-lightbox-arrow is-next" id="pf-lightbox-next" aria-label="Création suivante">→</button>
+      </div>
+      <div class="pf-lightbox-bottom">
+        <button type="button" class="pf-lightbox-nav-btn" id="pf-lightbox-prev-mobile" aria-label="Précédent">
+          <span aria-hidden="true">←</span>
+          <span data-pf-lb-prev-text>Précédent</span>
+        </button>
+        <div class="pf-lightbox-status">
+          <span class="pf-lightbox-counter" id="pf-lightbox-counter">01 / 40</span>
+          <small class="pf-lightbox-hint" id="pf-lightbox-hint">Glissez ou cliquez pour naviguer</small>
+        </div>
+        <button type="button" class="pf-lightbox-nav-btn is-primary" id="pf-lightbox-next-mobile" aria-label="Suivant">
+          <span data-pf-lb-next-text>Suivant</span>
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
     </div>
   </div>

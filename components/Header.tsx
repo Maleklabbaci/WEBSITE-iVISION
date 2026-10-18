@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
   const [scrolled, setScrolled] = useState(forceScrolled);
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<DropdownKey>(null);
-  const [mobileSection, setMobileSection] = useState<DropdownKey>('services');
+  const [mobileSection, setMobileSection] = useState<DropdownKey>(null);
   const navRef = useRef<HTMLElement>(null);
   const closeTimeoutRef = useRef<number | null>(null);
   const isAr = language === 'ar';
@@ -47,8 +47,13 @@ const Header: React.FC<HeaderProps> = ({
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
+    document.body.classList.toggle('iv-menu-open', open);
+    if (!open) {
+      setMobileSection(null);
+    }
     return () => {
       document.body.style.overflow = '';
+      document.body.classList.remove('iv-menu-open');
     };
   }, [open]);
 
@@ -61,6 +66,7 @@ const Header: React.FC<HeaderProps> = ({
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setActiveDropdown(null);
+        setOpen(false);
       }
     };
     document.addEventListener('mousedown', onClickOutside);
@@ -97,14 +103,26 @@ const Header: React.FC<HeaderProps> = ({
       window.location.href = href;
       return;
     }
-    if (window.location.hash && window.location.hash !== '#/' && window.location.hash !== '') {
-      window.location.hash = '';
-      setTimeout(() => {
-        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-      }, 120);
+    const targetSelector = href === '#work' ? '#etudes-de-cas' : href;
+    const scrollToTarget = () => {
+      if (targetSelector === '#home' || targetSelector === '#accueil') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      const el = document.querySelector(targetSelector);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    const currentHash = window.location.hash;
+    const isSubRoute = currentHash.startsWith('#/') && currentHash !== '#/';
+    if (isSubRoute) {
+      window.location.hash = '/';
+      window.setTimeout(scrollToTarget, 160);
+      window.setTimeout(scrollToTarget, 420);
       return;
     }
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    window.setTimeout(scrollToTarget, 40);
   };
 
   const serviceColumns = isAr
@@ -359,15 +377,93 @@ const Header: React.FC<HeaderProps> = ({
         },
       ];
 
+  const mobileServiceItems = isAr
+    ? [
+        {
+          title: 'التسويق الرقمي 360°',
+          desc: 'استراتيجية الحضور والقنوات في الجزائر',
+          href: '/agence-marketing-digital-algerie.html',
+          tag: 'STRATÉGIE',
+        },
+        {
+          title: 'صناعة المحتوى والاستوديو',
+          desc: 'إخراج فني، فيديوهات Reels وتصاميم',
+          href: '/creation-contenu-algerie.html',
+          tag: 'STUDIO',
+        },
+        {
+          title: 'إعلانات Meta & Google Ads',
+          desc: 'حملات ممولة وقياس التحويلات',
+          href: '/publicite-meta-google-ads-algerie.html',
+          tag: 'ADS',
+        },
+        {
+          title: 'إنشاء وتطوير مواقع الويب',
+          desc: 'مواقع تعريفية ومتاجر إلكترونية',
+          href: '/creation-site-web-algerie.html',
+          tag: 'SITES WEB',
+        },
+        {
+          title: 'دليل SEO أو Google & Meta Ads',
+          desc: 'مقارنة لاختيار القناة الأنسب لميزانيتك',
+          href: '/choisir-seo-google-ads-meta-algerie.html',
+          tag: 'GUIDE',
+        },
+        {
+          title: 'مرافقة مراكز التدريب والمدارس',
+          desc: 'حلول مخصصة لملء الأفواج واستقطاب المسجلين',
+          href: '/#/centres',
+          tag: 'ACADÉMIQ',
+        },
+      ]
+    : [
+        {
+          title: 'Marketing Digital 360°',
+          desc: 'Positionnement, plan multicanal & suivi',
+          href: '/agence-marketing-digital-algerie.html',
+          tag: 'STRATÉGIE',
+        },
+        {
+          title: 'Création de Contenu & Studio',
+          desc: 'Direction artistique, Reels & visuels',
+          href: '/creation-contenu-algerie.html',
+          tag: 'STUDIO',
+        },
+        {
+          title: 'Publicité Meta & Google Ads',
+          desc: 'Campagnes sponsorisées & génération de leads',
+          href: '/publicite-meta-google-ads-algerie.html',
+          tag: 'ADS',
+        },
+        {
+          title: 'Création de Sites Web',
+          desc: 'Sites vitrines, e-commerce & refonte SEO',
+          href: '/creation-site-web-algerie.html',
+          tag: 'SITES WEB',
+        },
+        {
+          title: 'Guide SEO vs Ads',
+          desc: 'Comparatif pour choisir le bon levier',
+          href: '/choisir-seo-google-ads-meta-algerie.html',
+          tag: 'GUIDE',
+        },
+        {
+          title: 'Offre Centres de Formation',
+          desc: 'Système d’acquisition dédié aux écoles',
+          href: '/#/centres',
+          tag: 'ACADÉMIQ',
+        },
+      ];
+
   return (
     <>
       <header className={`iv-header ${scrolled || open || activeDropdown ? 'is-scrolled' : ''}`}>
         <div className="iv-header-inner">
           <a
-            href="#home"
+            href="#accueil"
             onClick={(e) => {
               e.preventDefault();
-              navigateToSection('#home');
+              navigateToSection('#accueil');
             }}
             className="iv-logo"
             aria-label="iVISION"
@@ -381,10 +477,10 @@ const Header: React.FC<HeaderProps> = ({
             aria-label={isAr ? 'التنقل الرئيسي' : 'Navigation principale'}
           >
             <a
-              href="#home"
+              href="#accueil"
               onClick={(e) => {
                 e.preventDefault();
-                navigateToSection('#home');
+                navigateToSection('#accueil');
               }}
             >
               {navLabels.home}
@@ -612,7 +708,13 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </header>
 
-      <div className={`iv-mobile-menu ${open ? 'is-open' : ''}`} hidden={!open} aria-hidden={!open}>
+      <div
+        className={`iv-mobile-backdrop ${open ? 'is-open' : ''}`}
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+      />
+
+      <div className={`iv-mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>
         <div
           className="iv-mobile-lang"
           role="group"
@@ -639,11 +741,11 @@ const Header: React.FC<HeaderProps> = ({
 
         <nav className="iv-mobile-nav" aria-label={isAr ? 'قائمة الهاتف' : 'Navigation mobile'}>
           <a
-            href="#home"
+            href="#accueil"
             className="iv-mobile-row"
             onClick={(e) => {
               e.preventDefault();
-              navigateToSection('#home');
+              navigateToSection('#accueil');
             }}
           >
             <span>{navLabels.home}</span>
@@ -673,7 +775,7 @@ const Header: React.FC<HeaderProps> = ({
             </button>
             {mobileSection === 'services' && (
               <div className="iv-mobile-sublist">
-                {serviceColumns.flatMap((col) => col.items).map((item) => (
+                {mobileServiceItems.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}

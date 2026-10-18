@@ -40,7 +40,7 @@ export const initReveal = () => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) {
     document
-      .querySelectorAll('.iv-reveal, .iv-reveal-img')
+      .querySelectorAll('.iv-reveal, .iv-reveal-group, .iv-reveal-img')
       .forEach((el) => el.classList.add('is-visible'));
     return;
   }
@@ -58,7 +58,7 @@ export const initReveal = () => {
         io.unobserve(el);
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+    { threshold: 0.02, rootMargin: '0px 0px -10px 0px' }
   );
 
   const observeAll = () => {

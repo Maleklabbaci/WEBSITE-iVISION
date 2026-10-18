@@ -195,6 +195,7 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
 
   useEffect(() => {
     const handleHashChange = () => {
+      const rawHash = window.location.hash || '';
       const { view, slug } = parseHash();
       if (view === 'service' && slug) {
         const destination = getLegacyServicePage(slug);
@@ -207,8 +208,27 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
       setCurrentSlug(slug || '');
       if (view !== 'home') {
         setShowGuide(false);
+        window.scrollTo(0, 0);
+        return;
       }
-      window.scrollTo(0, 0);
+      // Sur la home : si l'ancre pointe vers une section (#about, #contact, #services, #etudes-de-cas, #work...), scroller vers la section
+      const sectionHash = rawHash === '#work' ? '#etudes-de-cas' : rawHash;
+      if (
+        sectionHash.startsWith('#') &&
+        !sectionHash.startsWith('#/') &&
+        sectionHash !== '#' &&
+        sectionHash !== '#home' &&
+        sectionHash !== '#accueil'
+      ) {
+        const scrollToSection = () => {
+          const el = document.querySelector(sectionHash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        };
+        window.setTimeout(scrollToSection, 120);
+        window.setTimeout(scrollToSection, 420);
+      } else {
+        window.scrollTo(0, 0);
+      }
     };
     window.addEventListener('hashchange', handleHashChange);
     handleHashChange();

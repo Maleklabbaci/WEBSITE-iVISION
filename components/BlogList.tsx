@@ -120,7 +120,7 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
   return (
     <article
       onClick={() => (window.location.hash = `/blog/${post.slug}`)}
-      className="group iv-reveal bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[.55rem] overflow-hidden cursor-pointer hover:border-navy/30 hover:shadow-[0_1rem_2.5rem_rgba(20,18,15,.08)] transition-all duration-300 hover:-translate-y-1"
+      className="group bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[.55rem] overflow-hidden cursor-pointer hover:border-navy/30 hover:shadow-[0_1rem_2.5rem_rgba(20,18,15,.08)] transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image placeholder */}
      <div className="h-48 overflow-hidden">
