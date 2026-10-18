@@ -522,35 +522,10 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
   return (
     <div style={{ background: '#f2ede4', color: '#14120f', minHeight: '100vh' }}>
       {/* ===== 1. HERO SOMBRE ÉDITORIAL (100% aligné sur creation-site-web-algerie.html) ===== */}
-      <header
-        style={{
-          position: 'relative',
-          padding: '7.6rem 0 4.6rem',
-          background: '#14120f',
-          color: '#f2ede4',
-          borderBottom: '1px solid rgba(242, 237, 228, 0.14)',
-          overflow: 'hidden',
-        }}
-      >
-        <div style={{ width: 'min(100% - 9.6vw, 84rem)', marginInline: 'auto' }}>
+      <header className="iv-tools-hero">
+        <div className="iv-tools-wrap">
           {/* Barre de fil d'Ariane identique aux pages SEO */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1rem',
-              flexWrap: 'wrap',
-              paddingBottom: '1.35rem',
-              marginBottom: '2.4rem',
-              borderBottom: '1px solid rgba(242, 237, 228, 0.14)',
-              color: 'rgba(242, 237, 228, 0.62)',
-              fontSize: '0.62rem',
-              fontWeight: 700,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-            }}
-          >
+          <div className="iv-tools-crumb">
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.55rem', flexWrap: 'wrap' }}>
               <span
                 aria-hidden="true"
@@ -573,7 +548,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
               <span style={{ color: '#f2ede4' }}>{isAr ? 'الأدوات التفاعلية' : 'Outils & Simulateurs'}</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem', flexWrap: 'wrap' }}>
+            <div className="iv-tools-crumb-links">
               {toolsTabs.map((tab, idx) => (
                 <React.Fragment key={tab.id}>
                   {idx > 0 && <span aria-hidden="true">·</span>}
@@ -602,14 +577,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
           </div>
 
           {/* Grille Hero 2 colonnes comme creation-site-web-algerie.html */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 22rem), 1fr))',
-              gap: 'clamp(1.8rem, 3.6vw, 4rem)',
-              alignItems: 'end',
-            }}
-          >
+          <div className="iv-tools-hero-grid">
             <div>
               <p
                 style={{
@@ -629,7 +597,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
                   margin: '0 0 1.4rem',
                   fontFamily: activeFontObj.family,
                   fontWeight: activeFontObj.weight,
-                  fontSize: 'clamp(2.55rem, 5.3vw, 5.5rem)',
+                  fontSize: 'clamp(2.4rem, 5.3vw, 5.5rem)',
                   lineHeight: 0.94,
                   letterSpacing: '-0.025em',
                   textTransform: 'uppercase',
@@ -647,9 +615,9 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
                       style={{
                         fontFamily: activeFontObj.scriptFamily,
                         fontStyle: 'normal',
-                        fontWeight: 400,
+                        fontWeight: 500,
                         textTransform: 'capitalize',
-                        fontSize: '1.14em',
+                        fontSize: '1.12em',
                         color: '#a69b8b',
                       }}
                     >
@@ -664,7 +632,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
                   maxWidth: '42rem',
                   margin: '0 0 1.9rem',
                   color: 'rgba(242, 237, 228, 0.82)',
-                  fontSize: 'clamp(0.98rem, 1.15vw, 1.12rem)',
+                  fontSize: 'clamp(0.95rem, 1.15vw, 1.12rem)',
                   lineHeight: 1.68,
                 }}
               >
@@ -673,7 +641,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
                   : 'Cinq outils interactifs gratuits conçus par iVISION pour évaluer votre maturité digitale, mesurer l’impact d’un site lent, vérifier vos fondamentaux SEO et cadrer votre projet avant de demander un devis.'}
               </p>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div className="iv-tools-hero-actions">
                 <a
                   href="#tools-workspace"
                   style={{
@@ -827,27 +795,11 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
       <section
         id="tools-workspace"
         aria-labelledby="active-tool-heading"
-        style={{
-          padding: 'clamp(3.2rem, 6vw, 5.4rem) 0',
-          background: '#f2ede4',
-          color: '#14120f',
-          borderBottom: '1px solid rgba(20, 18, 15, 0.14)',
-        }}
+        className="iv-tools-workspace"
       >
-        <div style={{ width: 'min(100% - 9.6vw, 84rem)', marginInline: 'auto' }}>
+        <div className="iv-tools-wrap">
           {/* En-tête de section éditorial */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'end',
-              gap: '1.5rem',
-              flexWrap: 'wrap',
-              paddingBottom: '1.4rem',
-              marginBottom: '2rem',
-              borderBottom: '1px solid rgba(20, 18, 15, 0.14)',
-            }}
-          >
+          <div className="iv-tools-head">
             <div>
               <span
                 style={{
@@ -882,15 +834,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
             <div
               role="tablist"
               aria-label={isAr ? 'الأدوات التفاعلية' : 'Outils interactifs'}
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '0.45rem',
-                padding: '0.38rem',
-                borderRadius: '999px',
-                background: '#fbf8f2',
-                border: '1px solid rgba(20, 18, 15, 0.14)',
-              }}
+              className="iv-tools-pillbar"
             >
               {toolsTabs.map((tab) => {
                 const active = activeTool === tab.id;
@@ -1003,17 +947,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
                 ))}
               </div>
 
-              <aside
-                style={{
-                  position: 'sticky',
-                  top: '6.5rem',
-                  padding: '2rem',
-                  borderRadius: '1.15rem',
-                  background: '#14120f',
-                  color: '#f2ede4',
-                  border: '1px solid rgba(242, 237, 228, 0.16)',
-                }}
-              >
+              <aside className="iv-tools-aside">
                 <span
                   style={{
                     display: 'inline-block',
@@ -1660,7 +1594,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
                   <span style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem', color: '#14120f' }}>
                     {isAr ? 'وتيرة المرافقة المطلوبة :' : 'Rythme d’accompagnement souhaité :'}
                   </span>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.55rem' }}>
+                  <div className="iv-tools-cadence">
                     {[
                       { id: 'launch', label: isAr ? 'إطلاق أولي مركز' : 'Lancement ciblé' },
                       { id: 'growth', label: isAr ? 'نمو شهري مستمر' : 'Croissance mensuelle' },
