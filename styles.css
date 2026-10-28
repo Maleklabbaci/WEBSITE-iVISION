@@ -784,3 +784,23 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Blog : recherche lisible et filtres cohérents sur tous les écrans. */
+.blog-filters { margin-bottom: 3rem; padding: 1.5rem 0; border-top: 1px solid var(--iv-line); border-bottom: 1px solid var(--iv-line); }
+.blog-filter-top { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; }
+.blog-search { display: block; flex: 1; max-width: 31rem; min-width: 0; }
+.blog-filter-label { display: block; margin-bottom: .65rem; color: var(--iv-muted); font-size: .68rem; font-weight: 700; letter-spacing: .14em; }
+.blog-search-field { display: flex; align-items: center; gap: .75rem; min-height: 3.2rem; padding: 0 1rem; border: 1px solid var(--iv-line); border-radius: .55rem; background: var(--iv-paper); color: var(--iv-white); }
+.blog-search-field:focus-within { border-color: var(--iv-white); outline: 2px solid var(--iv-white); outline-offset: 2px; }
+.blog-search-field svg { width: 1.15rem; height: 1.15rem; flex: none; }
+.blog-search-field input { width: 100%; min-width: 0; padding: .8rem 0; border: 0; outline: 0; background: transparent; color: inherit; font: inherit; font-size: .95rem; }
+.blog-search-field input::placeholder { color: var(--iv-muted); opacity: 1; }
+.blog-result-count { margin: 0 0 .9rem; color: var(--iv-muted); font-size: .8rem; white-space: nowrap; }
+.blog-category-list { display: flex; flex-wrap: wrap; gap: .5rem; }
+.blog-category { min-height: 2.75rem; padding: .55rem 1rem; border: 1px solid var(--iv-line); border-radius: 999px; background: transparent; color: var(--iv-white); font-family: inherit; font-size: .75rem; font-weight: 600; line-height: 1.2; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.blog-category:hover { border-color: var(--iv-white); }
+.blog-category[aria-pressed="true"] { background: var(--iv-white); border-color: var(--iv-white); color: var(--iv-black); }
+.blog-category:focus-visible { outline: 2px solid var(--iv-white); outline-offset: 3px; }
+@media (max-width: 600px) { .blog-filters { margin-bottom: 2rem; padding: 1.25rem 0; } .blog-filter-top { align-items: end; } .blog-search { max-width: none; } .blog-result-count { font-size: .72rem; } .blog-category { padding-inline: .85rem; } }
+html[lang^="ar"] .blog-filter-label, html[lang^="ar"] .blog-category { font-family: 'Readex Pro', 'Cairo', sans-serif; letter-spacing: 0; }
+html[lang^="ar"] .blog-search-field input { font-family: 'Tajawal', sans-serif; }

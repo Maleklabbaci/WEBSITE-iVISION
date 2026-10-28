@@ -125,6 +125,9 @@ const expectedSites = [
   { id: 'movesmart', name: 'MoveSmart', image: 'portfolio-movesmart.webp', url: 'https://movesmart-ecru.vercel.app/' },
   { id: 'fidali', name: 'Fidali', image: 'project-fidali.webp', url: 'https://fidali.vercel.app/' },
 ];
+for (const [id, url] of [['abdou-zouheir', 'https://www.abdouzouheir.space/'], ['ivision-ad', 'https://www.ivisionads.online/'], ['nspear', 'https://www.nspearagency.online/']]) {
+  assert.ok(webPortfolio.includes(`id="${id}"`) && webPortfolio.includes(`href="${url}"`), `Projet manquant : ${id}`);
+}
 const listedSites = portfolioGraph.find((item) => item['@type'] === 'ItemList')?.itemListElement;
 const projects = [...webPortfolio.matchAll(/<article class="pf-project(?: [^"]+)?" id="([^"]+)" aria-labelledby="([^"]+)">([\s\S]*?)<\/article>/g)]
   .map(([, id, titleId, markup]) => ({ id, titleId, markup }));
@@ -138,12 +141,16 @@ for (const [index, { id, titleId, markup }] of projects.entries()) {
   const image = markup.match(/<img src="(\/images\/[^\"]+)" alt="([^\"]+)" width="\d+" height="\d+" loading="lazy"/)?.[1];
   const zoom = markup.match(/<a class="pf-project-zoom" href="([^"]+)" target="_blank" rel="noopener noreferrer" aria-label="([^"]+)"/);
   const link = markup.match(/<a class="pf-project-link" href="([^"]+)"/)?.[1];
-  assert.ok(name && image, `Titre, image et texte alternatif attendus : #${id}`);
-  assert.equal(zoom?.[1], image, `Capture agrandissable attendue : #${id}`);
-  assert.match(zoom?.[2] ?? '', /en grand/, `Nom du lien vers la capture attendu : #${id}`);
+  assert.ok(name, `Titre attendu : #${id}`);
+  if (image) {
+    assert.equal(zoom?.[1], image, `Capture agrandissable attendue : #${id}`);
+    assert.match(zoom?.[2] ?? '', /en grand/, `Nom du lien vers la capture attendu : #${id}`);
+    assert.ok(existsSync(path.join(dist, image.slice(1))), `Capture introuvable : ${image}`);
+  } else {
+    assert.match(markup, /class="pf-project-placeholder"/, `Présentation attendue : #${id}`);
+  }
   assert.equal(name, listedSites[index].name, `Nom incohérent dans la liste structurée : #${id}`);
   assert.ok(webPortfolio.includes(`href="#${id}"`), `Navigation vers le projet manquante : #${id}`);
-  assert.ok(existsSync(path.join(dist, image.slice(1))), `Capture introuvable : ${image}`);
   assert.equal(listedSites[index].url, link ? new URL(link, `${base}/`).href : undefined, `Ne pas inventer de lien pour ${name}.`);
   if (link) assert.doesNotMatch(markup, /class="pf-project-pending"/, `Adresse déjà renseignée : ${name}`);
   else assert.match(markup, /class="pf-project-pending"/, `Informer si le lien de visite manque : ${name}`);
@@ -199,8 +206,25 @@ const guideGraph = JSON.parse(guideSchemas[0][1])['@graph'];
 assert.equal(guideGraph.find((item) => item['@type'] === 'WebPage')?.url, guideUrl);
 assert.equal(guideGraph.find((item) => item['@type'] === 'BreadcrumbList')?.itemListElement.at(-1)?.item, guideUrl);
 
+const blogSlugs = ['strategie-marketing-digital-algerie', 'creation-contenu-reseaux-sociaux-algerie', 'budget-publicite-meta-google-ads-algerie', 'seo-site-web-algerie-mots-cles'];
+const blogIndex = read('blog/index.html');
+assert.ok(homepage.includes('href="/blog/"'), 'Lien vers le nouveau blog manquant.');
+for (const slug of blogSlugs) {
+  const route = `blog/${slug}.html`;
+  const html = read(route);
+  const url = `${base}/${route}`;
+  assert.ok(blogIndex.includes(`href="/${route}"`), `Article non lié : ${route}`);
+  assert.ok(html.includes(`<link rel="canonical" href="${url}"`));
+  assert.equal([...html.matchAll(/<h1\b/g)].length, 1);
+  const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+  assert.equal(schema['@type'], 'BlogPosting');
+  assert.equal(schema.mainEntityOfPage, url);
+  assert.match(html, /Exemple fictif|exemple fictif/, `Les calculs doivent être identifiés comme exemples : ${route}`);
+  for (const [, image] of html.matchAll(/src="(\/images\/[^"]+)"/g)) assert.ok(existsSync(path.join(dist, image.slice(1))));
+}
+
 const listedUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert.deepEqual(listedUrls, [`${base}/`, ...routes.map((route) => `${base}/${route}`), webPortfolioUrl, guideUrl]);
+assert.deepEqual(listedUrls, [`${base}/`, ...routes.map((route) => `${base}/${route}`), webPortfolioUrl, guideUrl, `${base}/blog/`, ...blogSlugs.map((slug) => `${base}/blog/${slug}.html`)]);
 assert.ok(!listedUrls.includes(socialPortfolioUrl), 'Le portfolio social non finalisé ne doit pas figurer au sitemap.');
 assert.ok(listedUrls.every((url) => !url.includes('#')), 'Ne pas lister les routes à fragment dans le sitemap.');
 assert.ok(listedUrls.every((url) => existsSync(path.join(dist, new URL(url).pathname))), 'Chaque URL du sitemap doit avoir un fichier servi.');
