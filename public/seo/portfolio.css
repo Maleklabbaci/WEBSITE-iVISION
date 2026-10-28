@@ -261,3 +261,4 @@
   .pf-view-toggle-btn, .pf-slide-step-btn, .pf-open-diaporama-btn { padding:.4rem .68rem; font-size:.54rem; }
 }
 @media(prefers-reduced-motion:reduce) { .pf-project-link, .pf-project-media, .pf-cross a, .pf-design-card, .pf-reel-card { transition:none; } }
+

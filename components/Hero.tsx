@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { Language } from '../lib/translations';
 
 interface HeroProps {
@@ -10,25 +10,33 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick, language = 'fr' }) => {
   const [lineOne, lineTwo, lineThree, location] = translations.title.split('|');
   const [visible, setVisible] = useState(false);
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const backgroundRef = useRef<HTMLImageElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
   const signature = language === 'ar'
     ? { aria: 'خبرات iVISION', items: ['استراتيجية', 'محتوى', 'تجارب ويب'] }
     : { aria: 'Expertises iVISION', items: ['STRATEGY', 'CONTENT', 'WEB EXPERIENCES'] };
 
   useEffect(() => {
     const timer = window.setTimeout(() => setVisible(true), 100);
+    let frame = 0;
     const onMove = (event: MouseEvent) => {
       if (window.innerWidth < 1024 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      setPointer({ x: (event.clientX / window.innerWidth - 0.5) * 12, y: (event.clientY / window.innerHeight - 0.5) * 8 });
+      const x = (event.clientX / window.innerWidth - 0.5) * 12;
+      const y = (event.clientY / window.innerHeight - 0.5) * 8;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (backgroundRef.current) backgroundRef.current.style.transform = `scale(1.04) translate3d(${x * -0.12}px, ${y * -0.12}px, 0)`;
+        if (titleRef.current) titleRef.current.style.transform = `translate3d(${x * 0.05}px, ${y * 0.05}px, 0)`;
+      });
     };
     window.addEventListener('mousemove', onMove, { passive: true });
-    return () => { window.clearTimeout(timer); window.removeEventListener('mousemove', onMove); };
+    return () => { window.clearTimeout(timer); cancelAnimationFrame(frame); window.removeEventListener('mousemove', onMove); };
   }, []);
 
   return (
     <section id="accueil" className={`iv-hero ${visible ? 'is-visible' : ''}`}>
       <div className="iv-hero-bg" aria-hidden="true">
-        <img src="/images/agency-hero-growth.webp" alt="" style={{ transform: `scale(1.04) translate3d(${pointer.x * -0.12}px, ${pointer.y * -0.12}px, 0)` }} />
+        <img ref={backgroundRef} src="/images/agency-hero-growth.webp" srcSet="/images/agency-hero-growth-960.webp 960w, /images/agency-hero-growth-1600.webp 1600w, /images/agency-hero-growth.webp 2560w" sizes="100vw" width={2560} height={1440} fetchPriority="high" alt="" style={{ transform: 'scale(1.04)' }} />
         <div className="iv-hero-shade" />
       </div>
 
@@ -37,7 +45,7 @@ const Hero: React.FC<HeroProps> = ({ translations, onQuoteClick, language = 'fr'
       </div>
 
       <div className="iv-hero-main">
-        <div className="iv-hero-title-wrap" style={{ transform: `translate3d(${pointer.x * 0.05}px, ${pointer.y * 0.05}px, 0)` }}>
+        <div ref={titleRef} className="iv-hero-title-wrap">
           <h1 aria-label={translations.title.replaceAll('|', ' ')}><span>{lineOne} </span><span className="iv-hero-title-indent">{language === 'ar' ? lineTwo : lineTwo.toLowerCase()} <b aria-hidden="true">✦</b></span><span>{lineThree} </span><span className="iv-hero-location">{location}</span></h1>
         </div>
 

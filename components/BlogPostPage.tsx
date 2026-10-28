@@ -2,13 +2,18 @@ import { useEffect, useState } from 'react';
 import { getBlogPost, getRelatedPosts, type BlogPost } from '../data/blog-posts';
 import { updateSEO } from '../lib/seo-utils';
 import { getCanonicalUrl } from '../lib/router';
+import arabicPosts from '../public/blog/ar.json';
+
+const arPosts: Record<string, { title: string; excerpt: string; content: string }> = arabicPosts;
+const arCategories: Record<string, string> = { 'Marketing Digital': 'التسويق الرقمي', Design: 'التصميم', SEO: 'تحسين محركات البحث', 'Social Media': 'شبكات التواصل', 'E-commerce': 'التجارة الإلكترونية', Branding: 'الهوية التجارية', Publicite: 'الإعلانات', 'Intelligence Artificielle': 'الذكاء الاصطناعي', Performance: 'الأداء' };
 
 interface Props {
   slug: string;
   language?: string;
 }
 
-const BlogPostPage = ({ slug }: Props) => {
+const BlogPostPage = ({ slug, language = 'fr' }: Props) => {
+  const isAr = language === 'ar';
   const [post, setPost] = useState<BlogPost | undefined>();
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
 
@@ -18,8 +23,8 @@ const BlogPostPage = ({ slug }: Props) => {
 
     if (foundPost) {
       updateSEO({
-        title: `Archive : ${foundPost.title}`,
-        description: 'Article historique iVISION : chiffres, tarifs et délais éventuels à vérifier avant toute décision. Consultez nos pages de services actualisées.',
+        title: isAr ? arPosts[foundPost.slug]?.title || foundPost.title : `Archive : ${foundPost.title}`,
+        description: isAr ? arPosts[foundPost.slug]?.excerpt || foundPost.metaDescription : 'Article historique iVISION : chiffres, tarifs et délais éventuels à vérifier avant toute décision. Consultez nos pages de services actualisées.',
         canonical: getCanonicalUrl({ type: 'blog-post', slug: foundPost.slug }),
       });
 
@@ -29,19 +34,19 @@ const BlogPostPage = ({ slug }: Props) => {
     }
 
     window.scrollTo(0, 0);
-  }, [slug]);
+  }, [slug, isAr]);
 
   if (!post) {
     return (
       <section className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-medium text-navy dark:text-white mb-4">Article non trouvé</h1>
-          <p className="text-brand-gray mb-8">Cet article n'existe pas ou a été déplacé.</p>
+          <h1 className="text-4xl font-medium text-navy dark:text-white mb-4">{isAr ? 'المقال غير موجود' : 'Article non trouvé'}</h1>
+          <p className="text-brand-gray mb-8">{isAr ? 'هذا المقال غير موجود أو تم نقله.' : "Cet article n'existe pas ou a été déplacé."}</p>
           <button
             onClick={() => (window.location.hash = '/blog')}
             className="btn-ivision px-6 py-3"
           >
-            ← Retour au blog
+            {isAr ? '→ العودة إلى المدونة' : '← Retour au blog'}
           </button>
         </div>
       </section>
@@ -56,27 +61,27 @@ const BlogPostPage = ({ slug }: Props) => {
           onClick={() => (window.location.hash = '/blog')}
           className="text-brand-gray hover:text-brand-blue transition mb-8 flex items-center gap-2 font-medium"
         >
-          ← Retour au blog
+          {isAr ? '→ العودة إلى المدونة' : '← Retour au blog'}
         </button>
 
         {/* Header */}
         <header className="mb-12">
           <div className="flex items-center gap-3 mb-4">
             <span className="px-3 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-bold uppercase tracking-wider">
-              {post.category}
+              {isAr ? arCategories[post.category] || post.category : post.category}
             </span>
-            <span className="text-brand-gray/60 text-sm">{post.readTime} de lecture</span>
+            <span className="text-brand-gray/60 text-sm">{isAr ? `${post.readTime.replace('min', 'دقائق')} قراءة` : `${post.readTime} de lecture`}</span>
           </div>
 
           <h1 className="text-3xl md:text-5xl font-medium text-navy dark:text-white mb-6 leading-tight tracking-[-0.02em]">
-            {post.title}
+            {isAr ? arPosts[post.slug]?.title || post.title : post.title}
           </h1>
 
           <div className="flex items-center gap-4 text-brand-gray text-sm">
-            <span>Par {post.author}</span>
+            <span>{isAr ? 'بقلم فريق iVISION' : `Par ${post.author}`}</span>
             <span>•</span>
             <time dateTime={post.date}>
-              {new Date(post.date).toLocaleDateString('fr-FR', {
+              {new Date(post.date).toLocaleDateString(isAr ? 'ar-DZ' : 'fr-FR', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
@@ -86,14 +91,14 @@ const BlogPostPage = ({ slug }: Props) => {
         </header>
 
         <aside className="border border-navy/15 dark:border-white/20 p-5 mb-10 text-brand-gray text-sm leading-relaxed" aria-label="Statut de cet article">
-          Archive éditoriale : les statistiques, prix et délais cités ici n'ont pas tous été revus. Ne les utilisez pas comme tarifs ou garanties actuels. <a className="underline" href="/agence-marketing-digital-algerie.html">Consulter nos offres actualisées</a>.
+          {isAr ? 'نسخة عربية موجزة من مقال سابق. لم تُراجع جميع الإحصاءات والأسعار والمواعيد المذكورة في النسخة الأصلية؛ لا تعتبرها أسعاراً أو ضمانات حالية. ' : "Archive éditoriale : les statistiques, prix et délais cités ici n'ont pas tous été revus. Ne les utilisez pas comme tarifs ou garanties actuels. "}<a className="underline" href="/agence-marketing-digital-algerie.html">{isAr ? 'اطّلع على خدماتنا الحالية' : 'Consulter nos offres actualisées'}</a>.
         </aside>
 
         {/* Illustration de l'article historique */}
         <div className="w-full h-64 md:h-96 rounded-[.55rem] mb-12 overflow-hidden">
   <img 
     src={post.image} 
-    alt={post.title}
+    alt={isAr ? arPosts[post.slug]?.title || post.title : post.title}
     className="w-full h-full object-cover"
   />
 </div>
@@ -120,13 +125,13 @@ const BlogPostPage = ({ slug }: Props) => {
               [&_td]:text-brand-gray [&_td]:dark:text-brand-gray/80 [&_td]:p-3 [&_td]:border-b [&_td]:border-navy/5 [&_td]:dark:border-white/10
               [&_hr]:border-navy/10 [&_hr]:dark:border-white/10 [&_hr]:my-8
             "
-            dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(isAr ? arPosts[post.slug]?.content || post.content : post.content) }}
           />
         </article>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-12 pt-8 border-t border-navy/10 dark:border-white/10">
-          {post.tags.map((tag) => (
+          {(isAr ? [arCategories[post.category] || post.category] : post.tags).map((tag) => (
             <span key={tag} className="px-3 py-1 bg-navy/5 dark:bg-white/5 text-brand-gray rounded-full text-sm font-medium">
               #{tag}
             </span>
@@ -135,19 +140,19 @@ const BlogPostPage = ({ slug }: Props) => {
 
         {/* CTA */}
         <div className="bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-[.55rem] p-8 md:p-10 mb-16">
-          <span className="iv-label">Next step</span>
+          <span className="iv-label">{isAr ? 'الخطوة التالية' : 'Next step'}</span>
           <h3 className="text-[clamp(1.6rem,3vw,2.4rem)] font-medium text-navy dark:text-white mb-3 tracking-[-0.02em] leading-[1.05]">
-            Besoin d'aide pour votre projet ?
+            {isAr ? 'هل تحتاج إلى مساعدة في مشروعك؟' : "Besoin d'aide pour votre projet ?"}
           </h3>
           <p className="text-brand-gray mb-6 max-w-xl">
-            Décrivez votre activité et votre projet : nous pourrons définir ensemble la prochaine étape utile.
+            {isAr ? 'صف نشاطك ومشروعك لنحدد معاً الخطوة المناسبة.' : 'Décrivez votre activité et votre projet : nous pourrons définir ensemble la prochaine étape utile.'}
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <button
               onClick={() => (window.location.hash = '/devis')}
               className="btn-ivision px-8 py-3"
             >
-              Parler de mon projet
+              {isAr ? 'تحدث عن مشروعك' : 'Parler de mon projet'}
             </button>
             <a
               href="https://wa.me/213563839404"
@@ -155,7 +160,7 @@ const BlogPostPage = ({ slug }: Props) => {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-brand-gray hover:text-navy border-b border-navy/20 pb-1 transition-colors"
             >
-              WhatsApp direct
+              {isAr ? 'تواصل عبر واتساب' : 'WhatsApp direct'}
             </a>
           </div>
         </div>
@@ -164,7 +169,7 @@ const BlogPostPage = ({ slug }: Props) => {
         {relatedPosts.length > 0 && (
           <div>
             <h3 className="text-2xl font-medium text-navy dark:text-white mb-8 tracking-[-0.02em]">
-              Articles similaires
+              {isAr ? 'مقالات مشابهة' : 'Articles similaires'}
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
               {relatedPosts.map((rp) => (
@@ -173,11 +178,11 @@ const BlogPostPage = ({ slug }: Props) => {
                   onClick={() => (window.location.hash = `/blog/${rp.slug}`)}
                   className="bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 rounded-lg p-5 cursor-pointer hover:border-brand-blue/50 transition group"
                 >
-                  <span className="text-xs text-brand-blue font-bold uppercase tracking-wider">{rp.category}</span>
+                  <span className="text-xs text-brand-blue font-bold uppercase tracking-wider">{isAr ? arCategories[rp.category] || rp.category : rp.category}</span>
                   <h4 className="text-navy dark:text-white font-bold mt-2 group-hover:text-brand-blue transition line-clamp-2">
-                    {rp.title}
+                    {isAr ? arPosts[rp.slug]?.title || rp.title : rp.title}
                   </h4>
-                  <p className="text-brand-gray/60 text-sm mt-2">{rp.readTime}</p>
+                  <p className="text-brand-gray/60 text-sm mt-2">{isAr ? rp.readTime.replace('min', 'دقائق') : rp.readTime}</p>
                 </article>
               ))}
             </div>
