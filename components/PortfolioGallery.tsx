@@ -27,7 +27,6 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    projects.forEach(({ media }) => { const image = new Image(); image.decoding = 'async'; image.src = media; });
     trackEvent('view_portfolio', { projects: projects.map((project) => project.name).join(', ') });
     const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: .05 });
     if (ref.current) observer.observe(ref.current);
@@ -90,7 +89,7 @@ const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ language }) => {
           <div className="iv-work-marquee-track">
             {[0, 1].map((set) => <div className="iv-work-marquee-set" key={set} aria-hidden={set === 1}>
               {projects.map((project, idx) => <a key={`${set}-${project.id}`} href={project.website} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} — ${t.view}`} className={`iv-work-fixed-card ${idx === activeIndex && set === 0 ? 'is-active-slide' : ''}`} tabIndex={set === 1 ? -1 : undefined} onClick={() => trackEvent('view_project', { project: project.name })}>
-                <div className="iv-work-float-media"><div className="iv-work-float-bar"><span /><span /><span /><small>{t.badge}</small></div><img src={project.media} alt={set === 1 ? '' : `${project.name} — aperçu du site`} loading={project.id === 1 && set === 0 ? 'eager' : 'lazy'} decoding="async" /></div>
+                <div className="iv-work-float-media"><div className="iv-work-float-bar"><span /><span /><span /><small>{t.badge}</small></div><img src={project.media} alt={set === 1 ? '' : `${project.name} — aperçu du site`} loading="lazy" decoding="async" /></div>
                 <div className="iv-work-float-meta"><span>{project.sector[language]}</span><strong>{project.name}</strong><small>{t.view} <b aria-hidden="true">↗</b></small></div>
               </a>)}
             </div>)}
