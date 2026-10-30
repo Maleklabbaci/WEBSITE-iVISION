@@ -1295,7 +1295,7 @@
     document.body.appendChild(topBtn);
 
     const waBtn = document.createElement('a');
-    waBtn.href = 'https://wa.me/213563839404';
+    waBtn.href = 'https://wa.me/213542586904';
     waBtn.target = '_blank';
     waBtn.rel = 'noopener noreferrer';
     waBtn.className = 'iv-floating-wa';

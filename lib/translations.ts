@@ -345,7 +345,7 @@ const textContent = {
     contact: {
       email: 'contact@ivision.agency',
       support: 'support@ivision.agency',
-      phone: '+213 563 83 94 04'
+      phone: '+213 542 58 69 04'
     }
   },
   whatsapp: { message: { fr: "Bonjour iVISION, j'aimerais booster mon business.", en: "Hello iVISION, I would like to boost my business.", ar: "مرحباً iVISION، أود تطوير عملي." } }

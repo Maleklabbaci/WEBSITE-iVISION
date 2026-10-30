@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { getService, type ServiceDetail } from '../data/services';
 import { updateSEO, generateServiceSchema } from '../lib/seo-utils';
 import { getCanonicalUrl } from '../lib/router';
+import { WHATSAPP_NUMBER } from '../lib/config';
 
 interface Props {
   slug: string;
@@ -370,7 +371,7 @@ const ServicePage = ({ slug }: Props) => {
                 </svg>
               </button>
               <a
-                href="https://wa.me/213563839404"
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest text-navy/60 dark:text-white/60 hover:text-brand-blue transition-colors px-8 py-4 border border-navy/10 dark:border-white/10 rounded-lg hover:border-brand-blue"
