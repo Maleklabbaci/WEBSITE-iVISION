@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getBlogPost, getRelatedPosts, type BlogPost } from '../data/blog-posts';
 import { updateSEO } from '../lib/seo-utils';
 import { getCanonicalUrl } from '../lib/router';
+import { WHATSAPP_NUMBER } from '../lib/config';
 import arabicPosts from '../public/blog/ar.json';
 
 const arPosts: Record<string, { title: string; excerpt: string; content: string }> = arabicPosts;
@@ -155,7 +156,7 @@ const BlogPostPage = ({ slug, language = 'fr' }: Props) => {
               {isAr ? 'تحدث عن مشروعك' : 'Parler de mon projet'}
             </button>
             <a
-              href="https://wa.me/213563839404"
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-brand-gray hover:text-navy border-b border-navy/20 pb-1 transition-colors"

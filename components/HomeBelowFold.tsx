@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PortfolioGallery from './PortfolioGallery';
 import Services from './Services';
 import type { Language } from '../lib/translations';
+import { PHONE_NUMBERS } from '../lib/config';
 
 type HomeBelowFoldProps = { language: Language; translations: any };
 
@@ -56,7 +57,7 @@ const HomeBelowFold: React.FC<HomeBelowFoldProps> = ({ language, translations })
 
       <section id="faq" className="iv-faq"><div className="iv-section-topline"><span>{t.faq.label}</span></div><div className="iv-faq-grid iv-reveal"><div><h2>{splitLines(t.faq.title)}</h2><p>{t.faq.body}</p><a href="/choisir-seo-google-ads-meta-algerie.html" className="iv-arrow-link iv-faq-guide"><span>{t.faq.guide}</span><b aria-hidden="true">↗</b></a></div><div className="iv-faq-list">{faqs.map((item: { question: string; answer: string }, index: number) => { const isOpen = openFaq === index; return <article key={item.question} className={isOpen ? 'is-open' : ''}><button type="button" aria-expanded={isOpen} onClick={() => setOpenFaq(isOpen ? null : index)}><span>{item.question}</span><b>{isOpen ? '−' : '+'}</b></button>{isOpen && <p>{item.answer}</p>}</article>; })}</div></div></section>
 
-      <section id="contact" className="iv-contact"><div className="iv-section-topline"><span>{t.contact.label}</span></div><div className="iv-contact-heading iv-reveal"><h2>{splitLines(t.contact.title)}</h2><p>{contactSection.subtitle || t.contact.body}</p></div><div className="iv-contact-grid iv-reveal-group"><div><span>{contactSection.labels?.contact || 'Contact direct'}</span><a href={`mailto:${contact.email || ''}`} dir="ltr">{contact.email}</a><a href={`tel:${(contact.phone || '').replace(/\s/g, '')}`} dir="ltr">{contact.phone}</a></div><div><span>{contactSection.labels?.follow || 'Suivez-nous'}</span><div className="iv-contact-socials"><a href="https://www.instagram.com/ivision_agency/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://web.facebook.com/agencyivision" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.tiktok.com/@ivisionagency1" target="_blank" rel="noopener noreferrer">TikTok</a></div></div></div></section>
+      <section id="contact" className="iv-contact"><div className="iv-section-topline"><span>{t.contact.label}</span></div><div className="iv-contact-heading iv-reveal"><h2>{splitLines(t.contact.title)}</h2><p>{contactSection.subtitle || t.contact.body}</p></div><div className="iv-contact-grid iv-reveal-group"><div><span>{contactSection.labels?.contact || 'Contact direct'}</span><a href={`mailto:${contact.email || ''}`} dir="ltr">{contact.email}</a>{PHONE_NUMBERS.map((phone) => <a key={phone.tel} href={`tel:${phone.tel}`} dir="ltr">{phone.display}</a>)}</div><div><span>{contactSection.labels?.follow || 'Suivez-nous'}</span><div className="iv-contact-socials"><a href="https://www.instagram.com/ivision_agency/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://web.facebook.com/agencyivision" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.tiktok.com/@ivisionagency1" target="_blank" rel="noopener noreferrer">TikTok</a></div></div></div></section>
     </div>
   );
 };

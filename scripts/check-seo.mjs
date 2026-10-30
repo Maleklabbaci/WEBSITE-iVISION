@@ -124,6 +124,8 @@ const expectedSites = [
   { id: 'white-aura', name: 'White Aura', image: 'portfolio-white-aura.webp', url: 'https://white-aura.vercel.app/' },
   { id: 'movesmart', name: 'MoveSmart', image: 'portfolio-movesmart.webp', url: 'https://movesmart-ecru.vercel.app/' },
   { id: 'fidali', name: 'Fidali', image: 'project-fidali.webp', url: 'https://fidali.vercel.app/' },
+  { id: 'cabinet-noura', name: 'Cabinet Noura', image: 'portfolio-cabinet-noura.webp', url: 'https://cabinet-noura.vercel.app/' },
+  { id: 'el-chifa', name: 'Clinique El Chifa', image: 'portfolio-clinique-el-chifa.webp', url: 'https://clinique-el-chifa-urgences.vercel.app/' },
 ];
 for (const [id, url] of [['abdou-zouheir', 'https://www.abdouzouheir.space/'], ['ivision-ad', 'https://www.ivisionads.online/'], ['nspear', 'https://www.nspearagency.online/']]) {
   assert.ok(webPortfolio.includes(`id="${id}"`) && webPortfolio.includes(`href="${url}"`), `Projet manquant : ${id}`);

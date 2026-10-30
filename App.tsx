@@ -15,6 +15,7 @@ import { translations, Language } from './lib/translations';
 import { getLegacyServicePage, parseRoute } from './lib/router';
 import { updateSEO } from './lib/seo-utils';
 import { initReveal } from './lib/reveal';
+import { WHATSAPP_NUMBER } from './lib/config';
 
 // ===== LAZY LOADING (Performance) =====
 const BlogList = lazy(() => import('./components/BlogList'));
@@ -183,7 +184,6 @@ const App: React.FC<{ homeSections?: React.ComponentType<HomeSectionsProps> }> =
   const [showLangSelector, setShowLangSelector] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   
-  const WHATSAPP_NUMBER = "213563839404";
 
   useEffect(() => {
     const savedLang = localStorage.getItem('ivision-lang-selected') as Language;

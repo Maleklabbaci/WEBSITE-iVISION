@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { navigate, getCanonicalUrl } from '../lib/router';
 import { updateSEO } from '../lib/seo-utils';
+import { PHONE_NUMBERS, WHATSAPP_NUMBER } from '../lib/config';
 
 const QuotePage = () => {
   const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ const QuotePage = () => {
 💰 *Budget :* ${formData.budget}
 📝 *Message :* ${formData.message}`;
 
-    const whatsappUrl = `https://wa.me/213563839404?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     setSubmitted(true);
   };
@@ -231,12 +232,14 @@ const QuotePage = () => {
 
         {/* Contact direct */}
         <div className="mt-12 grid md:grid-cols-3 gap-6 text-center">
-          <a href="tel:+213563839404" className="bg-white/5 border border-white/10 rounded-lg p-5 hover:border-orange-500/30 transition">
+          <div className="bg-white/5 border border-white/10 rounded-lg p-5 hover:border-orange-500/30 transition">
             <span className="text-2xl block mb-2">📞</span>
             <span className="text-white font-medium block">Téléphone</span>
-            <span className="text-gray-400 text-sm">+213 563 839 404</span>
-          </a>
-          <a href="https://wa.me/213563839404" target="_blank" rel="noopener noreferrer" className="bg-white/5 border border-white/10 rounded-lg p-5 hover:border-green-500/30 transition">
+            {PHONE_NUMBERS.map((phone) => (
+              <a key={phone.tel} href={`tel:${phone.tel}`} dir="ltr" className="text-gray-400 text-sm block hover:text-white transition-colors">{phone.display}</a>
+            ))}
+          </div>
+          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="bg-white/5 border border-white/10 rounded-lg p-5 hover:border-green-500/30 transition">
             <span className="text-2xl block mb-2">💬</span>
             <span className="text-white font-medium block">WhatsApp</span>
             <span className="text-gray-400 text-sm">Chat direct</span>
