@@ -1,0 +1,64 @@
+iVISION — site web
+Modifications du 30/10/2026 (commit c9c4b18, branche arena/527d2171-website-ivision)
+Ce ZIP ne contient QUE les fichiers modifiés et ajoutés (pas tout le projet).
+Copie les fichiers en respectant l'arborescence dans ton projet, puis relance le build.
+
+================================================================
+1. NUMÉROS DE CONTACT
+================================================================
+Ancien : +213 563 83 94 04  (supprimé partout)
+Nouveaux :
+  - Principal / WhatsApp : +213 542 58 69 04
+  - Secondaire affiché   : +213 697 66 09 69
+
+lib/config.ts (fichier central)
+  - Nouveau tableau PHONE_NUMBERS (display / tel / wa)
+  - WHATSAPP_NUMBER = 213542586904 (numéro principal, tous les liens wa.me)
+  - Exports ajoutés : PHONE_NUMBER, PHONE_DISPLAY, WHATSAPP_NUMBER_ALT,
+    PHONE_NUMBER_ALT, PHONE_DISPLAY_ALT
+
+Fichiers qui utilisent maintenant ce réglage :
+  - App.tsx ................ bouton WhatsApp flottant (import de lib/config)
+  - components/BlogPostPage.tsx ..... CTA WhatsApp des articles
+  - components/ServicePage.tsx ...... CTA WhatsApp des pages service
+  - components/InteractiveToolsPage.tsx  envoi de la configuration sur WhatsApp
+  - components/QuotePage.tsx ........ devis WhatsApp + bloc « Téléphone »
+                                      (affiche les 2 numéros cliquables)
+  - components/Footer.tsx ........... pied de page (les 2 numéros)
+  - components/HomeBelowFold.tsx .... section Contact de l'accueil (les 2 numéros)
+  - components/Contact.tsx .......... variante de section contact (les 2 numéros)
+  - lib/translations.ts ............. footer.contact.phone
+  - index.html ...................... JSON-LD Organization "telephone" (tableau, 2 numéros)
+
+Pages HTML statiques (public/) — pied de page avec les 2 numéros en tel: + WhatsApp flottant :
+  - agence-marketing-digital-algerie.html
+  - choisir-seo-google-ads-meta-algerie.html
+  - creation-contenu-algerie.html
+  - creation-site-web-algerie.html
+  - publicite-meta-google-ads-algerie.html
+  - seo/page-ui.js .................. bouton WhatsApp flottant (wa.me)
+
+================================================================
+2. PORTFOLIO SITES WEB — 2 ajouts
+================================================================
+public/portfolio-sites-web-algerie.html
+  - 2 nouvelles cartes (12 et 13) + 2 liens dans la navigation des projets
+    + 2 entrées ItemList dans le JSON-LD
+  - Cabinet Noura ......... https://cabinet-noura.vercel.app/
+    Site vitrine · Gynécologie & obstétrique (Oran)
+  - Clinique El Chifa ..... https://clinique-el-chifa-urgences.vercel.app/
+    Site vitrine · Clinique pluridisciplinaire (Hydra, Alger)
+
+Images ajoutées (captures WebP 1600 px) :
+  - public/images/portfolio-cabinet-noura.webp
+  - public/images/portfolio-clinique-el-chifa.webp
+
+public/sitemap.xml ......... lastmod 2026-10-30 pour l'accueil et le portfolio
+scripts/check-seo.mjs ...... les 2 sites ajoutés à la liste attendue du test SEO
+README.md .................. 11 -> 13 sites + note sur la centralisation des numéros
+
+================================================================
+3. AUCUN CHANGEMENT DE DÉPENDANCE
+================================================================
+package.json / package-lock.json inchangés : pas besoin de réinstaller.
+Vérifier ensuite avec : npm run validate:site

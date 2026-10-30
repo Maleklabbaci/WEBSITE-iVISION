@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import type { Language } from '../lib/translations';
+import { WHATSAPP_NUMBER } from '../lib/config';
 
 export type ToolKey = 'diagnostic' | 'pertes' | 'audit-seo' | 'simulateur-web' | 'calculateur';
 
@@ -347,7 +348,7 @@ const InteractiveToolsPage: React.FC<InteractiveToolsPageProps> = ({ language, i
   const activePolesDetails = polesCatalog.filter((p) => selectedPoles.includes(p.id));
 
   const buildWhatsAppLink = (summaryText: string) =>
-    `https://wa.me/213563839404?text=${encodeURIComponent(summaryText)}`;
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(summaryText)}`;
 
   const toolsTabs: Array<{ id: ToolKey; num: string; label: string; short: string }> = isAr
     ? [
