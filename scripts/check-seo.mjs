@@ -226,7 +226,9 @@ for (const slug of blogSlugs) {
 }
 
 const listedUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert.deepEqual(listedUrls, [`${base}/`, ...routes.map((route) => `${base}/${route}`), webPortfolioUrl, guideUrl, `${base}/blog/`, ...blogSlugs.map((slug) => `${base}/blog/${slug}.html`)]);
+const landingUrl = `${base}/landing-site-web-algerie.html`;
+assert.ok(existsSync(path.join(dist, 'landing-site-web-algerie.html')), 'Landing page site web absente du build.');
+assert.deepEqual(listedUrls, [`${base}/`, ...routes.map((route) => `${base}/${route}`), landingUrl, webPortfolioUrl, guideUrl, `${base}/blog/`, ...blogSlugs.map((slug) => `${base}/blog/${slug}.html`)]);
 assert.ok(!listedUrls.includes(socialPortfolioUrl), 'Le portfolio social non finalisé ne doit pas figurer au sitemap.');
 assert.ok(listedUrls.every((url) => !url.includes('#')), 'Ne pas lister les routes à fragment dans le sitemap.');
 assert.ok(listedUrls.every((url) => existsSync(path.join(dist, new URL(url).pathname))), 'Chaque URL du sitemap doit avoir un fichier servi.');
